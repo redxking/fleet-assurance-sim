@@ -7,14 +7,28 @@
     "path": "../fleet-assurance-sim-local-release-v0.2.0-2026-08-19.zip",
     "sha256": null
   },
-  "artifact_count": 34,
+  "artifact_count": 36,
   "artifacts": [
     {
-      "bytes": 18219,
+      "bytes": 15962,
       "included_in_public_git": true,
       "path": "README.md",
       "role": "public entry point",
-      "sha256": "8b14c892dec15432b7ef87405c8850db43ed8536b6b9e40d54d0f6f49127fff2"
+      "sha256": "a0d438f1402d7f0994609df1c435eb5df340991d81cb15d9eab47172bd8d53d2"
+    },
+    {
+      "bytes": 9444,
+      "included_in_public_git": true,
+      "path": "docs/assets/research-workflow.svg",
+      "role": "public research workflow diagram",
+      "sha256": "cf77e3e7a401f6f26affce19e8778417ad0b7946d79d2c995dcd976bc9c2ba9b"
+    },
+    {
+      "bytes": 10430,
+      "included_in_public_git": true,
+      "path": "docs/assets/research-roadmap.svg",
+      "role": "public research roadmap diagram",
+      "sha256": "835d0270c1b143c9a49f128251dc8b6178a4357d21d049d5075d6bca192e7567"
     },
     {
       "bytes": 713,
