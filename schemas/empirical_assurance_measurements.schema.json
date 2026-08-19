@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fleet-assurance.local/schemas/empirical_assurance_measurements.schema.json",
+  "title": "Empirical assurance resource measurement",
+  "description": "One explicitly windowed and partitioned assurance-resource observation for a successor study.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "timestamp",
+    "resource_id",
+    "resource_type",
+    "fleet_size",
+    "agents_admitted",
+    "arrival_count",
+    "service_count",
+    "queue_depth",
+    "service_time_ms",
+    "wait_time_ms",
+    "capacity_units_per_second",
+    "deadline_ms",
+    "dropped_work",
+    "deferred_work",
+    "error_count",
+    "source_type",
+    "measurement_provenance",
+    "window_duration_ms",
+    "campaign_id",
+    "time_block_id",
+    "partition",
+    "is_censored",
+    "missing_fraction"
+  ],
+  "properties": {
+    "timestamp": {"type": "string", "format": "date-time"},
+    "resource_id": {"type": "string", "minLength": 1},
+    "resource_type": {
+      "enum": [
+        "identity_issuance",
+        "certificate_issuance_renewal",
+        "authorization_policy_evaluation",
+        "task_dispatch_registration",
+        "telemetry_source_registration",
+        "evidence_ingest_initialization",
+        "supervisory_review",
+        "revocation_readiness",
+        "configuration_attestation",
+        "dependency_registration"
+      ]
+    },
+    "fleet_size": {"type": "integer", "minimum": 0},
+    "agents_admitted": {"type": "integer", "minimum": 0},
+    "arrival_count": {"type": "integer", "minimum": 0},
+    "service_count": {"type": "integer", "minimum": 0},
+    "queue_depth": {"type": "number", "minimum": 0},
+    "service_time_ms": {"type": "number", "minimum": 0},
+    "wait_time_ms": {"type": "number", "minimum": 0},
+    "capacity_units_per_second": {"type": "number", "exclusiveMinimum": 0},
+    "deadline_ms": {"type": "number", "exclusiveMinimum": 0},
+    "dropped_work": {"type": "number", "minimum": 0},
+    "deferred_work": {"type": "number", "minimum": 0},
+    "error_count": {"type": "integer", "minimum": 0},
+    "source_type": {"enum": ["measured", "replayed", "synthetic"]},
+    "measurement_provenance": {"type": "string", "minLength": 1},
+    "window_duration_ms": {"type": "number", "exclusiveMinimum": 0},
+    "campaign_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "time_block_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    },
+    "partition": {"enum": ["calibration", "heldout"]},
+    "is_censored": {"type": "boolean"},
+    "missing_fraction": {"type": "number", "minimum": 0, "maximum": 1}
+  }
+}

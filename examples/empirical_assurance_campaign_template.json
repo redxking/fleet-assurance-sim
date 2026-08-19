@@ -1,0 +1,50 @@
+{
+  "authority": {
+    "allowed_uses": [
+      "research_calibration",
+      "research_validation",
+      "reproducibility"
+    ],
+    "authorization_reference": "synthetic-template-no-live-collection",
+    "collection_authorized": false,
+    "data_classification": "synthetic",
+    "data_rights_confirmed": true,
+    "data_rights_reference": "project-generated-synthetic-fixture"
+  },
+  "campaign_id": "synthetic-interface-campaign-v1",
+  "collection_end": "2026-08-19T12:00:02Z",
+  "collection_start": "2026-08-19T11:59:59Z",
+  "instrumentation": {
+    "censoring_handling": "Rows explicitly flag censoring; this fixture contains none.",
+    "clock_source": "deterministic-fixture-clock",
+    "collector_name": "fleet-assurance-template-generator",
+    "collector_version": "0.2.0",
+    "environment_description": "Synthetic interface fixture; no operational system observed.",
+    "known_gaps": "Two windows per resource are provided only for contract verification.",
+    "missingness_handling": "Rows report missing_fraction explicitly; this fixture uses zero.",
+    "quality_review_reference": "synthetic-template-structural-review",
+    "quality_reviewed": false,
+    "sampling_interval_ms": 1000,
+    "transformation_description": "Validate, normalize UTC timestamps, sort canonically, and split by declared time block.",
+    "window_semantics": "fixed_nonoverlapping"
+  },
+  "schema_version": "1.0",
+  "site_alias": "synthetic-lab",
+  "source_type": "synthetic",
+  "system_alias": "fleet-assurance-interface-fixture",
+  "units": {
+    "agents_admitted": "agent_count",
+    "arrival_count": "work_unit_count",
+    "capacity_units_per_second": "work_unit/second",
+    "deadline_ms": "millisecond",
+    "deferred_work": "work_unit",
+    "dropped_work": "work_unit",
+    "error_count": "event_count",
+    "fleet_size": "agent_count",
+    "queue_depth": "work_unit",
+    "service_count": "work_unit_count",
+    "service_time_ms": "millisecond",
+    "wait_time_ms": "millisecond",
+    "window_duration_ms": "millisecond"
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fleet-assurance.local/schemas/empirical_assurance_campaign.schema.json",
+  "title": "Empirical assurance campaign",
+  "description": "Closed metadata contract for a provenance-bound successor-study assurance campaign.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "campaign_id",
+    "source_type",
+    "site_alias",
+    "system_alias",
+    "collection_start",
+    "collection_end",
+    "authority",
+    "instrumentation",
+    "units"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "campaign_id": {"$ref": "#/$defs/portable_identifier"},
+    "source_type": {
+      "enum": ["measured", "replayed", "synthetic", "mixed"]
+    },
+    "site_alias": {"$ref": "#/$defs/portable_identifier"},
+    "system_alias": {"$ref": "#/$defs/portable_identifier"},
+    "collection_start": {"type": "string", "format": "date-time"},
+    "collection_end": {"type": "string", "format": "date-time"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "collection_authorized",
+        "authorization_reference",
+        "data_rights_confirmed",
+        "data_rights_reference",
+        "data_classification",
+        "allowed_uses"
+      ],
+      "properties": {
+        "collection_authorized": {"type": "boolean"},
+        "authorization_reference": {"type": "string", "minLength": 1},
+        "data_rights_confirmed": {"type": "boolean"},
+        "data_rights_reference": {"type": "string", "minLength": 1},
+        "data_classification": {"enum": ["public", "synthetic"]},
+        "allowed_uses": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["research_calibration", "research_validation", "reproducibility"]
+          }
+        }
+      }
+    },
+    "instrumentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "environment_description",
+        "collector_name",
+        "collector_version",
+        "clock_source",
+        "sampling_interval_ms",
+        "window_semantics",
+        "known_gaps",
+        "missingness_handling",
+        "censoring_handling",
+        "quality_reviewed",
+        "quality_review_reference",
+        "transformation_description"
+      ],
+      "properties": {
+        "environment_description": {"type": "string", "minLength": 1},
+        "collector_name": {"type": "string", "minLength": 1},
+        "collector_version": {"type": "string", "minLength": 1},
+        "clock_source": {"type": "string", "minLength": 1},
+        "sampling_interval_ms": {"type": "number", "exclusiveMinimum": 0},
+        "window_semantics": {
+          "enum": ["fixed_nonoverlapping", "fixed_overlapping", "event_bounded"]
+        },
+        "known_gaps": {"type": "string", "minLength": 1},
+        "missingness_handling": {"type": "string", "minLength": 1},
+        "censoring_handling": {"type": "string", "minLength": 1},
+        "quality_reviewed": {"type": "boolean"},
+        "quality_review_reference": {"type": "string", "minLength": 1},
+        "transformation_description": {"type": "string", "minLength": 1}
+      }
+    },
+    "units": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fleet_size",
+        "agents_admitted",
+        "arrival_count",
+        "service_count",
+        "queue_depth",
+        "service_time_ms",
+        "wait_time_ms",
+        "capacity_units_per_second",
+        "deadline_ms",
+        "dropped_work",
+        "deferred_work",
+        "error_count",
+        "window_duration_ms"
+      ],
+      "properties": {
+        "fleet_size": {"const": "agent_count"},
+        "agents_admitted": {"const": "agent_count"},
+        "arrival_count": {"const": "work_unit_count"},
+        "service_count": {"const": "work_unit_count"},
+        "queue_depth": {"const": "work_unit"},
+        "service_time_ms": {"const": "millisecond"},
+        "wait_time_ms": {"const": "millisecond"},
+        "capacity_units_per_second": {"const": "work_unit/second"},
+        "deadline_ms": {"const": "millisecond"},
+        "dropped_work": {"const": "work_unit"},
+        "deferred_work": {"const": "work_unit"},
+        "error_count": {"const": "event_count"},
+        "window_duration_ms": {"const": "millisecond"}
+      }
+    }
+  },
+  "$defs": {
+    "portable_identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+    }
+  }
+}
