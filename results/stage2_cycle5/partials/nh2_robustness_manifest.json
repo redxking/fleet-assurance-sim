@@ -1,0 +1,18 @@
+{
+  "protocol_id": "FAS-S2-C5-2026-08-19",
+  "block": "nh2_robustness",
+  "status": "complete",
+  "execution_mode": "five hash-gated independent block invocations",
+  "runtime_seconds": 57.26217600199743,
+  "blocks": 5,
+  "artifact": {
+    "results/stage2_cycle5/partials/nh2_robustness.csv": "90c9f1fa0c2443609ff1f5f5554b55d24a19fab4019c892e9e949ae886167895"
+  },
+  "subblocks": [
+    "nh2_robustness_block_0.json",
+    "nh2_robustness_block_1.json",
+    "nh2_robustness_block_2.json",
+    "nh2_robustness_block_3.json",
+    "nh2_robustness_block_4.json"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "seed": 20260819,
+  "evidence_scope": "model-conditioned; parameters notional; no external validation",
+  "NH1_R": {
+    "auc_coupled": 0.8508251585687231,
+    "auc_baseline": 0.7968767222116454,
+    "brier_coupled": 0.16451598565814088,
+    "brier_baseline": 0.1983792664130853,
+    "test_n": 909,
+    "test_failure_rate": 0.4081408140814081,
+    "supported": true
+  },
+  "NH2_R": {
+    "raw_mae": 0.12681561028151883,
+    "raw_spearman": 0.8390839812889277,
+    "attack_mae": 0.1089817156037376,
+    "attack_spearman": 0.9076007326007325,
+    "mae_improvement_fraction": 0.14062854437392727,
+    "supported": true
+  },
+  "NH4_R": {
+    "step_inadmissible_rate": 1.0,
+    "staged_inadmissible_rate": 0.0,
+    "step_mean_min_margin": -292.30251768098384,
+    "staged_mean_min_margin": 0.19482061435490305,
+    "same_final_n": true,
+    "supported": true
+  }
+}

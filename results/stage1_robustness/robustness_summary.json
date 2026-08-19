@@ -1,0 +1,20 @@
+{
+  "NH1": {
+    "seed_blocks": 8,
+    "mean_auc_delta": 0.029498688996241196,
+    "min_auc_delta": -0.018930477737625462,
+    "positive_blocks": 6
+  },
+  "NH2": {
+    "seed_blocks": 4,
+    "mean_mae_improvement": 0.22280378541277635,
+    "min_mae_improvement": 0.20840141226959313,
+    "blocks_over_10pct": 4,
+    "attack_rho_better_blocks": 4
+  },
+  "NH4": {
+    "grid_points": 27,
+    "separation_points": 24,
+    "separation_fraction": 0.8888888888888888
+  }
+}

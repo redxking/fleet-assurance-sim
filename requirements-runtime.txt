@@ -1,0 +1,11 @@
+# Direct runtime dependencies for non-editable/manual installation.
+# pyproject.toml remains the authoritative package definition.
+numpy>=1.26
+scipy>=1.11
+networkx>=3.2
+pandas>=2.1
+matplotlib>=3.8
+plotly>=5.18
+bokeh>=3.3
+PyYAML>=6.0
+pydantic>=2.5

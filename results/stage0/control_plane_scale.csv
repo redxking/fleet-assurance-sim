@@ -1,0 +1,8 @@
+n_agents,arrival_rate_hz,fixed_servers,service_rate_per_server_hz,rho_fixed_servers,erlang_c_probability_wait,mean_wait_queue_s,servers_required_for_rho_0_70,evidence_class
+1,0.03,4,10.0,0.00075,3.3674157341244744e-12,8.424857978795282e-14,1,analytic_under_notional_workload
+10,0.3,4,10.0,0.0075,3.300003703337489e-08,8.312351897575539e-10,1,analytic_under_notional_workload
+100,3.0,4,10.0,0.075,0.0002702973270597654,7.3053331637774436e-06,1,analytic_under_notional_workload
+1000,30.0,4,10.0,0.75,0.5094339622641509,0.0509433962264151,5,analytic_under_notional_workload
+10000,300.0,4,10.0,7.5,1.0,inf,43,analytic_under_notional_workload
+30000,900.0,4,10.0,22.5,1.0,inf,129,analytic_under_notional_workload
+100000,3000.0,4,10.0,75.0,1.0,inf,429,analytic_under_notional_workload

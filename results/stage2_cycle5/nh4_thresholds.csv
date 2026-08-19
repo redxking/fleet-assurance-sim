@@ -1,0 +1,17 @@
+nf,capacity_regime,omega_50pct_threshold,scenarios
+2000,balanced,,10
+2000,control_constrained,,10
+2000,credential_constrained,,10
+2000,supervision_constrained,,10
+5000,balanced,,10
+5000,control_constrained,,10
+5000,credential_constrained,,10
+5000,supervision_constrained,,10
+10000,balanced,,10
+10000,control_constrained,,10
+10000,credential_constrained,,10
+10000,supervision_constrained,,10
+20000,balanced,,10
+20000,control_constrained,,10
+20000,credential_constrained,,10
+20000,supervision_constrained,,10

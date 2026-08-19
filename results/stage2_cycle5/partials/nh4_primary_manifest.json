@@ -1,0 +1,12 @@
+{
+  "protocol_id": "FAS-S2-C5-2026-08-19",
+  "block": "nh4_primary",
+  "status": "complete",
+  "runtime_seconds": 21.031874824000624,
+  "replications": 12480,
+  "scenarios": 416,
+  "artifacts": {
+    "results/stage2_cycle5/partials/nh4_admission_replications.csv": "8034cdef93b2fdb7573d3560d88b7ed1a32f80a02a665e07cf87976a4cd069d2",
+    "results/stage2_cycle5/partials/nh4_admission_scenarios.csv": "188a8a67e3284524d209e796f8701f35f49d946c3ebfc99fcc33b83d765ccb40"
+  }
+}

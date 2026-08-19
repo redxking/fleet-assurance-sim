@@ -1,0 +1,58 @@
+protocol_id: FAS-S2-C6-2026-08-19
+primary_seed: 20260821
+evidence_scope: model-conditioned_notional
+integrity:
+  pre_execution_hash_gate: required
+  preserve_negative_results: true
+  engineering_pilot_excluded: true
+nh2_temporal_propagation:
+  training:
+    fleet_sizes: [128, 256]
+    authorization_families: [random_regular]
+    dependency_families: [random_regular, erdos_renyi]
+  held_out:
+    fleet_sizes: [512]
+    authorization_families: [barabasi_albert, hierarchical]
+    dependency_families: [barabasi_albert, hierarchical]
+  segmentations: [none, partitioned_8_way]
+  target_pre_next_generation_radii: [0.60, 0.85, 1.10, 1.40, 1.80, 2.30]
+  response_strengths: [0.35, 0.65]
+  intervention_times_steps: [10, 25]
+  horizon_steps: 50
+  replications: 30
+  bootstrap_draws: 1000
+  robustness_blocks: 5
+  outbreak_replication_threshold: 0.10
+  outbreak_scenario_probability_threshold: 0.10
+  candidate_selection: minimum_training_mae_between_temporal_nb_and_propagator_growth
+  baseline: static_pre_response_nonbacktracking
+  acceptance:
+    minimum_mae_improvement_fraction: 0.05
+    minimum_auc_delta: 0.01
+    require_non_decreasing_spearman: true
+    require_positive_bootstrap_lower_bound_for_absolute_mae_reduction: true
+    minimum_positive_robustness_blocks: 4
+nh4_overload_targeted_admission:
+  training:
+    final_fleet_sizes: [2000, 5000]
+    profiles: [linear, smooth, front_loaded]
+  held_out:
+    final_fleet_sizes: [10000, 20000]
+    profiles: [back_loaded, exponential]
+  capacity_regimes: [balanced, control_constrained, supervision_constrained, credential_constrained]
+  target_omega: [0.30, 0.55, 0.80, 1.00, 1.25, 1.60, 2.20]
+  timestep_seconds: 0.5
+  recovery_window_seconds: 120
+  replications: 30
+  bootstrap_draws: 1000
+  robustness_blocks: 5
+  validity_gate:
+    minimum_majority_failure_fraction: 0.20
+    minimum_non_majority_failure_fraction: 0.20
+  acceptance:
+    minimum_omega_auc: 0.90
+    minimum_auc_delta_vs_peak_lambda: 0.08
+    minimum_balanced_accuracy_at_omega_one: 0.80
+    minimum_brier_reduction_fraction: 0.15
+    maximum_threshold_coefficient_of_variation: 0.20
+    minimum_passing_robustness_blocks: 4

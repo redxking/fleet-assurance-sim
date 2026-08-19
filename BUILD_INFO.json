@@ -1,0 +1,125 @@
+{
+  "release_name": "fleet-assurance-sim-local-release-v0.2.0-2026-08-19",
+  "project_version": "0.2.0",
+  "release_date": "2026-08-19",
+  "release_type": "complete local source, immutable research evidence, and visualization workspace",
+  "source_workspace": "fleet-assurance-stage3-working",
+  "verification": {
+    "status": "passed_prefreeze",
+    "verified_test_count": 113,
+    "scope": "complete source suite immediately before Stage 3 protocol freeze",
+    "python": "3.13.0 (v3.13.0:60403a5409f, Oct  7 2024, 00:37:40) [Clang 15.0.0 (clang-1500.3.9.4)]",
+    "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+    "machine": "arm64"
+  },
+  "distribution": {
+    "status": "wheel_verified_archive_metadata_externalized",
+    "wheel_path": "dist/fleet_assurance_sim-0.2.0-py3-none-any.whl",
+    "wheel_sha256": "8b730a9e4d009599c07424ff5fbfe43a5ff3fd4e27516f62617fa0c87320d988",
+    "wheel_bytes": 269060,
+    "wheel_build_backend": "local bundled setuptools 84.0.0 plus wheel 0.48.0",
+    "wheel_build_network_access": false,
+    "wheel_verification": {
+      "status": "passed",
+      "installation_source": "built wheel artifact",
+      "isolated_target_root": "/private/tmp",
+      "fleet_sim_imported_from_isolated_target": true,
+      "metadata_version": "0.2.0",
+      "stage3_modules_imported": true,
+      "stage3_console_cli_help_exit_code": 0
+    },
+    "archive_status": "digest_recorded_in_external_sidecar_after_materialization",
+    "expected_archive_path": "../fleet-assurance-sim-local-release-v0.2.0-2026-08-19.zip",
+    "archive_sha256": null,
+    "archive_bytes": null,
+    "archive_null_reason": "The archive cannot contain its own final digest or byte count. The adjacent .zip.sha256 sidecar is authoritative for the final digest after materialization, and the byte count is read from the materialized archive.",
+    "archive_digest_authority": "../fleet-assurance-sim-local-release-v0.2.0-2026-08-19.zip.sha256",
+    "update_rule": "Do not populate archive_sha256 or archive_bytes inside the archive. Verify the materialized ZIP with its adjacent sidecar."
+  },
+  "stage2_dispositions": {
+    "NH2_D": "refuted_within_current_model",
+    "NH2_T_selected_propagator": "refuted_within_current_model",
+    "NH4_O": "strong_provisional_signal_but_not_supported_under_complete_rule",
+    "NH2_H": "pooled_positive_evidence_but_not_supported_under_complete_rule"
+  },
+  "stage3": {
+    "protocol_id": "FAS-S3-C1-2026-08-19",
+    "protocol_hash": "b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851",
+    "execution_id": "stage3-confirmatory-20260819-01",
+    "execution_path": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01",
+    "execution_integrity": "PASS",
+    "evidence_scope": "model_conditioned_synthetic_confirmatory_with_interface_verification_only",
+    "external_validation": false,
+    "frozen_input_checks": 151,
+    "artifact_inventory_entries": 341,
+    "stage3a": {
+      "scenarios": 2100,
+      "raw_rows": 25200,
+      "heldout_prediction_rows": 21600,
+      "disposition": "not_supported_under_preregistered_rule"
+    },
+    "stage3b": {
+      "scenario_specifications": 240,
+      "raw_rows": 2400,
+      "heldout_prediction_rows": 1200,
+      "checkpoints": 240,
+      "disposition": "not_supported_under_preregistered_rule"
+    },
+    "resource_use": {
+      "wall_clock_seconds": 352.97016516700387,
+      "cpu_seconds": 350.41781,
+      "peak_rss_mib": 1092.5625,
+      "output_mib_before_evidence": 22.536619186401367
+    },
+    "offline_console": {
+      "html_path": "results/stage3/consoles/stage3-confirmatory-20260819-01.html",
+      "html_bytes": 148129497,
+      "json_path": "results/stage3/consoles/stage3-confirmatory-20260819-01.json",
+      "json_bytes": 199243869
+    }
+  },
+  "publication_figures": {
+    "count": 6,
+    "directory": "figures/stage3",
+    "manifest": "figures/stage3/figure_manifest.csv",
+    "provenance": "figures/stage3/figure_provenance.json",
+    "scope": "post-confirmatory renderings; not scientific metric inputs"
+  },
+  "public_repository": {
+    "url": "https://github.com/redxking/fleet-assurance-sim",
+    "branch": "main",
+    "visibility": "public",
+    "scope_document": "docs/public_repository_scope.md",
+    "excluded_from_git": [
+      "local environments and caches",
+      "engineering-pilot results",
+      "oversized offline console exports",
+      "verification scratch data",
+      "complete local release ZIP and checksum sidecar"
+    ]
+  },
+  "storage_measurements": {
+    "basis": "local prepackage measurement on 2026-08-19; directory values are allocated KiB and artifact values are logical bytes",
+    "workspace_allocated_kib": 1877516,
+    "results_allocated_kib": 1049492,
+    "stage3_results_allocated_kib": 948356,
+    "stage3_verification_environment_allocated_kib": 696448,
+    "confirmatory_execution_logical_bytes": 23862646,
+    "confirmatory_console_pair_logical_bytes": 347373366
+  },
+  "scientific_scope": "synthetic and model-conditioned research evidence; no external validation and no deployment assurance claim",
+  "primary_entry_points": [
+    "fleet-sim",
+    "fleet-console",
+    "fleet-stage3-console",
+    "scripts/verify_local_install.py",
+    "scripts/run_stage2_cycle7.py",
+    "scripts/run_stage3.py"
+  ],
+  "deployment_documents": [
+    "QUICKSTART.md",
+    "LOCAL_DEPLOYMENT.md",
+    "RELEASE_NOTES.md",
+    "docs/visual_console.md"
+  ]
+}

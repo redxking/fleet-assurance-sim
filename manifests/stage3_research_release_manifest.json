@@ -1,0 +1,309 @@
+{
+  "archive": {
+    "bytes": null,
+    "checksum_sidecar": "../fleet-assurance-sim-local-release-v0.2.0-2026-08-19.zip.sha256",
+    "manifest_inside_archive": "MANIFEST.sha256",
+    "null_reason": "The archive cannot contain its own final digest or byte count. The adjacent sidecar and filesystem metadata are authoritative after materialization.",
+    "path": "../fleet-assurance-sim-local-release-v0.2.0-2026-08-19.zip",
+    "sha256": null
+  },
+  "artifact_count": 34,
+  "artifacts": [
+    {
+      "bytes": 18219,
+      "included_in_public_git": true,
+      "path": "README.md",
+      "role": "public entry point",
+      "sha256": "8b14c892dec15432b7ef87405c8850db43ed8536b6b9e40d54d0f6f49127fff2"
+    },
+    {
+      "bytes": 713,
+      "included_in_public_git": true,
+      "path": "LICENSE",
+      "role": "Apache-2.0 license",
+      "sha256": "0a776d11012bd9d71376a9abda491785e9656f48049ff199db4bcf27caafa6b7"
+    },
+    {
+      "bytes": 2685,
+      "included_in_public_git": true,
+      "path": "CONTRIBUTING.md",
+      "role": "contribution policy",
+      "sha256": "f54a8c402c86c4cebd2ad30e0dbb4a44e901ffb5a2b570bd202110220f3cec73"
+    },
+    {
+      "bytes": 1378,
+      "included_in_public_git": true,
+      "path": "SECURITY.md",
+      "role": "security reporting policy",
+      "sha256": "4a84f741103cc59a27c75d86ab7d8b7dc9acd487f67089385f77dbb081e87d79"
+    },
+    {
+      "bytes": 2024,
+      "included_in_public_git": true,
+      "path": "docs/public_repository_scope.md",
+      "role": "public publication boundary",
+      "sha256": "e566cf2f2631d93762390d63a6b4f940ff2b665b01c5b6939a3356d096b3585c"
+    },
+    {
+      "bytes": 5458,
+      "included_in_public_git": true,
+      "path": "BUILD_INFO.json",
+      "role": "build and release identity",
+      "sha256": "1858f00349844b12620b533b156077fcde1c2704f41010d620be7d94fd3d69bf"
+    },
+    {
+      "bytes": 5663,
+      "included_in_public_git": true,
+      "path": "RELEASE_NOTES.md",
+      "role": "release notes",
+      "sha256": "5ab82ec3c495131b8d5043fa605c07e98888f06da83a1449a3c95a19a199fb7b"
+    },
+    {
+      "bytes": 4332,
+      "included_in_public_git": true,
+      "path": "QUICKSTART.md",
+      "role": "quick start",
+      "sha256": "6e991e7943621e27ab201feeae4c625ff4a9f9426343a88d1ecd411793475da7"
+    },
+    {
+      "bytes": 18749,
+      "included_in_public_git": true,
+      "path": "LOCAL_DEPLOYMENT.md",
+      "role": "deployment guide",
+      "sha256": "de1c3fe36d2e65e9bc5096e04bf1539344d30f5ed0cf3b1d8f519fab880ab626"
+    },
+    {
+      "bytes": 498,
+      "included_in_public_git": true,
+      "path": "CITATION.cff",
+      "role": "citation metadata",
+      "sha256": "daa642943ef251ca732e4b50ad925ef4ed5181d157f45042732c2cfd37994e57"
+    },
+    {
+      "bytes": 5241,
+      "included_in_public_git": true,
+      "path": "BASELINE_PROVENANCE.json",
+      "role": "Stage 2 ancestry record",
+      "sha256": "36f7971810a9a281b7b4ac556642b2f782dba00309324568571697d12701f322"
+    },
+    {
+      "bytes": 19026,
+      "included_in_public_git": true,
+      "path": "manifests/stage3_preexecution_manifest.json",
+      "role": "authenticated preexecution manifest",
+      "sha256": "9e926aa66b9da993eddd4dfce5aff209935298e4451bcf402c485d671bbdfeb7"
+    },
+    {
+      "bytes": 89711,
+      "included_in_public_git": true,
+      "path": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/stage3_evidence.json",
+      "role": "authoritative confirmatory evidence",
+      "sha256": "39f0ee1b82096c89c0fe6c7a162bccc6601653492eeb27c80672a773421dd280"
+    },
+    {
+      "bytes": 141577,
+      "included_in_public_git": true,
+      "path": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/execution_manifest.json",
+      "role": "immutable execution artifact inventory",
+      "sha256": "5da08ab9a9300c01df700fe7cf36318bad4f507f1e382fb1e765e693d1927f0d"
+    },
+    {
+      "bytes": 35735,
+      "included_in_public_git": true,
+      "path": "paper/stage3_research_report.md",
+      "role": "post-confirmatory research report",
+      "sha256": "c9de648a4f089bff3e87f8280943c52c66e881e4b18eb76a38b3f11563ff3b15"
+    },
+    {
+      "bytes": 27627,
+      "included_in_public_git": true,
+      "path": "results/stage3_synthesis/stage3_synthesis.json",
+      "role": "machine-readable synthesis",
+      "sha256": "991cf7098ebeba75b4bfd9f3096a16c00fd694d781fdd96706423c8747b4daaf"
+    },
+    {
+      "bytes": 2876,
+      "included_in_public_git": true,
+      "path": "results/stage3_synthesis/evidence_ledger.csv",
+      "role": "claim evidence ledger",
+      "sha256": "fd2a5e931d65b77be149981b9781c14165c3feb899696e38a5937328479e3b2c"
+    },
+    {
+      "bytes": 2916,
+      "included_in_public_git": true,
+      "path": "results/stage3_synthesis/research_decision_table.csv",
+      "role": "machine-readable research decisions",
+      "sha256": "07b235339e65bb2182250f603b1a1a3be9718a864789d4eb04099b25818daeff"
+    },
+    {
+      "bytes": 3514,
+      "included_in_public_git": true,
+      "path": "docs/stage3_research_decision_table.md",
+      "role": "human-readable research decisions",
+      "sha256": "82ee7cd7909fe32821575ab0a0049b04368723b617faa0530fd1866398e8d8fb"
+    },
+    {
+      "bytes": 8022,
+      "included_in_public_git": true,
+      "path": "docs/acceptance_status.md",
+      "role": "acceptance status",
+      "sha256": "fbfa49f086f8baf51c8f02c882c43227e7104532182afbd7be0300d716793f34"
+    },
+    {
+      "bytes": 24047,
+      "included_in_public_git": true,
+      "path": "docs/requirements_traceability.csv",
+      "role": "requirements traceability matrix",
+      "sha256": "bf32ba7660578fc9d469d31d07e5612eb193ec745230e4329fa5620677af6016"
+    },
+    {
+      "bytes": 9850,
+      "included_in_public_git": true,
+      "path": "docs/data_dictionary.md",
+      "role": "data dictionary",
+      "sha256": "9d17dd1d5daa185be89660ba7fd18640afca00e7672408830912fb25fe813189"
+    },
+    {
+      "bytes": 6456,
+      "included_in_public_git": true,
+      "path": "docs/visual_console.md",
+      "role": "visualization guide",
+      "sha256": "cbcccd020c48ec18c25068a5482f37ee1d5aba353b2677e2a848d36147204185"
+    },
+    {
+      "bytes": 4103,
+      "included_in_public_git": true,
+      "path": "figures/stage3/figure_manifest.csv",
+      "role": "figure inventory and hashes",
+      "sha256": "45a2200230ea1bf985722c924bda4bfb7f1c5ef3ff2c29d221bc0a400e202c46"
+    },
+    {
+      "bytes": 7272,
+      "included_in_public_git": true,
+      "path": "figures/stage3/figure_provenance.json",
+      "role": "figure provenance and scientific boundary",
+      "sha256": "4c61129a1dd11cf7b999bafd06209223e03eab32f6f421c5e8890a7d42e027d8"
+    },
+    {
+      "bytes": 148129497,
+      "included_in_public_git": false,
+      "path": "results/stage3/consoles/stage3-confirmatory-20260819-01.html",
+      "role": "complete offline evidence console",
+      "sha256": "ecc9c1bf1cb545b38753fc60c1c141389e45ac6c3c37a8672fd066a14ac60047"
+    },
+    {
+      "bytes": 199243869,
+      "included_in_public_git": false,
+      "path": "results/stage3/consoles/stage3-confirmatory-20260819-01.json",
+      "role": "complete offline console payload",
+      "sha256": "0920299845cc5189c8da972bbf96f69058a4ccbd43ceeddab4b756c52a6d737d"
+    },
+    {
+      "bytes": 269060,
+      "included_in_public_git": false,
+      "path": "dist/fleet_assurance_sim-0.2.0-py3-none-any.whl",
+      "role": "verified Python wheel",
+      "sha256": "8b730a9e4d009599c07424ff5fbfe43a5ff3fd4e27516f62617fa0c87320d988"
+    },
+    {
+      "bytes": 288836,
+      "included_in_public_git": true,
+      "path": "figures/stage3/stage3a_block_and_shift_improvement.png",
+      "role": "post-confirmatory publication figure",
+      "sha256": "44d5e0bec76c9d2147f9bc412fb435ea22634f26e7e53fcd7441584c292041d0"
+    },
+    {
+      "bytes": 223267,
+      "included_in_public_git": true,
+      "path": "figures/stage3/stage3a_pooled_brier.png",
+      "role": "post-confirmatory publication figure",
+      "sha256": "e6ff9df2285d0f5d5f63cb937e0e5d463d413dc49d1c69889437f852efde72ee"
+    },
+    {
+      "bytes": 238465,
+      "included_in_public_git": true,
+      "path": "figures/stage3/stage3a_reliability.png",
+      "role": "post-confirmatory publication figure",
+      "sha256": "d3994036ebed73e3cdba561aa528c937dd22f0855d372e56394234fbbf516242"
+    },
+    {
+      "bytes": 249389,
+      "included_in_public_git": true,
+      "path": "figures/stage3/stage3b_final_size_mae.png",
+      "role": "post-confirmatory publication figure",
+      "sha256": "c5d01ee2e16edc165a185efc5432ca7b41b081a9a46dab6664bc974d5f9f8988"
+    },
+    {
+      "bytes": 193402,
+      "included_in_public_git": true,
+      "path": "figures/stage3/stage3b_outbreak_brier.png",
+      "role": "post-confirmatory publication figure",
+      "sha256": "96bef9900f289e52a1b3a7068dbbafa64ff5d026a8bd7e136367040c0543588c"
+    },
+    {
+      "bytes": 263672,
+      "included_in_public_git": true,
+      "path": "figures/stage3/stage3b_transfer.png",
+      "role": "post-confirmatory publication figure",
+      "sha256": "f895e5b55cb65a02a1717c16fdef723df9aa7bcda85b53227b3eb6469e89d644"
+    }
+  ],
+  "created_utc": "2026-08-19T19:57:26.156167+00:00",
+  "project_version": "0.2.0",
+  "protocol": {
+    "all_execution_artifacts_reverified": true,
+    "all_frozen_inputs_reverified": true,
+    "execution_artifact_inventory_entries": 341,
+    "execution_id": "stage3-confirmatory-20260819-01",
+    "frozen_input_count": 151,
+    "protocol_hash": "b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851",
+    "protocol_id": "FAS-S3-C1-2026-08-19"
+  },
+  "public_repository": {
+    "branch": "main",
+    "curation": "source protocols tests reports figures compact syntheses and immutable synthetic confirmation are public; local residue pilots oversized consoles and scratch data are excluded from Git history",
+    "scope_document": "docs/public_repository_scope.md",
+    "url": "https://github.com/redxking/fleet-assurance-sim",
+    "visibility": "public"
+  },
+  "release_id": "FAS-0.2.0-STAGE3-2026-08-19",
+  "release_name": "fleet-assurance-sim-local-release-v0.2.0-2026-08-19",
+  "release_status": "contents_finalized_archive_digest_externalized",
+  "schema_version": "1.0",
+  "scientific_scope": {
+    "deployment_assurance": false,
+    "evidence_class": "synthetic_model_conditioned_confirmatory_with_interface_verification_only",
+    "external_validation": false,
+    "stage3a_disposition": "not_supported_under_preregistered_rule",
+    "stage3b_disposition": "not_supported_under_preregistered_rule"
+  },
+  "self_hash_policy": "This manifest does not include its own digest. MANIFEST.sha256 covers it in the complete local archive; Git records it in the public history.",
+  "verification": {
+    "complete_test_suite": {
+      "duration_seconds": 28.08,
+      "status": "passed",
+      "tests": 113
+    },
+    "figure_qa": {
+      "figures": 6,
+      "image_hashes_dimensions_source_hashes_and_provenance_verified": true,
+      "status": "passed",
+      "visual_inspection": "passed_after_layout_correction"
+    },
+    "known_lint_debt": {
+      "classification": "pre-existing_or_legacy",
+      "effect_on_frozen_evidence": "none",
+      "repository_wide_ruff_findings": 139
+    },
+    "targeted_stage3_ruff": {
+      "status": "passed"
+    },
+    "wheel": {
+      "bytes": 269060,
+      "isolated_install_and_import": "passed",
+      "path": "dist/fleet_assurance_sim-0.2.0-py3-none-any.whl",
+      "sha256": "8b730a9e4d009599c07424ff5fbfe43a5ff3fd4e27516f62617fa0c87320d988",
+      "status": "passed"
+    }
+  }
+}

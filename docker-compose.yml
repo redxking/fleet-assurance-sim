@@ -1,0 +1,30 @@
+services:
+  cli:
+    build:
+      context: .
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    environment:
+      MPLBACKEND: Agg
+    command: ["fleet-sim", "--help"]
+
+  console:
+    build:
+      context: .
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    environment:
+      MPLBACKEND: Agg
+    ports:
+      - "5006:5006"
+    command:
+      - fleet-console
+      - --root
+      - /workspace
+      - --no-browser
+      - --address
+      - 0.0.0.0
+      - --port
+      - "5006"

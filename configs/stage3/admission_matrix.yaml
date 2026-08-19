@@ -1,0 +1,76 @@
+track: stage3a_admission_stability
+resource_types:
+  - identity_issuance
+  - certificate_issuance_renewal
+  - authorization_policy_evaluation
+  - task_dispatch_registration
+  - telemetry_source_registration
+  - evidence_ingest_initialization
+  - supervisory_review
+  - revocation_readiness
+  - configuration_attestation
+  - dependency_registration
+admission_profiles:
+  - step
+  - linear
+  - staged
+  - exponential
+  - bursty
+  - periodic
+  - closed_loop
+  - sybil
+  - mass_restart
+  - mass_renewal
+architectures:
+  training: [centralized_balanced, centralized_control_constrained]
+  calibration: [sharded_balanced]
+  held_out: [centralized_balanced, pipelined_proportional, sharded_sublinear_capacity]
+capacity_reference_fleet_size: 1000
+capacity_scale_exponents:
+  centralized_balanced: 0.0
+  centralized_control_constrained: 0.0
+  sharded_balanced: 0.0
+  pipelined_proportional: 0.0
+  sharded_sublinear_capacity: -0.20
+resource_capacity_multipliers: [0.80, 1.00, 1.25]
+workload_distributions:
+  training: [deterministic, poisson]
+  held_out_shift: [gamma]
+horizon_seconds: 240
+timestep_seconds: 1.0
+recovery_window_seconds: 60
+replications:
+  engineering_pilot: 2
+  confirmatory: 12
+primary_outcome:
+  name: operational_assurance_failure
+  definition_separated_components:
+    - deadline_miss_fraction
+    - work_shedding_fraction
+    - incomplete_assurance_exposure
+    - useful_throughput_loss
+    - recovery_failure
+predictors:
+  candidate: projected_omega_a
+  comparators:
+    - final_fleet_size
+    - peak_admission_rate
+    - mean_admission_rate
+    - projected_peak_utilization
+    - projected_maximum_queue_depth
+    - total_admitted_agents
+    - projected_cumulative_backlog_area
+    - projected_maximum_deadline_miss_fraction
+    - multivariate_logistic
+acceptance:
+  minimum_brier_improvement_fraction: 0.15
+  bootstrap_improvement_lower_bound_greater_than: 0.0
+  minimum_auc: 0.90
+  calibration_slope_range: [0.8, 1.2]
+  minimum_positive_blocks: 4
+  require_larger_scale_threshold_transfer: true
+  minimum_transfer_balanced_accuracy: 0.75
+  require_sublinear_capacity_transfer: true
+  require_architecture_shift_survival: true
+  require_capacity_shift_survival: true
+  require_workload_shift_survival: true

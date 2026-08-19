@@ -1,0 +1,649 @@
+{
+  "schema_version": "1.0",
+  "study": "Stage 3 post-confirmatory evidence synthesis",
+  "date": "2026-08-19",
+  "protocol": {
+    "protocol_id": "FAS-S3-C1-2026-08-19",
+    "protocol_version": "1.0",
+    "protocol_hash": "b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851",
+    "status_at_execution": "frozen_before_confirmatory_execution",
+    "bootstrap_draws": 5000,
+    "stage3a_replications_per_scenario": 12,
+    "stage3b_replications_per_scenario": 10,
+    "seed_domains": {
+      "stage3a": "confirmatory-stage3a",
+      "stage3a_bootstrap": "confirmatory-stage3a-bootstrap",
+      "stage3b": "confirmatory-stage3b",
+      "stage3b_bootstrap": "confirmatory-stage3b-bootstrap"
+    },
+    "bootstrap_seeds": {
+      "stage3a": 7523257667172866170,
+      "stage3b_final_size": 11430195582013312250,
+      "stage3b_outbreak_brier": 11430195582013312251
+    }
+  },
+  "execution": {
+    "execution_id": "stage3-confirmatory-20260819-01",
+    "mode": "confirmatory",
+    "status": "completed",
+    "started_utc": "2026-08-19T18:50:20.028139+00:00",
+    "completed_utc": "2026-08-19T18:56:13.021333+00:00",
+    "wall_clock_seconds": 352.97016516700387,
+    "cpu_seconds": 350.41781,
+    "peak_rss_mb": 1092.5625,
+    "output_mb_before_evidence": 22.536619186401367,
+    "runtime_budget": {
+      "wall_clock_seconds": 1800,
+      "peak_rss_mb": 4096,
+      "maximum_output_mb": 1500
+    },
+    "environment": {
+      "python": "3.13.0",
+      "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+      "machine": "arm64",
+      "packages": {
+        "numpy": "2.3.5",
+        "scipy": "1.17.0",
+        "networkx": "3.6.1",
+        "pandas": "2.2.3",
+        "matplotlib": "3.10.8",
+        "PyYAML": "6.0.3",
+        "pydantic": "2.13.4",
+        "pyarrow": "25.0.1"
+      },
+      "thread_controls": {
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1"
+      }
+    },
+    "integrity": {
+      "frozen_input_count": 151,
+      "all_frozen_inputs_matched": true,
+      "manifest_artifact_count": 341,
+      "manifest_artifact_bytes": 23721069,
+      "all_manifest_artifact_hashes_and_sizes_reverified": true,
+      "engineering_pilot_results_used_for_adjudication": false,
+      "network_access": "prohibited"
+    }
+  },
+  "evidence_boundary": {
+    "scope": "model_conditioned_synthetic_confirmatory_with_interface_verification_only",
+    "external_validation": false,
+    "external_operational_measurements_supplied": false,
+    "stage3a_boundary": "The operational-failure expression does not consume projected or observed Omega_A, but predictor and outcome paths share the declared synthetic trajectory and resource specifications. This is definition separation, not statistical or generator independence.",
+    "stage3b_boundary": "The generator and predictor are separate implementations. The predictor consumes bounded noisy observed proxies derived from generator constructs. The frozen audit is a structural source-and-interface review, not proof of statistical or causal independence.",
+    "limitations": [
+      "All outcomes are synthetic and model-conditioned.",
+      "The calibration interface used only the included synthetic template.",
+      "No result establishes implementation security or deployment assurance.",
+      "The attack generator is a separate implementation with a bounded observed view, not external operational evidence."
+    ]
+  },
+  "design": {
+    "stage3a": {
+      "structural_blocks": 5,
+      "training_scenarios_per_block": 30,
+      "calibration_scenarios_per_block": 30,
+      "heldout_scenarios_per_block": 360,
+      "total_scenarios": 2100,
+      "heldout_scenarios": 1800,
+      "replications_per_scenario": 12,
+      "raw_replication_rows": 25200,
+      "heldout_prediction_rows": 21600,
+      "heldout_factorial": {
+        "fleet_sizes": 2,
+        "admission_profiles": 10,
+        "architectures": 3,
+        "capacity_multipliers": 3,
+        "workloads": 2
+      },
+      "pairing": "randomization_pair_id by block, partition, fleet size, and admission profile with aligned replication seeds",
+      "capacity_reference_n": 1000,
+      "sublinear_capacity_exponent": -0.2
+    },
+    "stage3b": {
+      "structural_blocks": 5,
+      "training_scenario_specifications": 90,
+      "calibration_scenario_specifications": 30,
+      "heldout_scenario_specifications": 120,
+      "total_scenario_specifications": 240,
+      "replications_per_scenario": 10,
+      "raw_replication_rows": 2400,
+      "heldout_prediction_rows": 1200,
+      "training_fleet_sizes": [100, 250, 500],
+      "calibration_fleet_size": 750,
+      "heldout_fleet_sizes": [1000, 10000],
+      "heldout_topologies": ["barabasi_albert", "hierarchical"],
+      "selection_method": "leave_one_block_out_calibration_crossfit",
+      "paired_defense_design": true
+    }
+  },
+  "preserved_negative_results": {
+    "NH2_D": "refuted_within_current_model",
+    "NH2_T_selected_propagator": "refuted_within_current_model"
+  },
+  "stage3a": {
+    "claim_id": "NH4-O",
+    "candidate": "projected_omega_a",
+    "disposition": "not_supported_under_preregistered_rule",
+    "evidence_scope": "synthetic_model_conditioned; calibration_interface_only",
+    "external_validation": false,
+    "criteria_summary": {
+      "passed": 10,
+      "failed": 2,
+      "not_evaluable": 0,
+      "total": 12
+    },
+    "candidate_metrics": {
+      "brier_score": 0.04991087241138574,
+      "roc_auc": 0.9702029588820625,
+      "precision_recall_auc": 0.9833197595492815,
+      "log_loss": 0.18421474296094006,
+      "expected_calibration_error": 0.02414666311056075,
+      "calibration_intercept": 0.41918350785843966,
+      "calibration_slope": 0.4539306867708676
+    },
+    "strongest_simple_baseline_metrics": {
+      "brier_score": 0.06355470068862228,
+      "roc_auc": 0.9329513378418113,
+      "precision_recall_auc": 0.9685827820684652,
+      "log_loss": 0.6747947781352155,
+      "expected_calibration_error": 0.0672910741143424,
+      "calibration_intercept": -2.608676905506586,
+      "calibration_slope": 0.2894148012029462
+    },
+    "multivariate_baseline_metrics": {
+      "brier_score": 0.16180354521786494,
+      "roc_auc": 0.8849909856234235,
+      "precision_recall_auc": 0.9540156613615325,
+      "log_loss": 1.596629215509335,
+      "expected_calibration_error": 0.14889698268367627,
+      "calibration_intercept": 1.2558190184387656,
+      "calibration_slope": 0.1264279354492658
+    },
+    "pooled_brier_improvement_fraction": 0.2146785073236776,
+    "bootstrap_95pct": {
+      "absolute_improvement": [
+        0.0030542664854191505,
+        0.025639719881214475
+      ],
+      "fractional_improvement": [
+        0.061698589715370566,
+        0.3397534586105416
+      ]
+    },
+    "block_results": [
+      {
+        "block": 0,
+        "candidate_brier": 0.04978065990383732,
+        "baseline_brier": 0.059527665228034356,
+        "brier_improvement_fraction": 0.1637390831113382,
+        "strongest_simple_baseline": "cumulative_backlog_area"
+      },
+      {
+        "block": 1,
+        "candidate_brier": 0.05016116556528841,
+        "baseline_brier": 0.06711547593917294,
+        "brier_improvement_fraction": 0.25261402287082496,
+        "strongest_simple_baseline": "cumulative_backlog_area"
+      },
+      {
+        "block": 2,
+        "candidate_brier": 0.048653746493489906,
+        "baseline_brier": 0.060922441018868165,
+        "brier_improvement_fraction": 0.20138218889782414,
+        "strongest_simple_baseline": "cumulative_backlog_area"
+      },
+      {
+        "block": 3,
+        "candidate_brier": 0.051781774929649464,
+        "baseline_brier": 0.06801986416717268,
+        "brier_improvement_fraction": 0.238725693388843,
+        "strongest_simple_baseline": "cumulative_backlog_area"
+      },
+      {
+        "block": 4,
+        "candidate_brier": 0.0491770151646636,
+        "baseline_brier": 0.062188057089863184,
+        "brier_improvement_fraction": 0.20922091047800911,
+        "strongest_simple_baseline": "cumulative_backlog_area"
+      }
+    ],
+    "shift_results": {
+      "architecture_improvement_by_unseen_architecture": {
+        "pipelined_proportional": 0.22150146455473255,
+        "sharded_sublinear_capacity": 0.20491938370894006
+      },
+      "capacity_improvement_by_shift": {
+        "0.80": 0.5845658286776216,
+        "1.25": -0.003672405471146048
+      },
+      "workload_gamma_improvement": 0.21678102317573575,
+      "combined_shift_improvement": 0.23724418290085406
+    },
+    "criteria": {
+      "all_blocks_have_binary_class_support": {
+        "rule": "both outcome classes present in training, calibration, and held-out",
+        "observed": {
+          "0": {"training": true, "calibration": true, "held_out": true},
+          "1": {"training": true, "calibration": true, "held_out": true},
+          "2": {"training": true, "calibration": true, "held_out": true},
+          "3": {"training": true, "calibration": true, "held_out": true},
+          "4": {"training": true, "calibration": true, "held_out": true}
+        },
+        "status": "passed"
+      },
+      "architecture_shift_survives": {
+        "rule": "> 0 for every unseen architecture",
+        "observed": {
+          "pipelined_proportional": 0.22150146455473255,
+          "sharded_sublinear_capacity": 0.20491938370894006
+        },
+        "status": "passed"
+      },
+      "auc_at_least_0_90": {
+        "rule": ">= 0.9",
+        "observed": 0.9702029588820625,
+        "status": "passed"
+      },
+      "bootstrap_fractional_lower_bound_positive": {
+        "rule": "> 0",
+        "observed": 0.061698589715370566,
+        "status": "passed"
+      },
+      "brier_improvement_at_least_15pct": {
+        "rule": ">= 0.15",
+        "observed": 0.2146785073236776,
+        "status": "passed"
+      },
+      "calibration_slope_in_range": {
+        "rule": "in [0.8, 1.2]",
+        "observed": 0.4539306867708676,
+        "status": "failed"
+      },
+      "capacity_shift_survives": {
+        "rule": "> 0 for every non-reference capacity",
+        "observed": {
+          "0.80": 0.5845658286776216,
+          "1.25": -0.003672405471146048
+        },
+        "status": "failed"
+      },
+      "combined_shift_survives": {
+        "rule": "> 0 for combined architecture, capacity, and workload shift",
+        "observed": 0.23724418290085406,
+        "status": "passed"
+      },
+      "positive_improvement_in_four_of_five_blocks": {
+        "rule": ">= 4 blocks",
+        "observed": 5,
+        "status": "passed"
+      },
+      "threshold_transfers_to_n10000": {
+        "rule": ">= 0.75 in every block",
+        "observed": {
+          "0": 0.9241531664212077,
+          "1": 0.9216691068814056,
+          "2": 0.9198250728862973,
+          "3": 0.9241531664212077,
+          "4": 0.9222873900293256
+        },
+        "status": "passed"
+      },
+      "threshold_transfers_to_n10000_sublinear_capacity": {
+        "rule": ">= 0.75 in every block",
+        "observed": {
+          "0": 0.9285714285714286,
+          "1": 0.9285714285714286,
+          "2": 0.9285714285714286,
+          "3": 0.9285714285714286,
+          "4": 0.9285714285714286
+        },
+        "status": "passed"
+      },
+      "workload_shift_survives": {
+        "rule": "> 0 for gamma workload",
+        "observed": 0.21678102317573575,
+        "status": "passed"
+      }
+    },
+    "binding_failures": [
+      "Calibration slope 0.4539306867708676 was outside [0.8, 1.2].",
+      "Fractional improvement at capacity multiplier 1.25 was -0.003672405471146048 rather than greater than zero."
+    ]
+  },
+  "stage3b": {
+    "claim_id": "NH2-H",
+    "candidate": "phase_separated_dynamic_message_passing",
+    "disposition": "not_supported_under_preregistered_rule",
+    "evidence_scope": "synthetic_model_conditioned; separate_generator_implementation_with_bounded_observed_view",
+    "external_validation": false,
+    "criteria_summary": {
+      "passed": 5,
+      "failed": 8,
+      "not_evaluable": 0,
+      "total": 13
+    },
+    "selection": {
+      "method": "leave_one_block_out_calibration_crossfit",
+      "partition": "calibration",
+      "strongest_final_size_baseline": "temporal_propagator",
+      "strongest_initiation_baseline": "node_hazard_aggregation"
+    },
+    "candidate_evaluation": {
+      "initiation": {
+        "brier_score": 0.10048888888888889,
+        "roc_auc": 0.5,
+        "precision_recall_auc": 0.5566666666666666,
+        "log_loss": 0.35342822141326286,
+        "expected_calibration_error": 1.3877787807814457e-17,
+        "calibration_intercept": -0.39320063433779706,
+        "calibration_slope": 0.808860145549476
+      },
+      "conditional_outbreak_severity": {
+        "mean_absolute_error": 0.04820259103641457,
+        "root_mean_square_error": 0.06491691887032472,
+        "quantile_loss": 0.024101295518207284,
+        "interval_coverage": 0.7426470588235294
+      },
+      "conditional_nonoutbreak_severity": {
+        "mean_absolute_error": 0.03571631030158775,
+        "root_mean_square_error": 0.04499451495326857,
+        "quantile_loss": 0.017858155150793874,
+        "interval_coverage": 0.46616541353383456
+      },
+      "final_size": {
+        "mean_absolute_error": 0.04801817645605284,
+        "root_mean_square_error": 0.054345999857807796,
+        "quantile_loss": 0.02400908822802642,
+        "interval_coverage": 0.22916666666666666
+      }
+    },
+    "selected_baseline_evaluations": {
+      "temporal_propagator_final_size": {
+        "mean_absolute_error": 0.04918958703703704,
+        "root_mean_square_error": 0.060253643264095685,
+        "quantile_loss": 0.02459479351851852,
+        "interval_coverage": 0.32083333333333336
+      },
+      "node_hazard_aggregation_initiation": {
+        "brier_score": 0.10057552120551853,
+        "roc_auc": 0.44526758071649714,
+        "precision_recall_auc": 0.31231219760631523,
+        "log_loss": 0.35386079519176605,
+        "expected_calibration_error": 0.00002580962574852408,
+        "calibration_intercept": -25.580274499817335,
+        "calibration_slope": -11.423883357035344
+      }
+    },
+    "final_size_mae_improvement_fraction": 0.02381419832010778,
+    "final_size_bootstrap_95pct": {
+      "absolute_improvement": [
+        -0.003874748654120741,
+        0.006453490280560529
+      ],
+      "fractional_improvement": [
+        -0.10385572830786145,
+        0.10685745497658988
+      ]
+    },
+    "outbreak_brier_improvement_fraction": 0.0008613658233260923,
+    "outbreak_brier_bootstrap_95pct": {
+      "absolute_improvement": [
+        -0.0001989300682397579,
+        0.0003676186469850001
+      ],
+      "fractional_improvement": [
+        -0.00208141194450202,
+        0.003930473033929112
+      ]
+    },
+    "positive_final_size_blocks": 2,
+    "positive_outbreak_brier_blocks": 4,
+    "unseen_scale_final_size_mae_improvement_fraction": {
+      "1000": 0.07188274395228202,
+      "10000": -0.02300647639360295
+    },
+    "unseen_topology_final_size_mae_improvement_fraction": {
+      "barabasi_albert": -0.2957050294956605,
+      "hierarchical": 0.1640848786909695
+    },
+    "calibration_slope_transfer": {
+      "nominal": 0.9604070931750317,
+      "detection_response_shift": 0.6923613400765599,
+      "absolute_detection_response_change": 0.2680457530984718,
+      "unsegmented": 0.8504270400198463,
+      "segmented": 0.7651244994820204,
+      "absolute_segmentation_change": 0.08530254053782582
+    },
+    "criteria": {
+      "all_heldout_blocks_have_binary_class_support": {
+        "rule": "both outbreak classes are present in every held-out block",
+        "observed": {"0": true, "1": true, "2": true, "3": true, "4": true},
+        "status": "passed"
+      },
+      "detection_response_calibration_shift_within_limit": {
+        "rule": "<= 0.2",
+        "observed": 0.2680457530984718,
+        "status": "failed"
+      },
+      "final_size_bootstrap_lower_bound_positive": {
+        "rule": "> 0",
+        "observed": -0.003874748654120741,
+        "status": "failed"
+      },
+      "final_size_mae_improvement_at_least_15pct": {
+        "rule": ">= 0.15",
+        "observed": 0.02381419832010778,
+        "status": "failed"
+      },
+      "final_size_positive_in_four_of_five_blocks": {
+        "rule": ">= 4 blocks",
+        "observed": 2,
+        "status": "failed"
+      },
+      "generator_predictor_structural_boundary_audit": {
+        "rule": "frozen structural review passed and identical latent-equation reuse was not detected",
+        "observed": "passed_structural_review",
+        "status": "passed"
+      },
+      "outbreak_brier_bootstrap_lower_bound_positive": {
+        "rule": "> 0",
+        "observed": -0.0001989300682397579,
+        "status": "failed"
+      },
+      "outbreak_brier_improvement_at_least_10pct": {
+        "rule": ">= 0.1",
+        "observed": 0.0008613658233260923,
+        "status": "failed"
+      },
+      "outbreak_brier_positive_in_four_of_five_blocks": {
+        "rule": ">= 4 blocks",
+        "observed": 4,
+        "status": "passed"
+      },
+      "paired_defense_scenarios_complete": {
+        "rule": "every defense_pair_record_id has exactly both declared defense cases with shared graph, process, observation, base-replication, and derived-replication seeds",
+        "observed": true,
+        "status": "passed"
+      },
+      "segmentation_calibration_shift_within_limit": {
+        "rule": "<= 0.2",
+        "observed": 0.08530254053782582,
+        "status": "passed"
+      },
+      "unseen_scale_transfer_succeeds": {
+        "rule": "> 0 at N=1000 and N=10000",
+        "observed": {
+          "1000": 0.07188274395228202,
+          "10000": -0.02300647639360295
+        },
+        "status": "failed"
+      },
+      "unseen_topology_transfer_succeeds": {
+        "rule": "> 0 for every unseen topology",
+        "observed": {
+          "barabasi_albert": -0.2957050294956605,
+          "hierarchical": 0.1640848786909695
+        },
+        "status": "failed"
+      }
+    },
+    "generator_predictor_boundary_audit": {
+      "status": "passed_structural_review",
+      "review_scope": "source_and_interface_non_reuse_review",
+      "identical_latent_equation_reuse_detected": false,
+      "limitation": "Structural separation does not establish statistical independence, external validity, or implementation security."
+    },
+    "binding_failures": [
+      "Final-size MAE improvement was 0.02381419832010778 rather than at least 0.15.",
+      "Outbreak Brier improvement was 0.0008613658233260923 rather than at least 0.1.",
+      "Final-size improvement was positive in 2 blocks rather than at least 4.",
+      "Both paired bootstrap lower bounds were below zero.",
+      "Final-size transfer was negative at N=10000 and on the Barabasi-Albert topology.",
+      "Detection-response calibration-slope change was 0.2680457530984718 rather than at most 0.2."
+    ]
+  },
+  "decisions": [
+    {
+      "claim_id": "NH2-D",
+      "stage": "Stage 2 result preserved in Stage 3 evidence",
+      "status": "refuted_within_current_model",
+      "decision": "Retire the tested single dynamic next-generation scalar as a general replacement; retain dynamic layers as features or state variables."
+    },
+    {
+      "claim_id": "NH2-T",
+      "stage": "Stage 2 result preserved in Stage 3 evidence",
+      "status": "refuted_within_current_model",
+      "decision": "Do not use the tested training-selected temporal propagator as one scalar for both initiation and final size."
+    },
+    {
+      "claim_id": "NH4-O",
+      "stage": "Stage 3A",
+      "status": "not_supported_under_preregistered_rule",
+      "decision": "Retain projected Omega_A as a synthetic diagnostic and empirical-calibration candidate, not as an operational gate."
+    },
+    {
+      "claim_id": "NH2-H",
+      "stage": "Stage 3B",
+      "status": "not_supported_under_preregistered_rule",
+      "decision": "Retain phase separation and node-resolved DMP as research architectures, not as validated predictors."
+    }
+  ],
+  "threats_to_validity": {
+    "construct": [
+      "Synthetic operational failure does not represent every real degradation, prioritization, recovery, or mission-loss mechanism.",
+      "Synthetic outbreak status and final compromised fraction do not represent all adaptive-adversary behavior or mission consequences."
+    ],
+    "internal": [
+      "Pilot-informed design choices preceded freeze even though pilot outcomes were excluded from confirmatory adjudication.",
+      "Stage 3A shares a synthetic resource model across predictor and outcome paths.",
+      "Stage 3B observed proxies are derived from generator constructs despite the separate implementation boundary."
+    ],
+    "external": [
+      "No external operational measurements or attack traces were used.",
+      "No deployed-system resource, topology, attack, observation-error, or response parameter was calibrated."
+    ],
+    "statistical": [
+      "Intervals are conditional on five declared structural blocks and the preregistered synthetic scenario families.",
+      "Descriptive subgroup metrics do not constitute separately confirmed discoveries.",
+      "Stage 3B final-size and component interval coverage were limited."
+    ],
+    "implementation": [
+      "Frozen-environment reproducibility does not establish cross-platform byte identity or absence of implementation defects.",
+      "The structural audit is invalidated by changes to reviewed generator, DMP, phase-model, or orchestration sources."
+    ]
+  },
+  "novelty_boundary": {
+    "not_claimed_as_novel": [
+      "reflected-fluid queue analysis",
+      "monotone probability calibration",
+      "hierarchical paired bootstrap",
+      "dynamic message passing",
+      "phase-separated outbreak and severity estimation",
+      "static spectral and temporal propagator comparators",
+      "standard predictive metrics"
+    ],
+    "defensible_current_contribution": "A runtime-agnostic, hash-gated assurance experiment that preserves negative results, separates fitting and held-out adjudication, and tests projected multi-resource admission stress and phase-separated DMP against calibration-selected baselines under declared transfer shifts.",
+    "current_evidence_class": "systems-engineering and research-method contribution within a synthetic model",
+    "priority_or_patentability_claim": false
+  },
+  "engineering_implications": [
+    "Do not hard-code the synthetic Omega_A mapping or threshold as an operational admission gate.",
+    "Keep capacity architecture, capacity multiplier, queue budget, shedding, incomplete exposure, and recovery as explicit state rather than assuming one pooled mapping transfers.",
+    "Do not replace selected static or temporal comparators with the tested Stage 3B candidate.",
+    "Keep initiation, outbreak severity, non-outbreak severity, final size, and uncertainty as distinct outputs.",
+    "Preserve the observed-view boundary and rerun the structural audit after relevant source changes."
+  ],
+  "operational_implications": [
+    "No result authorizes live admission, quarantine, revocation, or deployment action.",
+    "No result supports a secure or assured fleet-size recommendation, including 10000 agents.",
+    "A visualization or completed simulation is not an operational control or deployment-assurance artifact.",
+    "Implementation security, authorization correctness, adversarial resilience, and mission acceptance require separate evidence."
+  ],
+  "next_stage_recommendations": [
+    "Measure per-resource work, background load, effective capacity, queue delay, wait budgets, shedding, and recovery on a real or high-fidelity control plane.",
+    "Freeze empirical calibration and prospective held-out admission campaigns before testing Omega_A transfer.",
+    "Use external or separately implemented attack traces with measured observation error and operationally meaningful loss outcomes.",
+    "Predeclare whether DMP adds value beyond an interpretable non-DMP multivariate comparator and selected scalar baselines.",
+    "Rework and prospectively validate interval construction before making uncertainty-coverage claims.",
+    "Use a new protocol identifier and preexecution manifest for any retuned model, threshold, observation process, or acceptance rule."
+  ],
+  "artifact_provenance": {
+    "preexecution_manifest": {
+      "path": "manifests/stage3_preexecution_manifest.json",
+      "sha256": "9e926aa66b9da993eddd4dfce5aff209935298e4451bcf402c485d671bbdfeb7"
+    },
+    "protocol_markdown": {
+      "path": "docs/stage3_preregistered_protocol.md",
+      "sha256": "2a5ce8b93f55c1f2294b3126797d35d5be27ea031899648f52eaf1f3305fdab3"
+    },
+    "protocol_configuration": {
+      "path": "configs/stage3/protocol.yaml",
+      "sha256": "7b6dcd3f8478229e49c239a762ca3f15ba9de13c504a6a2aa6c95e5d998e9f15"
+    },
+    "confirmatory_evidence": {
+      "path": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/stage3_evidence.json",
+      "sha256": "39f0ee1b82096c89c0fe6c7a162bccc6601653492eeb27c80672a773421dd280"
+    },
+    "execution_manifest": {
+      "path": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/execution_manifest.json",
+      "sha256": "5da08ab9a9300c01df700fe7cf36318bad4f507f1e382fb1e765e693d1927f0d"
+    },
+    "stage3a_raw_replications": {
+      "path": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/raw/stage3a_replications.parquet",
+      "sha256": "34205c8fe8bc09c603e41d5d63e8a3f6c49a9a0c51230da81c96229d4014bcb3"
+    },
+    "stage3a_heldout_predictions": {
+      "path": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/derived/stage3a_heldout_predictions.parquet",
+      "sha256": "d1408d7a3cd04136df7768336b33424e07eb7a3b70efad20bdc30b7a5953a41b"
+    },
+    "stage3b_raw_replications": {
+      "path": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/raw/stage3b_replications.parquet",
+      "sha256": "bb3b718fd4acee9e96ab64fafb989ac9fa323698567cda1e81e8653160ad7e3a"
+    },
+    "stage3b_heldout_predictions": {
+      "path": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/derived/stage3b_heldout_predictions.parquet",
+      "sha256": "cbec4354f0aecc2d5c538d150db1d63b35fc01ed63ec3fe9d8d8ca24f0dabdf1"
+    },
+    "stage2_canonical_templates": [
+      {
+        "path": "paper/stage2_cycles5_to7_research_report.md",
+        "sha256": "a952cb2fdaa8b5b4a4c31d77f79b67afc11ac230b27ebb0b5876be1b42ecc761"
+      },
+      {
+        "path": "results/stage2_synthesis/stage2_synthesis.json",
+        "sha256": "cb2722f3837248452d8801d02f8c83b8fac715b060b21fd549828b4be72f131a"
+      },
+      {
+        "path": "results/stage2_synthesis/evidence_ledger.csv",
+        "sha256": "405103129a75e8d4a230e62ca99a5f42f02eacb684071b254e28675f22431564"
+      },
+      {
+        "path": "results/stage2_synthesis/research_decision_table.csv",
+        "sha256": "55e27f68a678f7c5cf12712026c20e2c06fd30b16ec4218f5f43d93721ba5e43"
+      }
+    ]
+  },
+  "overall_conclusion": "Both Stage 3 tracks are not_supported_under_preregistered_rule. Projected Omega_A remains a synthetic diagnostic requiring empirical calibration, and phase-separated DMP remains a research architecture without the required predictive advantage or transfer. No universal fleet-assurance law, operational threshold, validated attack predictor, deployment assurance, or fleet-size recommendation is established."
+}

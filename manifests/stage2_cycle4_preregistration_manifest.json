@@ -1,0 +1,16 @@
+{
+  "protocol_id": "FAS-S2-C4-2026-08-19",
+  "status": "frozen before confirmatory execution",
+  "primary_seed": 20260819,
+  "cycle3_status": "unexecuted due source-hash mismatch",
+  "files": {
+    "docs/stage2_cycle4_preregistered_protocol.md": "c5b55e2b72e1153653c1cc88f4b9676395901ba09745c37e0fc6bf096a48f17f",
+    "configs/experiments/stage2_cycle4.yaml": "250cf79a44428dcf3895adf9555a5065fd85142537a302f8292658966aac46fe",
+    "src/fleet_sim/security/attack_operator.py": "60c3fef362bef2eb92811857d7fe56ff984b60450676391b3d6b5bbc08e5f79f",
+    "src/fleet_sim/analysis/admission_stability.py": "9e6aa0145b62b63e896056ae0429b7e637c4be8e1ca9b9648714d1e7c7d3a358",
+    "src/fleet_sim/experiments/stage2_research.py": "b2b5cd320966521fbc5244959b6cae60b00d7d0144a3a97709f373b5a5d5425a",
+    "tests/unit/test_attack_operator.py": "06ed2c691002128b027f4f06bc39eea998dbe9dcb690f31837358020e6f80cc9",
+    "tests/unit/test_admission_stability.py": "06455779b88a616cc5ca004df763bd74f198a607fa608e4e57ea5328522c3901",
+    "tests/statistical/test_stage2_research.py": "8ef9d3bfff65ec0fb354b66db48ffc7819f406fc79058e8963012ffd771b11e5"
+  }
+}

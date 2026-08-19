@@ -1,0 +1,10 @@
+figure,path,exists
+queue_verification.png,/mnt/data/fleet-assurance-sim/figures/stage0/queue_verification.png,True
+gossip_scaling.png,/mnt/data/fleet-assurance-sim/figures/stage0/gossip_scaling.png,True
+percolation_blast_radius.png,/mnt/data/fleet-assurance-sim/figures/stage0/percolation_blast_radius.png,True
+consensus_message_scaling.png,/mnt/data/fleet-assurance-sim/figures/stage0/consensus_message_scaling.png,True
+telemetry_ingest_scaling.png,/mnt/data/fleet-assurance-sim/figures/stage0/telemetry_ingest_scaling.png,True
+timing_assurance_sweep.png,/mnt/data/fleet-assurance-sim/figures/stage0/timing_assurance_sweep.png,True
+credential_scaling.png,/mnt/data/fleet-assurance-sim/figures/stage0/credential_scaling.png,True
+usl_fit_verification.png,/mnt/data/fleet-assurance-sim/figures/stage0/usl_fit_verification.png,True
+integrated_final_topology.png,/mnt/data/fleet-assurance-sim/figures/stage0/integrated_final_topology.png,True

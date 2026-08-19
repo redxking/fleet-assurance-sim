@@ -1,0 +1,90 @@
+{
+  "study": "Stage 2 evidence synthesis, Cycles 5 through 7",
+  "date": "2026-08-19",
+  "evidence_scope": "notional and model-conditioned unless explicitly analytic",
+  "integrity": {
+    "cycle4": "diagnostic only because frozen input hashes did not all match",
+    "cycle5": "all frozen inputs matched; independent-seed replication completed",
+    "cycle6": "all frozen inputs matched; preregistered temporal and admission experiment completed",
+    "cycle7": "all frozen inputs matched; preregistered three-block hurdle experiment completed"
+  },
+  "decisions": [
+    {
+      "claim_id": "NH2-D",
+      "cycle": "5",
+      "claim": "A single dynamic next-generation attack score outperforms static spectral baselines.",
+      "evidence_class": "model-conditioned confirmatory replication",
+      "status": "refuted in model",
+      "primary_metric": "MAE improvement -0.026; AUC delta -0.243",
+      "binding_failure": "Dynamic score was worse on MAE, AUC, Brier, robustness, and dependency ablation.",
+      "next_action": "Retire as a scalar replacement. Retain dynamic layers as features or state variables."
+    },
+    {
+      "claim_id": "NH2-T",
+      "cycle": "6",
+      "claim": "A training-selected temporal scalar outperforms pre-response non-backtracking.",
+      "evidence_class": "model-conditioned preregistered confirmatory",
+      "status": "refuted in model",
+      "primary_metric": "MAE improvement -0.205; AUC delta 0.001",
+      "binding_failure": "Training selected propagator growth, which increased held-out MAE by 20.5 percent.",
+      "next_action": "Do not use one training-selected scalar for both outbreak occurrence and final size."
+    },
+    {
+      "claim_id": "NH4-O",
+      "cycle": "6",
+      "claim": "Reflected multi-resource overload index Omega_A transfers across scale and profile shape.",
+      "evidence_class": "analytic construct plus model-conditioned preregistered confirmatory",
+      "status": "not supported under fixed rule; strong provisional signal",
+      "primary_metric": "Omega AUC 0.992; AUC delta 0.058; Brier improvement 0.506",
+      "binding_failure": "AUC superiority was below 0.08 and only three of five robustness blocks met the full block rule.",
+      "next_action": "Calibrate resource work and capacities from a real control plane, then run prospective external validation."
+    },
+    {
+      "claim_id": "NH2-H",
+      "cycle": "7",
+      "claim": "A fixed two-stage model improves held-out mean final compromise prediction across independent blocks.",
+      "evidence_class": "model-conditioned preregistered three-block confirmatory",
+      "status": "not supported under fixed rule; mixed positive evidence",
+      "primary_metric": "Pooled MAE improvement 0.188; 95 percent interval 0.088 to 0.292",
+      "binding_failure": "Only one block exceeded 15 percent improvement and Brier noninferiority held in only one block.",
+      "next_action": "Keep phase separation, replace the initiation calibrator, and validate on measured attack traces."
+    }
+  ],
+  "cycle7_severity_coefficient_stability": [
+    {
+      "coefficient": "intercept",
+      "mean": -0.3378837517702567,
+      "standard_deviation": 0.21709463958018702,
+      "absolute_cv": 0.6425128122994207,
+      "values": [
+        -0.16089328138325512,
+        -0.27263939356442446,
+        -0.5801185803630905
+      ]
+    },
+    {
+      "coefficient": "log1p_nb_pre",
+      "mean": 1.290985733349314,
+      "standard_deviation": 0.037005022847634975,
+      "absolute_cv": 0.028664160952135156,
+      "values": [
+        1.2484126875496624,
+        1.3091062580716992,
+        1.3154382544265806
+      ]
+    },
+    {
+      "coefficient": "log_n",
+      "mean": -0.05715829640244383,
+      "standard_deviation": 0.03687491959545203,
+      "absolute_cv": 0.6451367853202046,
+      "values": [
+        -0.08491786666857884,
+        -0.07123945526543424,
+        -0.01531756727331842
+      ]
+    }
+  ],
+  "overall_conclusion": "No universal fleet assurance law or deployment architecture is established. Single scalar compromise predictors are ruled out in the tested forms. Omega_A and phase-separated compromise prediction remain research candidates, not validated operational controls.",
+  "highest_priority_external_validation": "Measure assurance work per admitted agent, resource capacity, wait budgets, attack-path layers, incident propagation, detection, and containment timing on a real system."
+}

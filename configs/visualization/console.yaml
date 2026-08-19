@@ -1,0 +1,6 @@
+default_bundle: replay_bundles/mixed-100-stage0
+max_exact_nodes: 1000
+max_rendered_edges: 5000
+playback_interval_ms: 150
+representation_labels: [Exact, Sampled, Aggregated, Approximated]
+offline_assets: true

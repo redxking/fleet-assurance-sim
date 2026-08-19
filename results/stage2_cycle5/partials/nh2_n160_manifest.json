@@ -1,0 +1,15 @@
+{
+  "protocol_id": "FAS-S2-C5-2026-08-19",
+  "block": "nh2_n160",
+  "status": "complete",
+  "runtime_seconds": 9.108445388999826,
+  "seed": 20260820,
+  "replications": 11520,
+  "scenarios": 384,
+  "scenario_id_min": 0,
+  "scenario_id_max": 383,
+  "artifacts": {
+    "results/stage2_cycle5/partials/nh2_n160_replications.csv": "901df4a62f30e74726a93bbcec1bfb62f19560cec327de79e1319375b2246821",
+    "results/stage2_cycle5/partials/nh2_n160_scenarios.csv": "d94234ac21bd219eb3bfa3668a9171ff85804ddb264a1f19ec06e004049d9107"
+  }
+}

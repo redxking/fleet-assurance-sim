@@ -1,0 +1,84 @@
+{
+  "approximation_mode": "full-agent",
+  "configuration_hash": "f56f67eb21500669",
+  "cpu_count": 5,
+  "dependencies": {
+    "PyYAML": "6.0.3",
+    "matplotlib": "3.10.8",
+    "networkx": "3.6.1",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "plotly": "6.5.2",
+    "pydantic": "2.13.4",
+    "scipy": "1.17.0"
+  },
+  "dirty_tree": null,
+  "end_unix": 1787146667.6987724,
+  "event_log_digest": "591264358e77548b3380c58ccdb5f85a02fce0db2f6544a946e07b74044de265",
+  "final_state_hash": "4d58da3a22b80dfaac0a6f5488d1a570275eecf8bec511014d31aa5794252f8b",
+  "host_python_implementation": "CPython",
+  "machine": "x86_64",
+  "manifest_hash": "129ef07101fa145bd7ff53db6d87cd398fd423a1174efe5fa067c9f0086c2abc",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "processor": "",
+  "python_version": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "random_substreams": {
+    "generator": "NumPy PCG64DXSM",
+    "root_seed": 104729,
+    "substreams": {
+      "agent_service": [
+        3
+      ],
+      "authorization": [
+        7
+      ],
+      "compromise": [
+        9
+      ],
+      "consensus": [
+        8
+      ],
+      "control_service": [
+        2
+      ],
+      "credentials": [
+        12
+      ],
+      "detection": [
+        10
+      ],
+      "graph_authorization": [
+        5
+      ],
+      "graph_communication": [
+        4
+      ],
+      "network": [
+        6
+      ],
+      "recovery": [
+        11
+      ],
+      "telemetry": [
+        13
+      ],
+      "visualization": [
+        14
+      ],
+      "workload_arrival": [
+        0
+      ],
+      "workload_target": [
+        1
+      ]
+    }
+  },
+  "replay_state_hash": "4d58da3a22b80dfaac0a6f5488d1a570275eecf8bec511014d31aa5794252f8b",
+  "run_id": "mixed-100-visual-f56f67eb21500669-s104729",
+  "seed": 104729,
+  "source_control_commit": null,
+  "start_unix": 1787146667.5914807,
+  "system_memory_bytes": 6368813056,
+  "trace_level": "full",
+  "wall_clock_s": 0.10729169845581055
+}

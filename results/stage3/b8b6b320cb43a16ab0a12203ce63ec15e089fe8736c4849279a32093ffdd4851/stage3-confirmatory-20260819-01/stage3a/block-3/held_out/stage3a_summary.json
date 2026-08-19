@@ -1,0 +1,42 @@
+{
+  "evidence_scope": "interface_verification_only",
+  "experiment_id": "stage3a-0b7a983faa4cac1d",
+  "external_validation": false,
+  "limitations": [
+    "Synthetic or calibrated simulation results are not observed operational evidence.",
+    "Projected Omega_A is calculated before stochastic outcomes.",
+    "Operational failure is defined without using Omega_A."
+  ],
+  "operational_failure_definition_uses_omega": false,
+  "patterns": [
+    "bursty",
+    "closed_loop",
+    "exponential",
+    "linear",
+    "mass_renewal",
+    "mass_restart",
+    "periodic",
+    "staged",
+    "step",
+    "sybil"
+  ],
+  "replication_count": 4320,
+  "replications_per_scenario": 12,
+  "resource_types": [
+    "authorization_policy_evaluation",
+    "certificate_issuance_renewal",
+    "configuration_attestation",
+    "dependency_registration",
+    "evidence_ingest_initialization",
+    "identity_issuance",
+    "revocation_readiness",
+    "supervisory_review",
+    "task_dispatch_registration",
+    "telemetry_source_registration"
+  ],
+  "root_seed": 3332530445508721157,
+  "scenario_count": 360,
+  "study": "Stage 3A fleet-admission stability interface",
+  "trace_replications_per_scenario": 1,
+  "trace_representation": "sampled"
+}

@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, cite version 0.2.0, the repository, and the exact immutable run manifest."
+title: "Fleet Assurance Simulation"
+version: 0.2.0
+date-released: 2026-08-19
+type: software
+abstract: "A reproducible research simulation for model-conditioned analysis of secure multi-agent fleet scaling. The Stage 3 evidence is synthetic and has no external validation."
+authors:
+  - family-names: Pseftis
+    given-names: Angelis
+license: Apache-2.0

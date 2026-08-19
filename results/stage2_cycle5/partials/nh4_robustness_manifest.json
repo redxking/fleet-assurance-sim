@@ -1,0 +1,10 @@
+{
+  "protocol_id": "FAS-S2-C5-2026-08-19",
+  "block": "nh4_robustness",
+  "status": "complete",
+  "runtime_seconds": 11.68070987200008,
+  "blocks": 5,
+  "artifact": {
+    "results/stage2_cycle5/partials/nh4_robustness.csv": "281864c03a7b1c9558b41d31a69f47e3f3584de8ccaf0963abd4de5ccded0f54"
+  }
+}

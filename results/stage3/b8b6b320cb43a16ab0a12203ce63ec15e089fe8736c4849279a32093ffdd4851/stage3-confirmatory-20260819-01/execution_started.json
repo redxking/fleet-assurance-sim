@@ -1,0 +1,47 @@
+{
+  "actual_command_argv": [
+    "/Users/angelispseftis/Desktop/Research/Sim Fleet Scaling/fleet-assurance-stage3-working/.venv-stage3-verify/bin/python",
+    "scripts/run_stage3.py",
+    "--mode",
+    "confirmatory",
+    "--execution-id",
+    "stage3-confirmatory-20260819-01",
+    "--stage3a-replications",
+    "12",
+    "--stage3b-replications",
+    "10",
+    "--bootstrap-draws",
+    "5000"
+  ],
+  "environment": {
+    "machine": "arm64",
+    "packages": {
+      "PyYAML": "6.0.3",
+      "matplotlib": "3.10.8",
+      "networkx": "3.6.1",
+      "numpy": "2.3.5",
+      "pandas": "2.2.3",
+      "pyarrow": "25.0.1",
+      "pydantic": "2.13.4",
+      "scipy": "1.17.0"
+    },
+    "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.0 (v3.13.0:60403a5409f, Oct  7 2024, 00:37:40) [Clang 15.0.0 (clang-1500.3.9.4)]",
+    "thread_controls": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    }
+  },
+  "execution_id": "stage3-confirmatory-20260819-01",
+  "mode": "confirmatory",
+  "protocol_hash": "b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851",
+  "protocol_id": "FAS-S3-C1-2026-08-19",
+  "runtime_budget": {
+    "maximum_output_mb": 1500.0,
+    "peak_rss_mb": 4096.0,
+    "wall_clock_seconds": 1800.0
+  },
+  "schema_version": "1.0",
+  "started_utc": "2026-08-19T18:50:20.028139+00:00",
+  "status": "started"
+}

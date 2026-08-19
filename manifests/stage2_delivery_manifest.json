@@ -1,0 +1,98 @@
+{
+  "delivery": "Fleet Assurance Simulation Stage 2 Cycles 4 through 7",
+  "created_utc": "2026-08-19T15:34:02.319081+00:00",
+  "evidence_scope": "analytic derivation and model-conditioned numerical evidence with notional parameters; no external validation",
+  "test_result": {
+    "status": "pass",
+    "tests_passed": 51,
+    "log": "logs/stage2_delivery_pytest.txt"
+  },
+  "cycle7_frozen_inputs_match": true,
+  "research_decisions": {
+    "scalar_dynamic_k": "retired in tested form",
+    "omega_admission_index": "promising but unsupported",
+    "two_stage_compromise_estimator": "strongest candidate but unsupported under preregistered rule"
+  },
+  "artifacts": [
+    {
+      "path": "README.md",
+      "bytes": 11904,
+      "sha256": "3a1635274f4a8572b114ae2f4959bf212d19746f6180117496dc4ad1595e2f97"
+    },
+    {
+      "path": "paper/stage2_cycles4_7_research_report.md",
+      "bytes": 23599,
+      "sha256": "ccb3d04ed99bd492e51fb94fac63d3798844e1b77d789595f1c4e77708fbf21c"
+    },
+    {
+      "path": "docs/stage2_research_decision_record.md",
+      "bytes": 6903,
+      "sha256": "d512269a7fe25ebd6bd6fe452ff811437c8d0a3168c5b75fca9c14ef51a33057"
+    },
+    {
+      "path": "docs/acceptance_status.md",
+      "bytes": 5455,
+      "sha256": "22e52ba90429bbe8008f184f484131ef0744cdc4bce492a60fe6071b5c1adb84"
+    },
+    {
+      "path": "docs/stage2_cycle7_preregistered_protocol.md",
+      "bytes": 6522,
+      "sha256": "e815b78bb89845ac6ea1555429094dc8472aa2442e1890b2a6c829d5e802af7c"
+    },
+    {
+      "path": "configs/experiments/stage2_cycle7.yaml",
+      "bytes": 649,
+      "sha256": "b807bcc40031cead95ac1d28ace669c4d3b6a33d15e94a2390510dec8e179e52"
+    },
+    {
+      "path": "manifests/stage2_cycle7_preregistration_manifest.json",
+      "bytes": 2534,
+      "sha256": "689c74b2e61cbffcef72405a5c7c319aadfa9b2cde5bfb022336173dd899b42f"
+    },
+    {
+      "path": "manifests/stage2_cycle7_execution_manifest.json",
+      "bytes": 7255,
+      "sha256": "c03ebcf3ce4a1b0a5cf52d89d214183459c0153ea82c540f01c8dd60c2a1c1cf"
+    },
+    {
+      "path": "results/stage2_cycle5/stage2_cycle5_summary.json",
+      "bytes": 3582,
+      "sha256": "6aa0baff6b7eda97fa188a6d1de5ece86ea88180f987b8932e6c9bf874a39da3"
+    },
+    {
+      "path": "results/stage2_cycle6/stage2_cycle6_summary.json",
+      "bytes": 8025,
+      "sha256": "c307f74c2c91d2933a41003224feb68d13799d226e960e13830950282f17bbd1"
+    },
+    {
+      "path": "results/stage2_cycle7/stage2_cycle7_summary.json",
+      "bytes": 4260,
+      "sha256": "d1445da52a2a69120327bb28f0e9bb87cc5ba5c9cda621358a06115c93c6afe6"
+    },
+    {
+      "path": "results/stage2_cycle7/nh2_hurdle_blocks.csv",
+      "bytes": 1325,
+      "sha256": "36b21c6498a6d23eb307f1844cff9e2e353b7778b7c7724b69d2b352975bcc61"
+    },
+    {
+      "path": "results/stage2_cycle7/nh2_hurdle_predictions.csv",
+      "bytes": 143774,
+      "sha256": "beb8a6ba559dd936ae7e683803238ed9cd18854223791e9f0c73e881d5d65f0f"
+    },
+    {
+      "path": "replay_bundles/stage2-cycles4-7-research-console.html",
+      "bytes": 4991368,
+      "sha256": "3f81b59dc4851c70bfc83a4cc2cd27e09bf387089da7a865cdfa405e8eef7028"
+    },
+    {
+      "path": "scripts/build_stage2_research_console.py",
+      "bytes": 19765,
+      "sha256": "16e4ed5573c4c843612bded38efd527b6db7e9575b637400030c6003b71a27d5"
+    },
+    {
+      "path": "logs/stage2_delivery_pytest.txt",
+      "bytes": 100,
+      "sha256": "be0a1e07462138ddaac8de4ddaa1bad73ea3aca81292fca944805e872ff2ee47"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+name: fleet-assurance
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13.0
+  - pip>=24
+  - pip:
+      - -r requirements-stage3-freeze.txt
+      - -e .

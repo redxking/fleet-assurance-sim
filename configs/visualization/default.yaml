@@ -1,0 +1,7 @@
+console_name: Virtual Fleet Assurance Console
+max_exact_nodes: 1000
+max_exact_edges: 20000
+max_replay_frames: 1500
+play_interval_ms: 180
+assets: inline
+network_calls_allowed: false

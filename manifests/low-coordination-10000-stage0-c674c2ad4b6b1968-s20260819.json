@@ -1,0 +1,84 @@
+{
+  "approximation_mode": "full-agent",
+  "configuration_hash": "c674c2ad4b6b1968",
+  "cpu_count": 5,
+  "dependencies": {
+    "PyYAML": "6.0.3",
+    "matplotlib": "3.10.8",
+    "networkx": "3.6.1",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "plotly": "6.5.2",
+    "pydantic": "2.13.4",
+    "scipy": "1.17.0"
+  },
+  "dirty_tree": null,
+  "end_unix": 1787146153.1373196,
+  "event_log_digest": "0a816049b44327f31e1352838761cc8c1032b1affdb0d5acbad8301b1eebc9be",
+  "final_state_hash": "cd8ffda1bb6699e72524b0a7b4bedfaf3d5761bd10ad47b47169d0eb5fc48f81",
+  "host_python_implementation": "CPython",
+  "machine": "x86_64",
+  "manifest_hash": "18f2cece7e51974006836b9775ff6bbfc89fb6d5dd12f949cbc4815e082d3bff",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "processor": "",
+  "python_version": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "random_substreams": {
+    "generator": "NumPy PCG64DXSM",
+    "root_seed": 20260819,
+    "substreams": {
+      "agent_service": [
+        3
+      ],
+      "authorization": [
+        7
+      ],
+      "compromise": [
+        9
+      ],
+      "consensus": [
+        8
+      ],
+      "control_service": [
+        2
+      ],
+      "credentials": [
+        12
+      ],
+      "detection": [
+        10
+      ],
+      "graph_authorization": [
+        5
+      ],
+      "graph_communication": [
+        4
+      ],
+      "network": [
+        6
+      ],
+      "recovery": [
+        11
+      ],
+      "telemetry": [
+        13
+      ],
+      "visualization": [
+        14
+      ],
+      "workload_arrival": [
+        0
+      ],
+      "workload_target": [
+        1
+      ]
+    }
+  },
+  "replay_state_hash": "cd8ffda1bb6699e72524b0a7b4bedfaf3d5761bd10ad47b47169d0eb5fc48f81",
+  "run_id": "low-coordination-10000-stage0-c674c2ad4b6b1968-s20260819",
+  "seed": 20260819,
+  "source_control_commit": null,
+  "start_unix": 1787146152.8722808,
+  "system_memory_bytes": 6368813056,
+  "trace_level": "summary",
+  "wall_clock_s": 0.26503872871398926
+}

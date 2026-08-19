@@ -1,0 +1,84 @@
+{
+  "approximation_mode": "full-agent",
+  "configuration_hash": "91799444a54a608a",
+  "cpu_count": 5,
+  "dependencies": {
+    "PyYAML": "6.0.3",
+    "matplotlib": "3.10.8",
+    "networkx": "3.6.1",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "plotly": "6.5.2",
+    "pydantic": "2.13.4",
+    "scipy": "1.17.0"
+  },
+  "dirty_tree": null,
+  "end_unix": 1787146186.51989,
+  "event_log_digest": "27bed5703c232b60b2e1f0fffff3c3c09eb45f391b9d7b0e805266d1cd658ef2",
+  "final_state_hash": "76d4938872ebae456e94e154b8581074c5075ce01c48888e794af1d228f58eee",
+  "host_python_implementation": "CPython",
+  "machine": "x86_64",
+  "manifest_hash": "2f5ac51cac3c5b7804ca8a979b4cf2f0c77ed5932baf6715be7db658d46fdc18",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "processor": "",
+  "python_version": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "random_substreams": {
+    "generator": "NumPy PCG64DXSM",
+    "root_seed": 104729,
+    "substreams": {
+      "agent_service": [
+        3
+      ],
+      "authorization": [
+        7
+      ],
+      "compromise": [
+        9
+      ],
+      "consensus": [
+        8
+      ],
+      "control_service": [
+        2
+      ],
+      "credentials": [
+        12
+      ],
+      "detection": [
+        10
+      ],
+      "graph_authorization": [
+        5
+      ],
+      "graph_communication": [
+        4
+      ],
+      "network": [
+        6
+      ],
+      "recovery": [
+        11
+      ],
+      "telemetry": [
+        13
+      ],
+      "visualization": [
+        14
+      ],
+      "workload_arrival": [
+        0
+      ],
+      "workload_target": [
+        1
+      ]
+    }
+  },
+  "replay_state_hash": "76d4938872ebae456e94e154b8581074c5075ce01c48888e794af1d228f58eee",
+  "run_id": "flat-dense-100-91799444a54a608a-s104729",
+  "seed": 104729,
+  "source_control_commit": null,
+  "start_unix": 1787146186.3892224,
+  "system_memory_bytes": 6368813056,
+  "trace_level": "full",
+  "wall_clock_s": 0.13066768646240234
+}

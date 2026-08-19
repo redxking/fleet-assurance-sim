@@ -1,0 +1,25 @@
+scenario_name: low-coordination-1000-stage0
+seed: 20260819
+n_agents: 1000
+duration_s: 60.0
+task_arrival_rate_per_agent_hz: 0.01
+task_service_rate_per_agent_hz: 1.0
+task_deadline_s: 5.0
+control_servers: 8
+control_service_rate_per_server_hz: 10.0
+communication_topology: random_regular
+authorization_topology: hierarchical
+random_regular_degree: 4
+hierarchy_span: 8
+coordination_regime: independent
+consistency_regime: eventual
+segmentation_policy: partition
+segmentation_partitions: 16
+gossip_enabled: false
+security_enabled: false
+attack_start_s: null
+timing_denial_start_s: null
+mass_revocation_start_s: null
+trace_level: summary
+provenance: notional
+tags: [stage0, low-coordination, scale-check]

@@ -1,0 +1,555 @@
+{
+  "checks": [
+    {
+      "evidence_class": "software_verification",
+      "name": "parameter_registry_validation",
+      "parameter_records": 12,
+      "passed": true
+    },
+    {
+      "evidence_class": "software_verification",
+      "name": "automated_pytest_suite",
+      "passed": true,
+      "stderr": "",
+      "stdout": "....................                                                     [100%]\n20 passed in 3.06s",
+      "wall_clock_s": 6.022756099700928
+    },
+    {
+      "artifact": "/mnt/data/fleet-assurance-sim/figures/stage0/queue_verification.png",
+      "checks": [
+        {
+          "analytic_L": 0.3333333333333333,
+          "mean_95_percent_ci": [
+            0.33128405461319527,
+            0.33606731543571594
+          ],
+          "passed": true,
+          "relative_error": 0.001027055073366867,
+          "rho": 0.25,
+          "simulated_mean_L": 0.3336756850244556,
+          "tolerance": 0.1
+        },
+        {
+          "analytic_L": 1.0,
+          "mean_95_percent_ci": [
+            0.9891534751754759,
+            1.0160351265218288
+          ],
+          "passed": true,
+          "relative_error": 0.00259430084865242,
+          "rho": 0.5,
+          "simulated_mean_L": 1.0025943008486524,
+          "tolerance": 0.1
+        },
+        {
+          "analytic_L": 2.333333333333333,
+          "mean_95_percent_ci": [
+            2.2847370889165575,
+            2.3981065146489504
+          ],
+          "passed": true,
+          "relative_error": 0.003466486478323245,
+          "rho": 0.7,
+          "simulated_mean_L": 2.341421801782754,
+          "tolerance": 0.1
+        },
+        {
+          "analytic_L": 5.666666666666666,
+          "mean_95_percent_ci": [
+            5.466656639019092,
+            5.9469464861163015
+          ],
+          "passed": true,
+          "relative_error": 0.007082628688417202,
+          "rho": 0.85,
+          "simulated_mean_L": 5.706801562567697,
+          "tolerance": 0.1
+        },
+        {
+          "analytic_L": 18.999999999999982,
+          "mean_95_percent_ci": [
+            18.116978482832202,
+            23.15412552270896
+          ],
+          "passed": true,
+          "relative_error": 0.08608168435634737,
+          "rho": 0.95,
+          "simulated_mean_L": 20.63555200277058,
+          "tolerance": 0.25
+        }
+      ],
+      "evidence_class": "analytic_and_numerical_comparison",
+      "name": "mm1_and_little_law_verification",
+      "passed": true,
+      "replications_per_utilization": 30
+    },
+    {
+      "artifact": "/mnt/data/fleet-assurance-sim/figures/stage0/gossip_scaling.png",
+      "evidence_class": "numerically_demonstrated",
+      "fit_rounds_equals_a_log2_n_plus_b": {
+        "a": 0.48265142638124986,
+        "b": 0.9833333333333325,
+        "r_squared": 0.989843198494021
+      },
+      "large_n_approximation_validation_at_n_1000": {
+        "acceptance_threshold_rounds": 2.0,
+        "maximum_absolute_round_error": 1.0,
+        "mean_absolute_round_error": 0.13333333333333333,
+        "passed": true
+      },
+      "name": "gossip_logarithmic_growth_verification",
+      "passed": true,
+      "replications_per_n": 30
+    },
+    {
+      "approximate_critical_q": {
+        "dynamic_microsegmentation": 2.012820512820513,
+        "unsegmented": 0.2
+      },
+      "artifact": "/mnt/data/fleet-assurance-sim/figures/stage0/percolation_blast_radius.png",
+      "evidence_class": "analytic_approximation_and_numerical_distribution",
+      "interpretation_limit": "Finite bond-percolation verification on one notional graph realization.",
+      "mean_blast_radius_reduction_at_q_0_5": 0.9739666666666666,
+      "name": "percolation_segmentation_direction_verification",
+      "passed": true,
+      "replications_per_q": 30
+    },
+    {
+      "artifact": "/mnt/data/fleet-assurance-sim/figures/stage0/usl_fit_verification.png",
+      "bootstrap_95_percent_intervals": {
+        "alpha": [
+          0.017975725700642847,
+          0.01801910596279006
+        ],
+        "beta": [
+          1.498654891369687e-06,
+          1.502202313959767e-06
+        ],
+        "n_star": [
+          808.5229596222191,
+          809.4732303585565
+        ]
+      },
+      "evidence_class": "software_verification",
+      "fitted_parameters": {
+        "alpha": 0.017997848404702834,
+        "beta": 1.5003530796250119e-06,
+        "n_star": 809.0204183762091,
+        "r_squared": 0.9999999820824909,
+        "rmse": 0.28330032994329724,
+        "scale": 119.98831301434761
+      },
+      "name": "usl_fitting_pipeline_verification",
+      "passed": true,
+      "purpose": "Software verification of the USL fitting path only.",
+      "replications_per_n": 30,
+      "true_parameters": {
+        "alpha": 0.018,
+        "beta": 1.5e-06,
+        "n_star": 809.1147425839346,
+        "scale": 120.0
+      }
+    },
+    {
+      "bundle_dir": "/mnt/data/fleet-assurance-sim/replay_bundles/stage0-integrated-visual-demo-3f963f21299a4315-s20260819",
+      "console_html": "/mnt/data/fleet-assurance-sim/replay_bundles/stage0-integrated-visual-demo-3f963f21299a4315-s20260819/virtual_fleet_assurance_console.html",
+      "event_count": 7520,
+      "event_log_digest": "e72f48ae3096c58d3d50522fa511ef7debf808770cb6503495339b348e368d49",
+      "evidence_class": "software_verification_and_numerical_demonstration",
+      "final_state_hash": "eecf77f44c947582cc359e7d97a44d8b2f07af6e739a8fddec96a20ca4393c19",
+      "missing_required_event_types": [],
+      "n_agents": 64,
+      "name": "integrated_simulation_replay_and_visualization_verification",
+      "passed": true,
+      "replay_equivalence": true,
+      "replay_state_hash": "eecf77f44c947582cc359e7d97a44d8b2f07af6e739a8fddec96a20ca4393c19",
+      "run_id": "stage0-integrated-visual-demo-3f963f21299a4315-s20260819",
+      "seed_determinism": true,
+      "static_topology": "/mnt/data/fleet-assurance-sim/figures/stage0/integrated_final_topology.png"
+    }
+  ],
+  "datasets": {
+    "consensus": "/mnt/data/fleet-assurance-sim/results/stage0/consensus_scale.csv",
+    "control_plane": "/mnt/data/fleet-assurance-sim/results/stage0/control_plane_scale.csv",
+    "credentials": "/mnt/data/fleet-assurance-sim/results/stage0/credential_scale.csv",
+    "gossip": "/mnt/data/fleet-assurance-sim/results/stage0/gossip_verification.csv",
+    "measurements": "/mnt/data/fleet-assurance-sim/results/stage0/stage0_measurements.csv",
+    "percolation": "/mnt/data/fleet-assurance-sim/results/stage0/percolation_verification.csv",
+    "queue": "/mnt/data/fleet-assurance-sim/results/stage0/queue_verification.csv",
+    "seed_manifest": "/mnt/data/fleet-assurance-sim/manifests/stage0_seed_manifest.csv",
+    "supervision": "/mnt/data/fleet-assurance-sim/results/stage0/supervision_scale.csv",
+    "telemetry": "/mnt/data/fleet-assurance-sim/results/stage0/telemetry_scale.csv",
+    "timing": "/mnt/data/fleet-assurance-sim/results/stage0/timing_sweep.csv",
+    "usl_curve": "/mnt/data/fleet-assurance-sim/results/stage0/usl_verification_curve.csv",
+    "usl_observations": "/mnt/data/fleet-assurance-sim/results/stage0/usl_verification_observations.csv"
+  },
+  "figure_manifest": "/mnt/data/fleet-assurance-sim/figures/stage0/figure_manifest.csv",
+  "figures": [
+    "/mnt/data/fleet-assurance-sim/figures/stage0/queue_verification.png",
+    "/mnt/data/fleet-assurance-sim/figures/stage0/gossip_scaling.png",
+    "/mnt/data/fleet-assurance-sim/figures/stage0/percolation_blast_radius.png",
+    "/mnt/data/fleet-assurance-sim/figures/stage0/consensus_message_scaling.png",
+    "/mnt/data/fleet-assurance-sim/figures/stage0/telemetry_ingest_scaling.png",
+    "/mnt/data/fleet-assurance-sim/figures/stage0/timing_assurance_sweep.png",
+    "/mnt/data/fleet-assurance-sim/figures/stage0/credential_scaling.png",
+    "/mnt/data/fleet-assurance-sim/figures/stage0/usl_fit_verification.png",
+    "/mnt/data/fleet-assurance-sim/figures/stage0/integrated_final_topology.png"
+  ],
+  "generated_unix": 1787146847.123091,
+  "gossip_verification": {
+    "artifact": "/mnt/data/fleet-assurance-sim/figures/stage0/gossip_scaling.png",
+    "evidence_class": "numerically_demonstrated",
+    "fit_rounds_equals_a_log2_n_plus_b": {
+      "a": 0.48265142638124986,
+      "b": 0.9833333333333325,
+      "r_squared": 0.989843198494021
+    },
+    "large_n_approximation_validation_at_n_1000": {
+      "acceptance_threshold_rounds": 2.0,
+      "maximum_absolute_round_error": 1.0,
+      "mean_absolute_round_error": 0.13333333333333333,
+      "passed": true
+    },
+    "name": "gossip_logarithmic_growth_verification",
+    "passed": true,
+    "replications_per_n": 30
+  },
+  "integrated_replay": {
+    "bundle_dir": "/mnt/data/fleet-assurance-sim/replay_bundles/stage0-integrated-visual-demo-3f963f21299a4315-s20260819",
+    "console_html": "/mnt/data/fleet-assurance-sim/replay_bundles/stage0-integrated-visual-demo-3f963f21299a4315-s20260819/virtual_fleet_assurance_console.html",
+    "event_count": 7520,
+    "event_log_digest": "e72f48ae3096c58d3d50522fa511ef7debf808770cb6503495339b348e368d49",
+    "evidence_class": "software_verification_and_numerical_demonstration",
+    "final_state_hash": "eecf77f44c947582cc359e7d97a44d8b2f07af6e739a8fddec96a20ca4393c19",
+    "missing_required_event_types": [],
+    "n_agents": 64,
+    "name": "integrated_simulation_replay_and_visualization_verification",
+    "passed": true,
+    "replay_equivalence": true,
+    "replay_state_hash": "eecf77f44c947582cc359e7d97a44d8b2f07af6e739a8fddec96a20ca4393c19",
+    "run_id": "stage0-integrated-visual-demo-3f963f21299a4315-s20260819",
+    "seed_determinism": true,
+    "static_topology": "/mnt/data/fleet-assurance-sim/figures/stage0/integrated_final_topology.png"
+  },
+  "integrated_summary": {
+    "configuration_hash": "3f963f21299a4315",
+    "control_plane": {
+      "analytic_erlang_c": {
+        "mean_number_system": 4.528301886792453,
+        "mean_time_system_s": 0.5031446540880503,
+        "mean_wait_queue_s": 0.16981132075471697,
+        "probability_wait": 0.5094339622641509,
+        "utilization": 0.75
+      },
+      "completed_authorizations": 799,
+      "little_law_residual": 0.030466562540172326,
+      "max_queue": 10,
+      "minimum_servers_for_rho_0_70": 5,
+      "observed_mean_number_system": 3.402126468866777,
+      "observed_mean_sojourn_s": 0.37978647255243353,
+      "observed_utilization": 0.6905123260561504
+    },
+    "cost_energy": {
+      "cost_and_practical_energy_parameter_class": "notional",
+      "landauer_floor_for_logged_message_bits_j": 2.4812607273025975e-14,
+      "practical_cost_per_useful_task_usd": 0.000146582918066663,
+      "practical_energy_per_useful_task_j": 113.53493617030225
+    },
+    "credentials": {
+      "pairwise_keys": 2016,
+      "sized_capacity_hz": 1,
+      "steady_state_issuance_rate_hz": 0.21333333333333335
+    },
+    "duration_s": 90.0,
+    "event_count": 7520,
+    "event_counts_by_type": {
+      "AUTHORIZATION_BOUNDARY_TRAVERSAL": 1,
+      "AUTH_DECISION": 799,
+      "AUTH_REQUEST": 808,
+      "COMPROMISE": 2,
+      "CREDENTIAL_RENEWAL": 23,
+      "CREDENTIAL_RENEWAL_DENIED": 1,
+      "CREDENTIAL_REVOCATION_STORM_END": 1,
+      "CREDENTIAL_REVOCATION_STORM_START": 1,
+      "DETECTION": 2,
+      "GOSSIP_INFORMED": 63,
+      "GOSSIP_MESSAGE": 494,
+      "GOSSIP_ROUND": 9,
+      "GOSSIP_SEED": 1,
+      "QUARANTINE": 2,
+      "QUEUE_SAMPLE": 2410,
+      "RECOVERY": 2,
+      "REVOCATION": 12,
+      "SECURITY_ROUND": 3,
+      "SIMULATION_END": 1,
+      "SIMULATION_START": 1,
+      "TASK_ARRIVAL": 808,
+      "TASK_COMPLETE": 765,
+      "TASK_DISPATCH": 773,
+      "TASK_FAILED": 25,
+      "TIMING_DENIAL_START": 1,
+      "TIMING_UPDATE": 512
+    },
+    "event_log_digest": "e72f48ae3096c58d3d50522fa511ef7debf808770cb6503495339b348e368d49",
+    "evidence_class": "numerically_demonstrated_stage0_integration_only",
+    "final_state_hash": "eecf77f44c947582cc359e7d97a44d8b2f07af6e739a8fddec96a20ca4393c19",
+    "gossip": {
+      "coverage": 1.0,
+      "messages": 494,
+      "rounds": 9
+    },
+    "graphs": {
+      "authorization": {
+        "algebraic_connectivity": null,
+        "clustering": 0.0,
+        "components": 49,
+        "degree_second_moment": 0.90625,
+        "diameter_or_effective_diameter": 8.0,
+        "edges": 15,
+        "mean_degree": 0.46875,
+        "n": 64,
+        "representation": "exact",
+        "spectral_radius": 2.1857487817144046
+      },
+      "communication": {
+        "algebraic_connectivity": 0.7713044853750615,
+        "clustering": 0.0234375,
+        "components": 1,
+        "degree_second_moment": 16.0,
+        "diameter_or_effective_diameter": 6.0,
+        "edges": 128,
+        "mean_degree": 4.0,
+        "n": 64,
+        "representation": "exact",
+        "spectral_radius": 4.000000000000003
+      }
+    },
+    "limitations": [
+      "The baseline parameter set is notional.",
+      "This is a Stage 0 integration and replay demonstration, not a fleet assurance conclusion.",
+      "The security process is a finite discrete-time SIR-like containment model.",
+      "The workload, authorization queue, agent service queues, and cost rates are stylized.",
+      "Little's Law is reported as a finite-horizon consistency residual, not a steady-state proof."
+    ],
+    "n_agents": 64,
+    "parameter_class": "notional",
+    "replay_validation": {
+      "passed": true,
+      "replay_state_hash": "eecf77f44c947582cc359e7d97a44d8b2f07af6e739a8fddec96a20ca4393c19",
+      "simulation_state_hash": "eecf77f44c947582cc359e7d97a44d8b2f07af6e739a8fddec96a20ca4393c19",
+      "snapshot_seek_state_hash": "eecf77f44c947582cc359e7d97a44d8b2f07af6e739a8fddec96a20ca4393c19"
+    },
+    "run_id": "stage0-integrated-visual-demo-3f963f21299a4315-s20260819",
+    "scenario_name": "stage0-integrated-visual-demo",
+    "security": {
+      "authorization_spectral_radius": 2.1857487817144046,
+      "blast_radius_fraction": 0.03125,
+      "contained_agents": 2,
+      "containment_delay_s": {
+        "p50": 1.5,
+        "p95": 1.95,
+        "p99": 1.99
+      },
+      "detection_delay_s": {
+        "p50": 1.5,
+        "p95": 1.95,
+        "p99": 1.99
+      },
+      "epidemic_stability_product": 2.5500402453334736,
+      "final_active_compromised": 0,
+      "max_active_compromised": 1,
+      "unique_compromised_agents": 2
+    },
+    "seed": 20260819,
+    "tasks": {
+      "arrived": 808,
+      "completed": 765,
+      "latency_s": {
+        "p50": 1.4676153838891253,
+        "p95": 4.8214170110226044,
+        "p99": 6.760152988289072
+      },
+      "raw_throughput_hz": 8.5,
+      "useful_completed": 761,
+      "useful_latency_s": {
+        "p50": 1.457548096239833,
+        "p95": 4.565984949091348,
+        "p99": 6.556455975800891
+      },
+      "useful_throughput_hz": 8.455555555555556
+    },
+    "telemetry": {
+      "apex_rate_bps": 5836.799999999999,
+      "depth": 3,
+      "layer_rates_bps": [
+        128000.0,
+        46080.0,
+        16448.0,
+        5836.799999999999
+      ],
+      "raw_rate_bps": 128000.0
+    },
+    "timing": {
+      "continental_one_way_physics_floor_s": 0.02206526489735776,
+      "continental_round_trip_physics_floor_s": 0.04413052979471552,
+      "final_agent_clock_uncertainty_s": 1.35e-06
+    },
+    "trace_level": "full"
+  },
+  "limitations": [
+    "The integrated scenario uses notional parameters.",
+    "Stage 0 verifies implementation behavior and known baselines, not deployment assurance.",
+    "The full architecture experiment matrix and sensitivity analysis have not been executed.",
+    "No production reference architecture is recommended by this increment."
+  ],
+  "open_gates": [
+    "Full staged design of experiments",
+    "Controlled architecture comparisons with at least 30 independent replications",
+    "Sobol global sensitivity analysis with a compatible sampling design",
+    "Parquet result output and schema validation",
+    "Mean-field approximation validation before relying on N above 10,000",
+    "All twelve predefined replay scenarios",
+    "Dependency, supervisory, and dynamic attack-reachability graph composition",
+    "Full adversary suite, including Dolev-Yao, Byzantine, insider, supply-chain, instruction-channel, and Sybil models",
+    "Automated browser-state equivalence and large-N rendering qualification",
+    "Technical paper, decision table, and evidence-derived candidate reference architecture"
+  ],
+  "overall_passed": true,
+  "paper_path": "/mnt/data/fleet-assurance-sim/paper/stage0_verification_report.md",
+  "percolation_verification": {
+    "approximate_critical_q": {
+      "dynamic_microsegmentation": 2.012820512820513,
+      "unsegmented": 0.2
+    },
+    "artifact": "/mnt/data/fleet-assurance-sim/figures/stage0/percolation_blast_radius.png",
+    "evidence_class": "analytic_approximation_and_numerical_distribution",
+    "interpretation_limit": "Finite bond-percolation verification on one notional graph realization.",
+    "mean_blast_radius_reduction_at_q_0_5": 0.9739666666666666,
+    "name": "percolation_segmentation_direction_verification",
+    "passed": true,
+    "replications_per_q": 30
+  },
+  "physical_limits": {
+    "classification": "analytic_under_stated_assumptions",
+    "fiber_one_way_4500_km_s": 0.02206526489735776,
+    "fiber_round_trip_4500_km_s": 0.04413052979471552,
+    "landauer_energy_per_bit_at_300_k_j": 2.870978885078724e-21
+  },
+  "pytest": {
+    "passed": true,
+    "return_code": 0,
+    "stderr": "",
+    "stdout": "....................                                                     [100%]\n20 passed in 3.06s",
+    "wall_clock_s": 6.022756099700928
+  },
+  "queue_verification": {
+    "artifact": "/mnt/data/fleet-assurance-sim/figures/stage0/queue_verification.png",
+    "checks": [
+      {
+        "analytic_L": 0.3333333333333333,
+        "mean_95_percent_ci": [
+          0.33128405461319527,
+          0.33606731543571594
+        ],
+        "passed": true,
+        "relative_error": 0.001027055073366867,
+        "rho": 0.25,
+        "simulated_mean_L": 0.3336756850244556,
+        "tolerance": 0.1
+      },
+      {
+        "analytic_L": 1.0,
+        "mean_95_percent_ci": [
+          0.9891534751754759,
+          1.0160351265218288
+        ],
+        "passed": true,
+        "relative_error": 0.00259430084865242,
+        "rho": 0.5,
+        "simulated_mean_L": 1.0025943008486524,
+        "tolerance": 0.1
+      },
+      {
+        "analytic_L": 2.333333333333333,
+        "mean_95_percent_ci": [
+          2.2847370889165575,
+          2.3981065146489504
+        ],
+        "passed": true,
+        "relative_error": 0.003466486478323245,
+        "rho": 0.7,
+        "simulated_mean_L": 2.341421801782754,
+        "tolerance": 0.1
+      },
+      {
+        "analytic_L": 5.666666666666666,
+        "mean_95_percent_ci": [
+          5.466656639019092,
+          5.9469464861163015
+        ],
+        "passed": true,
+        "relative_error": 0.007082628688417202,
+        "rho": 0.85,
+        "simulated_mean_L": 5.706801562567697,
+        "tolerance": 0.1
+      },
+      {
+        "analytic_L": 18.999999999999982,
+        "mean_95_percent_ci": [
+          18.116978482832202,
+          23.15412552270896
+        ],
+        "passed": true,
+        "relative_error": 0.08608168435634737,
+        "rho": 0.95,
+        "simulated_mean_L": 20.63555200277058,
+        "tolerance": 0.25
+      }
+    ],
+    "evidence_class": "analytic_and_numerical_comparison",
+    "name": "mm1_and_little_law_verification",
+    "passed": true,
+    "replications_per_utilization": 30
+  },
+  "replications": 30,
+  "report_path": "/mnt/data/fleet-assurance-sim/results/stage0/stage0_report.json",
+  "stage": "Stage 0: analytic and software verification",
+  "usl_verification": {
+    "artifact": "/mnt/data/fleet-assurance-sim/figures/stage0/usl_fit_verification.png",
+    "bootstrap_95_percent_intervals": {
+      "alpha": [
+        0.017975725700642847,
+        0.01801910596279006
+      ],
+      "beta": [
+        1.498654891369687e-06,
+        1.502202313959767e-06
+      ],
+      "n_star": [
+        808.5229596222191,
+        809.4732303585565
+      ]
+    },
+    "evidence_class": "software_verification",
+    "fitted_parameters": {
+      "alpha": 0.017997848404702834,
+      "beta": 1.5003530796250119e-06,
+      "n_star": 809.0204183762091,
+      "r_squared": 0.9999999820824909,
+      "rmse": 0.28330032994329724,
+      "scale": 119.98831301434761
+    },
+    "name": "usl_fitting_pipeline_verification",
+    "passed": true,
+    "purpose": "Software verification of the USL fitting path only.",
+    "replications_per_n": 30,
+    "true_parameters": {
+      "alpha": 0.018,
+      "beta": 1.5e-06,
+      "n_star": 809.1147425839346,
+      "scale": 120.0
+    }
+  },
+  "version": "0.1.0",
+  "wall_clock_s": 21.880692720413208
+}

@@ -1,0 +1,32 @@
+protocol_id: FAS-S2-2026-08-19
+seed: 20260819
+evidence_scope: model-conditioned
+nh2_directed_operator:
+  fleet_sizes: [120, 240, 480]
+  scenarios_per_size: 24
+  replications: 20
+  large_outbreak_fraction: 0.15
+  robustness_blocks: 5
+  acceptance:
+    mae_improvement_fraction_each_heldout_region: 0.10
+    auc_improvement_one_region: 0.05
+    maximum_auc_degradation_other_region: 0.01
+    minimum_ablation_mae_worsening_fraction: 0.05
+    minimum_positive_robustness_blocks: 4
+nh4_admission_load:
+  training_sizes: [1000, 2500]
+  heldout_sizes: [5000, 10000]
+  training_profiles: [linear, staged, burst]
+  heldout_profiles: [exponential, step_ramp]
+  baseline_load_fractions: [0.40, 0.55, 0.70]
+  ramp_durations_s: [30, 90, 180, 360]
+  disturbance_levels: [0.03, 0.07, 0.12]
+  replications: 20
+  robustness_blocks: 5
+  acceptance:
+    minimum_balanced_accuracy_each_heldout_region: 0.80
+    minimum_auc_improvement: 0.08
+    threshold_distance_from_one_fraction: 0.25
+    threshold_cv_maximum: 0.20
+    minimum_spearman: 0.70
+    minimum_positive_robustness_blocks: 4

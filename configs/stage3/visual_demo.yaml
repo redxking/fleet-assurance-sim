@@ -1,0 +1,12 @@
+mode: deterministic_replay
+evidence_scope: synthetic_model_demonstration_only
+seed: 320260819
+fleet_size: 100
+admission_profile: staged_ramp
+attack_class: credential_replay
+topology: random_regular
+representation: exact
+offline_runtime_network_calls: false
+comparison_architectures:
+  - centralized_balanced
+  - sharded_balanced

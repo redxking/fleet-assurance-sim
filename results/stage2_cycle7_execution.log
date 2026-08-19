@@ -1,0 +1,123 @@
+{
+  "study": "Stage 2 Cycle 7 preregistered two-stage compromise experiment",
+  "protocol_id": "FAS-S2-C7-2026-08-19",
+  "evidence_scope": "model-conditioned; notional parameters; no external validation",
+  "block_seeds": [
+    20260823,
+    120260823,
+    220260823
+  ],
+  "replications_per_scenario": 30,
+  "dataset_counts": {
+    "replications": 34560,
+    "scenarios": 1152,
+    "heldout_predictions": 576
+  },
+  "block_results": [
+    {
+      "block": 0,
+      "seed": 20260823,
+      "valid": true,
+      "positive_test_scenarios": 59,
+      "negative_test_scenarios": 133,
+      "training_scenarios_with_outbreak_fraction": 0.796875,
+      "hurdle_mae": 0.031968246036714165,
+      "nb_direct_mae": 0.03971786285093941,
+      "temporal_nb_direct_mae": 0.03733622941195087,
+      "best_baseline": "temporal_nb",
+      "best_baseline_mae": 0.03733622941195087,
+      "mae_improvement_fraction": 0.14377411591322817,
+      "hurdle_brier": 0.01758848836626502,
+      "nb_isotonic_brier": 0.017254059412479202,
+      "brier_improvement_fraction": -0.019382624447435205,
+      "hurdle_auc": 0.9775710462597171,
+      "nb_auc": 0.9763603925066905,
+      "auc_delta": 0.001210653753026647,
+      "severity_coefficients": [
+        -0.16089328138325512,
+        1.2484126875496624,
+        -0.08491786666857884
+      ]
+    },
+    {
+      "block": 1,
+      "seed": 120260823,
+      "valid": true,
+      "positive_test_scenarios": 59,
+      "negative_test_scenarios": 133,
+      "training_scenarios_with_outbreak_fraction": 0.8125,
+      "hurdle_mae": 0.03378223761756515,
+      "nb_direct_mae": 0.0522790563370546,
+      "temporal_nb_direct_mae": 0.0477663670550939,
+      "best_baseline": "temporal_nb",
+      "best_baseline_mae": 0.0477663670550939,
+      "mae_improvement_fraction": 0.29276100109098524,
+      "hurdle_brier": 0.01770314274173325,
+      "nb_isotonic_brier": 0.020050250098849653,
+      "brier_improvement_fraction": 0.11706125088439992,
+      "hurdle_auc": 0.9565439021282018,
+      "nb_auc": 0.9574996814069071,
+      "auc_delta": -0.000955779278705271,
+      "severity_coefficients": [
+        -0.27263939356442446,
+        1.3091062580716992,
+        -0.07123945526543424
+      ]
+    },
+    {
+      "block": 2,
+      "seed": 220260823,
+      "valid": true,
+      "positive_test_scenarios": 57,
+      "negative_test_scenarios": 135,
+      "training_scenarios_with_outbreak_fraction": 0.8072916666666666,
+      "hurdle_mae": 0.044040848310471635,
+      "nb_direct_mae": 0.05348174313684042,
+      "temporal_nb_direct_mae": 0.050065524997427495,
+      "best_baseline": "temporal_nb",
+      "best_baseline_mae": 0.050065524997427495,
+      "mae_improvement_fraction": 0.12033583363532939,
+      "hurdle_brier": 0.018787014716682045,
+      "nb_isotonic_brier": 0.0174641616209745,
+      "brier_improvement_fraction": -0.0757467277512363,
+      "hurdle_auc": 0.9846653671215074,
+      "nb_auc": 0.9816114359974009,
+      "auc_delta": 0.003053931124106568,
+      "severity_coefficients": [
+        -0.5801185803630905,
+        1.3154382544265806,
+        -0.01531756727331842
+      ]
+    }
+  ],
+  "pooled_hurdle_mae": 0.036597110654916984,
+  "pooled_best_baseline_mae": 0.04505604048815741,
+  "pooled_mae_improvement_fraction": 0.187742414592862,
+  "bootstrap_95pct": {
+    "absolute_mae_reduction": [
+      0.003919536902026935,
+      0.013738387396252974
+    ],
+    "fractional_mae_improvement": [
+      0.08804110558840564,
+      0.2919172705813073
+    ]
+  },
+  "criteria": {
+    "all_three_blocks_valid": true,
+    "pooled_mae_improvement_at_least_15pct": true,
+    "all_blocks_positive_mae_improvement": true,
+    "at_least_two_blocks_improve_15pct": false,
+    "bootstrap_absolute_mae_lower_bound_positive": true,
+    "brier_noninferior_in_two_of_three_blocks": false,
+    "auc_not_degraded_more_than_0_01": true
+  },
+  "supported_in_model": false,
+  "decision": "not supported under the preregistered rule",
+  "figures": [
+    "figures/stage2_cycle7/cycle7_block_mae.png",
+    "figures/stage2_cycle7/cycle7_pooled_prediction.png",
+    "figures/stage2_cycle7/cycle7_initiation_probability.png"
+  ],
+  "limitations": "All mechanisms and parameters are synthetic. Support does not establish operational prediction or implementation security."
+}

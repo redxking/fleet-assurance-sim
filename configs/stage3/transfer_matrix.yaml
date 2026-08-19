@@ -1,0 +1,16 @@
+training_fleet_sizes: [100, 250, 500]
+calibration_fleet_sizes: [750]
+held_out_fleet_sizes: [1000, 10000]
+optional_fleet_sizes: []
+refit_on_held_out: prohibited
+exact_agent_based_required_through: 10000
+approximation_policy:
+  enabled_above_10000_only_after_validation: true
+  validation_sizes: [100, 1000]
+  report_absolute_error: true
+  report_relative_error: true
+  report_failure_boundary: true
+transfer_questions:
+  - threshold_calibrated_below_1000_transfers_to_10000
+  - model_calibrated_below_1000_transfers_to_unseen_topology
+  - calibration_survives_segmentation_and_detection_shift

@@ -1,0 +1,17 @@
+# Stage 3 Research Decision Table
+
+**Protocol:** FAS-S3-C1-2026-08-19  
+**Confirmatory execution:** `stage3-confirmatory-20260819-01`  
+**Evidence boundary:** Synthetic, model-conditioned confirmatory research with calibration-interface verification only  
+**Acceptance status:** Stage 3A `not_supported_under_preregistered_rule`; Stage 3B `not_supported_under_preregistered_rule`
+
+| Decision area | Current binding constraint | Required action | Failure if ignored |
+|---|---|---|---|
+| Fleet admission control | Stage 3A failed its full rule because calibration slope was 0.4539306867708676 and improvement at capacity multiplier 1.25 was -0.003672405471146048 | Keep projected `Omega_A` advisory and diagnostic only; measure resource work, capacity, wait budgets, shedding, recovery, and outcomes before freezing an operational rule | A well-discriminating synthetic score can be mistaken for a calibrated probability or universal admission boundary |
+| Assurance-resource capacity architecture | The pooled Stage 3A mapping did not improve over the selected comparator in every non-reference capacity regime | Model architecture and capacity multiplier explicitly; retain per-resource queues, binding resource, backlog area, and recovery state; test transfer prospectively | Capacity changes can be assumed to improve assurance monotonically even when the calibrated mapping does not transfer |
+| Compromise prediction | Stage 3B final-size MAE improvement was 0.02381419832010778 and outbreak Brier improvement was 0.0008613658233260923, with both bootstrap intervals crossing zero | Keep initiation, outbreak severity, non-outbreak severity, and final-size uncertainty separate; retain selected comparators; obtain external or separately implemented held-out traces | Node-resolved mechanism detail can be mistaken for demonstrated predictive superiority |
+| Defense and topology transfer | Stage 3B failed detection-response calibration transfer, N=10,000 transfer, and Barabasi-Albert topology transfer | Freeze new transfer tests across response shifts, sizes, topologies, attack classes, and observation-error regimes; do not refit on held-out outcomes | A pooled point estimate can conceal unstable behavior in operationally relevant cells |
+| 10,000-agent operation | No externally calibrated admission model, externally grounded attack predictor, implementation-security evidence, or mission T&E exists; both Stage 3 tracks failed their full support rules | Do not issue deployment assurance; complete empirical calibration, implementation-specific threat modeling, formal verification of critical components, adversarial testing, and operational T&E | Synthetic model behavior can be misrepresented as evidence that a 10,000-agent fleet is secure or manageable |
+| Research publication and release | Both Stage 3 tracks are negative under their preregistered conjunctive rules, while selected secondary metrics are positive | Publish exact failed criteria and intervals, preserve NH2-D and NH2-T refutations, state the synthetic evidence boundary, and keep any later figures traceable to the immutable confirmatory execution | Selective reporting can convert mixed or negative confirmatory evidence into an unsupported success claim |
+
+The operational decision remains unchanged: no Stage 3 result is a live admission, quarantine, revocation, or deployment authority. Any retuned model, threshold, observation process, or acceptance rule requires a new protocol identifier and preexecution manifest.

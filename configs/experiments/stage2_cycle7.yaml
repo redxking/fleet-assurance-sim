@@ -1,0 +1,24 @@
+protocol_id: FAS-S2-C7-2026-08-19
+primary_seed: 20260823
+evidence_scope: model-conditioned_notional
+block_seeds:
+  - 20260823
+  - 120260823
+  - 220260823
+replications_per_scenario: 30
+model:
+  initiation_score: temporal_nb
+  severity_score: nb_pre
+  nonoutbreak_fraction: one_over_n
+  outbreak_threshold: 0.10
+comparators:
+  - nb_pre
+  - temporal_nb
+acceptance:
+  minimum_pooled_mae_improvement_fraction: 0.15
+  all_blocks_positive_mae_improvement: true
+  minimum_blocks_at_15pct_improvement: 2
+  bootstrap_absolute_mae_lower_bound_positive: true
+  minimum_blocks_brier_noninferior: 2
+  maximum_auc_degradation_per_block: 0.01
+bootstrap_draws: 5000

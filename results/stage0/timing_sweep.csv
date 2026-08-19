@@ -1,0 +1,5 @@
+clock_uncertainty_s,commit_wait_s,commit_wait_only_ceiling_tps,continental_one_way_floor_s,continental_round_trip_floor_s,three_phase_propagation_floor_s,holdover_after_3600_s_at_1e_9_fractional_error_s,evidence_class
+2e-08,4e-08,25000000.0,0.02206526489735776,0.04413052979471552,0.13239158938414655,3.62e-06,analytic_under_stated_assumptions
+1e-06,2e-06,500000.0,0.02206526489735776,0.04413052979471552,0.13239158938414655,4.6e-06,analytic_under_stated_assumptions
+0.001,0.002,500.0,0.02206526489735776,0.04413052979471552,0.13239158938414655,0.0010036,analytic_under_stated_assumptions
+0.1,0.2,5.0,0.02206526489735776,0.04413052979471552,0.13239158938414655,0.10000360000000001,analytic_under_stated_assumptions

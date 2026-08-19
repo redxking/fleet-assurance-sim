@@ -1,0 +1,176 @@
+{
+  "protocol_id": "FAS-S2-C7-2026-08-19",
+  "started_utc": "2026-08-19T15:17:05.706225+00:00",
+  "completed_utc": "2026-08-19T15:18:28.812221+00:00",
+  "all_frozen_inputs_match": true,
+  "frozen_input_checks": [
+    {
+      "path": "docs/stage2_cycle7_preregistered_protocol.md",
+      "expected_sha256": "e815b78bb89845ac6ea1555429094dc8472aa2442e1890b2a6c829d5e802af7c",
+      "actual_sha256": "e815b78bb89845ac6ea1555429094dc8472aa2442e1890b2a6c829d5e802af7c",
+      "match": true
+    },
+    {
+      "path": "configs/experiments/stage2_cycle7.yaml",
+      "expected_sha256": "b807bcc40031cead95ac1d28ace669c4d3b6a33d15e94a2390510dec8e179e52",
+      "actual_sha256": "b807bcc40031cead95ac1d28ace669c4d3b6a33d15e94a2390510dec8e179e52",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/analysis/compromise_hurdle.py",
+      "expected_sha256": "b2f40f026b7b1590d01c43a67e0728e0992ef219eefc80db69284ee1e7fa3157",
+      "actual_sha256": "b2f40f026b7b1590d01c43a67e0728e0992ef219eefc80db69284ee1e7fa3157",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/experiments/stage2_cycle7.py",
+      "expected_sha256": "a8855dce529b77581aa6c7a016b27c19bb6c91cad73168711dc82895b93680ad",
+      "actual_sha256": "a8855dce529b77581aa6c7a016b27c19bb6c91cad73168711dc82895b93680ad",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/experiments/stage2_cycle6.py",
+      "expected_sha256": "0dcf093281d54714f583241966dd4bdd23edc3d0f5023246e7a7887ef15046f5",
+      "actual_sha256": "0dcf093281d54714f583241966dd4bdd23edc3d0f5023246e7a7887ef15046f5",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/experiments/stage2_research.py",
+      "expected_sha256": "e184ecf09a608a73e1030f7c60376d34a8fc5b63d47b8ba2030fa2cce6a3fe41",
+      "actual_sha256": "e184ecf09a608a73e1030f7c60376d34a8fc5b63d47b8ba2030fa2cce6a3fe41",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/experiments/stage1_research.py",
+      "expected_sha256": "10d24474218882a31dfed27332eb8e7aa1f7620e51a4c6b57adfe8f17caebf0b",
+      "actual_sha256": "10d24474218882a31dfed27332eb8e7aa1f7620e51a4c6b57adfe8f17caebf0b",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/security/attack_operator.py",
+      "expected_sha256": "5ae763ff622f561b779de090378435692e85caf49fb08e023db09005f03a5d12",
+      "actual_sha256": "5ae763ff622f561b779de090378435692e85caf49fb08e023db09005f03a5d12",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/analysis/admission_stability.py",
+      "expected_sha256": "9e6aa0145b62b63e896056ae0429b7e637c4be8e1ca9b9648714d1e7c7d3a358",
+      "actual_sha256": "9e6aa0145b62b63e896056ae0429b7e637c4be8e1ca9b9648714d1e7c7d3a358",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/graphs/factory.py",
+      "expected_sha256": "c52b41da74a8593b8772f773f772136e63dc20ac200f3126bf385fc83cd4cc32",
+      "actual_sha256": "c52b41da74a8593b8772f773f772136e63dc20ac200f3126bf385fc83cd4cc32",
+      "match": true
+    },
+    {
+      "path": "tests/statistical/test_compromise_hurdle.py",
+      "expected_sha256": "283e1c8c8897563db1c57fa90046dab65aa087ea604f9d7429e1f7bed33ea94b",
+      "actual_sha256": "283e1c8c8897563db1c57fa90046dab65aa087ea604f9d7429e1f7bed33ea94b",
+      "match": true
+    },
+    {
+      "path": "tests/statistical/test_stage2_cycle7.py",
+      "expected_sha256": "c3ae54d87db5021941004d7686e8d2912bfe7c8d07e8342dfe93d321607bdfd1",
+      "actual_sha256": "c3ae54d87db5021941004d7686e8d2912bfe7c8d07e8342dfe93d321607bdfd1",
+      "match": true
+    },
+    {
+      "path": "tests/statistical/test_stage2_cycle6.py",
+      "expected_sha256": "2a6ef76f4ea3241e401462f7e63099ebfb099e06eb3ece551d60991c5775c17b",
+      "actual_sha256": "2a6ef76f4ea3241e401462f7e63099ebfb099e06eb3ece551d60991c5775c17b",
+      "match": true
+    },
+    {
+      "path": "tests/statistical/test_stage2_research.py",
+      "expected_sha256": "8ef9d3bfff65ec0fb354b66db48ffc7819f406fc79058e8963012ffd771b11e5",
+      "actual_sha256": "8ef9d3bfff65ec0fb354b66db48ffc7819f406fc79058e8963012ffd771b11e5",
+      "match": true
+    },
+    {
+      "path": "tests/unit/test_attack_operator.py",
+      "expected_sha256": "16510da7a676e608ad6223fafb874182684c926868279f8a33a38898ede47cd4",
+      "actual_sha256": "16510da7a676e608ad6223fafb874182684c926868279f8a33a38898ede47cd4",
+      "match": true
+    },
+    {
+      "path": "tests/unit/test_admission_stability.py",
+      "expected_sha256": "06455779b88a616cc5ca004df763bd74f198a607fa608e4e57ea5328522c3901",
+      "actual_sha256": "06455779b88a616cc5ca004df763bd74f198a607fa608e4e57ea5328522c3901",
+      "match": true
+    },
+    {
+      "path": "scripts/run_stage2_cycle7.py",
+      "expected_sha256": "41ff23b26be16598bb3dc2c885f5b36efd217dea0817f0f411076d7b5d6d544b",
+      "actual_sha256": "41ff23b26be16598bb3dc2c885f5b36efd217dea0817f0f411076d7b5d6d544b",
+      "match": true
+    },
+    {
+      "path": "pyproject.toml",
+      "expected_sha256": "d647a731c7abdda3c90a20bc127ea8f6014b0f778c9e0217e6920aa9e8e64bd8",
+      "actual_sha256": "d647a731c7abdda3c90a20bc127ea8f6014b0f778c9e0217e6920aa9e8e64bd8",
+      "match": true
+    },
+    {
+      "path": "requirements-lock.txt",
+      "expected_sha256": "11c8b553b2c724daf63006bdfbf8821747ec0a46b44e76f59e97addb2805c97c",
+      "actual_sha256": "11c8b553b2c724daf63006bdfbf8821747ec0a46b44e76f59e97addb2805c97c",
+      "match": true
+    }
+  ],
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "packages": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "pandas": "2.2.3",
+      "networkx": "3.6.1",
+      "matplotlib": "3.10.8"
+    }
+  },
+  "summary_decision": "not supported under the preregistered rule",
+  "artifacts": [
+    {
+      "path": "results/stage2_cycle7/nh2_hurdle_blocks.csv",
+      "bytes": 1325,
+      "sha256": "36b21c6498a6d23eb307f1844cff9e2e353b7778b7c7724b69d2b352975bcc61"
+    },
+    {
+      "path": "results/stage2_cycle7/nh2_hurdle_predictions.csv",
+      "bytes": 143774,
+      "sha256": "beb8a6ba559dd936ae7e683803238ed9cd18854223791e9f0c73e881d5d65f0f"
+    },
+    {
+      "path": "results/stage2_cycle7/nh2_hurdle_replications.csv",
+      "bytes": 10204073,
+      "sha256": "3565a52695b2ddc2aafc1e4440a87a4159abb8765432f4f86965a868dcd3deac"
+    },
+    {
+      "path": "results/stage2_cycle7/nh2_hurdle_scenarios.csv",
+      "bytes": 371159,
+      "sha256": "61841ba263b3294ea45c6b4b072015ba7bf2de7a22f04fa671dc8a012a779b9c"
+    },
+    {
+      "path": "results/stage2_cycle7/stage2_cycle7_summary.json",
+      "bytes": 4260,
+      "sha256": "d1445da52a2a69120327bb28f0e9bb87cc5ba5c9cda621358a06115c93c6afe6"
+    },
+    {
+      "path": "figures/stage2_cycle7/cycle7_block_mae.png",
+      "bytes": 42178,
+      "sha256": "d34b71daf5a0028e351b292a73e922b40e9d8168e2eb1e0ad4baae4ceb3c0adb"
+    },
+    {
+      "path": "figures/stage2_cycle7/cycle7_initiation_probability.png",
+      "bytes": 92062,
+      "sha256": "9c5d804d33ca3d3036810fbdf018e4e0cf834076537d6cb8e485241933b01dff"
+    },
+    {
+      "path": "figures/stage2_cycle7/cycle7_pooled_prediction.png",
+      "bytes": 195182,
+      "sha256": "7b88013ba25d3da5ecc3ad20906e6aaef9ec7229b81d232a986279aae8e8c7b6"
+    }
+  ]
+}

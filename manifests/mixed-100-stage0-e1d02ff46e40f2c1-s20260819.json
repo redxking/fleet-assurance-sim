@@ -1,0 +1,84 @@
+{
+  "approximation_mode": "full-agent",
+  "configuration_hash": "e1d02ff46e40f2c1",
+  "cpu_count": 5,
+  "dependencies": {
+    "PyYAML": "6.0.3",
+    "matplotlib": "3.10.8",
+    "networkx": "3.6.1",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "plotly": "6.5.2",
+    "pydantic": "2.13.4",
+    "scipy": "1.17.0"
+  },
+  "dirty_tree": null,
+  "end_unix": 1787145551.6538703,
+  "event_log_digest": "89df2bde82e53df656c2ec28a0d8ff16c8b6b832bbbf414b5aa36b1b90c676ae",
+  "final_state_hash": "8f2a04b0936579e675d0bb60b4e05ed88a3124cff62316a6fc278147fcb9c106",
+  "host_python_implementation": "CPython",
+  "machine": "x86_64",
+  "manifest_hash": "39784aad02ebf28132e24a555f2dfd50119584b8cf9f07003a6adf70ab005f01",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "processor": "",
+  "python_version": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "random_substreams": {
+    "generator": "NumPy PCG64DXSM",
+    "root_seed": 20260819,
+    "substreams": {
+      "agent_service": [
+        3
+      ],
+      "authorization": [
+        7
+      ],
+      "compromise": [
+        9
+      ],
+      "consensus": [
+        8
+      ],
+      "control_service": [
+        2
+      ],
+      "credentials": [
+        12
+      ],
+      "detection": [
+        10
+      ],
+      "graph_authorization": [
+        5
+      ],
+      "graph_communication": [
+        4
+      ],
+      "network": [
+        6
+      ],
+      "recovery": [
+        11
+      ],
+      "telemetry": [
+        13
+      ],
+      "visualization": [
+        14
+      ],
+      "workload_arrival": [
+        0
+      ],
+      "workload_target": [
+        1
+      ]
+    }
+  },
+  "replay_state_hash": "8f2a04b0936579e675d0bb60b4e05ed88a3124cff62316a6fc278147fcb9c106",
+  "run_id": "mixed-100-stage0-e1d02ff46e40f2c1-s20260819",
+  "seed": 20260819,
+  "source_control_commit": null,
+  "start_unix": 1787145551.4599783,
+  "system_memory_bytes": 6368813056,
+  "trace_level": "full",
+  "wall_clock_s": 0.1938920021057129
+}

@@ -1,0 +1,199 @@
+{
+  "protocol_id": "FAS-S2-C6-2026-08-19",
+  "primary_seed": 20260821,
+  "started_utc": "2026-08-19T15:07:21.080753+00:00",
+  "frozen_input_checks": [
+    {
+      "path": "docs/stage2_cycle6_preregistered_protocol.md",
+      "expected_sha256": "045596a64277f714c682966e6985f2b899ecc708a5ee9abfc775d18251cedf02",
+      "actual_sha256": "045596a64277f714c682966e6985f2b899ecc708a5ee9abfc775d18251cedf02",
+      "match": true
+    },
+    {
+      "path": "docs/stage2_cycle6_pilot_disposition.md",
+      "expected_sha256": "1649f3dd9d79c2579d7c9acd3ca0d0d9df102af92c7dca1845c19b33245b063d",
+      "actual_sha256": "1649f3dd9d79c2579d7c9acd3ca0d0d9df102af92c7dca1845c19b33245b063d",
+      "match": true
+    },
+    {
+      "path": "configs/experiments/stage2_cycle6.yaml",
+      "expected_sha256": "4559dcdaa0076f515f97add299dbe66198bc4ea3f5c9ea475482b3e1f0d047da",
+      "actual_sha256": "4559dcdaa0076f515f97add299dbe66198bc4ea3f5c9ea475482b3e1f0d047da",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/security/attack_operator.py",
+      "expected_sha256": "5ae763ff622f561b779de090378435692e85caf49fb08e023db09005f03a5d12",
+      "actual_sha256": "5ae763ff622f561b779de090378435692e85caf49fb08e023db09005f03a5d12",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/analysis/admission_stability.py",
+      "expected_sha256": "9e6aa0145b62b63e896056ae0429b7e637c4be8e1ca9b9648714d1e7c7d3a358",
+      "actual_sha256": "9e6aa0145b62b63e896056ae0429b7e637c4be8e1ca9b9648714d1e7c7d3a358",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/experiments/stage1_research.py",
+      "expected_sha256": "10d24474218882a31dfed27332eb8e7aa1f7620e51a4c6b57adfe8f17caebf0b",
+      "actual_sha256": "10d24474218882a31dfed27332eb8e7aa1f7620e51a4c6b57adfe8f17caebf0b",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/experiments/stage2_research.py",
+      "expected_sha256": "e184ecf09a608a73e1030f7c60376d34a8fc5b63d47b8ba2030fa2cce6a3fe41",
+      "actual_sha256": "e184ecf09a608a73e1030f7c60376d34a8fc5b63d47b8ba2030fa2cce6a3fe41",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/experiments/stage2_cycle6.py",
+      "expected_sha256": "0dcf093281d54714f583241966dd4bdd23edc3d0f5023246e7a7887ef15046f5",
+      "actual_sha256": "0dcf093281d54714f583241966dd4bdd23edc3d0f5023246e7a7887ef15046f5",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/graphs/factory.py",
+      "expected_sha256": "c52b41da74a8593b8772f773f772136e63dc20ac200f3126bf385fc83cd4cc32",
+      "actual_sha256": "c52b41da74a8593b8772f773f772136e63dc20ac200f3126bf385fc83cd4cc32",
+      "match": true
+    },
+    {
+      "path": "tests/unit/test_attack_operator.py",
+      "expected_sha256": "16510da7a676e608ad6223fafb874182684c926868279f8a33a38898ede47cd4",
+      "actual_sha256": "16510da7a676e608ad6223fafb874182684c926868279f8a33a38898ede47cd4",
+      "match": true
+    },
+    {
+      "path": "tests/unit/test_admission_stability.py",
+      "expected_sha256": "06455779b88a616cc5ca004df763bd74f198a607fa608e4e57ea5328522c3901",
+      "actual_sha256": "06455779b88a616cc5ca004df763bd74f198a607fa608e4e57ea5328522c3901",
+      "match": true
+    },
+    {
+      "path": "tests/statistical/test_stage2_research.py",
+      "expected_sha256": "8ef9d3bfff65ec0fb354b66db48ffc7819f406fc79058e8963012ffd771b11e5",
+      "actual_sha256": "8ef9d3bfff65ec0fb354b66db48ffc7819f406fc79058e8963012ffd771b11e5",
+      "match": true
+    },
+    {
+      "path": "tests/statistical/test_stage2_cycle6.py",
+      "expected_sha256": "2a6ef76f4ea3241e401462f7e63099ebfb099e06eb3ece551d60991c5775c17b",
+      "actual_sha256": "2a6ef76f4ea3241e401462f7e63099ebfb099e06eb3ece551d60991c5775c17b",
+      "match": true
+    },
+    {
+      "path": "scripts/run_stage2_cycle6.py",
+      "expected_sha256": "665dde8f4a6935d2218871d78faffde9b410c5344a2adcee8aa19ca3164b5f18",
+      "actual_sha256": "665dde8f4a6935d2218871d78faffde9b410c5344a2adcee8aa19ca3164b5f18",
+      "match": true
+    },
+    {
+      "path": "pyproject.toml",
+      "expected_sha256": "d647a731c7abdda3c90a20bc127ea8f6014b0f778c9e0217e6920aa9e8e64bd8",
+      "actual_sha256": "d647a731c7abdda3c90a20bc127ea8f6014b0f778c9e0217e6920aa9e8e64bd8",
+      "match": true
+    },
+    {
+      "path": "requirements-lock.txt",
+      "expected_sha256": "11c8b553b2c724daf63006bdfbf8821747ec0a46b44e76f59e97addb2805c97c",
+      "actual_sha256": "11c8b553b2c724daf63006bdfbf8821747ec0a46b44e76f59e97addb2805c97c",
+      "match": true
+    }
+  ],
+  "all_frozen_inputs_match": true,
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+    "packages": {
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "pandas": "2.2.3",
+      "networkx": "3.6.1",
+      "matplotlib": "3.10.8"
+    }
+  },
+  "status": "completed",
+  "completed_utc": "2026-08-19T15:09:32.838938+00:00",
+  "summary_path": "results/stage2_cycle6/stage2_cycle6_summary.json",
+  "summary_decisions": {
+    "NH2_T_supported_in_model": false,
+    "NH4_O_supported_in_model": false
+  },
+  "artifacts": [
+    {
+      "path": "results/stage2_cycle6/nh2_metrics.csv",
+      "bytes": 1113,
+      "sha256": "94cc93edf4b964fbac80c6b37af0f51f6ee040358a4b793ae39e45dfe059db1f"
+    },
+    {
+      "path": "results/stage2_cycle6/nh2_predictions.csv",
+      "bytes": 95354,
+      "sha256": "759acf9bcc87f9ae3939a3cc070b66403f9f1f32bc0612b53e0b3b1c4294b7e3"
+    },
+    {
+      "path": "results/stage2_cycle6/nh2_replications.csv",
+      "bytes": 3367087,
+      "sha256": "c2498de76603ed624a209262fd6e65ed99b2244a83fd3e04fd3d3f6e0bcf5261"
+    },
+    {
+      "path": "results/stage2_cycle6/nh2_robustness.csv",
+      "bytes": 811,
+      "sha256": "8028890816e6fd652b9da365f98f863f9ec66588f65de8740e4ddb6a7ff1dac2"
+    },
+    {
+      "path": "results/stage2_cycle6/nh2_scenarios.csv",
+      "bytes": 122782,
+      "sha256": "f9d8b2f34fa5969922be1b2d4abdc07c20c77bec4126632e6af09cdd89ac667d"
+    },
+    {
+      "path": "results/stage2_cycle6/nh4_predictions.csv",
+      "bytes": 14674,
+      "sha256": "31537044e7be8b5827f9ea40d78f18f558888a454523e390e80901433646ba83"
+    },
+    {
+      "path": "results/stage2_cycle6/nh4_replications.csv",
+      "bytes": 2339689,
+      "sha256": "4cea212c01de7092db736025ba7ee5d181f4a5cf3a8b0530ef4c808511669fd3"
+    },
+    {
+      "path": "results/stage2_cycle6/nh4_robustness.csv",
+      "bytes": 654,
+      "sha256": "817353a7dd187dbaa85283f6bde0861121cc0685d646cf5d4919cf84ac3acdb0"
+    },
+    {
+      "path": "results/stage2_cycle6/nh4_scenarios.csv",
+      "bytes": 74213,
+      "sha256": "686e1429385ced374da0f8f6c09df80a8a3db8d16e97c45f4506ff1e60b5e3dd"
+    },
+    {
+      "path": "results/stage2_cycle6/stage2_cycle6_summary.json",
+      "bytes": 8025,
+      "sha256": "c307f74c2c91d2933a41003224feb68d13799d226e960e13830950282f17bbd1"
+    },
+    {
+      "path": "figures/stage2_cycle6/nh2_predictor_mae.png",
+      "bytes": 74181,
+      "sha256": "0ba4ad38e903a353520f55c62339e5ec35eceb983afda1f89a39b48115f46ca8"
+    },
+    {
+      "path": "figures/stage2_cycle6/nh2_temporal_predictor_scatter.png",
+      "bytes": 147263,
+      "sha256": "7eecb1e0d237e297743eae008a93c4dfbef5b21b596d993b132af7a6c66e648c"
+    },
+    {
+      "path": "figures/stage2_cycle6/nh4_lambda_vs_omega.png",
+      "bytes": 101490,
+      "sha256": "9019371665e3ccfd0cdf3be7ee93df60d464a8b0a5920cc64061ca12e0062fe5"
+    },
+    {
+      "path": "figures/stage2_cycle6/nh4_omega_transition.png",
+      "bytes": 102399,
+      "sha256": "35878c2fcac1098841b4bf7c59df5c64030abf0f178f8adcda621610eb731903"
+    },
+    {
+      "path": "figures/stage2_cycle6/nh4_targeted_boundary_curve.png",
+      "bytes": 71360,
+      "sha256": "b1225b7c308f919fb853a79fc056ed6e105113babbd8497a80e9918a4c209851"
+    }
+  ]
+}

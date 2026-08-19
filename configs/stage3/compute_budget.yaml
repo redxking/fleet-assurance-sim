@@ -1,0 +1,27 @@
+engineering_pilot:
+  wall_clock_seconds: 300
+  peak_rss_mb: 2048
+  maximum_output_mb: 250
+  bootstrap_draws: 200
+confirmatory:
+  wall_clock_seconds: 1800
+  peak_rss_mb: 4096
+  maximum_output_mb: 1500
+  bootstrap_draws: 5000
+execution:
+  replication_chunk_size: 5
+  capture_full_trace_scenarios_per_block: 1
+  canonical_trace_fleet_size: 1000
+  canonical_trace_attack_class: shared_image
+  canonical_trace_defense_case: detection_response_shift
+  canonical_trace_replication_index: 0
+  maximum_graph_nodes: 500
+  maximum_graph_edges: 2000
+  graph_representation: sparse
+  random_generation: per_step_and_replication_chunk
+failure_handling:
+  abort_on_frozen_input_change: true
+  refuse_output_overwrite: true
+  retain_partial_partition: true
+  record_failed_seed: true
+  resume_requires_exact_seed_and_hash_match: true

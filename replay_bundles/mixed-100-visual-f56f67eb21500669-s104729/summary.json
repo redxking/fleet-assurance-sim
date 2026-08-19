@@ -1,0 +1,159 @@
+{
+  "configuration_hash": "f56f67eb21500669",
+  "control_plane": {
+    "analytic_erlang_c": {
+      "mean_number_system": 0.30002191599949135,
+      "mean_time_system_s": 0.10000730533316378,
+      "mean_wait_queue_s": 7.3053331637774436e-06,
+      "probability_wait": 0.0002702973270597654,
+      "utilization": 0.075
+    },
+    "completed_authorizations": 171,
+    "little_law_residual": 0.0,
+    "max_queue": 1,
+    "minimum_servers_for_rho_0_70": 1,
+    "observed_mean_number_system": 0.24084743305642758,
+    "observed_mean_sojourn_s": 0.08450787124786932,
+    "observed_utilization": 0.060211858264106896
+  },
+  "cost_energy": {
+    "cost_and_practical_energy_parameter_class": "notional",
+    "landauer_floor_for_logged_message_bits_j": 1.2888444346557569e-14,
+    "practical_cost_per_useful_task_usd": 0.00046282117980292757,
+    "practical_energy_per_useful_task_j": 529.4120287774118
+  },
+  "credentials": {
+    "pairwise_keys": 4950,
+    "sized_capacity_hz": 15,
+    "steady_state_issuance_rate_hz": 3.3333333333333335
+  },
+  "duration_s": 60.0,
+  "event_count": 2441,
+  "event_counts_by_type": {
+    "AUTH_DECISION": 171,
+    "AUTH_REQUEST": 171,
+    "COMPROMISE": 1,
+    "CREDENTIAL_RENEWAL": 202,
+    "DETECTION": 1,
+    "GOSSIP_INFORMED": 99,
+    "GOSSIP_MESSAGE": 754,
+    "GOSSIP_ROUND": 9,
+    "GOSSIP_SEED": 1,
+    "QUARANTINE": 1,
+    "QUEUE_SAMPLE": 513,
+    "RECOVERY": 1,
+    "REVOCATION": 1,
+    "SECURITY_ROUND": 2,
+    "SIMULATION_END": 1,
+    "SIMULATION_START": 1,
+    "TASK_ARRIVAL": 171,
+    "TASK_COMPLETE": 170,
+    "TASK_DISPATCH": 170,
+    "TASK_FAILED": 1
+  },
+  "event_log_digest": "591264358e77548b3380c58ccdb5f85a02fce0db2f6544a946e07b74044de265",
+  "evidence_class": "numerically_demonstrated_stage0_integration_only",
+  "final_state_hash": "4d58da3a22b80dfaac0a6f5488d1a570275eecf8bec511014d31aa5794252f8b",
+  "gossip": {
+    "coverage": 1.0,
+    "messages": 754,
+    "rounds": 9
+  },
+  "graphs": {
+    "authorization": {
+      "algebraic_connectivity": null,
+      "clustering": 0.0,
+      "components": 81,
+      "degree_second_moment": 0.82,
+      "diameter_or_effective_diameter": 10.0,
+      "edges": 19,
+      "mean_degree": 0.38,
+      "n": 100,
+      "representation": "exact",
+      "spectral_radius": 2.3230896505919256
+    },
+    "communication": {
+      "algebraic_connectivity": 1.775270894355042,
+      "clustering": 0.038,
+      "components": 1,
+      "degree_second_moment": 36.0,
+      "diameter_or_effective_diameter": 4.0,
+      "edges": 300,
+      "mean_degree": 6.0,
+      "n": 100,
+      "representation": "exact",
+      "spectral_radius": 5.999999999999997
+    }
+  },
+  "limitations": [
+    "The baseline parameter set is notional.",
+    "This is a Stage 0 integration and replay demonstration, not a fleet assurance conclusion.",
+    "The security process is a finite discrete-time SIR-like containment model.",
+    "The workload, authorization queue, agent service queues, and cost rates are stylized.",
+    "Little's Law is reported as a finite-horizon consistency residual, not a steady-state proof."
+  ],
+  "n_agents": 100,
+  "parameter_class": "notional",
+  "replay_validation": {
+    "passed": true,
+    "replay_state_hash": "4d58da3a22b80dfaac0a6f5488d1a570275eecf8bec511014d31aa5794252f8b",
+    "simulation_state_hash": "4d58da3a22b80dfaac0a6f5488d1a570275eecf8bec511014d31aa5794252f8b",
+    "snapshot_seek_state_hash": "4d58da3a22b80dfaac0a6f5488d1a570275eecf8bec511014d31aa5794252f8b"
+  },
+  "run_id": "mixed-100-visual-f56f67eb21500669-s104729",
+  "scenario_name": "mixed-100-visual",
+  "security": {
+    "authorization_spectral_radius": 2.3230896505919256,
+    "blast_radius_fraction": 0.01,
+    "contained_agents": 1,
+    "containment_delay_s": {
+      "p50": 2.0,
+      "p95": 2.0,
+      "p99": 2.0
+    },
+    "detection_delay_s": {
+      "p50": 2.0,
+      "p95": 2.0,
+      "p99": 2.0
+    },
+    "epidemic_stability_product": 1.4934147753805238,
+    "final_active_compromised": 0,
+    "max_active_compromised": 1,
+    "unique_compromised_agents": 1
+  },
+  "seed": 104729,
+  "tasks": {
+    "arrived": 171,
+    "completed": 170,
+    "latency_s": {
+      "p50": 0.642288001653383,
+      "p95": 2.1898955525983377,
+      "p99": 3.675666414941642
+    },
+    "raw_throughput_hz": 2.8333333333333335,
+    "useful_completed": 170,
+    "useful_latency_s": {
+      "p50": 0.642288001653383,
+      "p95": 2.1898955525983377,
+      "p99": 3.675666414941642
+    },
+    "useful_throughput_hz": 2.8333333333333335
+  },
+  "telemetry": {
+    "apex_rate_bps": 8838.4,
+    "depth": 3,
+    "layer_rates_bps": [
+      200000.0,
+      71040.0,
+      25024.0,
+      8838.4
+    ],
+    "raw_rate_bps": 200000.0
+  },
+  "timing": {
+    "continental_one_way_physics_floor_s": 0.02206526489735776,
+    "continental_round_trip_physics_floor_s": 0.04413052979471552,
+    "final_agent_clock_uncertainty_s": 1e-06
+  },
+  "trace_level": "full"
+}

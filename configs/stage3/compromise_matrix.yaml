@@ -1,0 +1,52 @@
+track: stage3b_phase_separated_compromise
+topologies:
+  training: [random_regular, erdos_renyi]
+  calibration: [random_regular, erdos_renyi]
+  held_out: [barabasi_albert, hierarchical]
+segmentation_policies: [none, partitioned_8_way]
+attack_classes:
+  - direct_exploit
+  - credential_replay
+  - delegated_authority
+  - shared_dependency
+  - shared_image
+  - identity_provider
+defense_shifts:
+  detection_probability: [0.25, 0.55, 0.80]
+  quarantine_delay_steps: [1, 4, 8]
+  revocation_delay_steps: [1, 5, 10]
+  partition_probability: [0.0, 0.05]
+horizon_steps: 40
+mean_out_degree: 4
+replications:
+  engineering_pilot: 2
+  confirmatory: 10
+outbreak_threshold_fraction: 0.10
+initiation_estimators:
+  - static_spectral_radius
+  - static_nonbacktracking
+  - temporal_propagator
+  - dynamic_message_passing
+  - node_hazard_aggregation
+  - calibrated_logistic
+severity_estimators:
+  - reachable_component_fraction
+  - directed_percolation
+  - message_passing_final_size
+  - interpretable_statistical
+  - simulation_derived_conditional_severity
+primary_model:
+  type: phase_separated
+  initiation: dynamic_message_passing
+  severity: message_passing_final_size
+acceptance:
+  minimum_final_size_mae_improvement_fraction: 0.15
+  minimum_outbreak_brier_improvement_fraction: 0.10
+  minimum_positive_blocks: 4
+  bootstrap_improvement_lower_bound_greater_than: 0.0
+  require_unseen_topology_transfer: true
+  require_unseen_scale_transfer: true
+  minimum_transfer_mae_improvement_fraction: 0.0
+  require_paired_defense_scenarios: true
+  maximum_calibration_slope_shift: 0.20
+  generator_predictor_latent_equation_overlap: prohibited

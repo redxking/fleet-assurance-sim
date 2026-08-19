@@ -1,0 +1,149 @@
+{
+  "configuration_hash": "9fa15a3da737d989",
+  "control_plane": {
+    "analytic_erlang_c": {
+      "mean_number_system": 1.0000014896314204,
+      "mean_time_system_s": 0.10000014896314205,
+      "mean_wait_queue_s": 1.4896314204976257e-07,
+      "probability_wait": 1.0427419943483381e-05,
+      "utilization": 0.125
+    },
+    "completed_authorizations": 608,
+    "little_law_residual": 0.002179308094687249,
+    "max_queue": 1,
+    "minimum_servers_for_rho_0_70": 2,
+    "observed_mean_number_system": 0.9544326104577345,
+    "observed_mean_sojourn_s": 0.09397236536477441,
+    "observed_utilization": 0.11930407630721682
+  },
+  "cost_energy": {
+    "cost_and_practical_energy_parameter_class": "notional",
+    "landauer_floor_for_logged_message_bits_j": 1.4323106947178027e-14,
+    "practical_cost_per_useful_task_usd": 0.00020307707978233218,
+    "practical_energy_per_useful_task_j": 1522.842724008934
+  },
+  "credentials": {
+    "pairwise_keys": 499500,
+    "sized_capacity_hz": 15,
+    "steady_state_issuance_rate_hz": 3.3333333333333335
+  },
+  "duration_s": 60.0,
+  "event_count": 4856,
+  "event_counts_by_type": {
+    "AUTH_DECISION": 608,
+    "AUTH_REQUEST": 609,
+    "QUEUE_SAMPLE": 1826,
+    "SIMULATION_END": 1,
+    "SIMULATION_START": 1,
+    "TASK_ARRIVAL": 609,
+    "TASK_COMPLETE": 594,
+    "TASK_DISPATCH": 607,
+    "TASK_FAILED": 1
+  },
+  "event_log_digest": "127cfb43dffa0e9dd5c0a0f87eac5d80385ba7bf3bcb52f798401d255e8c922b",
+  "evidence_class": "numerically_demonstrated_stage0_integration_only",
+  "final_state_hash": "94d1d15d52369e83e16b90ba4d1030787a76c4d721b74997cd9baadfb7d273cf",
+  "gossip": {
+    "coverage": 0.0,
+    "messages": 0,
+    "rounds": 0
+  },
+  "graphs": {
+    "authorization": {
+      "algebraic_connectivity": null,
+      "clustering": 0.0,
+      "components": 938,
+      "degree_second_moment": 0.138,
+      "diameter_or_effective_diameter": 2.0,
+      "edges": 62,
+      "mean_degree": 0.124,
+      "n": 1000,
+      "representation": "exact",
+      "spectral_radius": 1.4142135623730967
+    },
+    "communication": {
+      "algebraic_connectivity": null,
+      "clustering": 0.0025,
+      "components": 1,
+      "degree_second_moment": 16.0,
+      "diameter_or_effective_diameter": 9.0,
+      "edges": 2000,
+      "mean_degree": 4.0,
+      "n": 1000,
+      "representation": "exact",
+      "spectral_radius": 3.9999999999999387
+    }
+  },
+  "limitations": [
+    "The baseline parameter set is notional.",
+    "This is a Stage 0 integration and replay demonstration, not a fleet assurance conclusion.",
+    "The security process is a finite discrete-time SIR-like containment model.",
+    "The workload, authorization queue, agent service queues, and cost rates are stylized.",
+    "Little's Law is reported as a finite-horizon consistency residual, not a steady-state proof."
+  ],
+  "n_agents": 1000,
+  "parameter_class": "notional",
+  "replay_validation": {
+    "passed": true,
+    "replay_state_hash": "94d1d15d52369e83e16b90ba4d1030787a76c4d721b74997cd9baadfb7d273cf",
+    "simulation_state_hash": "94d1d15d52369e83e16b90ba4d1030787a76c4d721b74997cd9baadfb7d273cf",
+    "snapshot_seek_state_hash": "94d1d15d52369e83e16b90ba4d1030787a76c4d721b74997cd9baadfb7d273cf"
+  },
+  "run_id": "low-coordination-1000-stage0-9fa15a3da737d989-s20260819",
+  "scenario_name": "low-coordination-1000-stage0",
+  "security": {
+    "authorization_spectral_radius": 1.4142135623730967,
+    "blast_radius_fraction": 0.0,
+    "contained_agents": 0,
+    "containment_delay_s": {
+      "p50": null,
+      "p95": null,
+      "p99": null
+    },
+    "detection_delay_s": {
+      "p50": null,
+      "p95": null,
+      "p99": null
+    },
+    "epidemic_stability_product": 0.14142135623730948,
+    "final_active_compromised": 0,
+    "max_active_compromised": 0,
+    "unique_compromised_agents": 0
+  },
+  "seed": 20260819,
+  "tasks": {
+    "arrived": 609,
+    "completed": 594,
+    "latency_s": {
+      "p50": 0.8564918500596761,
+      "p95": 3.238055272293847,
+      "p99": 4.784534480703026
+    },
+    "raw_throughput_hz": 9.9,
+    "useful_completed": 591,
+    "useful_latency_s": {
+      "p50": 0.851656513734282,
+      "p95": 3.2156249339159997,
+      "p99": 4.498876094511817
+    },
+    "useful_throughput_hz": 9.85
+  },
+  "telemetry": {
+    "apex_rate_bps": 30734.049999999992,
+    "depth": 4,
+    "layer_rates_bps": [
+      2000000.0,
+      710000.0,
+      249779.99999999997,
+      87582.99999999999,
+      30734.049999999992
+    ],
+    "raw_rate_bps": 2000000.0
+  },
+  "timing": {
+    "continental_one_way_physics_floor_s": 0.02206526489735776,
+    "continental_round_trip_physics_floor_s": 0.04413052979471552,
+    "final_agent_clock_uncertainty_s": 1e-06
+  },
+  "trace_level": "summary"
+}

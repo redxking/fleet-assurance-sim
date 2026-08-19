@@ -1,0 +1,75 @@
+protocol_id: FAS-S3-C1-2026-08-19
+protocol_version: 1.0
+evidence_scope: model_conditioned_synthetic_confirmatory_with_interface_verification_only
+status_before_freeze: frozen_for_confirmatory_execution
+negative_results_preserved:
+  NH2_D: refuted_within_current_model
+  NH2_T_selected_propagator: refuted_within_current_model
+research_tracks:
+  - stage3a_admission_stability
+  - stage3b_phase_separated_compromise
+partitions:
+  training:
+    fleet_sizes: [100, 250, 500]
+  calibration:
+    fleet_sizes: [750]
+  held_out:
+    fleet_sizes: [1000, 10000]
+  independent_blocks: 5
+data_policy:
+  external_measurements_supplied: false
+  calibration_result_label: interface_verification_only
+  raw_format: parquet
+  derived_format: parquet
+  overwrite_existing_execution: false
+  runtime_network_calls: prohibited
+seed_domains:
+  pilot:
+    stage3a: pilot-stage3a
+    stage3a_bootstrap: pilot-stage3a-bootstrap
+    stage3b: pilot-stage3b
+    stage3b_bootstrap: pilot-stage3b-bootstrap
+  confirmatory:
+    stage3a: confirmatory-stage3a
+    stage3a_bootstrap: confirmatory-stage3a-bootstrap
+    stage3b: confirmatory-stage3b
+    stage3b_bootstrap: confirmatory-stage3b-bootstrap
+bootstrap_seed_bases:
+  stage3a: 390260819
+  stage3b: 490260819
+frozen_files:
+  - BASELINE_PROVENANCE.json
+  - docs/stage3_preregistered_protocol.md
+  - docs/stage3_generator_predictor_independence_audit.json
+  - docs/stage3_engineering_pilot_log.md
+  - configs/stage3/protocol.yaml
+  - configs/stage3/admission_matrix.yaml
+  - configs/stage3/compromise_matrix.yaml
+  - configs/stage3/transfer_matrix.yaml
+  - configs/stage3/compute_budget.yaml
+  - manifests/stage3_seed_manifest.csv
+  - schemas/assurance_resource_measurements.schema.json
+  - examples/assurance_resource_measurements_template.csv
+  - pyproject.toml
+  - environment.yml
+  - requirements-lock.txt
+  - requirements-science.txt
+  - requirements-stage3-freeze.txt
+  - src/fleet_sim/calibration/measurements.py
+  - src/fleet_sim/calibration/admission.py
+  - src/fleet_sim/control_plane/resource_network.py
+  - src/fleet_sim/analysis/admission_predictors.py
+  - src/fleet_sim/analysis/phase_separated.py
+  - src/fleet_sim/analysis/predictive_metrics.py
+  - src/fleet_sim/security/attack_trace.py
+  - src/fleet_sim/security/dynamic_message_passing.py
+  - src/fleet_sim/experiments/stage3_protocol.py
+  - src/fleet_sim/experiments/stage3a.py
+  - src/fleet_sim/experiments/stage3b.py
+  - src/fleet_sim/experiments/stage3_runner.py
+  - scripts/freeze_stage3_protocol.py
+  - scripts/run_stage3.py
+frozen_globs:
+  - src/fleet_sim/**/*.py
+  - scripts/*.py
+  - tests/**/*.py

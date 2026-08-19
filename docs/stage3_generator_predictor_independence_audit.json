@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "status": "passed_structural_review",
+  "review_scope": "source_and_interface_non_reuse_review",
+  "review_completed_date": "2026-08-19",
+  "identical_latent_equation_reuse_detected": false,
+  "reviewed_files": [
+    "src/fleet_sim/security/attack_trace.py",
+    "src/fleet_sim/security/dynamic_message_passing.py",
+    "src/fleet_sim/analysis/phase_separated.py",
+    "src/fleet_sim/experiments/stage3b.py"
+  ],
+  "reviewed_file_sha256": {
+    "src/fleet_sim/security/attack_trace.py": "6209f1965f9dffd4433a9164065fcd4a77ef145b96a5fd57834b7f9ba84a2f07",
+    "src/fleet_sim/security/dynamic_message_passing.py": "ed14c59870ecabb85a3ed642ce426803691bc6f646bd8296fb6ace2babd5742e",
+    "src/fleet_sim/analysis/phase_separated.py": "1c34e7145738c5026790753093cdd196f63a3ce94289f4f941e18a3b1079c5c5",
+    "src/fleet_sim/experiments/stage3b.py": "6fd0552314cc247c36ac84ef158ca1700d6c448dfcddc190bcb880ed7c31386a"
+  },
+  "shared_observed_constructs": [
+    "noisy susceptibility estimate",
+    "noisy exploitability estimate",
+    "observed directed layer topology",
+    "observed common-cause node hazard",
+    "declared defense and response profiles"
+  ],
+  "generator_only_constructs_excluded_from_predictor_view": [
+    "latent edge resistance",
+    "latent edge delay",
+    "latent detection propensity",
+    "latent identity-provider exposure",
+    "selected causal events",
+    "attack random draws",
+    "realized compromise and response state"
+  ],
+  "finding": "The generator uses a discrete attacker campaign with hidden resistance, delay, event, and response draws. The DMP predictor uses a separate observation-side transmission operator and calibrated phase models. Review found no identical fitted latent equation reused across generator and predictor.",
+  "limitations": [
+    "The predictor intentionally consumes noisy observations derived from some generator constructs. This is a synthetic sensor model, not statistical independence.",
+    "Structural separation does not establish external validity or implementation security.",
+    "The audit is hash-bound with the reviewed sources at protocol freeze. Any source change invalidates the confirmatory manifest."
+  ]
+}

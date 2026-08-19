@@ -1,0 +1,84 @@
+{
+  "approximation_mode": "full-agent",
+  "configuration_hash": "9fa15a3da737d989",
+  "cpu_count": 5,
+  "dependencies": {
+    "PyYAML": "6.0.3",
+    "matplotlib": "3.10.8",
+    "networkx": "3.6.1",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "plotly": "6.5.2",
+    "pydantic": "2.13.4",
+    "scipy": "1.17.0"
+  },
+  "dirty_tree": null,
+  "end_unix": 1787146106.191336,
+  "event_log_digest": "127cfb43dffa0e9dd5c0a0f87eac5d80385ba7bf3bcb52f798401d255e8c922b",
+  "final_state_hash": "94d1d15d52369e83e16b90ba4d1030787a76c4d721b74997cd9baadfb7d273cf",
+  "host_python_implementation": "CPython",
+  "machine": "x86_64",
+  "manifest_hash": "4fb7b60f3faca2ab85f38ee42da60d763fd10c7fbea142169cf56339bd2767ac",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "processor": "",
+  "python_version": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "random_substreams": {
+    "generator": "NumPy PCG64DXSM",
+    "root_seed": 20260819,
+    "substreams": {
+      "agent_service": [
+        3
+      ],
+      "authorization": [
+        7
+      ],
+      "compromise": [
+        9
+      ],
+      "consensus": [
+        8
+      ],
+      "control_service": [
+        2
+      ],
+      "credentials": [
+        12
+      ],
+      "detection": [
+        10
+      ],
+      "graph_authorization": [
+        5
+      ],
+      "graph_communication": [
+        4
+      ],
+      "network": [
+        6
+      ],
+      "recovery": [
+        11
+      ],
+      "telemetry": [
+        13
+      ],
+      "visualization": [
+        14
+      ],
+      "workload_arrival": [
+        0
+      ],
+      "workload_target": [
+        1
+      ]
+    }
+  },
+  "replay_state_hash": "94d1d15d52369e83e16b90ba4d1030787a76c4d721b74997cd9baadfb7d273cf",
+  "run_id": "low-coordination-1000-stage0-9fa15a3da737d989-s20260819",
+  "seed": 20260819,
+  "source_control_commit": null,
+  "start_unix": 1787146105.155891,
+  "system_memory_bytes": 6368813056,
+  "trace_level": "summary",
+  "wall_clock_s": 1.035444974899292
+}

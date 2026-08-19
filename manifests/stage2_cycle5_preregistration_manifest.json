@@ -1,0 +1,25 @@
+{
+  "protocol_id": "FAS-S2-C5-2026-08-19",
+  "manifest_revision": 2,
+  "status": "frozen before first successful result block",
+  "primary_seed": 20260820,
+  "replication_of": "FAS-S2-C4-2026-08-19",
+  "governing_protocol": "docs/stage2_cycle5_replication_protocol.md",
+  "files": {
+    "docs/stage2_cycle5_replication_protocol.md": "a929fb66639be4d203c6caf0b180d9f743f182f7ae06a75581b426b8bebf98d1",
+    "docs/stage2_cycle5_protocol_selection.md": "9f381c33af71ff6806650b75412459655d89fcde48e2c5b37f09af9ad303cd25",
+    "docs/stage2_cycle5_execution_deviation.md": "5158c65ca75a348c7d8e009a26a088850c74dedee6ab8d82c99943f18c4705a1",
+    "configs/experiments/stage2_cycle5.yaml": "4ee4b77f51b40eb9f1730c9c57977ed5c56d4288bd407e5a9a7b58714e095053",
+    "src/fleet_sim/security/attack_operator.py": "5ae763ff622f561b779de090378435692e85caf49fb08e023db09005f03a5d12",
+    "src/fleet_sim/analysis/admission_stability.py": "9e6aa0145b62b63e896056ae0429b7e637c4be8e1ca9b9648714d1e7c7d3a358",
+    "src/fleet_sim/experiments/stage2_research.py": "e184ecf09a608a73e1030f7c60376d34a8fc5b63d47b8ba2030fa2cce6a3fe41",
+    "src/fleet_sim/experiments/stage2_cycle5.py": "78f2d70a232b13b92e107d391a166b6fb80e88998f20ab28bedcde4be895ba75",
+    "scripts/run_stage2_cycle5.py": "a04d0fd1dbd4ff973ab23c6555e6dd7e5b429612388659a1e0dd99b384942d93",
+    "scripts/run_stage2_cycle5_partitioned.py": "046627d95e53354f2c28f98cd7b8335c489459e347916acc920d65e25ed393a1",
+    "tests/unit/test_attack_operator.py": "16510da7a676e608ad6223fafb874182684c926868279f8a33a38898ede47cd4",
+    "tests/unit/test_admission_stability.py": "06455779b88a616cc5ca004df763bd74f198a607fa608e4e57ea5328522c3901",
+    "tests/statistical/test_stage2_research.py": "8ef9d3bfff65ec0fb354b66db48ffc7819f406fc79058e8963012ffd771b11e5",
+    "pyproject.toml": "d647a731c7abdda3c90a20bc127ea8f6014b0f778c9e0217e6920aa9e8e64bd8",
+    "requirements-lock.txt": "11c8b553b2c724daf63006bdfbf8821747ec0a46b44e76f59e97addb2805c97c"
+  }
+}

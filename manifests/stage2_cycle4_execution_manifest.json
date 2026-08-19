@@ -1,0 +1,185 @@
+{
+  "protocol_id": "FAS-S2-C4-2026-08-19",
+  "primary_seed": 20260819,
+  "execution_exit_code": 0,
+  "frozen_input_hashes_verified": {
+    "docs/stage2_cycle4_preregistered_protocol.md": true,
+    "configs/experiments/stage2_cycle4.yaml": true,
+    "src/fleet_sim/security/attack_operator.py": false,
+    "src/fleet_sim/analysis/admission_stability.py": true,
+    "src/fleet_sim/experiments/stage2_research.py": true,
+    "tests/unit/test_attack_operator.py": false,
+    "tests/unit/test_admission_stability.py": true,
+    "tests/statistical/test_stage2_research.py": true
+  },
+  "all_frozen_inputs_match": false,
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41"
+  },
+  "artifacts": {
+    "results/stage2_cycle4/nh2_directed_replications.csv": {
+      "sha256": "af376b08fad94515fcee0895592a4297317c30ed272ab6f704a027648ca2677f",
+      "bytes": 9508442
+    },
+    "results/stage2_cycle4/nh2_directed_scenarios.csv": {
+      "sha256": "d9a9945bc225a57c37d5347773b2a5de4e3fdf091400f4a61f467630b5909cfd",
+      "bytes": 356861
+    },
+    "results/stage2_cycle4/nh2_predictor_metrics.csv": {
+      "sha256": "6ca8752f9cd9ca2cb98ce804a8972f5b1b8e13e251efa7e7e1c8342d15c9bcd6",
+      "bytes": 1169
+    },
+    "results/stage2_cycle4/nh2_robustness.csv": {
+      "sha256": "a9265395fdaab1454e223f953fce35d0211678f48d6ea7131e55c9793982290d",
+      "bytes": 595
+    },
+    "results/stage2_cycle4/nh4_admission_replications.csv": {
+      "sha256": "2cf366b596a71869412eb88d122429b503f844b60cfbda4d06ad60573fcc772c",
+      "bytes": 3078251
+    },
+    "results/stage2_cycle4/nh4_admission_scenarios.csv": {
+      "sha256": "07eb9144eb9d45f92dfbd60f6703275eb5b43b9c348c39a0b417d84cfb040fda",
+      "bytes": 98185
+    },
+    "results/stage2_cycle4/nh4_predictor_metrics.csv": {
+      "sha256": "ad187c3b2369ea212f109dce7dae6d2cab86fe8de7fb1615394b4563cc19ad8b",
+      "bytes": 360
+    },
+    "results/stage2_cycle4/nh4_robustness.csv": {
+      "sha256": "4fc12edeb26ad0a3c41c38dad48106a6cc782da8ee0eb33fef5f57f9061ecedf",
+      "bytes": 380
+    },
+    "results/stage2_cycle4/nh4_thresholds.csv": {
+      "sha256": "7e3d4f25ae248dcb6b72f7b2860006c3a95751fd62bcddfa1998e4f0ac529fb4",
+      "bytes": 507
+    },
+    "results/stage2_cycle4/stage2_cycle4_summary.json": {
+      "sha256": "1f94bbf1bb996f23ecb2310320e5fb6b5c7eb530ac4d92adcaa1abf8d6742e5e",
+      "bytes": 3546
+    },
+    "figures/stage2_cycle4/nh2_dynamic_operator_prediction.png": {
+      "sha256": "375a610489a1e3ab4f55baf0faa6812c1906c93a9ee18fbe18c2182aa1f81828",
+      "bytes": 105955
+    },
+    "figures/stage2_cycle4/nh2_predictor_ablation_mae.png": {
+      "sha256": "b620a273b9d3fd6ad77f6cd0d1765500ea3dd54e9d1441142c0852dfbff4258a",
+      "bytes": 120851
+    },
+    "figures/stage2_cycle4/nh4_lambda_omega_phase_space.png": {
+      "sha256": "86c1540bf9f2255c62000dd9dc38dd00f04b70ed129c1496ff5427ae28b96dee",
+      "bytes": 91576
+    },
+    "figures/stage2_cycle4/nh4_omega_failure_frontier.png": {
+      "sha256": "1e031696f5d04729d88b3266f1151e8ccc96cd6479a8f8e65ff6024072061e6e",
+      "bytes": 76865
+    },
+    "figures/stage2_cycle4/nh4_predictor_brier.png": {
+      "sha256": "6054a3f508a8a98e419fcbfa5e3322847ab92c8fa14ddb51a53e395a8bfdde57",
+      "bytes": 72034
+    }
+  },
+  "summary": {
+    "date": "2026-08-19",
+    "seed": 20260819,
+    "evidence_scope": "notional parameters; model-conditioned; no external validation",
+    "protocol": "docs/stage2_cycle4_preregistered_protocol.md",
+    "NH2_D": {
+      "best_baseline_mae_predictor": "nonbacktracking",
+      "best_baseline_auc_predictor": "nonbacktracking",
+      "best_baseline_brier_predictor": "nonbacktracking",
+      "dynamic_mae": 0.040589436781162884,
+      "best_baseline_mae": 0.03979203431597552,
+      "mae_improvement_fraction": -0.020039248530383028,
+      "dynamic_auc": 0.7005347593582888,
+      "best_baseline_auc": 0.9641711229946524,
+      "auc_delta": -0.26363636363636356,
+      "dynamic_brier": 0.01766199526835176,
+      "best_baseline_brier": 0.009861513739400815,
+      "brier_improvement_fraction": -0.7910024500381523,
+      "positive_robustness_blocks": 0,
+      "dependency_ablation_degrades": false,
+      "bootstrap_95pct": {
+        "mae_improvement": [
+          -0.1347546615575576,
+          0.08018865787292076
+        ],
+        "auc_delta": [
+          -0.716439494680851,
+          -0.01066532028672204
+        ],
+        "brier_improvement": [
+          -1.4155181488569213,
+          -0.3369509102314975
+        ]
+      },
+      "criteria": {
+        "mae_improvement_at_least_15pct": false,
+        "auc_delta_at_least_0_03": false,
+        "brier_improves": false,
+        "four_of_five_positive_robustness_blocks": false,
+        "dependency_ablation_degrades": false
+      },
+      "supported_in_model": false
+    },
+    "NH4_A": {
+      "omega_auc": 0.5,
+      "peak_lambda_auc": 0.5,
+      "auc_delta": 0.0,
+      "omega_brier": 0.0002657153530824155,
+      "peak_lambda_brier": 0.0006921260617337836,
+      "brier_improvement_fraction": 0.6160882131547026,
+      "omega_one_balanced_accuracy": 0.75,
+      "threshold_cv": NaN,
+      "valid_threshold_groups": 0,
+      "positive_seed_blocks": 0,
+      "bootstrap_95pct": {
+        "auc_delta": [
+          0.0,
+          0.0
+        ],
+        "brier_improvement": [
+          -9.248826769413915,
+          0.8905189639395343
+        ]
+      },
+      "criteria": {
+        "auc_delta_at_least_0_05": false,
+        "brier_reduction_at_least_15pct": true,
+        "omega_one_balanced_accuracy_at_least_0_80": false,
+        "threshold_cv_no_more_than_0_20": false,
+        "four_of_five_positive_seed_blocks": false
+      },
+      "supported_in_model": false
+    },
+    "assessments": [
+      {
+        "hypothesis": "NH2-D",
+        "supported_in_model": false,
+        "evidence_level": "model-conditioned",
+        "primary_result": "Dynamic K(t) held-out MAE improvement -2.0% and AUC delta -0.264.",
+        "limitations": "The propagation substrate remains synthetic. Candidate features are separated from latent hazards, but no observed incident data are used."
+      },
+      {
+        "hypothesis": "NH4-A",
+        "supported_in_model": false,
+        "evidence_level": "analytic plus model-conditioned",
+        "primary_result": "Omega_A held-out AUC delta 0.000, Brier improvement 61.6%.",
+        "limitations": "The reflected backlog formula is established queue mathematics. Novelty, if any, is limited to its assurance-resource composition and transfer behavior."
+      }
+    ],
+    "figures": [
+      "figures/stage2_cycle4/nh2_dynamic_operator_prediction.png",
+      "figures/stage2_cycle4/nh2_predictor_ablation_mae.png",
+      "figures/stage2_cycle4/nh4_omega_failure_frontier.png",
+      "figures/stage2_cycle4/nh4_lambda_omega_phase_space.png",
+      "figures/stage2_cycle4/nh4_predictor_brier.png"
+    ],
+    "dataset_counts": {
+      "nh2_replications": 34560,
+      "nh2_scenarios": 1152,
+      "nh4_replications": 12480,
+      "nh4_scenarios": 416
+    }
+  }
+}

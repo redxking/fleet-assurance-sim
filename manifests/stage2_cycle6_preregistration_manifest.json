@@ -1,0 +1,29 @@
+{
+  "protocol_id": "FAS-S2-C6-2026-08-19",
+  "manifest_revision": 1,
+  "status": "frozen before first confirmatory execution",
+  "primary_seed": 20260821,
+  "predecessors": {
+    "cycle4": "diagnostic only due frozen-input mismatch",
+    "cycle5": "valid independent-seed replication; NH2-D refuted and NH4-A unsupported"
+  },
+  "engineering_pilot": "excluded by docs/stage2_cycle6_pilot_disposition.md",
+  "files": {
+    "docs/stage2_cycle6_preregistered_protocol.md": "045596a64277f714c682966e6985f2b899ecc708a5ee9abfc775d18251cedf02",
+    "docs/stage2_cycle6_pilot_disposition.md": "1649f3dd9d79c2579d7c9acd3ca0d0d9df102af92c7dca1845c19b33245b063d",
+    "configs/experiments/stage2_cycle6.yaml": "4559dcdaa0076f515f97add299dbe66198bc4ea3f5c9ea475482b3e1f0d047da",
+    "src/fleet_sim/security/attack_operator.py": "5ae763ff622f561b779de090378435692e85caf49fb08e023db09005f03a5d12",
+    "src/fleet_sim/analysis/admission_stability.py": "9e6aa0145b62b63e896056ae0429b7e637c4be8e1ca9b9648714d1e7c7d3a358",
+    "src/fleet_sim/experiments/stage1_research.py": "10d24474218882a31dfed27332eb8e7aa1f7620e51a4c6b57adfe8f17caebf0b",
+    "src/fleet_sim/experiments/stage2_research.py": "e184ecf09a608a73e1030f7c60376d34a8fc5b63d47b8ba2030fa2cce6a3fe41",
+    "src/fleet_sim/experiments/stage2_cycle6.py": "0dcf093281d54714f583241966dd4bdd23edc3d0f5023246e7a7887ef15046f5",
+    "src/fleet_sim/graphs/factory.py": "c52b41da74a8593b8772f773f772136e63dc20ac200f3126bf385fc83cd4cc32",
+    "tests/unit/test_attack_operator.py": "16510da7a676e608ad6223fafb874182684c926868279f8a33a38898ede47cd4",
+    "tests/unit/test_admission_stability.py": "06455779b88a616cc5ca004df763bd74f198a607fa608e4e57ea5328522c3901",
+    "tests/statistical/test_stage2_research.py": "8ef9d3bfff65ec0fb354b66db48ffc7819f406fc79058e8963012ffd771b11e5",
+    "tests/statistical/test_stage2_cycle6.py": "2a6ef76f4ea3241e401462f7e63099ebfb099e06eb3ece551d60991c5775c17b",
+    "scripts/run_stage2_cycle6.py": "665dde8f4a6935d2218871d78faffde9b410c5344a2adcee8aa19ca3164b5f18",
+    "pyproject.toml": "d647a731c7abdda3c90a20bc127ea8f6014b0f778c9e0217e6920aa9e8e64bd8",
+    "requirements-lock.txt": "11c8b553b2c724daf63006bdfbf8821747ec0a46b44e76f59e97addb2805c97c"
+  }
+}

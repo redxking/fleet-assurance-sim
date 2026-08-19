@@ -1,0 +1,26 @@
+{
+  "artifacts": [
+    {
+      "path": "raw/stage3a_replications.parquet",
+      "sha256": "426e9efb08dfe9bd628e7467632db9292806c69f0a434eb52ca911cee81dd53c"
+    },
+    {
+      "path": "derived/stage3a_scenarios.parquet",
+      "sha256": "852c9b44a6363ff12ca07df433733effb1132fcbb1aecbbdefd531fdb898487f"
+    },
+    {
+      "path": "stage3a_summary.json",
+      "sha256": "0451d39c4c6d81fc3c29a35b95978b8bc64e638fe7cc9b31caa14056b69adb45"
+    },
+    {
+      "path": "traces/stage3a_resource_timeseries.parquet",
+      "sha256": "6967901e1dc3f241466bcd8533589ea09ecd863e49f0d1bf40ac5178ab839ef9"
+    },
+    {
+      "path": "traces/stage3a_admission_timeseries.parquet",
+      "sha256": "88ed5fd38e1230ce8b25800b9b5b2bfa3de82efc438af699bb6e7e1b5adc2b52"
+    }
+  ],
+  "experiment_id": "stage3a-6662ec7d600b6d42",
+  "root_seed": 6126999597321121322
+}

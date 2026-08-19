@@ -1,0 +1,2237 @@
+{
+  "evidence_scope": "model_conditioned_synthetic_confirmatory_with_interface_verification_only",
+  "execution": {
+    "actual_command_argv": [
+      "/Users/angelispseftis/Desktop/Research/Sim Fleet Scaling/fleet-assurance-stage3-working/.venv-stage3-verify/bin/python",
+      "scripts/run_stage3.py",
+      "--mode",
+      "confirmatory",
+      "--execution-id",
+      "stage3-confirmatory-20260819-01",
+      "--stage3a-replications",
+      "12",
+      "--stage3b-replications",
+      "10",
+      "--bootstrap-draws",
+      "5000"
+    ],
+    "completed_utc": "2026-08-19T18:56:12.998310+00:00",
+    "cpu_seconds": 350.41781,
+    "environment": {
+      "machine": "arm64",
+      "packages": {
+        "PyYAML": "6.0.3",
+        "matplotlib": "3.10.8",
+        "networkx": "3.6.1",
+        "numpy": "2.3.5",
+        "pandas": "2.2.3",
+        "pyarrow": "25.0.1",
+        "pydantic": "2.13.4",
+        "scipy": "1.17.0"
+      },
+      "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+      "python": "3.13.0 (v3.13.0:60403a5409f, Oct  7 2024, 00:37:40) [Clang 15.0.0 (clang-1500.3.9.4)]",
+      "thread_controls": {
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1"
+      }
+    },
+    "execution_id": "stage3-confirmatory-20260819-01",
+    "mode": "confirmatory",
+    "output_mb_before_evidence": 22.536619186401367,
+    "peak_rss_mb": 1092.5625,
+    "runtime_budget": {
+      "maximum_output_mb": 1500.0,
+      "peak_rss_mb": 4096.0,
+      "wall_clock_seconds": 1800.0
+    },
+    "started_utc": "2026-08-19T18:50:20.028139+00:00",
+    "wall_clock_seconds": 352.97016516700387
+  },
+  "limitations": [
+    "All outcomes in this execution are synthetic and model-conditioned.",
+    "The calibration interface used only the included synthetic template.",
+    "No result establishes implementation security or deployment assurance.",
+    "The attack generator is a separate implementation with a bounded observed view, not external operational evidence."
+  ],
+  "negative_results_preserved": {
+    "NH2_D": "refuted_within_current_model",
+    "NH2_T_selected_propagator": "refuted_within_current_model"
+  },
+  "protocol": {
+    "bootstrap_seeds": {
+      "stage3a": 7523257667172866170,
+      "stage3b_final_size": 11430195582013312250,
+      "stage3b_outbreak_brier": 11430195582013312251
+    },
+    "declared_evidence_scope": "model_conditioned_synthetic_confirmatory_with_interface_verification_only",
+    "engineering_input_snapshot": null,
+    "execution_contract": {
+      "bootstrap_draws": 5000,
+      "bootstrap_seed_bases": {
+        "stage3a": 390260819,
+        "stage3b": 490260819
+      },
+      "command_argv": [
+        ".venv-stage3-verify/bin/python",
+        "scripts/run_stage3.py",
+        "--mode",
+        "confirmatory",
+        "--execution-id",
+        "stage3-confirmatory-20260819-01",
+        "--stage3a-replications",
+        "12",
+        "--stage3b-replications",
+        "10",
+        "--bootstrap-draws",
+        "5000"
+      ],
+      "execution_id": "stage3-confirmatory-20260819-01",
+      "network_access": "prohibited",
+      "overwrite_existing_execution": false,
+      "seed_domains": {
+        "stage3a": "confirmatory-stage3a",
+        "stage3a_bootstrap": "confirmatory-stage3a-bootstrap",
+        "stage3b": "confirmatory-stage3b",
+        "stage3b_bootstrap": "confirmatory-stage3b-bootstrap"
+      },
+      "seed_manifest": "manifests/stage3_seed_manifest.csv",
+      "stage3a_replications_per_scenario": 12,
+      "stage3b_replications_per_scenario": 10,
+      "stopping_rules": {
+        "bootstrap_draws": 5000,
+        "maximum_output_mb": 1500,
+        "peak_rss_mb": 4096,
+        "wall_clock_seconds": 1800
+      }
+    },
+    "frozen_input_checks": [
+      {
+        "actual_sha256": "36f7971810a9a281b7b4ac556642b2f782dba00309324568571697d12701f322",
+        "expected_sha256": "36f7971810a9a281b7b4ac556642b2f782dba00309324568571697d12701f322",
+        "match": true,
+        "path": "BASELINE_PROVENANCE.json"
+      },
+      {
+        "actual_sha256": "a6ca413de6834a89f73d814557cac5632a8e0407b801c7143352a09f316da348",
+        "expected_sha256": "a6ca413de6834a89f73d814557cac5632a8e0407b801c7143352a09f316da348",
+        "match": true,
+        "path": "configs/stage3/admission_matrix.yaml"
+      },
+      {
+        "actual_sha256": "78b730b4a16318560a85f652475c23656a9234d3f91d621e78fdc7356a14be58",
+        "expected_sha256": "78b730b4a16318560a85f652475c23656a9234d3f91d621e78fdc7356a14be58",
+        "match": true,
+        "path": "configs/stage3/compromise_matrix.yaml"
+      },
+      {
+        "actual_sha256": "c2ff6c132b2841ec65cc2f50cab5c6ab564003db98ed05b6ebaacca96062d855",
+        "expected_sha256": "c2ff6c132b2841ec65cc2f50cab5c6ab564003db98ed05b6ebaacca96062d855",
+        "match": true,
+        "path": "configs/stage3/compute_budget.yaml"
+      },
+      {
+        "actual_sha256": "7b6dcd3f8478229e49c239a762ca3f15ba9de13c504a6a2aa6c95e5d998e9f15",
+        "expected_sha256": "7b6dcd3f8478229e49c239a762ca3f15ba9de13c504a6a2aa6c95e5d998e9f15",
+        "match": true,
+        "path": "configs/stage3/protocol.yaml"
+      },
+      {
+        "actual_sha256": "e39302eeb218ab1a5533488d26ee24cdfc3c303dbec41d7570983d3d2e66267b",
+        "expected_sha256": "e39302eeb218ab1a5533488d26ee24cdfc3c303dbec41d7570983d3d2e66267b",
+        "match": true,
+        "path": "configs/stage3/transfer_matrix.yaml"
+      },
+      {
+        "actual_sha256": "f5746be77e85c0bc3c5721bd86804142a53ec4416dfa85945b0867a024963f17",
+        "expected_sha256": "f5746be77e85c0bc3c5721bd86804142a53ec4416dfa85945b0867a024963f17",
+        "match": true,
+        "path": "docs/stage3_engineering_pilot_log.md"
+      },
+      {
+        "actual_sha256": "af35171f93659f19cd7b682ecfb4168ce01d1196dbf35dea87cb31af6d57bfeb",
+        "expected_sha256": "af35171f93659f19cd7b682ecfb4168ce01d1196dbf35dea87cb31af6d57bfeb",
+        "match": true,
+        "path": "docs/stage3_generator_predictor_independence_audit.json"
+      },
+      {
+        "actual_sha256": "2a5ce8b93f55c1f2294b3126797d35d5be27ea031899648f52eaf1f3305fdab3",
+        "expected_sha256": "2a5ce8b93f55c1f2294b3126797d35d5be27ea031899648f52eaf1f3305fdab3",
+        "match": true,
+        "path": "docs/stage3_preregistered_protocol.md"
+      },
+      {
+        "actual_sha256": "193a15f514186279ba0782494b41a11280cc41b75827fd5ba38b678aaf6ca797",
+        "expected_sha256": "193a15f514186279ba0782494b41a11280cc41b75827fd5ba38b678aaf6ca797",
+        "match": true,
+        "path": "environment.yml"
+      },
+      {
+        "actual_sha256": "760860a54906d2b07d30e3f7fdbcb33659cacd5ba64250a334c012580f7763cf",
+        "expected_sha256": "760860a54906d2b07d30e3f7fdbcb33659cacd5ba64250a334c012580f7763cf",
+        "match": true,
+        "path": "examples/assurance_resource_measurements_template.csv"
+      },
+      {
+        "actual_sha256": "29dbd0100e6c6c8eb851ee06ed10917ab4eb6b3ab580c55497a55e0d4f2ba77a",
+        "expected_sha256": "29dbd0100e6c6c8eb851ee06ed10917ab4eb6b3ab580c55497a55e0d4f2ba77a",
+        "match": true,
+        "path": "manifests/stage3_seed_manifest.csv"
+      },
+      {
+        "actual_sha256": "f9423eb37fd9d913296b21f2ae66134edde6aea8a6fafca7761f333dcbd8f773",
+        "expected_sha256": "f9423eb37fd9d913296b21f2ae66134edde6aea8a6fafca7761f333dcbd8f773",
+        "match": true,
+        "path": "pyproject.toml"
+      },
+      {
+        "actual_sha256": "dd49fc8e343eeebdba363f51a382226c133ce2a24ab7e8f0e92df654499268af",
+        "expected_sha256": "dd49fc8e343eeebdba363f51a382226c133ce2a24ab7e8f0e92df654499268af",
+        "match": true,
+        "path": "requirements-lock.txt"
+      },
+      {
+        "actual_sha256": "d9258a22237503631b78bb300a17bc7bc5c985a0866d61a143431f5566284851",
+        "expected_sha256": "d9258a22237503631b78bb300a17bc7bc5c985a0866d61a143431f5566284851",
+        "match": true,
+        "path": "requirements-science.txt"
+      },
+      {
+        "actual_sha256": "bc2bc3bac13f3c4af83444b02c278159f0f705cc281e061908fef6c960d19e92",
+        "expected_sha256": "bc2bc3bac13f3c4af83444b02c278159f0f705cc281e061908fef6c960d19e92",
+        "match": true,
+        "path": "requirements-stage3-freeze.txt"
+      },
+      {
+        "actual_sha256": "8637f37ccae83830034f5b09200a131556bcd4a931111c75ea27513403f1588b",
+        "expected_sha256": "8637f37ccae83830034f5b09200a131556bcd4a931111c75ea27513403f1588b",
+        "match": true,
+        "path": "schemas/assurance_resource_measurements.schema.json"
+      },
+      {
+        "actual_sha256": "8afa4509e4e2c94edc512deb4f922c476fbc275c7b2654c828accc77a9434e4b",
+        "expected_sha256": "8afa4509e4e2c94edc512deb4f922c476fbc275c7b2654c828accc77a9434e4b",
+        "match": true,
+        "path": "scripts/build_stage0.py"
+      },
+      {
+        "actual_sha256": "337ce98354b45fd6d4e80ac4b34487128cec9d8a8683333136ba60da2d46bbe9",
+        "expected_sha256": "337ce98354b45fd6d4e80ac4b34487128cec9d8a8683333136ba60da2d46bbe9",
+        "match": true,
+        "path": "scripts/build_stage1_research_console.py"
+      },
+      {
+        "actual_sha256": "1eaf17ce9eeabb26e27abd5577f56f6bfe5d064e87ad59d9894685d7e573381d",
+        "expected_sha256": "1eaf17ce9eeabb26e27abd5577f56f6bfe5d064e87ad59d9894685d7e573381d",
+        "match": true,
+        "path": "scripts/build_stage2_evidence_console.py"
+      },
+      {
+        "actual_sha256": "16e4ed5573c4c843612bded38efd527b6db7e9575b637400030c6003b71a27d5",
+        "expected_sha256": "16e4ed5573c4c843612bded38efd527b6db7e9575b637400030c6003b71a27d5",
+        "match": true,
+        "path": "scripts/build_stage2_research_console.py"
+      },
+      {
+        "actual_sha256": "dc657d26bbe339dd741f1bf4ba4ad8e3f6570a3ed94d32ebd4b7f309be74ddf9",
+        "expected_sha256": "dc657d26bbe339dd741f1bf4ba4ad8e3f6570a3ed94d32ebd4b7f309be74ddf9",
+        "match": true,
+        "path": "scripts/build_stage3_evidence_console.py"
+      },
+      {
+        "actual_sha256": "df4a6c97b8bea6762c781352305aa5db52806c91f9b778e0bac0097f2f64f96e",
+        "expected_sha256": "df4a6c97b8bea6762c781352305aa5db52806c91f9b778e0bac0097f2f64f96e",
+        "match": true,
+        "path": "scripts/calibrate_admission_model.py"
+      },
+      {
+        "actual_sha256": "4a37296c64a2eefa88409b61e8d928781df031101803eaceb8ca6a450a2c4a19",
+        "expected_sha256": "4a37296c64a2eefa88409b61e8d928781df031101803eaceb8ca6a450a2c4a19",
+        "match": true,
+        "path": "scripts/freeze_stage3_protocol.py"
+      },
+      {
+        "actual_sha256": "4c05a4e5c49c7d829bc63aca0741a388d5b59abdbed40f983ce446d2c370a33b",
+        "expected_sha256": "4c05a4e5c49c7d829bc63aca0741a388d5b59abdbed40f983ce446d2c370a33b",
+        "match": true,
+        "path": "scripts/import_assurance_measurements.py"
+      },
+      {
+        "actual_sha256": "48d56e7822860f0eb86a53b07106412793ca3b17bc6f8648de02876b45da8b12",
+        "expected_sha256": "48d56e7822860f0eb86a53b07106412793ca3b17bc6f8648de02876b45da8b12",
+        "match": true,
+        "path": "scripts/package_release.py"
+      },
+      {
+        "actual_sha256": "fb2fe697434e060c30aee1a14a9fc835297326b4dbd08d042591218c49ff18f4",
+        "expected_sha256": "fb2fe697434e060c30aee1a14a9fc835297326b4dbd08d042591218c49ff18f4",
+        "match": true,
+        "path": "scripts/run_stage1_cycle1.py"
+      },
+      {
+        "actual_sha256": "8401719e3e525c73132d29122264f3f5f9eeb9174e48c43462d2ce750c43acaf",
+        "expected_sha256": "8401719e3e525c73132d29122264f3f5f9eeb9174e48c43462d2ce750c43acaf",
+        "match": true,
+        "path": "scripts/run_stage1_cycle2.py"
+      },
+      {
+        "actual_sha256": "93fe14204f87dd7c8c9f15afa940ba1ee76876def6bda70742897c01c869e8ae",
+        "expected_sha256": "93fe14204f87dd7c8c9f15afa940ba1ee76876def6bda70742897c01c869e8ae",
+        "match": true,
+        "path": "scripts/run_stage1_robustness.py"
+      },
+      {
+        "actual_sha256": "3d02e9834fefa024a9f9cadf26c82dbaef265cfb0ed6e20759289fe10fba43c7",
+        "expected_sha256": "3d02e9834fefa024a9f9cadf26c82dbaef265cfb0ed6e20759289fe10fba43c7",
+        "match": true,
+        "path": "scripts/run_stage2_cycle4.py"
+      },
+      {
+        "actual_sha256": "a04d0fd1dbd4ff973ab23c6555e6dd7e5b429612388659a1e0dd99b384942d93",
+        "expected_sha256": "a04d0fd1dbd4ff973ab23c6555e6dd7e5b429612388659a1e0dd99b384942d93",
+        "match": true,
+        "path": "scripts/run_stage2_cycle5.py"
+      },
+      {
+        "actual_sha256": "046627d95e53354f2c28f98cd7b8335c489459e347916acc920d65e25ed393a1",
+        "expected_sha256": "046627d95e53354f2c28f98cd7b8335c489459e347916acc920d65e25ed393a1",
+        "match": true,
+        "path": "scripts/run_stage2_cycle5_partitioned.py"
+      },
+      {
+        "actual_sha256": "665dde8f4a6935d2218871d78faffde9b410c5344a2adcee8aa19ca3164b5f18",
+        "expected_sha256": "665dde8f4a6935d2218871d78faffde9b410c5344a2adcee8aa19ca3164b5f18",
+        "match": true,
+        "path": "scripts/run_stage2_cycle6.py"
+      },
+      {
+        "actual_sha256": "41ff23b26be16598bb3dc2c885f5b36efd217dea0817f0f411076d7b5d6d544b",
+        "expected_sha256": "41ff23b26be16598bb3dc2c885f5b36efd217dea0817f0f411076d7b5d6d544b",
+        "match": true,
+        "path": "scripts/run_stage2_cycle7.py"
+      },
+      {
+        "actual_sha256": "7dfbaa79e12e1d504d7c350208a9c98188f803f5224eabfff352cb41cc58b6f5",
+        "expected_sha256": "7dfbaa79e12e1d504d7c350208a9c98188f803f5224eabfff352cb41cc58b6f5",
+        "match": true,
+        "path": "scripts/run_stage2_research.py"
+      },
+      {
+        "actual_sha256": "dd6ccc675647fb6d70f3e18bca6b89de7a5598f2ed737d58537badaf5d11eca3",
+        "expected_sha256": "dd6ccc675647fb6d70f3e18bca6b89de7a5598f2ed737d58537badaf5d11eca3",
+        "match": true,
+        "path": "scripts/run_stage3.py"
+      },
+      {
+        "actual_sha256": "c273c99a0f544a7766b895ef76de4e331491935cbeb5cdc5880a2a35143e6c03",
+        "expected_sha256": "c273c99a0f544a7766b895ef76de4e331491935cbeb5cdc5880a2a35143e6c03",
+        "match": true,
+        "path": "scripts/verify_local_install.py"
+      },
+      {
+        "actual_sha256": "6d87c408290dec305d9d45f1f5bad351c015a788e03e2f03f7d8f3df127cdc03",
+        "expected_sha256": "6d87c408290dec305d9d45f1f5bad351c015a788e03e2f03f7d8f3df127cdc03",
+        "match": true,
+        "path": "src/fleet_sim/__init__.py"
+      },
+      {
+        "actual_sha256": "f7483d2c634b4a13c6ce441e57a7b564e77def328d4e6a5aabf38c128b459c1e",
+        "expected_sha256": "f7483d2c634b4a13c6ce441e57a7b564e77def328d4e6a5aabf38c128b459c1e",
+        "match": true,
+        "path": "src/fleet_sim/__main__.py"
+      },
+      {
+        "actual_sha256": "db47a06237c607f277a1ba938255bde281dcd59b98a9c63cffeb29574e9b44d9",
+        "expected_sha256": "db47a06237c607f277a1ba938255bde281dcd59b98a9c63cffeb29574e9b44d9",
+        "match": true,
+        "path": "src/fleet_sim/analysis/__init__.py"
+      },
+      {
+        "actual_sha256": "1dd79cfddbdf519aeaac099bbcf8e07da85d3bc0b4331ecf080fce512898f0ad",
+        "expected_sha256": "1dd79cfddbdf519aeaac099bbcf8e07da85d3bc0b4331ecf080fce512898f0ad",
+        "match": true,
+        "path": "src/fleet_sim/analysis/admission_predictors.py"
+      },
+      {
+        "actual_sha256": "9e6aa0145b62b63e896056ae0429b7e637c4be8e1ca9b9648714d1e7c7d3a358",
+        "expected_sha256": "9e6aa0145b62b63e896056ae0429b7e637c4be8e1ca9b9648714d1e7c7d3a358",
+        "match": true,
+        "path": "src/fleet_sim/analysis/admission_stability.py"
+      },
+      {
+        "actual_sha256": "fa244428078974ef979f2fc589ad5999c6973e0de0a580e2cf7121caac375f88",
+        "expected_sha256": "fa244428078974ef979f2fc589ad5999c6973e0de0a580e2cf7121caac375f88",
+        "match": true,
+        "path": "src/fleet_sim/analysis/assurance_envelope.py"
+      },
+      {
+        "actual_sha256": "b2f40f026b7b1590d01c43a67e0728e0992ef219eefc80db69284ee1e7fa3157",
+        "expected_sha256": "b2f40f026b7b1590d01c43a67e0728e0992ef219eefc80db69284ee1e7fa3157",
+        "match": true,
+        "path": "src/fleet_sim/analysis/compromise_hurdle.py"
+      },
+      {
+        "actual_sha256": "becef62c5abb27e3ea5f4f68ab4f3c0523b7660e1915eea5defc20cef196d7b4",
+        "expected_sha256": "becef62c5abb27e3ea5f4f68ab4f3c0523b7660e1915eea5defc20cef196d7b4",
+        "match": true,
+        "path": "src/fleet_sim/analysis/control.py"
+      },
+      {
+        "actual_sha256": "95e3bf049cbad10dd3994bfc54fa7e0910f67365cbb7ed01ca1c4eadc11db3a7",
+        "expected_sha256": "95e3bf049cbad10dd3994bfc54fa7e0910f67365cbb7ed01ca1c4eadc11db3a7",
+        "match": true,
+        "path": "src/fleet_sim/analysis/cost.py"
+      },
+      {
+        "actual_sha256": "18caa0cb483d0a17f7e8c08269c5157d966c482e717466863240a8fd5cf63894",
+        "expected_sha256": "18caa0cb483d0a17f7e8c08269c5157d966c482e717466863240a8fd5cf63894",
+        "match": true,
+        "path": "src/fleet_sim/analysis/fleet_admission_stress.py"
+      },
+      {
+        "actual_sha256": "1c34e7145738c5026790753093cdd196f63a3ce94289f4f941e18a3b1079c5c5",
+        "expected_sha256": "1c34e7145738c5026790753093cdd196f63a3ce94289f4f941e18a3b1079c5c5",
+        "match": true,
+        "path": "src/fleet_sim/analysis/phase_separated.py"
+      },
+      {
+        "actual_sha256": "63aebb7746788352a64595621049182fb69486949535737d5dfe171b0c111a59",
+        "expected_sha256": "63aebb7746788352a64595621049182fb69486949535737d5dfe171b0c111a59",
+        "match": true,
+        "path": "src/fleet_sim/analysis/predictive_metrics.py"
+      },
+      {
+        "actual_sha256": "5608cf4d53885dd0c5f4d4217cd0ca608cd81c792e840a0c9bf499a7e68de297",
+        "expected_sha256": "5608cf4d53885dd0c5f4d4217cd0ca608cd81c792e840a0c9bf499a7e68de297",
+        "match": true,
+        "path": "src/fleet_sim/analysis/usl.py"
+      },
+      {
+        "actual_sha256": "8148088d32b556ed3ac015ce1fa0c600dc1b66facb185965f83fa71bbbd174ae",
+        "expected_sha256": "8148088d32b556ed3ac015ce1fa0c600dc1b66facb185965f83fa71bbbd174ae",
+        "match": true,
+        "path": "src/fleet_sim/calibration/__init__.py"
+      },
+      {
+        "actual_sha256": "f0515d3a90f306f1f6070fd6a527c5b007aefdc1ceedce7a8b7ea3171f6dfc59",
+        "expected_sha256": "f0515d3a90f306f1f6070fd6a527c5b007aefdc1ceedce7a8b7ea3171f6dfc59",
+        "match": true,
+        "path": "src/fleet_sim/calibration/admission.py"
+      },
+      {
+        "actual_sha256": "7b881f71e626079e28d22c5c65a179c8bddf691b44432374f59b486e941f1c91",
+        "expected_sha256": "7b881f71e626079e28d22c5c65a179c8bddf691b44432374f59b486e941f1c91",
+        "match": true,
+        "path": "src/fleet_sim/calibration/measurements.py"
+      },
+      {
+        "actual_sha256": "eb8089cfc6d05620c8a16d04a6b58f9f350012053a06122145a0aa2fdb27d162",
+        "expected_sha256": "eb8089cfc6d05620c8a16d04a6b58f9f350012053a06122145a0aa2fdb27d162",
+        "match": true,
+        "path": "src/fleet_sim/cli.py"
+      },
+      {
+        "actual_sha256": "aae54efc4143463474f7f9b68cd7baed6fe1ffb9439292bb73759b2455e652da",
+        "expected_sha256": "aae54efc4143463474f7f9b68cd7baed6fe1ffb9439292bb73759b2455e652da",
+        "match": true,
+        "path": "src/fleet_sim/config.py"
+      },
+      {
+        "actual_sha256": "63754a7c5828ea43cb6773963ddf36628d30170f8459bf9428ac7df596cfbe0a",
+        "expected_sha256": "63754a7c5828ea43cb6773963ddf36628d30170f8459bf9428ac7df596cfbe0a",
+        "match": true,
+        "path": "src/fleet_sim/consensus/__init__.py"
+      },
+      {
+        "actual_sha256": "279b2568e3609349368878348b57c7f3a4d2c95110f6d5ad6d4927b77d9d1fce",
+        "expected_sha256": "279b2568e3609349368878348b57c7f3a4d2c95110f6d5ad6d4927b77d9d1fce",
+        "match": true,
+        "path": "src/fleet_sim/consensus/models.py"
+      },
+      {
+        "actual_sha256": "f0d0e6b6cf9f562a63541c506a7baf391fe0012c631307e4296afcd7d6e398cc",
+        "expected_sha256": "f0d0e6b6cf9f562a63541c506a7baf391fe0012c631307e4296afcd7d6e398cc",
+        "match": true,
+        "path": "src/fleet_sim/control_plane/__init__.py"
+      },
+      {
+        "actual_sha256": "71f9e30c6941c7f7525643335931d17f351d103d4d7e8ec113ed4e74070b4b9e",
+        "expected_sha256": "71f9e30c6941c7f7525643335931d17f351d103d4d7e8ec113ed4e74070b4b9e",
+        "match": true,
+        "path": "src/fleet_sim/control_plane/credentials.py"
+      },
+      {
+        "actual_sha256": "8acaea2d63e66d4fbdaf39f0a7a11061e8a5ab3f1cced99c37df797940be7242",
+        "expected_sha256": "8acaea2d63e66d4fbdaf39f0a7a11061e8a5ab3f1cced99c37df797940be7242",
+        "match": true,
+        "path": "src/fleet_sim/control_plane/queueing.py"
+      },
+      {
+        "actual_sha256": "d5c955972307ee9e9077073dde775c2505effaeb18c13f0cb0a5a0acc64d1f32",
+        "expected_sha256": "d5c955972307ee9e9077073dde775c2505effaeb18c13f0cb0a5a0acc64d1f32",
+        "match": true,
+        "path": "src/fleet_sim/control_plane/resource_network.py"
+      },
+      {
+        "actual_sha256": "00676c37bbcb533fe131e1922874ad1285f663a0ce880f4ccc911cd7591f6e73",
+        "expected_sha256": "00676c37bbcb533fe131e1922874ad1285f663a0ce880f4ccc911cd7591f6e73",
+        "match": true,
+        "path": "src/fleet_sim/control_plane/service_center.py"
+      },
+      {
+        "actual_sha256": "f64e35b8004993c888469b351e923d60fa9238142e353e85d88d2b979f93a072",
+        "expected_sha256": "f64e35b8004993c888469b351e923d60fa9238142e353e85d88d2b979f93a072",
+        "match": true,
+        "path": "src/fleet_sim/credentials/__init__.py"
+      },
+      {
+        "actual_sha256": "67a41a328fc66ba20202f4be21a160d1fd154c6a63aefc9ada8c0e7e6d959083",
+        "expected_sha256": "67a41a328fc66ba20202f4be21a160d1fd154c6a63aefc9ada8c0e7e6d959083",
+        "match": true,
+        "path": "src/fleet_sim/credentials/models.py"
+      },
+      {
+        "actual_sha256": "e96b5f5e4a82b5be03a583445e9549af1a9b1eb1891cc97a9daebd16e8a78836",
+        "expected_sha256": "e96b5f5e4a82b5be03a583445e9549af1a9b1eb1891cc97a9daebd16e8a78836",
+        "match": true,
+        "path": "src/fleet_sim/experiments/__init__.py"
+      },
+      {
+        "actual_sha256": "d7457b566f4692c6e7973c4bc331bdfbf2f8d67356757816fa0660ee5641a408",
+        "expected_sha256": "d7457b566f4692c6e7973c4bc331bdfbf2f8d67356757816fa0660ee5641a408",
+        "match": true,
+        "path": "src/fleet_sim/experiments/integrated_demo.py"
+      },
+      {
+        "actual_sha256": "a4834c393435cf83aa60b3623950c78bcb49f1efa1f4bcc7a641e6e4661c6542",
+        "expected_sha256": "a4834c393435cf83aa60b3623950c78bcb49f1efa1f4bcc7a641e6e4661c6542",
+        "match": true,
+        "path": "src/fleet_sim/experiments/simulation.py"
+      },
+      {
+        "actual_sha256": "80900bf42cbe1bf2ef54252fdb4523095b5874a76b93edfac7ae6a6f0868fe47",
+        "expected_sha256": "80900bf42cbe1bf2ef54252fdb4523095b5874a76b93edfac7ae6a6f0868fe47",
+        "match": true,
+        "path": "src/fleet_sim/experiments/simulator.py"
+      },
+      {
+        "actual_sha256": "418a31dfd768dc831f8cbabadfeeb82133e0b253b85ea205cc4141ca3caf12fd",
+        "expected_sha256": "418a31dfd768dc831f8cbabadfeeb82133e0b253b85ea205cc4141ca3caf12fd",
+        "match": true,
+        "path": "src/fleet_sim/experiments/stage0.py"
+      },
+      {
+        "actual_sha256": "10d24474218882a31dfed27332eb8e7aa1f7620e51a4c6b57adfe8f17caebf0b",
+        "expected_sha256": "10d24474218882a31dfed27332eb8e7aa1f7620e51a4c6b57adfe8f17caebf0b",
+        "match": true,
+        "path": "src/fleet_sim/experiments/stage1_research.py"
+      },
+      {
+        "actual_sha256": "1a42b2709a056e61c9ed8bae60b45d4f699fa2f24048b041ed74651f6cc777a7",
+        "expected_sha256": "1a42b2709a056e61c9ed8bae60b45d4f699fa2f24048b041ed74651f6cc777a7",
+        "match": true,
+        "path": "src/fleet_sim/experiments/stage2_cycle3.py"
+      },
+      {
+        "actual_sha256": "78f2d70a232b13b92e107d391a166b6fb80e88998f20ab28bedcde4be895ba75",
+        "expected_sha256": "78f2d70a232b13b92e107d391a166b6fb80e88998f20ab28bedcde4be895ba75",
+        "match": true,
+        "path": "src/fleet_sim/experiments/stage2_cycle5.py"
+      },
+      {
+        "actual_sha256": "0dcf093281d54714f583241966dd4bdd23edc3d0f5023246e7a7887ef15046f5",
+        "expected_sha256": "0dcf093281d54714f583241966dd4bdd23edc3d0f5023246e7a7887ef15046f5",
+        "match": true,
+        "path": "src/fleet_sim/experiments/stage2_cycle6.py"
+      },
+      {
+        "actual_sha256": "a8855dce529b77581aa6c7a016b27c19bb6c91cad73168711dc82895b93680ad",
+        "expected_sha256": "a8855dce529b77581aa6c7a016b27c19bb6c91cad73168711dc82895b93680ad",
+        "match": true,
+        "path": "src/fleet_sim/experiments/stage2_cycle7.py"
+      },
+      {
+        "actual_sha256": "e184ecf09a608a73e1030f7c60376d34a8fc5b63d47b8ba2030fa2cce6a3fe41",
+        "expected_sha256": "e184ecf09a608a73e1030f7c60376d34a8fc5b63d47b8ba2030fa2cce6a3fe41",
+        "match": true,
+        "path": "src/fleet_sim/experiments/stage2_research.py"
+      },
+      {
+        "actual_sha256": "6da4fb8adca5e5b8ced83e53b2f2cd14abf65a05668d97bd340fcb07004f8457",
+        "expected_sha256": "6da4fb8adca5e5b8ced83e53b2f2cd14abf65a05668d97bd340fcb07004f8457",
+        "match": true,
+        "path": "src/fleet_sim/experiments/stage3_protocol.py"
+      },
+      {
+        "actual_sha256": "4e357b5bb31c7199fd5fdb86f34250a3cf0db4ebbda419f81feae2648f7038f3",
+        "expected_sha256": "4e357b5bb31c7199fd5fdb86f34250a3cf0db4ebbda419f81feae2648f7038f3",
+        "match": true,
+        "path": "src/fleet_sim/experiments/stage3_runner.py"
+      },
+      {
+        "actual_sha256": "5d60f0294dce23b0c9ab08b000d8ce8812bcda2801309e3582a6f6493503bc33",
+        "expected_sha256": "5d60f0294dce23b0c9ab08b000d8ce8812bcda2801309e3582a6f6493503bc33",
+        "match": true,
+        "path": "src/fleet_sim/experiments/stage3a.py"
+      },
+      {
+        "actual_sha256": "6fd0552314cc247c36ac84ef158ca1700d6c448dfcddc190bcb880ed7c31386a",
+        "expected_sha256": "6fd0552314cc247c36ac84ef158ca1700d6c448dfcddc190bcb880ed7c31386a",
+        "match": true,
+        "path": "src/fleet_sim/experiments/stage3b.py"
+      },
+      {
+        "actual_sha256": "4302c95c86b35cd8c1d399d5f6784fd03540f22bcc903132b86cba80c91ccdc4",
+        "expected_sha256": "4302c95c86b35cd8c1d399d5f6784fd03540f22bcc903132b86cba80c91ccdc4",
+        "match": true,
+        "path": "src/fleet_sim/graphs/__init__.py"
+      },
+      {
+        "actual_sha256": "c52b41da74a8593b8772f773f772136e63dc20ac200f3126bf385fc83cd4cc32",
+        "expected_sha256": "c52b41da74a8593b8772f773f772136e63dc20ac200f3126bf385fc83cd4cc32",
+        "match": true,
+        "path": "src/fleet_sim/graphs/factory.py"
+      },
+      {
+        "actual_sha256": "a860b305b86ca3698fc53d512a3d1d959094f4c95279d64c331a9e2071ecb2b1",
+        "expected_sha256": "a860b305b86ca3698fc53d512a3d1d959094f4c95279d64c331a9e2071ecb2b1",
+        "match": true,
+        "path": "src/fleet_sim/graphs/segmentation.py"
+      },
+      {
+        "actual_sha256": "352e675fe627ae79e5db7f0f062471790a53fdd0ecffaf3a7d52001b6a8b402e",
+        "expected_sha256": "352e675fe627ae79e5db7f0f062471790a53fdd0ecffaf3a7d52001b6a8b402e",
+        "match": true,
+        "path": "src/fleet_sim/model/__init__.py"
+      },
+      {
+        "actual_sha256": "c50ac9cc6ed4145357932dc4b51b07604c768e751994fe2b245c210b360031d0",
+        "expected_sha256": "c50ac9cc6ed4145357932dc4b51b07604c768e751994fe2b245c210b360031d0",
+        "match": true,
+        "path": "src/fleet_sim/model/agent.py"
+      },
+      {
+        "actual_sha256": "ec3589e7f072f798572addccbd32dbbf75e761f5efbaac9feac9c55475b46fb9",
+        "expected_sha256": "ec3589e7f072f798572addccbd32dbbf75e761f5efbaac9feac9c55475b46fb9",
+        "match": true,
+        "path": "src/fleet_sim/model/config.py"
+      },
+      {
+        "actual_sha256": "69037dd4b79c6dfa34c6622215df6a848c3822b69de3e498698b757e454babf3",
+        "expected_sha256": "69037dd4b79c6dfa34c6622215df6a848c3822b69de3e498698b757e454babf3",
+        "match": true,
+        "path": "src/fleet_sim/model/engine.py"
+      },
+      {
+        "actual_sha256": "d21ff6657581589cb70094ec50dc41184440b38fa230df4be014a89382a16183",
+        "expected_sha256": "d21ff6657581589cb70094ec50dc41184440b38fa230df4be014a89382a16183",
+        "match": true,
+        "path": "src/fleet_sim/model/events.py"
+      },
+      {
+        "actual_sha256": "14e1aaf7772fbd55f4c887bb2d42b1f5567a76db2381bd7beda67f98781e5eeb",
+        "expected_sha256": "14e1aaf7772fbd55f4c887bb2d42b1f5567a76db2381bd7beda67f98781e5eeb",
+        "match": true,
+        "path": "src/fleet_sim/model/replay.py"
+      },
+      {
+        "actual_sha256": "1aa2508031a9b9cc7c54720bf97a4057819ff467dc1c865717361c2ea793b65a",
+        "expected_sha256": "1aa2508031a9b9cc7c54720bf97a4057819ff467dc1c865717361c2ea793b65a",
+        "match": true,
+        "path": "src/fleet_sim/model/rng.py"
+      },
+      {
+        "actual_sha256": "59e952b40e14cb95e86dd10b253b7ce0a3fec2cadef1c83b6527127d4e5470a3",
+        "expected_sha256": "59e952b40e14cb95e86dd10b253b7ce0a3fec2cadef1c83b6527127d4e5470a3",
+        "match": true,
+        "path": "src/fleet_sim/model/state.py"
+      },
+      {
+        "actual_sha256": "eb208269c1046e3327f1e79f5ff471249e7f81411205a553ddd29a34f5bdf604",
+        "expected_sha256": "eb208269c1046e3327f1e79f5ff471249e7f81411205a553ddd29a34f5bdf604",
+        "match": true,
+        "path": "src/fleet_sim/model/task.py"
+      },
+      {
+        "actual_sha256": "f664d880639f261a689da2e8891b468d7bdde47e30dd387430282fb4ab09adee",
+        "expected_sha256": "f664d880639f261a689da2e8891b468d7bdde47e30dd387430282fb4ab09adee",
+        "match": true,
+        "path": "src/fleet_sim/provenance/__init__.py"
+      },
+      {
+        "actual_sha256": "722c5bdd0c720195cf9a503792bb9b4ef6df956751c4b4bb6266d6e8b8250872",
+        "expected_sha256": "722c5bdd0c720195cf9a503792bb9b4ef6df956751c4b4bb6266d6e8b8250872",
+        "match": true,
+        "path": "src/fleet_sim/provenance/manifest.py"
+      },
+      {
+        "actual_sha256": "19fdf625dfff2d1d46a7f0d5d5550a33658788b66cbfa9c109c8c9675ff7d598",
+        "expected_sha256": "19fdf625dfff2d1d46a7f0d5d5550a33658788b66cbfa9c109c8c9675ff7d598",
+        "match": true,
+        "path": "src/fleet_sim/provenance/registry.py"
+      },
+      {
+        "actual_sha256": "87302cafefab6dce49964d4dc940157a433d49bb2c89ea335cc037a6c43af9dd",
+        "expected_sha256": "87302cafefab6dce49964d4dc940157a433d49bb2c89ea335cc037a6c43af9dd",
+        "match": true,
+        "path": "src/fleet_sim/security/__init__.py"
+      },
+      {
+        "actual_sha256": "5ae763ff622f561b779de090378435692e85caf49fb08e023db09005f03a5d12",
+        "expected_sha256": "5ae763ff622f561b779de090378435692e85caf49fb08e023db09005f03a5d12",
+        "match": true,
+        "path": "src/fleet_sim/security/attack_operator.py"
+      },
+      {
+        "actual_sha256": "6209f1965f9dffd4433a9164065fcd4a77ef145b96a5fd57834b7f9ba84a2f07",
+        "expected_sha256": "6209f1965f9dffd4433a9164065fcd4a77ef145b96a5fd57834b7f9ba84a2f07",
+        "match": true,
+        "path": "src/fleet_sim/security/attack_trace.py"
+      },
+      {
+        "actual_sha256": "664dce96ec8d0391e06f6e7f1812fe3c2073b6fb78e420bfc2de005b3c23a917",
+        "expected_sha256": "664dce96ec8d0391e06f6e7f1812fe3c2073b6fb78e420bfc2de005b3c23a917",
+        "match": true,
+        "path": "src/fleet_sim/security/directed_ngm.py"
+      },
+      {
+        "actual_sha256": "ed14c59870ecabb85a3ed642ce426803691bc6f646bd8296fb6ace2babd5742e",
+        "expected_sha256": "ed14c59870ecabb85a3ed642ce426803691bc6f646bd8296fb6ace2babd5742e",
+        "match": true,
+        "path": "src/fleet_sim/security/dynamic_message_passing.py"
+      },
+      {
+        "actual_sha256": "79b110960afb5399f70916d09322b4aa3e69dcd8634fb4401145c567e5d09495",
+        "expected_sha256": "79b110960afb5399f70916d09322b4aa3e69dcd8634fb4401145c567e5d09495",
+        "match": true,
+        "path": "src/fleet_sim/security/epidemic.py"
+      },
+      {
+        "actual_sha256": "a34c97cc7ffa1c1005b5ae2099e78bbbd905e6ecd51cbfaebd14b554c19fde08",
+        "expected_sha256": "a34c97cc7ffa1c1005b5ae2099e78bbbd905e6ecd51cbfaebd14b554c19fde08",
+        "match": true,
+        "path": "src/fleet_sim/security/gossip.py"
+      },
+      {
+        "actual_sha256": "3caa8756cb5d0c6776fd1b41f3888cc61da6c24b158ac9506fcac8207ca961f8",
+        "expected_sha256": "3caa8756cb5d0c6776fd1b41f3888cc61da6c24b158ac9506fcac8207ca961f8",
+        "match": true,
+        "path": "src/fleet_sim/security/percolation.py"
+      },
+      {
+        "actual_sha256": "037dab4f3e7df87230555ceb3db8f5adae297b3e845603bcc29e2201f287a846",
+        "expected_sha256": "037dab4f3e7df87230555ceb3db8f5adae297b3e845603bcc29e2201f287a846",
+        "match": true,
+        "path": "src/fleet_sim/supervision/__init__.py"
+      },
+      {
+        "actual_sha256": "ff667ddad17f797476ac1db7591bd7c8613887bebef8c6c657e581567ae4d94c",
+        "expected_sha256": "ff667ddad17f797476ac1db7591bd7c8613887bebef8c6c657e581567ae4d94c",
+        "match": true,
+        "path": "src/fleet_sim/supervision/models.py"
+      },
+      {
+        "actual_sha256": "a200c6e1d53e1ae9b25f592939cadae365ae5c4f1b2489fb932dc35807b046d2",
+        "expected_sha256": "a200c6e1d53e1ae9b25f592939cadae365ae5c4f1b2489fb932dc35807b046d2",
+        "match": true,
+        "path": "src/fleet_sim/telemetry/__init__.py"
+      },
+      {
+        "actual_sha256": "f4276e21c594bd3b2702b60ba177aa104dcf87d6d0b079ab53f94146055293ac",
+        "expected_sha256": "f4276e21c594bd3b2702b60ba177aa104dcf87d6d0b079ab53f94146055293ac",
+        "match": true,
+        "path": "src/fleet_sim/telemetry/aggregation.py"
+      },
+      {
+        "actual_sha256": "4171a9e7cad8bce1432ef684a9bfe7659ee80ecef0b0dc82a56b4d22e4aef795",
+        "expected_sha256": "4171a9e7cad8bce1432ef684a9bfe7659ee80ecef0b0dc82a56b4d22e4aef795",
+        "match": true,
+        "path": "src/fleet_sim/telemetry/models.py"
+      },
+      {
+        "actual_sha256": "f5e72598c709e9340fe96896b6bcd54f455bb9b42bfbf1e6b9c238ea0015a7cc",
+        "expected_sha256": "f5e72598c709e9340fe96896b6bcd54f455bb9b42bfbf1e6b9c238ea0015a7cc",
+        "match": true,
+        "path": "src/fleet_sim/timing/__init__.py"
+      },
+      {
+        "actual_sha256": "f8e8c450fb033b5e1002a94cd9a8df9375c26ca3312b0b79b78bf01e5b20653c",
+        "expected_sha256": "f8e8c450fb033b5e1002a94cd9a8df9375c26ca3312b0b79b78bf01e5b20653c",
+        "match": true,
+        "path": "src/fleet_sim/timing/clock.py"
+      },
+      {
+        "actual_sha256": "578639be42e05b575ebc9fae1bff73ac7a3c0ca9b2a5cfec3af578d141002227",
+        "expected_sha256": "578639be42e05b575ebc9fae1bff73ac7a3c0ca9b2a5cfec3af578d141002227",
+        "match": true,
+        "path": "src/fleet_sim/timing/credentials.py"
+      },
+      {
+        "actual_sha256": "c6ebc29f920e60b057eca3fc56f959e0675143e791a8d7daab86f719f4e943e7",
+        "expected_sha256": "c6ebc29f920e60b057eca3fc56f959e0675143e791a8d7daab86f719f4e943e7",
+        "match": true,
+        "path": "src/fleet_sim/timing/models.py"
+      },
+      {
+        "actual_sha256": "d6b8b2a234547309e9aaa80ee00f3ff876e00edf89a4b8983e317a61b2eaa808",
+        "expected_sha256": "d6b8b2a234547309e9aaa80ee00f3ff876e00edf89a4b8983e317a61b2eaa808",
+        "match": true,
+        "path": "src/fleet_sim/visualization/__init__.py"
+      },
+      {
+        "actual_sha256": "09c57300f2a3fb7c9b37c772110c9bfd61007a23ef602b22912b2d9e35191403",
+        "expected_sha256": "09c57300f2a3fb7c9b37c772110c9bfd61007a23ef602b22912b2d9e35191403",
+        "match": true,
+        "path": "src/fleet_sim/visualization/app.py"
+      },
+      {
+        "actual_sha256": "a8289c4c3dd239b0312eaeda04cb4b623f450531243178b6ca8697eff20f5a3e",
+        "expected_sha256": "a8289c4c3dd239b0312eaeda04cb4b623f450531243178b6ca8697eff20f5a3e",
+        "match": true,
+        "path": "src/fleet_sim/visualization/bundle.py"
+      },
+      {
+        "actual_sha256": "e8bf50265fcd3fa2a2e634301cac32bef608c7301628e7cd75b0faf97e2d8e12",
+        "expected_sha256": "e8bf50265fcd3fa2a2e634301cac32bef608c7301628e7cd75b0faf97e2d8e12",
+        "match": true,
+        "path": "src/fleet_sim/visualization/console.py"
+      },
+      {
+        "actual_sha256": "96fb2ed11c7f9f398008486b662a735c2cbafe5865536de24f539c19ae1d3e3d",
+        "expected_sha256": "96fb2ed11c7f9f398008486b662a735c2cbafe5865536de24f539c19ae1d3e3d",
+        "match": true,
+        "path": "src/fleet_sim/visualization/export_plotly.py"
+      },
+      {
+        "actual_sha256": "242cbf92eea454b4d1df90656ed7ba67af086f8bbe8ef596052e6ef598f1b675",
+        "expected_sha256": "242cbf92eea454b4d1df90656ed7ba67af086f8bbe8ef596052e6ef598f1b675",
+        "match": true,
+        "path": "src/fleet_sim/visualization/figures.py"
+      },
+      {
+        "actual_sha256": "5e225250ab0c3ab6a006853e453c934bb58f9c8bfb67ac1cc6ba65336d5c3b4d",
+        "expected_sha256": "5e225250ab0c3ab6a006853e453c934bb58f9c8bfb67ac1cc6ba65336d5c3b4d",
+        "match": true,
+        "path": "src/fleet_sim/visualization/launch.py"
+      },
+      {
+        "actual_sha256": "3a6387394efc87e8f9c0d09e1133e41c20721ca4aff8ed31c59cd2a939268afb",
+        "expected_sha256": "3a6387394efc87e8f9c0d09e1133e41c20721ca4aff8ed31c59cd2a939268afb",
+        "match": true,
+        "path": "src/fleet_sim/visualization/replay.py"
+      },
+      {
+        "actual_sha256": "f235a0d8a6b1ba042e7771f41913aaa61ddd8c42a9ea4e5344feca3208819083",
+        "expected_sha256": "f235a0d8a6b1ba042e7771f41913aaa61ddd8c42a9ea4e5344feca3208819083",
+        "match": true,
+        "path": "src/fleet_sim/visualization/stage3_app.py"
+      },
+      {
+        "actual_sha256": "7be8d17ccaab5114fac2cc543ee4b89b54197a20fc2185b26183d774da915f49",
+        "expected_sha256": "7be8d17ccaab5114fac2cc543ee4b89b54197a20fc2185b26183d774da915f49",
+        "match": true,
+        "path": "src/fleet_sim/visualization/stage3_console.py"
+      },
+      {
+        "actual_sha256": "f0277752345054a619185ae68241473c29b19c7e7be349c3eca8d56695e9a438",
+        "expected_sha256": "f0277752345054a619185ae68241473c29b19c7e7be349c3eca8d56695e9a438",
+        "match": true,
+        "path": "src/fleet_sim/visualization/static.py"
+      },
+      {
+        "actual_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "match": true,
+        "path": "src/fleet_sim/workloads/__init__.py"
+      },
+      {
+        "actual_sha256": "58ae79c320582842bd2723d96051f62e06a6bc16a02d161cdd80512afc7a5a2a",
+        "expected_sha256": "58ae79c320582842bd2723d96051f62e06a6bc16a02d161cdd80512afc7a5a2a",
+        "match": true,
+        "path": "tests/integration/test_integrated_scenario.py"
+      },
+      {
+        "actual_sha256": "ad50fb5d4bdba37772372ff0cb1f459b8a9275bce6c2bcf6ea6500e2aea6b0b7",
+        "expected_sha256": "ad50fb5d4bdba37772372ff0cb1f459b8a9275bce6c2bcf6ea6500e2aea6b0b7",
+        "match": true,
+        "path": "tests/integration/test_stage3_integrated_runner.py"
+      },
+      {
+        "actual_sha256": "353eee12aaf44de40d54eafcb27ae394d2a7feeff64279ea51baad252ab8667f",
+        "expected_sha256": "353eee12aaf44de40d54eafcb27ae394d2a7feeff64279ea51baad252ab8667f",
+        "match": true,
+        "path": "tests/integration/test_stage3_launcher.py"
+      },
+      {
+        "actual_sha256": "fd5b99255fa4c4329cbcd1ee9f3736f497f09d5478eee2f32ccd1f56d39e01ad",
+        "expected_sha256": "fd5b99255fa4c4329cbcd1ee9f3736f497f09d5478eee2f32ccd1f56d39e01ad",
+        "match": true,
+        "path": "tests/integration/test_stage3_protocol_guard.py"
+      },
+      {
+        "actual_sha256": "a2c765bf2b8b944e952e4c54f952749d98527cc44b01f3b2070e0b1a39b269b3",
+        "expected_sha256": "a2c765bf2b8b944e952e4c54f952749d98527cc44b01f3b2070e0b1a39b269b3",
+        "match": true,
+        "path": "tests/integration/test_stage3a_runner.py"
+      },
+      {
+        "actual_sha256": "134f45c96d3fb59b15fac808e935a6a0244b714f87410ff548063bba0816674d",
+        "expected_sha256": "134f45c96d3fb59b15fac808e935a6a0244b714f87410ff548063bba0816674d",
+        "match": true,
+        "path": "tests/integration/test_stage3b_runner.py"
+      },
+      {
+        "actual_sha256": "c4acf1dca06bdafb0b03daadf4db6c98cd608731f96c261407eb089e259b02bb",
+        "expected_sha256": "c4acf1dca06bdafb0b03daadf4db6c98cd608731f96c261407eb089e259b02bb",
+        "match": true,
+        "path": "tests/replay/test_replay_invariants.py"
+      },
+      {
+        "actual_sha256": "ae0fc0ad64569d80afb44b78e0f69f0e9f088c56a7a09185c12e8376a63683dd",
+        "expected_sha256": "ae0fc0ad64569d80afb44b78e0f69f0e9f088c56a7a09185c12e8376a63683dd",
+        "match": true,
+        "path": "tests/schema/test_assurance_measurements.py"
+      },
+      {
+        "actual_sha256": "283e1c8c8897563db1c57fa90046dab65aa087ea604f9d7429e1f7bed33ea94b",
+        "expected_sha256": "283e1c8c8897563db1c57fa90046dab65aa087ea604f9d7429e1f7bed33ea94b",
+        "match": true,
+        "path": "tests/statistical/test_compromise_hurdle.py"
+      },
+      {
+        "actual_sha256": "7b7e22375a22772b3159ccb153ecad1330b30b41205e3e2f39432ad7ba19f052",
+        "expected_sha256": "7b7e22375a22772b3159ccb153ecad1330b30b41205e3e2f39432ad7ba19f052",
+        "match": true,
+        "path": "tests/statistical/test_queue_simulation.py"
+      },
+      {
+        "actual_sha256": "f7c55ae6ad2b7470121bf076b4bbc6bab3b84d62dc8046d590021d6258fc38b5",
+        "expected_sha256": "f7c55ae6ad2b7470121bf076b4bbc6bab3b84d62dc8046d590021d6258fc38b5",
+        "match": true,
+        "path": "tests/statistical/test_security_models.py"
+      },
+      {
+        "actual_sha256": "4f743050933894adf34a9ce76f10b3b781a8cfd8db48a52f6076aed4154ec7ab",
+        "expected_sha256": "4f743050933894adf34a9ce76f10b3b781a8cfd8db48a52f6076aed4154ec7ab",
+        "match": true,
+        "path": "tests/statistical/test_stage1_research.py"
+      },
+      {
+        "actual_sha256": "2a6ef76f4ea3241e401462f7e63099ebfb099e06eb3ece551d60991c5775c17b",
+        "expected_sha256": "2a6ef76f4ea3241e401462f7e63099ebfb099e06eb3ece551d60991c5775c17b",
+        "match": true,
+        "path": "tests/statistical/test_stage2_cycle6.py"
+      },
+      {
+        "actual_sha256": "c3ae54d87db5021941004d7686e8d2912bfe7c8d07e8342dfe93d321607bdfd1",
+        "expected_sha256": "c3ae54d87db5021941004d7686e8d2912bfe7c8d07e8342dfe93d321607bdfd1",
+        "match": true,
+        "path": "tests/statistical/test_stage2_cycle7.py"
+      },
+      {
+        "actual_sha256": "8ef9d3bfff65ec0fb354b66db48ffc7819f406fc79058e8963012ffd771b11e5",
+        "expected_sha256": "8ef9d3bfff65ec0fb354b66db48ffc7819f406fc79058e8963012ffd771b11e5",
+        "match": true,
+        "path": "tests/statistical/test_stage2_research.py"
+      },
+      {
+        "actual_sha256": "5b5659eb81adf90e9d5c28669d31ec3a839a30e4ab7d1ff4bd9c34ceb557e9a0",
+        "expected_sha256": "5b5659eb81adf90e9d5c28669d31ec3a839a30e4ab7d1ff4bd9c34ceb557e9a0",
+        "match": true,
+        "path": "tests/statistical/test_stage3b_phase_and_metrics.py"
+      },
+      {
+        "actual_sha256": "06455779b88a616cc5ca004df763bd74f198a607fa608e4e57ea5328522c3901",
+        "expected_sha256": "06455779b88a616cc5ca004df763bd74f198a607fa608e4e57ea5328522c3901",
+        "match": true,
+        "path": "tests/unit/test_admission_stability.py"
+      },
+      {
+        "actual_sha256": "c2282b73c1784b97f21c63d6f641b19f4d5256a814ccd9d5f8606a2818c5df21",
+        "expected_sha256": "c2282b73c1784b97f21c63d6f641b19f4d5256a814ccd9d5f8606a2818c5df21",
+        "match": true,
+        "path": "tests/unit/test_assurance_envelope.py"
+      },
+      {
+        "actual_sha256": "16510da7a676e608ad6223fafb874182684c926868279f8a33a38898ede47cd4",
+        "expected_sha256": "16510da7a676e608ad6223fafb874182684c926868279f8a33a38898ede47cd4",
+        "match": true,
+        "path": "tests/unit/test_attack_operator.py"
+      },
+      {
+        "actual_sha256": "d3b88f29ca9052a6cdbf51220f20cdb5c84e091c580c333bd053e4e39836dc35",
+        "expected_sha256": "d3b88f29ca9052a6cdbf51220f20cdb5c84e091c580c333bd053e4e39836dc35",
+        "match": true,
+        "path": "tests/unit/test_consensus.py"
+      },
+      {
+        "actual_sha256": "21efdf41d337c29f17e119e844ab493a0470b747409ed7f8efc1741de0a38a68",
+        "expected_sha256": "21efdf41d337c29f17e119e844ab493a0470b747409ed7f8efc1741de0a38a68",
+        "match": true,
+        "path": "tests/unit/test_graphs.py"
+      },
+      {
+        "actual_sha256": "0e823771ce5095a54f8ca54bce3f18c845484df6a082146a5671c19b3b6fd319",
+        "expected_sha256": "0e823771ce5095a54f8ca54bce3f18c845484df6a082146a5671c19b3b6fd319",
+        "match": true,
+        "path": "tests/unit/test_physical_and_economic_models.py"
+      },
+      {
+        "actual_sha256": "4745179c400746efc383d5cea5e8f6909c0b2f54ba421f9bdb93b11ef8deff96",
+        "expected_sha256": "4745179c400746efc383d5cea5e8f6909c0b2f54ba421f9bdb93b11ef8deff96",
+        "match": true,
+        "path": "tests/unit/test_queueing.py"
+      },
+      {
+        "actual_sha256": "89701a94011473e1ec93ee70ba1dd2874c2355023da43635ed4b5d81a14d7e57",
+        "expected_sha256": "89701a94011473e1ec93ee70ba1dd2874c2355023da43635ed4b5d81a14d7e57",
+        "match": true,
+        "path": "tests/unit/test_stage3a_resource_network.py"
+      },
+      {
+        "actual_sha256": "3cf8919deebb5672012918d3db7261b24042d860c711449180f3d1d9bfd433a4",
+        "expected_sha256": "3cf8919deebb5672012918d3db7261b24042d860c711449180f3d1d9bfd433a4",
+        "match": true,
+        "path": "tests/unit/test_stage3b_attack_trace.py"
+      },
+      {
+        "actual_sha256": "b556a7523b43effe3821fdaea90532207de96aaa14553147e71c2db4ac62a551",
+        "expected_sha256": "b556a7523b43effe3821fdaea90532207de96aaa14553147e71c2db4ac62a551",
+        "match": true,
+        "path": "tests/unit/test_stage3b_dynamic_message_passing.py"
+      },
+      {
+        "actual_sha256": "3fcc1af93ab1a3485b21f08e565136407f737f085c3ef6b455841820f88cb1b4",
+        "expected_sha256": "3fcc1af93ab1a3485b21f08e565136407f737f085c3ef6b455841820f88cb1b4",
+        "match": true,
+        "path": "tests/unit/test_usl_and_control.py"
+      },
+      {
+        "actual_sha256": "529463e86d4f9e266eb3e1a9f92b0a98b9af49abbad2359d24e9713888e3e5ff",
+        "expected_sha256": "529463e86d4f9e266eb3e1a9f92b0a98b9af49abbad2359d24e9713888e3e5ff",
+        "match": true,
+        "path": "tests/visualization/test_stage3_console.py"
+      }
+    ],
+    "protocol_hash": "b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851",
+    "protocol_id": "FAS-S3-C1-2026-08-19",
+    "seed_domains": {
+      "stage3a": "confirmatory-stage3a",
+      "stage3a_bootstrap": "confirmatory-stage3a-bootstrap",
+      "stage3b": "confirmatory-stage3b",
+      "stage3b_bootstrap": "confirmatory-stage3b-bootstrap"
+    }
+  },
+  "schema_version": "1.0",
+  "stage3a": {
+    "block_results": [
+      {
+        "baseline_brier": 0.059527665228034356,
+        "baseline_selection_method": "leave_one_scenario_out_crossfit",
+        "baseline_selection_partition": "calibration",
+        "binary_class_support": {
+          "calibration": true,
+          "held_out": true,
+          "training": true
+        },
+        "block": 0,
+        "brier_improvement_fraction": 0.1637390831113382,
+        "calibration_intercept": -0.1123499398980537,
+        "calibration_slope": 0.9565111493068129,
+        "calibration_threshold": 2.2979993238434195,
+        "calibration_threshold_balanced_accuracy": 0.9060150375939849,
+        "candidate_auc": 0.9697337802517771,
+        "candidate_brier": 0.04978065990383732,
+        "multivariate_brier": 0.25404964088572635,
+        "n10000_sublinear_capacity_transfer_balanced_accuracy": 0.9285714285714286,
+        "n10000_transfer_balanced_accuracy": 0.9241531664212077,
+        "probability_mapping_partition": "calibration",
+        "strongest_simple_baseline": "cumulative_backlog_area"
+      },
+      {
+        "baseline_brier": 0.06711547593917294,
+        "baseline_selection_method": "leave_one_scenario_out_crossfit",
+        "baseline_selection_partition": "calibration",
+        "binary_class_support": {
+          "calibration": true,
+          "held_out": true,
+          "training": true
+        },
+        "block": 1,
+        "brier_improvement_fraction": 0.25261402287082496,
+        "calibration_intercept": 0.42225524028459116,
+        "calibration_slope": 0.25612821894464494,
+        "calibration_threshold": 2.2979993238434195,
+        "calibration_threshold_balanced_accuracy": 0.9319999999999999,
+        "candidate_auc": 0.9661268805877395,
+        "candidate_brier": 0.05016116556528841,
+        "multivariate_brier": 0.0285241426625498,
+        "n10000_sublinear_capacity_transfer_balanced_accuracy": 0.9285714285714286,
+        "n10000_transfer_balanced_accuracy": 0.9216691068814056,
+        "probability_mapping_partition": "calibration",
+        "strongest_simple_baseline": "cumulative_backlog_area"
+      },
+      {
+        "baseline_brier": 0.060922441018868165,
+        "baseline_selection_method": "leave_one_scenario_out_crossfit",
+        "baseline_selection_partition": "calibration",
+        "binary_class_support": {
+          "calibration": true,
+          "held_out": true,
+          "training": true
+        },
+        "block": 2,
+        "brier_improvement_fraction": 0.20138218889782414,
+        "calibration_intercept": -0.4191034177150523,
+        "calibration_slope": 1.0673752429160233,
+        "calibration_threshold": 2.2979993238434195,
+        "calibration_threshold_balanced_accuracy": 0.9153846153846155,
+        "candidate_auc": 0.9744402345156017,
+        "candidate_brier": 0.048653746493489906,
+        "multivariate_brier": 0.24964532115221033,
+        "n10000_sublinear_capacity_transfer_balanced_accuracy": 0.9285714285714286,
+        "n10000_transfer_balanced_accuracy": 0.9198250728862973,
+        "probability_mapping_partition": "calibration",
+        "strongest_simple_baseline": "cumulative_backlog_area"
+      },
+      {
+        "baseline_brier": 0.06801986416717268,
+        "baseline_selection_method": "leave_one_scenario_out_crossfit",
+        "baseline_selection_partition": "calibration",
+        "binary_class_support": {
+          "calibration": true,
+          "held_out": true,
+          "training": true
+        },
+        "block": 3,
+        "brier_improvement_fraction": 0.238725693388843,
+        "calibration_intercept": -0.7666714907024774,
+        "calibration_slope": 0.9448155855328118,
+        "calibration_threshold": 2.2979993238434195,
+        "calibration_threshold_balanced_accuracy": 0.9390243902439024,
+        "candidate_auc": 0.9724491783596448,
+        "candidate_brier": 0.051781774929649464,
+        "multivariate_brier": 0.24503992033854338,
+        "n10000_sublinear_capacity_transfer_balanced_accuracy": 0.9285714285714286,
+        "n10000_transfer_balanced_accuracy": 0.9241531664212077,
+        "probability_mapping_partition": "calibration",
+        "strongest_simple_baseline": "cumulative_backlog_area"
+      },
+      {
+        "baseline_brier": 0.062188057089863184,
+        "baseline_selection_method": "leave_one_scenario_out_crossfit",
+        "baseline_selection_partition": "calibration",
+        "binary_class_support": {
+          "calibration": true,
+          "held_out": true,
+          "training": true
+        },
+        "block": 4,
+        "brier_improvement_fraction": 0.20922091047800911,
+        "calibration_intercept": -0.4882293804468229,
+        "calibration_slope": 1.0475864736974947,
+        "calibration_threshold": 2.2979993238434195,
+        "calibration_threshold_balanced_accuracy": 0.921875,
+        "candidate_auc": 0.9714643118658252,
+        "candidate_brier": 0.0491770151646636,
+        "multivariate_brier": 0.031758701050294796,
+        "n10000_sublinear_capacity_transfer_balanced_accuracy": 0.9285714285714286,
+        "n10000_transfer_balanced_accuracy": 0.9222873900293256,
+        "probability_mapping_partition": "calibration",
+        "strongest_simple_baseline": "cumulative_backlog_area"
+      }
+    ],
+    "bootstrap_95pct": {
+      "absolute_improvement": [
+        0.0030542664854191505,
+        0.025639719881214475
+      ],
+      "fractional_improvement": [
+        0.061698589715370566,
+        0.3397534586105416
+      ]
+    },
+    "candidate": "projected_omega_a",
+    "candidate_metrics": {
+      "brier_score": 0.04991087241138574,
+      "calibration_intercept": 0.41918350785843966,
+      "calibration_slope": 0.4539306867708676,
+      "expected_calibration_error": 0.02414666311056075,
+      "log_loss": 0.18421474296094006,
+      "precision_recall_auc": 0.9833197595492815,
+      "reliability": [
+        {
+          "count": 5520,
+          "lower": 0.0,
+          "mean_prediction": 0.0,
+          "observed_frequency": 0.0,
+          "upper": 0.1
+        },
+        {
+          "count": 120,
+          "lower": 0.2,
+          "mean_prediction": 0.2687449712768695,
+          "observed_frequency": 0.0,
+          "upper": 0.3
+        },
+        {
+          "count": 120,
+          "lower": 0.4,
+          "mean_prediction": 0.43139542947511395,
+          "observed_frequency": 0.008333333333333333,
+          "upper": 0.5
+        },
+        {
+          "count": 240,
+          "lower": 0.5,
+          "mean_prediction": 0.54507392401892,
+          "observed_frequency": 0.008333333333333333,
+          "upper": 0.6
+        },
+        {
+          "count": 1008,
+          "lower": 0.7,
+          "mean_prediction": 0.787037037037037,
+          "observed_frequency": 0.8095238095238095,
+          "upper": 0.8
+        },
+        {
+          "count": 3408,
+          "lower": 0.8,
+          "mean_prediction": 0.8307120500782473,
+          "observed_frequency": 0.801056338028169,
+          "upper": 0.9
+        },
+        {
+          "count": 11184,
+          "lower": 0.9,
+          "mean_prediction": 0.9904327610872675,
+          "observed_frequency": 0.9738018597997139,
+          "upper": 1.0
+        }
+      ],
+      "roc_auc": 0.9702029588820625
+    },
+    "criteria": {
+      "all_blocks_have_binary_class_support": {
+        "observed": {
+          "0": {
+            "calibration": true,
+            "held_out": true,
+            "training": true
+          },
+          "1": {
+            "calibration": true,
+            "held_out": true,
+            "training": true
+          },
+          "2": {
+            "calibration": true,
+            "held_out": true,
+            "training": true
+          },
+          "3": {
+            "calibration": true,
+            "held_out": true,
+            "training": true
+          },
+          "4": {
+            "calibration": true,
+            "held_out": true,
+            "training": true
+          }
+        },
+        "rule": "both outcome classes present in training, calibration, and held-out",
+        "status": "passed"
+      },
+      "architecture_shift_survives": {
+        "observed": {
+          "pipelined_proportional": 0.22150146455473255,
+          "sharded_sublinear_capacity": 0.20491938370894006
+        },
+        "rule": "> 0 for every unseen architecture",
+        "status": "passed"
+      },
+      "auc_at_least_0_90": {
+        "observed": 0.9702029588820625,
+        "rule": ">= 0.9",
+        "status": "passed"
+      },
+      "bootstrap_fractional_lower_bound_positive": {
+        "observed": 0.061698589715370566,
+        "rule": "> 0",
+        "status": "passed"
+      },
+      "brier_improvement_at_least_15pct": {
+        "observed": 0.2146785073236776,
+        "rule": ">= 0.15",
+        "status": "passed"
+      },
+      "calibration_slope_in_range": {
+        "observed": 0.4539306867708676,
+        "rule": "in [0.8, 1.2]",
+        "status": "failed"
+      },
+      "capacity_shift_survives": {
+        "observed": {
+          "0.80": 0.5845658286776216,
+          "1.25": -0.003672405471146048
+        },
+        "rule": "> 0 for every non-reference capacity",
+        "status": "failed"
+      },
+      "combined_shift_survives": {
+        "observed": 0.23724418290085406,
+        "rule": "> 0 for combined architecture, capacity, and workload shift",
+        "status": "passed"
+      },
+      "positive_improvement_in_four_of_five_blocks": {
+        "observed": 5,
+        "rule": ">= 4 blocks",
+        "status": "passed"
+      },
+      "threshold_transfers_to_n10000": {
+        "observed": {
+          "0": 0.9241531664212077,
+          "1": 0.9216691068814056,
+          "2": 0.9198250728862973,
+          "3": 0.9241531664212077,
+          "4": 0.9222873900293256
+        },
+        "rule": ">= 0.75 in every block",
+        "status": "passed"
+      },
+      "threshold_transfers_to_n10000_sublinear_capacity": {
+        "observed": {
+          "0": 0.9285714285714286,
+          "1": 0.9285714285714286,
+          "2": 0.9285714285714286,
+          "3": 0.9285714285714286,
+          "4": 0.9285714285714286
+        },
+        "rule": ">= 0.75 in every block",
+        "status": "passed"
+      },
+      "workload_shift_survives": {
+        "observed": 0.21678102317573575,
+        "rule": "> 0 for gamma workload",
+        "status": "passed"
+      }
+    },
+    "disposition": "not_supported_under_preregistered_rule",
+    "evidence_scope": "synthetic_model_conditioned; calibration_interface_only",
+    "external_validation": false,
+    "multivariate_baseline_metrics": {
+      "brier_score": 0.16180354521786494,
+      "calibration_intercept": 1.2558190184387656,
+      "calibration_slope": 0.1264279354492658,
+      "expected_calibration_error": 0.14889698268367627,
+      "log_loss": 1.596629215509335,
+      "precision_recall_auc": 0.9540156613615325,
+      "reliability": [
+        {
+          "count": 7800,
+          "lower": 0.0,
+          "mean_prediction": 0.0008055018201829309,
+          "observed_frequency": 0.2908974358974359,
+          "upper": 0.1
+        },
+        {
+          "count": 216,
+          "lower": 0.1,
+          "mean_prediction": 0.1509453003170288,
+          "observed_frequency": 0.3101851851851852,
+          "upper": 0.2
+        },
+        {
+          "count": 36,
+          "lower": 0.2,
+          "mean_prediction": 0.24290834779724932,
+          "observed_frequency": 0.8055555555555556,
+          "upper": 0.3
+        },
+        {
+          "count": 12,
+          "lower": 0.3,
+          "mean_prediction": 0.3955597051031006,
+          "observed_frequency": 0.5833333333333334,
+          "upper": 0.4
+        },
+        {
+          "count": 3636,
+          "lower": 0.4,
+          "mean_prediction": 0.4293208952820428,
+          "observed_frequency": 0.6284378437843784,
+          "upper": 0.5
+        },
+        {
+          "count": 264,
+          "lower": 0.5,
+          "mean_prediction": 0.517353108392364,
+          "observed_frequency": 0.9962121212121212,
+          "upper": 0.6
+        },
+        {
+          "count": 24,
+          "lower": 0.6,
+          "mean_prediction": 0.6949643073253705,
+          "observed_frequency": 0.5,
+          "upper": 0.7
+        },
+        {
+          "count": 96,
+          "lower": 0.7,
+          "mean_prediction": 0.7774445140538893,
+          "observed_frequency": 1.0,
+          "upper": 0.8
+        },
+        {
+          "count": 636,
+          "lower": 0.8,
+          "mean_prediction": 0.8401813444040641,
+          "observed_frequency": 0.8474842767295597,
+          "upper": 0.9
+        },
+        {
+          "count": 8880,
+          "lower": 0.9,
+          "mean_prediction": 0.9974711483231203,
+          "observed_frequency": 0.9992117117117117,
+          "upper": 1.0
+        }
+      ],
+      "roc_auc": 0.8849909856234235
+    },
+    "pooled_brier_improvement_fraction": 0.2146785073236776,
+    "shift_results": {
+      "architecture_improvement_by_unseen_architecture": {
+        "pipelined_proportional": 0.22150146455473255,
+        "sharded_sublinear_capacity": 0.20491938370894006
+      },
+      "capacity_improvement_by_shift": {
+        "0.80": 0.5845658286776216,
+        "1.25": -0.003672405471146048
+      },
+      "combined_shift_improvement": 0.23724418290085406,
+      "workload_gamma_improvement": 0.21678102317573575
+    },
+    "strongest_simple_baseline_metrics": {
+      "brier_score": 0.06355470068862228,
+      "calibration_intercept": -2.608676905506586,
+      "calibration_slope": 0.2894148012029462,
+      "expected_calibration_error": 0.0672910741143424,
+      "log_loss": 0.6747947781352155,
+      "precision_recall_auc": 0.9685827820684652,
+      "reliability": [
+        {
+          "count": 5508,
+          "lower": 0.0,
+          "mean_prediction": 0.001299984449435797,
+          "observed_frequency": 0.0,
+          "upper": 0.1
+        },
+        {
+          "count": 60,
+          "lower": 0.1,
+          "mean_prediction": 0.16194643263228142,
+          "observed_frequency": 0.0,
+          "upper": 0.2
+        },
+        {
+          "count": 60,
+          "lower": 0.2,
+          "mean_prediction": 0.2313928495284788,
+          "observed_frequency": 0.05,
+          "upper": 0.3
+        },
+        {
+          "count": 12,
+          "lower": 0.3,
+          "mean_prediction": 0.37694636136282605,
+          "observed_frequency": 0.0,
+          "upper": 0.4
+        },
+        {
+          "count": 24,
+          "lower": 0.4,
+          "mean_prediction": 0.4631521905031941,
+          "observed_frequency": 0.041666666666666664,
+          "upper": 0.5
+        },
+        {
+          "count": 48,
+          "lower": 0.5,
+          "mean_prediction": 0.5389758981896277,
+          "observed_frequency": 0.020833333333333332,
+          "upper": 0.6
+        },
+        {
+          "count": 48,
+          "lower": 0.6,
+          "mean_prediction": 0.640465490852799,
+          "observed_frequency": 0.020833333333333332,
+          "upper": 0.7
+        },
+        {
+          "count": 108,
+          "lower": 0.7,
+          "mean_prediction": 0.7536116296568233,
+          "observed_frequency": 0.037037037037037035,
+          "upper": 0.8
+        },
+        {
+          "count": 72,
+          "lower": 0.8,
+          "mean_prediction": 0.8771737379822174,
+          "observed_frequency": 0.06944444444444445,
+          "upper": 0.9
+        },
+        {
+          "count": 15660,
+          "lower": 0.9,
+          "mean_prediction": 0.9991013900940315,
+          "observed_frequency": 0.9211366538952745,
+          "upper": 1.0
+        }
+      ],
+      "roc_auc": 0.9329513378418113
+    }
+  },
+  "stage3b": {
+    "baseline_selection_scores": {
+      "authorization_only": {
+        "calibration_final_size_mae": 0.04869992298337347,
+        "calibration_outbreak_brier": 0.13238306663012542,
+        "name": "authorization_only",
+        "selection_method": "leave_one_block_out_calibration_crossfit",
+        "validation_blocks": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "combined_scalar": {
+        "calibration_final_size_mae": 0.04114435665111414,
+        "calibration_outbreak_brier": 0.1074044632704043,
+        "name": "combined_scalar",
+        "selection_method": "leave_one_block_out_calibration_crossfit",
+        "validation_blocks": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "communication_only": {
+        "calibration_final_size_mae": 0.04543024685249453,
+        "calibration_outbreak_brier": 0.11121739201871023,
+        "name": "communication_only",
+        "selection_method": "leave_one_block_out_calibration_crossfit",
+        "validation_blocks": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "interpretable_multivariate_non_dmp": {
+        "calibration_final_size_mae": 0.047589676150582995,
+        "calibration_outbreak_brier": 0.11511510848398006,
+        "name": "interpretable_multivariate_non_dmp",
+        "selection_method": "leave_one_block_out_calibration_crossfit",
+        "validation_blocks": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "node_hazard_aggregation": {
+        "calibration_final_size_mae": 0.045949941168930315,
+        "calibration_outbreak_brier": 0.10552347840073151,
+        "name": "node_hazard_aggregation",
+        "selection_method": "leave_one_block_out_calibration_crossfit",
+        "validation_blocks": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "simple_reproduction": {
+        "calibration_final_size_mae": 0.042613049909483995,
+        "calibration_outbreak_brier": 0.10698476519461607,
+        "name": "simple_reproduction",
+        "selection_method": "leave_one_block_out_calibration_crossfit",
+        "validation_blocks": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "static_adjacency": {
+        "calibration_final_size_mae": 0.04113773337795043,
+        "calibration_outbreak_brier": 0.1074044632704043,
+        "name": "static_adjacency",
+        "selection_method": "leave_one_block_out_calibration_crossfit",
+        "validation_blocks": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "static_nonbacktracking": {
+        "calibration_final_size_mae": 0.0411040174638657,
+        "calibration_outbreak_brier": 0.1074044632704043,
+        "name": "static_nonbacktracking",
+        "selection_method": "leave_one_block_out_calibration_crossfit",
+        "validation_blocks": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "temporal_propagator": {
+        "calibration_final_size_mae": 0.04110284356297414,
+        "calibration_outbreak_brier": 0.10672350563801941,
+        "name": "temporal_propagator",
+        "selection_method": "leave_one_block_out_calibration_crossfit",
+        "validation_blocks": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    "candidate": "phase_separated_dynamic_message_passing",
+    "candidate_evaluation": {
+      "conditional_nonoutbreak_severity": {
+        "interval_coverage": 0.46616541353383456,
+        "mean_absolute_error": 0.03571631030158775,
+        "quantile_loss": 0.017858155150793874,
+        "root_mean_square_error": 0.04499451495326857
+      },
+      "conditional_severity": {
+        "interval_coverage": 0.7426470588235294,
+        "mean_absolute_error": 0.04820259103641457,
+        "quantile_loss": 0.024101295518207284,
+        "root_mean_square_error": 0.06491691887032472
+      },
+      "final_size": {
+        "interval_coverage": 0.22916666666666666,
+        "mean_absolute_error": 0.04801817645605284,
+        "quantile_loss": 0.02400908822802642,
+        "root_mean_square_error": 0.054345999857807796
+      },
+      "final_size_mae_by_attack_class": {
+        "credential_replay": 0.05504055575905577,
+        "delegated_authority": 0.05032806021797133,
+        "direct_exploit": 0.04769186623763034,
+        "identity_provider": 0.05197636568082123,
+        "shared_dependency": 0.05459128993677245,
+        "shared_image": 0.028480920904065902
+      },
+      "final_size_mae_by_block": {
+        "0": 0.04196955367089653,
+        "1": 0.05782730089120318,
+        "2": 0.04106751435165967,
+        "3": 0.056367583525011436,
+        "4": 0.04285892984149337
+      },
+      "final_size_mae_by_defense_case": {
+        "detection_response_shift": 0.04870117504392189,
+        "nominal": 0.04733517786818378
+      },
+      "final_size_mae_by_fleet_size": {
+        "1000": 0.045053320962618874,
+        "10000": 0.05098303194948679
+      },
+      "final_size_mae_by_segmentation": {
+        "none": 0.042815097623533714,
+        "partitioned_8_way": 0.05396455226464611
+      },
+      "final_size_mae_by_topology": {
+        "barabasi_albert": 0.03888810542512614,
+        "hierarchical": 0.057148247486979525
+      },
+      "initiation": {
+        "brier_score": 0.10048888888888889,
+        "calibration_intercept": -0.39320063433779706,
+        "calibration_slope": 0.808860145549476,
+        "expected_calibration_error": 1.3877787807814457e-17,
+        "log_loss": 0.35342822141326286,
+        "precision_recall_auc": 0.5566666666666666,
+        "reliability": [
+          {
+            "count": 1200,
+            "lower": 0.1,
+            "mean_prediction": 0.11333333333333331,
+            "observed_frequency": 0.11333333333333333,
+            "upper": 0.2
+          }
+        ],
+        "roc_auc": 0.5
+      },
+      "name": "phase_separated_dmp"
+    },
+    "comparator_specs": {
+      "authorization_only": {
+        "initiation_features": [
+          "authorization_only"
+        ],
+        "model_class": "univariate",
+        "name": "authorization_only",
+        "nonoutbreak_features": [
+          "authorization_only"
+        ],
+        "severity_features": [
+          "authorization_only"
+        ]
+      },
+      "combined_scalar": {
+        "initiation_features": [
+          "combined_scalar"
+        ],
+        "model_class": "univariate",
+        "name": "combined_scalar",
+        "nonoutbreak_features": [
+          "combined_scalar"
+        ],
+        "severity_features": [
+          "combined_scalar"
+        ]
+      },
+      "communication_only": {
+        "initiation_features": [
+          "communication_only"
+        ],
+        "model_class": "univariate",
+        "name": "communication_only",
+        "nonoutbreak_features": [
+          "communication_only"
+        ],
+        "severity_features": [
+          "communication_only"
+        ]
+      },
+      "interpretable_multivariate_non_dmp": {
+        "initiation_features": [
+          "node_hazard_aggregation",
+          "reachable_component_fraction",
+          "directed_percolation_fraction",
+          "static_adjacency",
+          "static_nonbacktracking",
+          "combined_scalar",
+          "authorization_only",
+          "communication_only",
+          "simple_reproduction"
+        ],
+        "model_class": "multivariate_non_dmp_interpretable",
+        "name": "interpretable_multivariate_non_dmp",
+        "nonoutbreak_features": [
+          "node_hazard_aggregation",
+          "reachable_component_fraction",
+          "directed_percolation_fraction",
+          "static_adjacency",
+          "static_nonbacktracking",
+          "combined_scalar",
+          "authorization_only",
+          "communication_only",
+          "simple_reproduction"
+        ],
+        "severity_features": [
+          "node_hazard_aggregation",
+          "reachable_component_fraction",
+          "directed_percolation_fraction",
+          "static_adjacency",
+          "static_nonbacktracking",
+          "combined_scalar",
+          "authorization_only",
+          "communication_only",
+          "simple_reproduction"
+        ]
+      },
+      "node_hazard_aggregation": {
+        "initiation_features": [
+          "node_hazard_aggregation"
+        ],
+        "model_class": "univariate",
+        "name": "node_hazard_aggregation",
+        "nonoutbreak_features": [
+          "node_hazard_aggregation"
+        ],
+        "severity_features": [
+          "node_hazard_aggregation"
+        ]
+      },
+      "simple_reproduction": {
+        "initiation_features": [
+          "simple_reproduction"
+        ],
+        "model_class": "univariate",
+        "name": "simple_reproduction",
+        "nonoutbreak_features": [
+          "simple_reproduction"
+        ],
+        "severity_features": [
+          "simple_reproduction"
+        ]
+      },
+      "static_adjacency": {
+        "initiation_features": [
+          "static_adjacency"
+        ],
+        "model_class": "univariate",
+        "name": "static_adjacency",
+        "nonoutbreak_features": [
+          "static_adjacency"
+        ],
+        "severity_features": [
+          "static_adjacency"
+        ]
+      },
+      "static_nonbacktracking": {
+        "initiation_features": [
+          "static_nonbacktracking"
+        ],
+        "model_class": "univariate",
+        "name": "static_nonbacktracking",
+        "nonoutbreak_features": [
+          "static_nonbacktracking"
+        ],
+        "severity_features": [
+          "static_nonbacktracking"
+        ]
+      },
+      "temporal_propagator": {
+        "initiation_features": [
+          "temporal_propagator"
+        ],
+        "model_class": "univariate",
+        "name": "temporal_propagator",
+        "nonoutbreak_features": [
+          "temporal_propagator"
+        ],
+        "severity_features": [
+          "temporal_propagator"
+        ]
+      }
+    },
+    "criteria": {
+      "all_heldout_blocks_have_binary_class_support": {
+        "observed": {
+          "0": true,
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true
+        },
+        "rule": "both outbreak classes are present in every held-out block",
+        "status": "passed"
+      },
+      "detection_response_calibration_shift_within_limit": {
+        "observed": 0.2680457530984718,
+        "rule": "<= 0.2",
+        "status": "failed"
+      },
+      "final_size_bootstrap_lower_bound_positive": {
+        "observed": -0.003874748654120741,
+        "rule": "> 0",
+        "status": "failed"
+      },
+      "final_size_mae_improvement_at_least_15pct": {
+        "observed": 0.02381419832010778,
+        "rule": ">= 0.15",
+        "status": "failed"
+      },
+      "final_size_positive_in_four_of_five_blocks": {
+        "observed": 2,
+        "rule": ">= 4 blocks",
+        "status": "failed"
+      },
+      "generator_predictor_structural_boundary_audit": {
+        "observed": "passed_structural_review",
+        "rule": "frozen structural review passed and identical latent-equation reuse was not detected",
+        "status": "passed"
+      },
+      "outbreak_brier_bootstrap_lower_bound_positive": {
+        "observed": -0.0001989300682397579,
+        "rule": "> 0",
+        "status": "failed"
+      },
+      "outbreak_brier_improvement_at_least_10pct": {
+        "observed": 0.0008613658233260923,
+        "rule": ">= 0.1",
+        "status": "failed"
+      },
+      "outbreak_brier_positive_in_four_of_five_blocks": {
+        "observed": 4,
+        "rule": ">= 4 blocks",
+        "status": "passed"
+      },
+      "paired_defense_scenarios_complete": {
+        "observed": true,
+        "rule": "every defense_pair_record_id has exactly both declared defense cases with shared graph, process, observation, base-replication, and derived-replication seeds",
+        "status": "passed"
+      },
+      "segmentation_calibration_shift_within_limit": {
+        "observed": 0.08530254053782582,
+        "rule": "<= 0.2",
+        "status": "passed"
+      },
+      "unseen_scale_transfer_succeeds": {
+        "observed": {
+          "1000": 0.07188274395228202,
+          "10000": -0.02300647639360295
+        },
+        "rule": "> 0 at N=1000 and N=10000",
+        "status": "failed"
+      },
+      "unseen_topology_transfer_succeeds": {
+        "observed": {
+          "barabasi_albert": -0.2957050294956605,
+          "hierarchical": 0.1640848786909695
+        },
+        "rule": "> 0 for every unseen topology",
+        "status": "failed"
+      }
+    },
+    "detection_response_calibration_slope_change": 0.2680457530984718,
+    "disposition": "not_supported_under_preregistered_rule",
+    "evidence_scope": "synthetic_model_conditioned; separate_generator_implementation_with_bounded_observed_view",
+    "external_validation": false,
+    "final_size_bootstrap_95pct": {
+      "absolute_improvement": [
+        -0.003874748654120741,
+        0.006453490280560529
+      ],
+      "fractional_improvement": [
+        -0.10385572830786145,
+        0.10685745497658988
+      ]
+    },
+    "final_size_mae_improvement_fraction": 0.02381419832010778,
+    "generator_predictor_boundary_audit": {
+      "finding": "The generator uses a discrete attacker campaign with hidden resistance, delay, event, and response draws. The DMP predictor uses a separate observation-side transmission operator and calibrated phase models. Review found no identical fitted latent equation reused across generator and predictor.",
+      "generator_only_constructs_excluded_from_predictor_view": [
+        "latent edge resistance",
+        "latent edge delay",
+        "latent detection propensity",
+        "latent identity-provider exposure",
+        "selected causal events",
+        "attack random draws",
+        "realized compromise and response state"
+      ],
+      "identical_latent_equation_reuse_detected": false,
+      "limitations": [
+        "The predictor intentionally consumes noisy observations derived from some generator constructs. This is a synthetic sensor model, not statistical independence.",
+        "Structural separation does not establish external validity or implementation security.",
+        "The audit is hash-bound with the reviewed sources at protocol freeze. Any source change invalidates the confirmatory manifest."
+      ],
+      "review_completed_date": "2026-08-19",
+      "review_scope": "source_and_interface_non_reuse_review",
+      "reviewed_file_sha256": {
+        "src/fleet_sim/analysis/phase_separated.py": "1c34e7145738c5026790753093cdd196f63a3ce94289f4f941e18a3b1079c5c5",
+        "src/fleet_sim/experiments/stage3b.py": "6fd0552314cc247c36ac84ef158ca1700d6c448dfcddc190bcb880ed7c31386a",
+        "src/fleet_sim/security/attack_trace.py": "6209f1965f9dffd4433a9164065fcd4a77ef145b96a5fd57834b7f9ba84a2f07",
+        "src/fleet_sim/security/dynamic_message_passing.py": "ed14c59870ecabb85a3ed642ce426803691bc6f646bd8296fb6ace2babd5742e"
+      },
+      "reviewed_files": [
+        "src/fleet_sim/security/attack_trace.py",
+        "src/fleet_sim/security/dynamic_message_passing.py",
+        "src/fleet_sim/analysis/phase_separated.py",
+        "src/fleet_sim/experiments/stage3b.py"
+      ],
+      "schema_version": "1.0",
+      "shared_observed_constructs": [
+        "noisy susceptibility estimate",
+        "noisy exploitability estimate",
+        "observed directed layer topology",
+        "observed common-cause node hazard",
+        "declared defense and response profiles"
+      ],
+      "status": "passed_structural_review"
+    },
+    "heldout_binary_support_by_block": {
+      "0": true,
+      "1": true,
+      "2": true,
+      "3": true,
+      "4": true
+    },
+    "nominal_calibration_slope": 0.9604070931750317,
+    "outbreak_brier_bootstrap_95pct": {
+      "absolute_improvement": [
+        -0.0001989300682397579,
+        0.0003676186469850001
+      ],
+      "fractional_improvement": [
+        -0.00208141194450202,
+        0.003930473033929112
+      ]
+    },
+    "outbreak_brier_improvement_fraction": 0.0008613658233260923,
+    "positive_final_size_blocks": 2,
+    "positive_outbreak_brier_blocks": 4,
+    "segmentation_calibration_slope_change": 0.08530254053782582,
+    "segmented_calibration_slope": 0.7651244994820204,
+    "selected_baseline_evaluations": {
+      "node_hazard_aggregation": {
+        "conditional_nonoutbreak_severity": {
+          "interval_coverage": 0.9191729323308271,
+          "mean_absolute_error": 0.018614302909569364,
+          "quantile_loss": 0.009307151454784682,
+          "root_mean_square_error": 0.023659297309221058
+        },
+        "conditional_severity": {
+          "interval_coverage": 0.4852941176470588,
+          "mean_absolute_error": 0.07415897554726779,
+          "quantile_loss": 0.037079487773633894,
+          "root_mean_square_error": 0.08652435617331324
+        },
+        "final_size": {
+          "interval_coverage": 0.2783333333333333,
+          "mean_absolute_error": 0.04047245160202066,
+          "quantile_loss": 0.02023622580101033,
+          "root_mean_square_error": 0.04557691680323707
+        },
+        "final_size_mae_by_attack_class": {
+          "credential_replay": 0.03316386495212072,
+          "delegated_authority": 0.037410798269660754,
+          "direct_exploit": 0.04163006576256805,
+          "identity_provider": 0.07116560018895723,
+          "shared_dependency": 0.03724995499230795,
+          "shared_image": 0.022214425446509277
+        },
+        "final_size_mae_by_block": {
+          "0": 0.037155544901956244,
+          "1": 0.041981626509832524,
+          "2": 0.040745573195386006,
+          "3": 0.042360103650849454,
+          "4": 0.0401194097520791
+        },
+        "final_size_mae_by_defense_case": {
+          "detection_response_shift": 0.04162424858281778,
+          "nominal": 0.03932065462122355
+        },
+        "final_size_mae_by_fleet_size": {
+          "1000": 0.041011976999046296,
+          "10000": 0.03993292620499504
+        },
+        "final_size_mae_by_segmentation": {
+          "none": 0.03999360906029835,
+          "partitioned_8_way": 0.04101970022113188
+        },
+        "final_size_mae_by_topology": {
+          "barabasi_albert": 0.04062023717584798,
+          "hierarchical": 0.040324666028193346
+        },
+        "initiation": {
+          "brier_score": 0.10057552120551853,
+          "calibration_intercept": -25.580274499817335,
+          "calibration_slope": -11.423883357035344,
+          "expected_calibration_error": 2.580962574852408e-05,
+          "log_loss": 0.35386079519176605,
+          "precision_recall_auc": 0.31231219760631523,
+          "reliability": [
+            {
+              "count": 1200,
+              "lower": 0.1,
+              "mean_prediction": 0.1133075237075848,
+              "observed_frequency": 0.11333333333333333,
+              "upper": 0.2
+            }
+          ],
+          "roc_auc": 0.44526758071649714
+        },
+        "name": "node_hazard_aggregation"
+      },
+      "temporal_propagator": {
+        "conditional_nonoutbreak_severity": {
+          "interval_coverage": 0.5046992481203008,
+          "mean_absolute_error": 0.03756678475033738,
+          "quantile_loss": 0.01878339237516869,
+          "root_mean_square_error": 0.04710551026452133
+        },
+        "conditional_severity": {
+          "interval_coverage": 0.9558823529411765,
+          "mean_absolute_error": 0.05459166666666665,
+          "quantile_loss": 0.027295833333333325,
+          "root_mean_square_error": 0.06760565357590173
+        },
+        "final_size": {
+          "interval_coverage": 0.32083333333333336,
+          "mean_absolute_error": 0.04918958703703704,
+          "quantile_loss": 0.02459479351851852,
+          "root_mean_square_error": 0.060253643264095685
+        },
+        "final_size_mae_by_attack_class": {
+          "credential_replay": 0.056686450427350425,
+          "delegated_authority": 0.04859270769230768,
+          "direct_exploit": 0.04829609658119658,
+          "identity_provider": 0.05337936495726495,
+          "shared_dependency": 0.05971601709401709,
+          "shared_image": 0.02846688547008547
+        },
+        "final_size_mae_by_block": {
+          "0": 0.03861972364672365,
+          "1": 0.06458960683760685,
+          "2": 0.039227596153846155,
+          "3": 0.06298990313390314,
+          "4": 0.04052110541310541
+        },
+        "final_size_mae_by_defense_case": {
+          "detection_response_shift": 0.050370527635327636,
+          "nominal": 0.04800864643874643
+        },
+        "final_size_mae_by_fleet_size": {
+          "1000": 0.0485427037037037,
+          "10000": 0.049836470370370374
+        },
+        "final_size_mae_by_segmentation": {
+          "none": 0.038047014155982904,
+          "partitioned_8_way": 0.06192395604395605
+        },
+        "final_size_mae_by_topology": {
+          "barabasi_albert": 0.030013085185185185,
+          "hierarchical": 0.0683660888888889
+        },
+        "initiation": {
+          "brier_score": 0.10052777777777777,
+          "calibration_intercept": -1.2471632652684241,
+          "calibration_slope": 0.3839288175064096,
+          "expected_calibration_error": 0.0049999999999999906,
+          "log_loss": 0.35364287017970847,
+          "precision_recall_auc": 0.3431862745098039,
+          "reliability": [
+            {
+              "count": 1200,
+              "lower": 0.1,
+              "mean_prediction": 0.10833333333333334,
+              "observed_frequency": 0.11333333333333333,
+              "upper": 0.2
+            }
+          ],
+          "roc_auc": 0.5082927908005307
+        },
+        "name": "temporal_propagator"
+      }
+    },
+    "selection_method": "leave_one_block_out_calibration_crossfit",
+    "selection_partition": "calibration",
+    "shifted_calibration_slope": 0.6923613400765599,
+    "strongest_final_size_baseline": "temporal_propagator",
+    "strongest_initiation_baseline": "node_hazard_aggregation",
+    "unseen_scale_final_size_mae_improvement_fraction": {
+      "1000": 0.07188274395228202,
+      "10000": -0.02300647639360295
+    },
+    "unseen_topology_final_size_mae_improvement_fraction": {
+      "barabasi_albert": -0.2957050294956605,
+      "hierarchical": 0.1640848786909695
+    },
+    "unsegmented_calibration_slope": 0.8504270400198463,
+    "valid_binary_support_blocks": 5,
+    "visualization_trace_artifacts": [
+      {
+        "attack_horizon_steps": 40,
+        "attack_trace_digest": "387e923bc15ae11aacc3349cde7fcff9cbad8ec7ed15a81f4ec693c5103e8e1d",
+        "block": 0,
+        "dmp_expected_final_fraction": 0.9672044172130808,
+        "dmp_horizon_steps": 40,
+        "dmp_outbreak_probability": 1.0,
+        "evidence_scope": "visualization_only_not_scientific_metric_input",
+        "graph_seed": 13144196277207532705,
+        "observation_seed": 14178262171655654101,
+        "process_seed": 10075473859609270845,
+        "record_id": "s3b-b0-heldout-n1000-barabasi_albert-shared_image-none-detection_response_shift:r0",
+        "replication": 0,
+        "replication_seed": 2088435220442798266,
+        "scenario_id": "s3b-b0-heldout-n1000-barabasi_albert-shared_image-none-detection_response_shift",
+        "selection_rule": "fixed heldout fleet, attack class, defense case, replication, then scenario_id lexical order; no outcome-based selection"
+      },
+      {
+        "attack_horizon_steps": 40,
+        "attack_trace_digest": "0bca7fb06450080e7b0947b04bdd7869d1066b16485a06721788a3ac3eff7944",
+        "block": 1,
+        "dmp_expected_final_fraction": 0.9119524041151849,
+        "dmp_horizon_steps": 40,
+        "dmp_outbreak_probability": 1.0,
+        "evidence_scope": "visualization_only_not_scientific_metric_input",
+        "graph_seed": 7436193764169236495,
+        "observation_seed": 5000079911329822258,
+        "process_seed": 14890266136409296574,
+        "record_id": "s3b-b1-heldout-n1000-hierarchical-shared_image-partitioned_8_way-detection_response_shift:r0",
+        "replication": 0,
+        "replication_seed": 6709042700763341456,
+        "scenario_id": "s3b-b1-heldout-n1000-hierarchical-shared_image-partitioned_8_way-detection_response_shift",
+        "selection_rule": "fixed heldout fleet, attack class, defense case, replication, then scenario_id lexical order; no outcome-based selection"
+      },
+      {
+        "attack_horizon_steps": 40,
+        "attack_trace_digest": "704a35c28dfb54afda8677704873df99156c0b2f59df4835558ba5fbe29fcec2",
+        "block": 2,
+        "dmp_expected_final_fraction": 0.9682451390466763,
+        "dmp_horizon_steps": 40,
+        "dmp_outbreak_probability": 1.0,
+        "evidence_scope": "visualization_only_not_scientific_metric_input",
+        "graph_seed": 12210498842505375428,
+        "observation_seed": 16029629079749639165,
+        "process_seed": 16737261461674138078,
+        "record_id": "s3b-b2-heldout-n1000-barabasi_albert-shared_image-none-detection_response_shift:r0",
+        "replication": 0,
+        "replication_seed": 9206335836803859634,
+        "scenario_id": "s3b-b2-heldout-n1000-barabasi_albert-shared_image-none-detection_response_shift",
+        "selection_rule": "fixed heldout fleet, attack class, defense case, replication, then scenario_id lexical order; no outcome-based selection"
+      },
+      {
+        "attack_horizon_steps": 40,
+        "attack_trace_digest": "899acd5caba348a83b70cd8a43165890adc7a3b1b142f8b8ae1be30e9293620a",
+        "block": 3,
+        "dmp_expected_final_fraction": 0.8997582958576116,
+        "dmp_horizon_steps": 40,
+        "dmp_outbreak_probability": 1.0,
+        "evidence_scope": "visualization_only_not_scientific_metric_input",
+        "graph_seed": 9942708093902807188,
+        "observation_seed": 7934005119348109488,
+        "process_seed": 15269466477810535601,
+        "record_id": "s3b-b3-heldout-n1000-hierarchical-shared_image-partitioned_8_way-detection_response_shift:r0",
+        "replication": 0,
+        "replication_seed": 4851586622000822851,
+        "scenario_id": "s3b-b3-heldout-n1000-hierarchical-shared_image-partitioned_8_way-detection_response_shift",
+        "selection_rule": "fixed heldout fleet, attack class, defense case, replication, then scenario_id lexical order; no outcome-based selection"
+      },
+      {
+        "attack_horizon_steps": 40,
+        "attack_trace_digest": "efed178490fc4d8b7afddfd2270c831922e87a25cb8fef907f1e1247ea7b3e1c",
+        "block": 4,
+        "dmp_expected_final_fraction": 0.9638403674931207,
+        "dmp_horizon_steps": 40,
+        "dmp_outbreak_probability": 1.0,
+        "evidence_scope": "visualization_only_not_scientific_metric_input",
+        "graph_seed": 14693844474416089319,
+        "observation_seed": 501090002567676612,
+        "process_seed": 14607879133991337459,
+        "record_id": "s3b-b4-heldout-n1000-barabasi_albert-shared_image-none-detection_response_shift:r0",
+        "replication": 0,
+        "replication_seed": 14369381685620555519,
+        "scenario_id": "s3b-b4-heldout-n1000-barabasi_albert-shared_image-none-detection_response_shift",
+        "selection_rule": "fixed heldout fleet, attack class, defense case, replication, then scenario_id lexical order; no outcome-based selection"
+      }
+    ]
+  }
+}

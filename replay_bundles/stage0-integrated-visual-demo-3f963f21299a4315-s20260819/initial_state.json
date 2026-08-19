@@ -1,0 +1,588 @@
+{
+  "agents": {
+    "agent-000000": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 0,
+      "supervisor_id": null,
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000001": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 0,
+      "supervisor_id": "agent-000000",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000002": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 0,
+      "supervisor_id": "agent-000000",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000003": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 0,
+      "supervisor_id": "agent-000000",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000004": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 1,
+      "supervisor_id": "agent-000000",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000005": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 1,
+      "supervisor_id": "agent-000001",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000006": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 1,
+      "supervisor_id": "agent-000001",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000007": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 1,
+      "supervisor_id": "agent-000001",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000008": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 2,
+      "supervisor_id": "agent-000001",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000009": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 2,
+      "supervisor_id": "agent-000002",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000010": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 2,
+      "supervisor_id": "agent-000002",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000011": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 2,
+      "supervisor_id": "agent-000002",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000012": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 3,
+      "supervisor_id": "agent-000002",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000013": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 3,
+      "supervisor_id": "agent-000003",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000014": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 3,
+      "supervisor_id": "agent-000003",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000015": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 3,
+      "supervisor_id": "agent-000003",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000016": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 4,
+      "supervisor_id": "agent-000003",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000017": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 4,
+      "supervisor_id": "agent-000004",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000018": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 4,
+      "supervisor_id": "agent-000004",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000019": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 4,
+      "supervisor_id": "agent-000004",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000020": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 5,
+      "supervisor_id": "agent-000004",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000021": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 5,
+      "supervisor_id": "agent-000005",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000022": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 5,
+      "supervisor_id": "agent-000005",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000023": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 5,
+      "supervisor_id": "agent-000005",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000024": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 6,
+      "supervisor_id": "agent-000005",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000025": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 6,
+      "supervisor_id": "agent-000006",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000026": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 6,
+      "supervisor_id": "agent-000006",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000027": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 6,
+      "supervisor_id": "agent-000006",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000028": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 7,
+      "supervisor_id": "agent-000006",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000029": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 7,
+      "supervisor_id": "agent-000007",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000030": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 7,
+      "supervisor_id": "agent-000007",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000031": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 7,
+      "supervisor_id": "agent-000007",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000032": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 8,
+      "supervisor_id": "agent-000007",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000033": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 8,
+      "supervisor_id": "agent-000008",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000034": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 8,
+      "supervisor_id": "agent-000008",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000035": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 8,
+      "supervisor_id": "agent-000008",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000036": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 9,
+      "supervisor_id": "agent-000008",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000037": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 9,
+      "supervisor_id": "agent-000009",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000038": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 9,
+      "supervisor_id": "agent-000009",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000039": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 9,
+      "supervisor_id": "agent-000009",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000040": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 10,
+      "supervisor_id": "agent-000009",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000041": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 10,
+      "supervisor_id": "agent-000010",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000042": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 10,
+      "supervisor_id": "agent-000010",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000043": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 10,
+      "supervisor_id": "agent-000010",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000044": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 11,
+      "supervisor_id": "agent-000010",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000045": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 11,
+      "supervisor_id": "agent-000011",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000046": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 11,
+      "supervisor_id": "agent-000011",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000047": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 11,
+      "supervisor_id": "agent-000011",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000048": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 12,
+      "supervisor_id": "agent-000011",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000049": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 12,
+      "supervisor_id": "agent-000012",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000050": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 12,
+      "supervisor_id": "agent-000012",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000051": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 12,
+      "supervisor_id": "agent-000012",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000052": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 13,
+      "supervisor_id": "agent-000012",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000053": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 13,
+      "supervisor_id": "agent-000013",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000054": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 13,
+      "supervisor_id": "agent-000013",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000055": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 13,
+      "supervisor_id": "agent-000013",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000056": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 14,
+      "supervisor_id": "agent-000013",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000057": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 14,
+      "supervisor_id": "agent-000014",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000058": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 14,
+      "supervisor_id": "agent-000014",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000059": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 14,
+      "supervisor_id": "agent-000014",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000060": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 15,
+      "supervisor_id": "agent-000014",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000061": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 15,
+      "supervisor_id": "agent-000015",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000062": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 15,
+      "supervisor_id": "agent-000015",
+      "timing_uncertainty_s": 1e-06
+    },
+    "agent-000063": {
+      "credential_epoch": 0,
+      "current_task_id": null,
+      "health": "idle",
+      "informed": false,
+      "partition": 15,
+      "supervisor_id": "agent-000015",
+      "timing_uncertainty_s": 1e-06
+    }
+  },
+  "busy_servers": {},
+  "counters": {},
+  "logical_time": 0,
+  "metadata": {},
+  "queue_utilization": {},
+  "queues": {},
+  "simulation_time": 0.0,
+  "timing_denial_active": false
+}

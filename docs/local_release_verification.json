@@ -1,0 +1,104 @@
+{
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-m",
+        "fleet_sim",
+        "validate",
+        "--config",
+        "configs/baselines/mixed_100_visual.yaml",
+        "--registry",
+        "configs/parameters/registry.yaml"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"configuration_hash\": \"f56f67eb21500669\",\n  \"parameter_class\": \"notional\",\n  \"parameter_records\": 12,\n  \"scenario_name\": \"mixed-100-visual\",\n  \"status\": \"valid\"\n}\n"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "...................................................                      [100%]\n51 passed in 12.12s\n"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-m",
+        "fleet_sim",
+        "run",
+        "--config",
+        "configs/baselines/mixed_100_visual.yaml",
+        "--output",
+        "/tmp/fleet-assurance-smoke-blcidcnw",
+        "--visualize"
+      ],
+      "returncode": 0,
+      "stderr_tail": "",
+      "stdout_tail": "{\n  \"bundle\": \"/tmp/fleet-assurance-smoke-blcidcnw/replay_bundles/mixed-100-visual-f56f67eb21500669-s104729\",\n  \"event_count\": 2441,\n  \"event_log_digest\": \"6598fa0c5266c083c7e232fb221197d1a600af4851062ad953142fcc054d4881\",\n  \"evidence_class\": \"numerically_demonstrated_stage0_integration_only\",\n  \"final_state_hash\": \"750770a4fce83cf10984f3a75feba34cd1c618adddb4f68ab99fa4913149baa7\",\n  \"parameter_class\": \"notional\",\n  \"replay_state_hash\": \"750770a4fce83cf10984f3a75feba34cd1c618adddb4f68ab99fa4913149baa7\",\n  \"replay_verified\": true,\n  \"run_id\": \"mixed-100-visual-f56f67eb21500669-s104729\",\n  \"visual_console\": \"/tmp/fleet-assurance-smoke-blcidcnw/replay_bundles/mixed-100-visual-f56f67eb21500669-s104729/virtual_fleet_assurance_console.html\"\n}\n"
+    }
+  ],
+  "demo_bundle_count": 1,
+  "demo_console_present": true,
+  "files": {
+    "configs/baselines/mixed_100_visual.yaml": true,
+    "configs/parameters/registry.yaml": true,
+    "docs/stage2_cycle7_preregistered_protocol.md": true,
+    "manifests/stage2_cycle7_preregistration_manifest.json": true,
+    "pyproject.toml": true
+  },
+  "imports": {
+    "bokeh": {
+      "ok": true,
+      "version": "3.8.2"
+    },
+    "fleet_sim": {
+      "metadata_source": "source-tree-pyproject",
+      "ok": true,
+      "path": "/mnt/data/fleet-assurance-sim-local-release-2026-08-19/src/fleet_sim/__init__.py",
+      "version": "0.1.0"
+    },
+    "matplotlib": {
+      "ok": true,
+      "version": "3.10.8"
+    },
+    "networkx": {
+      "ok": true,
+      "version": "3.6.1"
+    },
+    "numpy": {
+      "ok": true,
+      "version": "2.3.5"
+    },
+    "pandas": {
+      "ok": true,
+      "version": "2.2.3"
+    },
+    "plotly": {
+      "ok": true,
+      "version": "6.5.2"
+    },
+    "pydantic": {
+      "ok": true,
+      "version": "2.13.4"
+    },
+    "scipy": {
+      "ok": true,
+      "version": "1.17.0"
+    },
+    "yaml": {
+      "ok": true,
+      "version": "6.0.3"
+    }
+  },
+  "passed": true,
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "python_supported": true,
+  "root": "/mnt/data/fleet-assurance-sim-local-release-2026-08-19"
+}

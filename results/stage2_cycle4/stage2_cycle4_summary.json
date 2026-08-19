@@ -1,0 +1,103 @@
+{
+  "date": "2026-08-19",
+  "seed": 20260819,
+  "evidence_scope": "notional parameters; model-conditioned; no external validation",
+  "protocol": "docs/stage2_cycle4_preregistered_protocol.md",
+  "NH2_D": {
+    "best_baseline_mae_predictor": "nonbacktracking",
+    "best_baseline_auc_predictor": "nonbacktracking",
+    "best_baseline_brier_predictor": "nonbacktracking",
+    "dynamic_mae": 0.040589436781162884,
+    "best_baseline_mae": 0.03979203431597552,
+    "mae_improvement_fraction": -0.020039248530383028,
+    "dynamic_auc": 0.7005347593582888,
+    "best_baseline_auc": 0.9641711229946524,
+    "auc_delta": -0.26363636363636356,
+    "dynamic_brier": 0.01766199526835176,
+    "best_baseline_brier": 0.009861513739400815,
+    "brier_improvement_fraction": -0.7910024500381523,
+    "positive_robustness_blocks": 0,
+    "dependency_ablation_degrades": false,
+    "bootstrap_95pct": {
+      "mae_improvement": [
+        -0.1347546615575576,
+        0.08018865787292076
+      ],
+      "auc_delta": [
+        -0.716439494680851,
+        -0.01066532028672204
+      ],
+      "brier_improvement": [
+        -1.4155181488569213,
+        -0.3369509102314975
+      ]
+    },
+    "criteria": {
+      "mae_improvement_at_least_15pct": false,
+      "auc_delta_at_least_0_03": false,
+      "brier_improves": false,
+      "four_of_five_positive_robustness_blocks": false,
+      "dependency_ablation_degrades": false
+    },
+    "supported_in_model": false
+  },
+  "NH4_A": {
+    "omega_auc": 0.5,
+    "peak_lambda_auc": 0.5,
+    "auc_delta": 0.0,
+    "omega_brier": 0.0002657153530824155,
+    "peak_lambda_brier": 0.0006921260617337836,
+    "brier_improvement_fraction": 0.6160882131547026,
+    "omega_one_balanced_accuracy": 0.75,
+    "threshold_cv": NaN,
+    "valid_threshold_groups": 0,
+    "positive_seed_blocks": 0,
+    "bootstrap_95pct": {
+      "auc_delta": [
+        0.0,
+        0.0
+      ],
+      "brier_improvement": [
+        -9.248826769413915,
+        0.8905189639395343
+      ]
+    },
+    "criteria": {
+      "auc_delta_at_least_0_05": false,
+      "brier_reduction_at_least_15pct": true,
+      "omega_one_balanced_accuracy_at_least_0_80": false,
+      "threshold_cv_no_more_than_0_20": false,
+      "four_of_five_positive_seed_blocks": false
+    },
+    "supported_in_model": false
+  },
+  "assessments": [
+    {
+      "hypothesis": "NH2-D",
+      "supported_in_model": false,
+      "evidence_level": "model-conditioned",
+      "primary_result": "Dynamic K(t) held-out MAE improvement -2.0% and AUC delta -0.264.",
+      "limitations": "The propagation substrate remains synthetic. Candidate features are separated from latent hazards, but no observed incident data are used."
+    },
+    {
+      "hypothesis": "NH4-A",
+      "supported_in_model": false,
+      "evidence_level": "analytic plus model-conditioned",
+      "primary_result": "Omega_A held-out AUC delta 0.000, Brier improvement 61.6%.",
+      "limitations": "The reflected backlog formula is established queue mathematics. Novelty, if any, is limited to its assurance-resource composition and transfer behavior."
+    }
+  ],
+  "figures": [
+    "figures/stage2_cycle4/nh2_dynamic_operator_prediction.png",
+    "figures/stage2_cycle4/nh2_predictor_ablation_mae.png",
+    "figures/stage2_cycle4/nh4_omega_failure_frontier.png",
+    "figures/stage2_cycle4/nh4_lambda_omega_phase_space.png",
+    "figures/stage2_cycle4/nh4_predictor_brier.png"
+  ],
+  "dataset_counts": {
+    "nh2_replications": 34560,
+    "nh2_scenarios": 1152,
+    "nh4_replications": 12480,
+    "nh4_scenarios": 416
+  }
+}

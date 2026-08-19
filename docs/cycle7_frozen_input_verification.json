@@ -1,0 +1,120 @@
+{
+  "protocol_id": "FAS-S2-C7-2026-08-19",
+  "all_match": true,
+  "checks": [
+    {
+      "path": "docs/stage2_cycle7_preregistered_protocol.md",
+      "expected": "e815b78bb89845ac6ea1555429094dc8472aa2442e1890b2a6c829d5e802af7c",
+      "actual": "e815b78bb89845ac6ea1555429094dc8472aa2442e1890b2a6c829d5e802af7c",
+      "match": true
+    },
+    {
+      "path": "configs/experiments/stage2_cycle7.yaml",
+      "expected": "b807bcc40031cead95ac1d28ace669c4d3b6a33d15e94a2390510dec8e179e52",
+      "actual": "b807bcc40031cead95ac1d28ace669c4d3b6a33d15e94a2390510dec8e179e52",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/analysis/compromise_hurdle.py",
+      "expected": "b2f40f026b7b1590d01c43a67e0728e0992ef219eefc80db69284ee1e7fa3157",
+      "actual": "b2f40f026b7b1590d01c43a67e0728e0992ef219eefc80db69284ee1e7fa3157",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/experiments/stage2_cycle7.py",
+      "expected": "a8855dce529b77581aa6c7a016b27c19bb6c91cad73168711dc82895b93680ad",
+      "actual": "a8855dce529b77581aa6c7a016b27c19bb6c91cad73168711dc82895b93680ad",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/experiments/stage2_cycle6.py",
+      "expected": "0dcf093281d54714f583241966dd4bdd23edc3d0f5023246e7a7887ef15046f5",
+      "actual": "0dcf093281d54714f583241966dd4bdd23edc3d0f5023246e7a7887ef15046f5",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/experiments/stage2_research.py",
+      "expected": "e184ecf09a608a73e1030f7c60376d34a8fc5b63d47b8ba2030fa2cce6a3fe41",
+      "actual": "e184ecf09a608a73e1030f7c60376d34a8fc5b63d47b8ba2030fa2cce6a3fe41",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/experiments/stage1_research.py",
+      "expected": "10d24474218882a31dfed27332eb8e7aa1f7620e51a4c6b57adfe8f17caebf0b",
+      "actual": "10d24474218882a31dfed27332eb8e7aa1f7620e51a4c6b57adfe8f17caebf0b",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/security/attack_operator.py",
+      "expected": "5ae763ff622f561b779de090378435692e85caf49fb08e023db09005f03a5d12",
+      "actual": "5ae763ff622f561b779de090378435692e85caf49fb08e023db09005f03a5d12",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/analysis/admission_stability.py",
+      "expected": "9e6aa0145b62b63e896056ae0429b7e637c4be8e1ca9b9648714d1e7c7d3a358",
+      "actual": "9e6aa0145b62b63e896056ae0429b7e637c4be8e1ca9b9648714d1e7c7d3a358",
+      "match": true
+    },
+    {
+      "path": "src/fleet_sim/graphs/factory.py",
+      "expected": "c52b41da74a8593b8772f773f772136e63dc20ac200f3126bf385fc83cd4cc32",
+      "actual": "c52b41da74a8593b8772f773f772136e63dc20ac200f3126bf385fc83cd4cc32",
+      "match": true
+    },
+    {
+      "path": "tests/statistical/test_compromise_hurdle.py",
+      "expected": "283e1c8c8897563db1c57fa90046dab65aa087ea604f9d7429e1f7bed33ea94b",
+      "actual": "283e1c8c8897563db1c57fa90046dab65aa087ea604f9d7429e1f7bed33ea94b",
+      "match": true
+    },
+    {
+      "path": "tests/statistical/test_stage2_cycle7.py",
+      "expected": "c3ae54d87db5021941004d7686e8d2912bfe7c8d07e8342dfe93d321607bdfd1",
+      "actual": "c3ae54d87db5021941004d7686e8d2912bfe7c8d07e8342dfe93d321607bdfd1",
+      "match": true
+    },
+    {
+      "path": "tests/statistical/test_stage2_cycle6.py",
+      "expected": "2a6ef76f4ea3241e401462f7e63099ebfb099e06eb3ece551d60991c5775c17b",
+      "actual": "2a6ef76f4ea3241e401462f7e63099ebfb099e06eb3ece551d60991c5775c17b",
+      "match": true
+    },
+    {
+      "path": "tests/statistical/test_stage2_research.py",
+      "expected": "8ef9d3bfff65ec0fb354b66db48ffc7819f406fc79058e8963012ffd771b11e5",
+      "actual": "8ef9d3bfff65ec0fb354b66db48ffc7819f406fc79058e8963012ffd771b11e5",
+      "match": true
+    },
+    {
+      "path": "tests/unit/test_attack_operator.py",
+      "expected": "16510da7a676e608ad6223fafb874182684c926868279f8a33a38898ede47cd4",
+      "actual": "16510da7a676e608ad6223fafb874182684c926868279f8a33a38898ede47cd4",
+      "match": true
+    },
+    {
+      "path": "tests/unit/test_admission_stability.py",
+      "expected": "06455779b88a616cc5ca004df763bd74f198a607fa608e4e57ea5328522c3901",
+      "actual": "06455779b88a616cc5ca004df763bd74f198a607fa608e4e57ea5328522c3901",
+      "match": true
+    },
+    {
+      "path": "scripts/run_stage2_cycle7.py",
+      "expected": "41ff23b26be16598bb3dc2c885f5b36efd217dea0817f0f411076d7b5d6d544b",
+      "actual": "41ff23b26be16598bb3dc2c885f5b36efd217dea0817f0f411076d7b5d6d544b",
+      "match": true
+    },
+    {
+      "path": "pyproject.toml",
+      "expected": "d647a731c7abdda3c90a20bc127ea8f6014b0f778c9e0217e6920aa9e8e64bd8",
+      "actual": "d647a731c7abdda3c90a20bc127ea8f6014b0f778c9e0217e6920aa9e8e64bd8",
+      "match": true
+    },
+    {
+      "path": "requirements-lock.txt",
+      "expected": "11c8b553b2c724daf63006bdfbf8821747ec0a46b44e76f59e97addb2805c97c",
+      "actual": "11c8b553b2c724daf63006bdfbf8821747ec0a46b44e76f59e97addb2805c97c",
+      "match": true
+    }
+  ]
+}

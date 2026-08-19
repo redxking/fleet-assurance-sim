@@ -1,0 +1,11 @@
+.git
+.venv
+.pytest_cache
+**/__pycache__
+**/*.pyc
+**/*.pyo
+.DS_Store
+local_runs
+build
+dist
+*.egg-info

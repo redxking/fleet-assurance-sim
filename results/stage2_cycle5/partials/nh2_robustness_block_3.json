@@ -1,0 +1,13 @@
+{
+  "protocol_id": "FAS-S2-C5-2026-08-19",
+  "status": "complete",
+  "runtime_seconds": 12.325327335000111,
+  "row": {
+    "block": 3,
+    "dynamic_mae": 0.05127790667934056,
+    "best_baseline_mae": 0.04952647018625972,
+    "mae_improvement_fraction": -0.03536364466302604,
+    "dynamic_auc": 0.9347826086956522,
+    "best_baseline_auc": 1.0
+  }
+}

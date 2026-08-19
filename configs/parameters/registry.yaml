@@ -1,0 +1,155 @@
+- parameter_id: PAR-N
+  symbol: N
+  definition: Number of runtime-agnostic agents in the fleet.
+  units: agents
+  baseline_value: 100
+  sweep: [1, 10, 100, 1000, 10000, 30000, 100000]
+  provenance_class: analytically_fixed
+  source: Master prompt version 0.2 scale ladder.
+  date: "2026-08-19"
+  environment: All scenario classes.
+  uncertainty: None for the selected experiment rung.
+  applicable_scenarios: [all]
+
+- parameter_id: PAR-TASK-ARRIVAL
+  symbol: lambda_task
+  definition: Per-agent useful-task arrival rate before control-plane operations.
+  units: tasks per second per agent
+  baseline_value: 0.03
+  sweep: [0.001, 0.01, 0.03, 0.1]
+  provenance_class: notional
+  source: Initial Stage 0 workload assumption.
+  date: "2026-08-19"
+  environment: Synthetic mixed mission fleet.
+  uncertainty: Wide sensitivity sweep required before recommendation.
+  applicable_scenarios: [mixed_mission, flat_dense, microsegmented]
+
+- parameter_id: PAR-TASK-SERVICE
+  symbol: mu_task
+  definition: Per-agent task service rate.
+  units: tasks per second
+  baseline_value: 1.5
+  sweep: [0.5, 1.0, 1.5, 3.0]
+  provenance_class: notional
+  source: Initial Stage 0 service assumption.
+  date: "2026-08-19"
+  environment: Synthetic mixed mission fleet.
+  uncertainty: Distribution and workload class are not calibrated.
+  applicable_scenarios: [mixed_mission, flat_dense, microsegmented]
+
+- parameter_id: PAR-AUTH-MU
+  symbol: mu_auth
+  definition: Authorization decisions completed per second by one control-plane server.
+  units: decisions per second per server
+  baseline_value: 10.0
+  sweep: [5.0, 10.0, 25.0, 100.0]
+  provenance_class: notional
+  source: Initial Stage 0 control-plane assumption.
+  date: "2026-08-19"
+  environment: Synthetic authorization service.
+  uncertainty: Must be replaced by implementation measurement.
+  applicable_scenarios: [all]
+
+- parameter_id: PAR-AUTH-C
+  symbol: c_auth
+  definition: Number of parallel authorization service workers.
+  units: servers
+  baseline_value: 4
+  sweep: [1, 2, 4, 8, 16]
+  provenance_class: notional
+  source: Initial Stage 0 sizing assumption.
+  date: "2026-08-19"
+  environment: Synthetic authorization service.
+  uncertainty: Configuration choice.
+  applicable_scenarios: [all]
+
+- parameter_id: PAR-BETA
+  symbol: beta_inf
+  definition: Per-edge compromise attempt rate in the attack-reachability abstraction.
+  units: per second per edge
+  baseline_value: 0.18
+  sweep: [0.005, 0.02, 0.05, 0.18, 0.5]
+  provenance_class: notional
+  source: Initial Stage 0 adversary assumption.
+  date: "2026-08-19"
+  environment: Synthetic compromise propagation.
+  uncertainty: High. This parameter is topology and exploit dependent.
+  applicable_scenarios: [flat_dense, microsegmented, mixed_mission]
+
+- parameter_id: PAR-GAMMA
+  symbol: gamma_rec
+  definition: Combined detection and remediation rate in the initial integrated model.
+  units: per second
+  baseline_value: 0.28
+  sweep: [0.02, 0.1, 0.28, 0.5, 1.0]
+  provenance_class: notional
+  source: Initial Stage 0 containment assumption.
+  date: "2026-08-19"
+  environment: Synthetic supervisory control plane.
+  uncertainty: Detection and remediation will be separated in a later increment.
+  applicable_scenarios: [flat_dense, microsegmented, mixed_mission]
+
+- parameter_id: PAR-Q
+  symbol: q
+  definition: Probability that a modeled authorization boundary is traversed by compromise.
+  units: probability
+  baseline_value: 0.02
+  sweep: [0.0, 0.01, 0.02, 0.05, 0.1, 0.5, 1.0]
+  provenance_class: notional
+  source: Initial Stage 0 boundary-failure assumption.
+  date: "2026-08-19"
+  environment: Dynamic microsegmentation abstraction.
+  uncertainty: High and implementation dependent.
+  applicable_scenarios: [microsegmented, mixed_mission]
+
+- parameter_id: PAR-TTL
+  symbol: TTL
+  definition: Workload credential lifetime.
+  units: seconds
+  baseline_value: 300.0
+  sweep: [60.0, 300.0, 900.0, 3600.0]
+  provenance_class: notional
+  source: Master prompt credential example and initial scenario choice.
+  date: "2026-08-19"
+  environment: Synthetic workload identity service.
+  uncertainty: Operational policy choice.
+  applicable_scenarios: [all]
+
+- parameter_id: PAR-CLOCK-EPSILON
+  symbol: epsilon
+  definition: Clock uncertainty used by ordered-operation analysis.
+  units: seconds
+  baseline_value: 0.000001
+  sweep: [0.00000002, 0.000001, 0.001, 0.1]
+  provenance_class: analytically_fixed
+  source: Master prompt version 0.2 timing sweep.
+  date: "2026-08-19"
+  environment: Timing sensitivity analysis.
+  uncertainty: Selected experiment values, not measured deployment values.
+  applicable_scenarios: [timing]
+
+- parameter_id: PAR-FIBER-N
+  symbol: n_fiber
+  definition: Refractive index used for the fiber propagation floor.
+  units: dimensionless
+  baseline_value: 1.47
+  sweep: null
+  provenance_class: notional
+  source: Master prompt version 0.2 physical-limit assumption.
+  date: "2026-08-19"
+  environment: Geographic latency calculation.
+  uncertainty: Actual route and fiber properties vary.
+  applicable_scenarios: [timing, consensus]
+
+- parameter_id: PAR-TEMP
+  symbol: T
+  definition: Temperature used for the Landauer lower bound.
+  units: kelvin
+  baseline_value: 300.0
+  sweep: [273.15, 300.0, 330.0]
+  provenance_class: notional
+  source: Master prompt version 0.2 Landauer example.
+  date: "2026-08-19"
+  environment: Thermodynamic lower-bound calculation.
+  uncertainty: Does not represent practical system dissipation.
+  applicable_scenarios: [energy]

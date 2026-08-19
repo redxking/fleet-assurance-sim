@@ -1,0 +1,5 @@
+scale_or_decision,current_binding_constraint,required_action,failure_if_ignored
+Compromise prediction,One scalar cannot jointly predict initiation and final size,Use phase-separated or message-passing model; retain static non-backtracking baseline,High rank discrimination with poor magnitude calibration
+Rapid fleet admission,Cumulative reflected backlog across assurance resources,"Instrument identity, credential, telemetry, and supervision work; enforce admission budget",Transient queue growth and delayed assurance processing even when final N is unchanged
+Authorization segmentation,Attack reachability cannot be inferred from authorization topology alone,"Build directed multilayer reachability from authorization, dependencies, communications, supervision, and identity infrastructure",Underestimated propagation paths and unsupported containment claims
+"10,000-agent recommendation",No externally calibrated model and no full-scale adversarial validation,Do not issue deployment assurance recommendation; complete empirical calibration and T&E,Simulation-conditioned results misrepresented as operational assurance

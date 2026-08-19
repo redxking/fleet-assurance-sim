@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0",
+  "record_type": "stage3_baseline_provenance",
+  "recorded_date": "2026-08-19",
+  "decision": "conditional_go",
+  "source_archive": {
+    "filename": "fleet-assurance-sim-local-release-2026-08-19.zip",
+    "sha256_reported": "bfbb5aeaa3847e7dc765c0842ac4b06d4d6b5e8f1c89ecaf9760ea863fa92945",
+    "sha256_verified": "bfbb5aeaa3847e7dc765c0842ac4b06d4d6b5e8f1c89ecaf9760ea863fa92945",
+    "checksum_match": true,
+    "archive_file_count_including_manifest": 413
+  },
+  "baseline": {
+    "directory_name": "fleet-assurance-stage2-baseline",
+    "extracted_at": "2026-08-19T12:38:08-04:00",
+    "policy": "immutable",
+    "manifest_path": "MANIFEST.sha256",
+    "manifest_entries": 412,
+    "manifest_entries_verified": 412,
+    "manifest_failures": 0,
+    "release_id": "FAS-STAGE2-RESEARCH-2026-08-19",
+    "package_version": "0.1.0"
+  },
+  "working_copy": {
+    "directory_name": "fleet-assurance-stage3-working",
+    "purpose": "Stage 3 development, verification, calibration, and falsification",
+    "may_modify": true,
+    "must_not_overwrite_baseline": true
+  },
+  "verification_environment": {
+    "host_os": "macOS 26.6.1",
+    "architecture": "arm64",
+    "environment_type": "clean Python virtual environment",
+    "python_version": "3.13.0",
+    "installed_dependency_sets": [
+      "pinned runtime",
+      "development",
+      "science"
+    ],
+    "installed_distribution": {
+      "name": "fleet-assurance-sim",
+      "version": "0.1.0",
+      "source": "packaged wheel"
+    }
+  },
+  "automated_tests": {
+    "status": "pass",
+    "passed": 51,
+    "failed": 0,
+    "duration_seconds": 26.35
+  },
+  "smoke_and_replay": {
+    "status": "pass",
+    "run_count": 2,
+    "outputs_identical_across_runs": true,
+    "event_count": 2441,
+    "event_log_digest": "6598fa0c5266c083c7e232fb221197d1a600af4851062ad953142fcc054d4881",
+    "final_state_hash": "750770a4fce83cf10984f3a75feba34cd1c618adddb4f68ab99fa4913149baa7",
+    "replay_state_hash": "750770a4fce83cf10984f3a75feba34cd1c618adddb4f68ab99fa4913149baa7",
+    "replay_verified": true
+  },
+  "visual_console": {
+    "status": "pass_for_launch_and_http_reachability",
+    "root_http_status": 302,
+    "redirect_location": "/app",
+    "app_http_status": 200,
+    "app_response_bytes": 3390,
+    "browser_rendering_verified": false,
+    "production_security_verified": false
+  },
+  "cycle7_regeneration": {
+    "execution_mode": "isolated working location",
+    "status": "numerically_reproduced",
+    "replications": 34560,
+    "frozen_inputs_match": true,
+    "scientific_decisions_match_release": true,
+    "byte_hashes_match_release": false,
+    "maximum_numeric_delta": 2.2404702537670573e-09,
+    "initial_headless_exit_code": 134,
+    "successful_headless_setting": "MPLBACKEND=Agg",
+    "interpretation": "Numerically equivalent at the observed delta with unchanged decisions; not bitwise reproducible across the compared environments."
+  },
+  "stage2_research_dispositions": {
+    "NH2-D": {
+      "status": "refuted_within_current_model",
+      "scope": "tested dynamic next-generation scalar formulation",
+      "preserve_negative_result": true
+    },
+    "NH2-T": {
+      "status": "refuted_within_current_model",
+      "scope": "training-selected infection-propagator formulation",
+      "preserve_negative_result": true
+    },
+    "NH4-O": {
+      "status": "strong_provisional_model_conditioned_evidence",
+      "formally_supported_under_complete_rule": false,
+      "operational_threshold_validated": false
+    },
+    "NH2-H": {
+      "status": "mixed_positive_model_conditioned_evidence",
+      "formally_supported_under_complete_rule": false,
+      "external_transfer_validated": false
+    }
+  },
+  "known_limitations": [
+    "All Stage 2 operational parameters and mechanisms are synthetic or notional unless explicitly identified as analytic.",
+    "The verification does not establish implementation security or deployment assurance.",
+    "Cycle 7 numerical reproduction was not byte-identical across the compared environments.",
+    "The local console received an HTTP reachability check, not a complete browser, accessibility, authentication, or adversarial security assessment.",
+    "Independently verifiable external timestamps or signatures are not present for every preregistration artifact.",
+    "No measured control-plane calibration or independent compromise trace set is included."
+  ],
+  "stage3_required_controls": [
+    "Preserve the Stage 2 baseline as immutable.",
+    "Write new outputs only to the Stage 3 working copy and use append-only run directories.",
+    "Set or validate MPLBACKEND=Agg for headless experiment execution.",
+    "Record numerical-equivalence tolerances separately from byte-level integrity hashes.",
+    "Preserve NH2-D and the selected NH2-T formulation as negative results.",
+    "Externally calibrate NH4-O before operational use.",
+    "Independently evaluate NH2-H with stronger initiation calibration and additional structural blocks.",
+    "Add direct artifact hashes, protocol references, execution manifests, and seed-set identifiers to the evidence ledger.",
+    "Correct overbroad Stage 2 claim language only in new Stage 3 documentation, leaving the baseline unchanged."
+  ]
+}

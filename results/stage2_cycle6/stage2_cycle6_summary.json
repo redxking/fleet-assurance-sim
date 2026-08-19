@@ -1,0 +1,241 @@
+{
+  "study": "Stage 2 Cycle 6",
+  "protocol_id": "FAS-S2-C6-2026-08-19",
+  "seed": 20260821,
+  "evidence_scope": "model-conditioned; notional parameters; no external validation",
+  "NH2_T": {
+    "selected_temporal_candidate": "propagator_growth",
+    "candidate_test_mae": 0.056856683246422825,
+    "baseline_test_mae": 0.04717473302649764,
+    "mae_improvement_fraction": -0.2052359303122482,
+    "candidate_raw_auc": 0.9776266061980348,
+    "baseline_raw_auc": 0.9761904761904762,
+    "auc_delta": 0.0014361300075586003,
+    "candidate_spearman": 0.9116538369412792,
+    "baseline_spearman": 0.9074284388760582,
+    "spearman_delta": 0.004225398065221042,
+    "positive_robustness_blocks": 5,
+    "bootstrap_95pct": {
+      "mae_improvement_fraction": [
+        -0.3334409314049302,
+        -0.09416046987833461
+      ],
+      "absolute_mae_reduction": [
+        -0.015117229410833022,
+        -0.0046192475115647506
+      ],
+      "auc_delta": [
+        -0.019880025728239964,
+        0.022115746028729507
+      ]
+    },
+    "criteria": {
+      "mae_improvement_at_least_5pct": false,
+      "auc_delta_at_least_0_01": false,
+      "spearman_non_decreasing": true,
+      "bootstrap_absolute_mae_lower_bound_positive": false,
+      "four_of_five_positive_robustness_blocks": true
+    },
+    "supported_in_model": false,
+    "test_class_counts": {
+      "positive": 45,
+      "negative": 147
+    },
+    "robustness": [
+      {
+        "block": 0,
+        "selected_primary_candidate": "propagator_growth",
+        "training_selected_candidate_in_block": "temporal_nb",
+        "candidate_mae": 0.030643245209708774,
+        "baseline_mae": 0.037065568399997084,
+        "mae_improvement_fraction": 0.17326924872650315,
+        "candidate_auc": 0.9666666666666667,
+        "baseline_auc": 0.9666666666666667,
+        "auc_delta": 0.0
+      },
+      {
+        "block": 1,
+        "selected_primary_candidate": "propagator_growth",
+        "training_selected_candidate_in_block": "propagator_growth",
+        "candidate_mae": 0.029841565854903728,
+        "baseline_mae": 0.043340739232096026,
+        "mae_improvement_fraction": 0.3114661543934966,
+        "candidate_auc": 0.9272727272727272,
+        "baseline_auc": 0.9181818181818182,
+        "auc_delta": 0.009090909090909038
+      },
+      {
+        "block": 2,
+        "selected_primary_candidate": "propagator_growth",
+        "training_selected_candidate_in_block": "temporal_nb",
+        "candidate_mae": 0.025671165752989368,
+        "baseline_mae": 0.03461601930356738,
+        "mae_improvement_fraction": 0.2584021424339855,
+        "candidate_auc": 1.0,
+        "baseline_auc": 0.990909090909091,
+        "auc_delta": 0.009090909090909038
+      },
+      {
+        "block": 3,
+        "selected_primary_candidate": "propagator_growth",
+        "training_selected_candidate_in_block": "propagator_growth",
+        "candidate_mae": 0.031079757801637877,
+        "baseline_mae": 0.043853832508967884,
+        "mae_improvement_fraction": 0.29128753352897435,
+        "candidate_auc": 1.0,
+        "baseline_auc": 1.0,
+        "auc_delta": 0.0
+      },
+      {
+        "block": 4,
+        "selected_primary_candidate": "propagator_growth",
+        "training_selected_candidate_in_block": "propagator_growth",
+        "candidate_mae": 0.03487192381149351,
+        "baseline_mae": 0.038248018454041785,
+        "mae_improvement_fraction": 0.08826848498321388,
+        "candidate_auc": 1.0,
+        "baseline_auc": 1.0,
+        "auc_delta": 0.0
+      }
+    ]
+  },
+  "NH4_O": {
+    "test_scenarios": 112,
+    "positive_test_scenarios": 72,
+    "negative_test_scenarios": 40,
+    "validity_gate": true,
+    "omega_auc": 0.9916666666666667,
+    "lambda_auc": 0.9333333333333333,
+    "auc_delta": 0.05833333333333335,
+    "omega_brier": 0.11832988392243693,
+    "lambda_brier": 0.2393490152503799,
+    "brier_improvement_fraction": 0.5056178367867795,
+    "omega_one_balanced_accuracy": 0.8333333333333333,
+    "threshold_cv": 0.19486685964976375,
+    "valid_threshold_groups": 4,
+    "thresholds": [
+      0.7637840819218792,
+      0.5371540256315476,
+      0.8776526378540612,
+      0.7815820678237556
+    ],
+    "predictor_metrics": {
+      "peak_lambda": {
+        "raw_auc": 0.9333333333333333,
+        "brier": 0.2393490152503799
+      },
+      "omega": {
+        "raw_auc": 0.9916666666666667,
+        "brier": 0.11832988392243693
+      }
+    },
+    "positive_robustness_blocks": 3,
+    "robustness": [
+      {
+        "block": 0,
+        "validity_gate": true,
+        "omega_auc": 0.9951907131011609,
+        "lambda_auc": 0.9122719734660033,
+        "auc_delta": 0.08291873963515761,
+        "omega_one_balanced_accuracy": 0.8582089552238805,
+        "brier_improvement_fraction": 0.5071655007246847,
+        "block_pass": true
+      },
+      {
+        "block": 1,
+        "validity_gate": true,
+        "omega_auc": 0.991742500842602,
+        "lambda_auc": 0.91489720256151,
+        "auc_delta": 0.07684529828109199,
+        "omega_one_balanced_accuracy": 0.8478260869565217,
+        "brier_improvement_fraction": 0.5058297062328567,
+        "block_pass": false
+      },
+      {
+        "block": 2,
+        "validity_gate": true,
+        "omega_auc": 0.9980237154150198,
+        "lambda_auc": 0.9090909090909091,
+        "auc_delta": 0.08893280632411071,
+        "omega_one_balanced_accuracy": 0.8636363636363636,
+        "brier_improvement_fraction": 0.4776730235187738,
+        "block_pass": true
+      },
+      {
+        "block": 3,
+        "validity_gate": true,
+        "omega_auc": 0.9959083469721768,
+        "lambda_auc": 0.9009819967266776,
+        "auc_delta": 0.09492635024549922,
+        "omega_one_balanced_accuracy": 0.8692307692307693,
+        "brier_improvement_fraction": 0.4695579834071276,
+        "block_pass": true
+      },
+      {
+        "block": 4,
+        "validity_gate": true,
+        "omega_auc": 0.9944388270980788,
+        "lambda_auc": 0.91489720256151,
+        "auc_delta": 0.07954162453656888,
+        "omega_one_balanced_accuracy": 0.8478260869565217,
+        "brier_improvement_fraction": 0.5138014467248672,
+        "block_pass": false
+      }
+    ],
+    "bootstrap_95pct": {
+      "auc_delta": [
+        0.015945040125425098,
+        0.10643205384322682
+      ],
+      "brier_improvement_fraction": [
+        0.4492540360327446,
+        0.5606016560822052
+      ],
+      "omega_one_balanced_accuracy": [
+        0.7835758706467661,
+        0.8897058823529411
+      ]
+    },
+    "criteria": {
+      "validity_gate": true,
+      "omega_auc_at_least_0_90": true,
+      "auc_delta_at_least_0_08": false,
+      "omega_one_balanced_accuracy_at_least_0_80": true,
+      "brier_reduction_at_least_15pct": true,
+      "threshold_cv_no_more_than_0_20": true,
+      "four_of_five_robustness_blocks": false
+    },
+    "supported_in_model": false
+  },
+  "assessments": [
+    {
+      "hypothesis": "NH2-T",
+      "supported_in_model": false,
+      "decision": "refuted or not supported",
+      "evidence_level": "model-conditioned",
+      "primary_result": "Selected propagator_growth; MAE improvement -20.5% and AUC delta 0.001.",
+      "limitations": "Synthetic directed propagation with noisy but model-derived observables."
+    },
+    {
+      "hypothesis": "NH4-O",
+      "supported_in_model": false,
+      "decision": "refuted, invalid, or not supported",
+      "evidence_level": "analytic plus model-conditioned",
+      "primary_result": "Omega AUC 0.992; AUC delta 0.058; balanced accuracy 0.833.",
+      "limitations": "Resource demand, capacity, and stochastic work are notional."
+    }
+  ],
+  "dataset_counts": {
+    "nh2_replications": 11520,
+    "nh2_scenarios": 384,
+    "nh4_replications": 8400,
+    "nh4_scenarios": 280
+  },
+  "figures": [
+    "figures/stage2_cycle6/nh2_temporal_predictor_scatter.png",
+    "figures/stage2_cycle6/nh2_predictor_mae.png",
+    "figures/stage2_cycle6/nh4_omega_transition.png",
+    "figures/stage2_cycle6/nh4_lambda_vs_omega.png",
+    "figures/stage2_cycle6/nh4_targeted_boundary_curve.png"
+  ]
+}

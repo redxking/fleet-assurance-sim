@@ -1,0 +1,6 @@
+predictor,columns,test_auc_majority_failure,test_brier_failure_rate,test_scenarios
+final_n,final_n,0.5,0.10424800285541354,40
+raw_population_velocity,max_admission_rate,0.5,0.0008153003968148019,40
+peak_lambda,peak_lambda,0.5,0.0006921260617337836,40
+omega,omega,0.5,0.0002657153530824155,40
+joint_lambda_omega,"peak_lambda,omega",0.5,0.0006934936814480721,40

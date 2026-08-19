@@ -1,0 +1,63 @@
+{
+  "seed": 20260819,
+  "evidence_scope": "model-conditioned; parameters notional; no external validation",
+  "results": [
+    {
+      "hypothesis": "NH1",
+      "evidence_level": "model-conditioned demonstration",
+      "supported_in_model": false,
+      "primary_metric": 0.7709259259259259,
+      "baseline_metric": 0.9490740740740741,
+      "notes": "Held-out geometric region. Support requires coupled AUC to exceed the independent-ceiling baseline by >0.02 and coupled Brier score to improve. Parameters are notional."
+    },
+    {
+      "hypothesis": "NH2",
+      "evidence_level": "model-conditioned demonstration",
+      "supported_in_model": false,
+      "primary_metric": 0.9523460410557184,
+      "baseline_metric": 0.935850439882698,
+      "notes": "Outcome is stochastic SIR on the candidate weighted attack graph. This verifies predictive utility inside the declared propagation model, not against observed incidents."
+    },
+    {
+      "hypothesis": "NH4",
+      "evidence_level": "model-conditioned demonstration",
+      "supported_in_model": true,
+      "primary_metric": 483.0580775068073,
+      "baseline_metric": 0.0,
+      "notes": "All profiles end at the same N. The experiment tests whether admission trajectory creates different transient assurance outcomes through identity/control/supervisory queues."
+    }
+  ],
+  "metrics": {
+    "NH1": {
+      "auc_coupled": 0.7709259259259259,
+      "auc_independent": 0.9490740740740741,
+      "brier_coupled": 0.21578493677745245,
+      "brier_independent": 0.13033633243789805,
+      "train_n": 956,
+      "test_n": 165,
+      "failure_rate_test": 0.7272727272727273
+    },
+    "NH2": {
+      "spearman_attack_vs_ever": 0.9523460410557184,
+      "spearman_raw_auth_vs_ever": 0.935850439882698,
+      "spearman_attack_vs_peak": 0.9605866339223535,
+      "spearman_raw_auth_vs_peak": 0.9325389707563,
+      "test_scenarios": 32,
+      "replications_per_scenario": 30
+    },
+    "NH4": {
+      "same_final_n": 1.0,
+      "step_mean_minimum_margin": -487.2960015857046,
+      "staged_mean_minimum_margin": -4.237924078897255,
+      "margin_advantage_staged_over_step": 483.0580775068073,
+      "step_inadmissible_fraction": 0.7031737773152965,
+      "staged_inadmissible_fraction": 0.4784599375650364,
+      "replications": 40
+    }
+  },
+  "figures": [
+    "figures/stage1_cycle1/nh1_heldout_calibration.png",
+    "figures/stage1_cycle1/nh2_attack_operator_comparison.png",
+    "figures/stage1_cycle1/nh4_admission_trajectory_margin.png"
+  ]
+}

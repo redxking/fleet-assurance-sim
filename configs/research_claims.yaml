@@ -1,0 +1,38 @@
+version: "0.1"
+date: "2026-08-19"
+status: "candidate claims for falsification, not established findings"
+primary_thesis: >-
+  Assurance of runtime-agnostic autonomous fleets is a coupled admissible-region
+  problem; fleet size alone is not sufficient to predict assurance loss.
+claims:
+  NH1_coupled_envelope:
+    status: primary
+    null_condition: "Independent one-dimensional ceilings predict assurance failure as well as a coupled model."
+    required_metrics:
+      - envelope_margin
+      - binding_constraint
+      - failure_probability
+      - calibration_error
+      - out_of_sample_log_loss
+  NH2_attack_reachability:
+    status: primary
+    null_condition: "Raw authorization adjacency predicts compromise outcomes as well as the dynamic attack-reachability operator."
+    required_graphs: [communication, authorization, dependency, supervisory, attack_reachability]
+    required_metrics: [spectral_radius, nonbacktracking_radius, blast_radius, time_to_contain, time_to_spread]
+  NH3_assurance_observability:
+    status: secondary
+    null_condition: "No stable assurance-specific evidence-rate frontier exists beyond generic compression effects."
+    required_metrics: [evidence_rate_bps, critical_state_miss_probability, distortion, anomaly_class_recall]
+  NH4_admission_trajectory:
+    status: primary
+    null_condition: "Final fleet size and static load fully explain assurance outcome; admission trajectory adds no predictive value."
+    admission_profiles: [step, linear_ramp, burst, staged]
+    required_metrics: [dN_dt, settling_time_s, envelope_margin, supervisory_utilization, credential_ops_per_s]
+  NH5_temporal_security_interaction:
+    status: secondary
+    null_condition: "Clock uncertainty changes only externally consistent transaction performance."
+    required_metrics: [clock_uncertainty_s, credential_ambiguity, revocation_order_errors, forensic_order_ambiguity]
+retired_claims:
+  - "assurance debt is a novel term"
+  - "spectral radius containment is itself novel"
+  - "generic rate-distortion application is itself novel"

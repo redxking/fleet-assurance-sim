@@ -1,0 +1,115 @@
+{
+  "created_utc": "2026-08-19T19:50:50.038400+00:00",
+  "execution_id": "stage3-confirmatory-20260819-01",
+  "execution_mode": "confirmatory",
+  "figure_count": 6,
+  "figures": [
+    {
+      "alt_text": "Two-panel chart comparing held-out Brier scores and the paired bootstrap improvement. Projected Omega_A improves on the strongest simple baseline, but this alone does not satisfy all preregistered criteria.",
+      "bytes": 223267,
+      "claim_id": "NH4-O",
+      "figure_id": "stage3a_pooled_brier",
+      "height_px": 1537,
+      "path": "figures/stage3/stage3a_pooled_brier.png",
+      "scope": "immutable_confirmatory_synthetic_model_conditioned",
+      "sha256": "e6ff9df2285d0f5d5f63cb937e0e5d463d413dc49d1c69889437f852efde72ee",
+      "source_artifacts": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/stage3_evidence.json",
+      "source_sha256": "39f0ee1b82096c89c0fe6c7a162bccc6601653492eeb27c80672a773421dd280",
+      "title": "Stage 3A pooled Brier comparison",
+      "width_px": 3484
+    },
+    {
+      "alt_text": "Horizontal bar chart of Stage 3A Brier improvements by block and transfer stratum. All five blocks are positive, while the 1.25 capacity multiplier is slightly negative.",
+      "bytes": 288836,
+      "claim_id": "NH4-O",
+      "figure_id": "stage3a_block_and_shift_improvement",
+      "height_px": 2010,
+      "path": "figures/stage3/stage3a_block_and_shift_improvement.png",
+      "scope": "immutable_confirmatory_synthetic_model_conditioned",
+      "sha256": "44d5e0bec76c9d2147f9bc412fb435ea22634f26e7e53fcd7441584c292041d0",
+      "source_artifacts": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/stage3_evidence.json",
+      "source_sha256": "39f0ee1b82096c89c0fe6c7a162bccc6601653492eeb27c80672a773421dd280",
+      "title": "Stage 3A block and transfer-stratum improvements",
+      "width_px": 3320
+    },
+    {
+      "alt_text": "Reliability diagram for projected Omega_A and the strongest simple baseline on 21,600 held-out rows. The candidate calibration slope is 0.454, below the preregistered range.",
+      "bytes": 238465,
+      "claim_id": "NH4-O",
+      "figure_id": "stage3a_reliability",
+      "height_px": 1924,
+      "path": "figures/stage3/stage3a_reliability.png",
+      "scope": "immutable_confirmatory_synthetic_model_conditioned",
+      "sha256": "d3994036ebed73e3cdba561aa528c937dd22f0855d372e56394234fbbf516242",
+      "source_artifacts": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/stage3_evidence.json;results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/derived/stage3a_heldout_predictions.parquet",
+      "source_sha256": "39f0ee1b82096c89c0fe6c7a162bccc6601653492eeb27c80672a773421dd280;d1408d7a3cd04136df7768336b33424e07eb7a3b70efad20bdc30b7a5953a41b",
+      "title": "Stage 3A held-out reliability",
+      "width_px": 2271
+    },
+    {
+      "alt_text": "Two-panel chart comparing final-size MAE for phase-separated DMP and the calibration-selected temporal propagator, plus the paired bootstrap improvement interval crossing zero.",
+      "bytes": 249389,
+      "claim_id": "NH2-H",
+      "figure_id": "stage3b_final_size_mae",
+      "height_px": 1537,
+      "path": "figures/stage3/stage3b_final_size_mae.png",
+      "scope": "immutable_confirmatory_synthetic_model_conditioned",
+      "sha256": "c5d01ee2e16edc165a185efc5432ca7b41b081a9a46dab6664bc974d5f9f8988",
+      "source_artifacts": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/stage3_evidence.json",
+      "source_sha256": "39f0ee1b82096c89c0fe6c7a162bccc6601653492eeb27c80672a773421dd280",
+      "title": "Stage 3B final-size MAE comparison",
+      "width_px": 3268
+    },
+    {
+      "alt_text": "Two-panel chart showing nearly equal outbreak Brier scores and a paired bootstrap improvement interval crossing zero and far below the ten percent gate.",
+      "bytes": 193402,
+      "claim_id": "NH2-H",
+      "figure_id": "stage3b_outbreak_brier",
+      "height_px": 1537,
+      "path": "figures/stage3/stage3b_outbreak_brier.png",
+      "scope": "immutable_confirmatory_synthetic_model_conditioned",
+      "sha256": "96bef9900f289e52a1b3a7068dbbafa64ff5d026a8bd7e136367040c0543588c",
+      "source_artifacts": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/stage3_evidence.json",
+      "source_sha256": "39f0ee1b82096c89c0fe6c7a162bccc6601653492eeb27c80672a773421dd280",
+      "title": "Stage 3B outbreak Brier comparison",
+      "width_px": 3297
+    },
+    {
+      "alt_text": "Two-panel chart showing final-size transfer improvement by unseen scale and topology, and calibration-slope changes under defense and segmentation shifts. N equals 10,000, Barabasi-Albert, and detection response fail their rules.",
+      "bytes": 263672,
+      "claim_id": "NH2-H",
+      "figure_id": "stage3b_transfer",
+      "height_px": 1650,
+      "path": "figures/stage3/stage3b_transfer.png",
+      "scope": "immutable_confirmatory_synthetic_model_conditioned",
+      "sha256": "f895e5b55cb65a02a1717c16fdef723df9aa7bcda85b53227b3eb6469e89d644",
+      "source_artifacts": "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/stage3_evidence.json",
+      "source_sha256": "39f0ee1b82096c89c0fe6c7a162bccc6601653492eeb27c80672a773421dd280",
+      "title": "Stage 3B transfer and calibration-shift results",
+      "width_px": 3268
+    }
+  ],
+  "protocol_hash": "b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851",
+  "protocol_id": "FAS-S3-C1-2026-08-19",
+  "rendering": {
+    "backend": "Agg",
+    "color_accessibility": "colorblind-aware palette with redundant hatching, labels, and zero or threshold lines",
+    "dpi": 300,
+    "format": "png",
+    "matplotlib_version": "3.10.8"
+  },
+  "schema_version": "1.0",
+  "scientific_boundary": {
+    "external_validation": false,
+    "figures_used_for_adjudication": false,
+    "note": "Figures are deterministic post-confirmatory renderings of immutable evidence and held-out predictions. They do not alter metrics, criteria, or dispositions.",
+    "scope": "model_conditioned_synthetic_confirmatory",
+    "stage3a_disposition": "not_supported_under_preregistered_rule",
+    "stage3b_disposition": "not_supported_under_preregistered_rule"
+  },
+  "source_artifacts": {
+    "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/derived/stage3a_heldout_predictions.parquet": "d1408d7a3cd04136df7768336b33424e07eb7a3b70efad20bdc30b7a5953a41b",
+    "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/derived/stage3b_heldout_predictions.parquet": "cbec4354f0aecc2d5c538d150db1d63b35fc01ed63ec3fe9d8d8ca24f0dabdf1",
+    "results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/stage3_evidence.json": "39f0ee1b82096c89c0fe6c7a162bccc6601653492eeb27c80672a773421dd280"
+  }
+}
