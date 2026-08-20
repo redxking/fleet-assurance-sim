@@ -1,0 +1,496 @@
+{
+  "$id": "https://fleet-assurance.local/schemas/assurance_resource_adapter_policy.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "adapter_mode": {
+      "enum": [
+        "interface_verification",
+        "successor_transfer"
+      ]
+    },
+    "allowed_source_evidence_scopes": {
+      "items": {
+        "enum": [
+          "measured_input_unreviewed",
+          "mixed_nonsynthetic_input_unreviewed",
+          "replayed_input_unreviewed",
+          "synthetic_or_mixed_interface_only"
+        ]
+      },
+      "maxItems": 4,
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "fit_policy_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "no_fallback": {
+      "const": true
+    },
+    "policy_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+      "type": "string"
+    },
+    "resources": {
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "identity_issuance"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "certificate_issuance_renewal"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "authorization_policy_evaluation"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "task_dispatch_registration"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "telemetry_source_registration"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "evidence_ingest_initialization"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "supervisory_review"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "revocation_readiness"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "configuration_attestation"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "dependency_registration"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        }
+      ],
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "arrival_count_mode": {
+            "enum": [
+              "poisson_count",
+              "deterministic_expected_count"
+            ]
+          },
+          "capacity_selection": {
+            "enum": [
+              "point",
+              "lower_interval_bound"
+            ]
+          },
+          "completion_count_mode": {
+            "enum": [
+              "deterministic_completion_count",
+              "poisson_completion_count",
+              "gamma_completion_count"
+            ]
+          },
+          "deadline_semantics": {
+            "const": "maximum_queue_wait_budget"
+          },
+          "field_evidence": {
+            "allOf": [
+              {
+                "contains": {
+                  "properties": {
+                    "field_name": {
+                      "const": "arrival_count_mode"
+                    }
+                  },
+                  "required": [
+                    "field_name"
+                  ],
+                  "type": "object"
+                },
+                "maxContains": 1,
+                "minContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "field_name": {
+                      "const": "capacity_selection"
+                    }
+                  },
+                  "required": [
+                    "field_name"
+                  ],
+                  "type": "object"
+                },
+                "maxContains": 1,
+                "minContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "field_name": {
+                      "const": "completion_count_mode"
+                    }
+                  },
+                  "required": [
+                    "field_name"
+                  ],
+                  "type": "object"
+                },
+                "maxContains": 1,
+                "minContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "field_name": {
+                      "const": "deadline_semantics"
+                    }
+                  },
+                  "required": [
+                    "field_name"
+                  ],
+                  "type": "object"
+                },
+                "maxContains": 1,
+                "minContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "field_name": {
+                      "const": "max_wait_selection"
+                    }
+                  },
+                  "required": [
+                    "field_name"
+                  ],
+                  "type": "object"
+                },
+                "maxContains": 1,
+                "minContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "field_name": {
+                      "const": "overload_behavior"
+                    }
+                  },
+                  "required": [
+                    "field_name"
+                  ],
+                  "type": "object"
+                },
+                "maxContains": 1,
+                "minContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "field_name": {
+                      "const": "recovery_capacity_multiplier"
+                    }
+                  },
+                  "required": [
+                    "field_name"
+                  ],
+                  "type": "object"
+                },
+                "maxContains": 1,
+                "minContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "field_name": {
+                      "const": "service_time_selection"
+                    }
+                  },
+                  "required": [
+                    "field_name"
+                  ],
+                  "type": "object"
+                },
+                "maxContains": 1,
+                "minContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "field_name": {
+                      "const": "shedding_threshold"
+                    }
+                  },
+                  "required": [
+                    "field_name"
+                  ],
+                  "type": "object"
+                },
+                "maxContains": 1,
+                "minContains": 1
+              }
+            ],
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "evidence_class": {
+                  "enum": [
+                    "configured",
+                    "inferred",
+                    "notional"
+                  ]
+                },
+                "field_name": {
+                  "enum": [
+                    "arrival_count_mode",
+                    "capacity_selection",
+                    "completion_count_mode",
+                    "deadline_semantics",
+                    "max_wait_selection",
+                    "overload_behavior",
+                    "recovery_capacity_multiplier",
+                    "service_time_selection",
+                    "shedding_threshold"
+                  ]
+                },
+                "reference": {
+                  "maxLength": 1024,
+                  "minLength": 1,
+                  "pattern": "^(?![Ff][Ii][Ll][Ee]:)(?![/~])(?![A-Za-z]:)(?!.*[\\r\\n])(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(?:/|$))\\S(?:.*\\S)?$",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field_name",
+                "evidence_class",
+                "reference"
+              ],
+              "type": "object"
+            },
+            "maxItems": 9,
+            "minItems": 9,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "max_wait_selection": {
+            "enum": [
+              "point",
+              "lower_interval_bound"
+            ]
+          },
+          "overload_behavior": {
+            "enum": [
+              "queue",
+              "shed",
+              "defer"
+            ]
+          },
+          "recovery_capacity_multiplier": {
+            "exclusiveMinimum": 0.0,
+            "type": "number"
+          },
+          "resource_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "resource_type": {
+            "enum": [
+              "identity_issuance",
+              "certificate_issuance_renewal",
+              "authorization_policy_evaluation",
+              "task_dispatch_registration",
+              "telemetry_source_registration",
+              "evidence_ingest_initialization",
+              "supervisory_review",
+              "revocation_readiness",
+              "configuration_attestation",
+              "dependency_registration"
+            ]
+          },
+          "service_time_selection": {
+            "const": "point_window_summary"
+          },
+          "shedding_threshold": {
+            "exclusiveMinimum": 0.0,
+            "type": "number"
+          }
+        },
+        "required": [
+          "arrival_count_mode",
+          "capacity_selection",
+          "completion_count_mode",
+          "deadline_semantics",
+          "field_evidence",
+          "max_wait_selection",
+          "overload_behavior",
+          "recovery_capacity_multiplier",
+          "resource_id",
+          "resource_type",
+          "service_time_selection",
+          "shedding_threshold"
+        ],
+        "type": "object"
+      },
+      "maxItems": 10,
+      "minItems": 10,
+      "type": "array"
+    },
+    "simulator_semantics_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "target_admission_rate_max_per_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "target_admission_rate_min_per_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "target_fleet_size_max": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "target_fleet_size_min": {
+      "minimum": 1,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "adapter_mode",
+    "allowed_source_evidence_scopes",
+    "fit_policy_sha256",
+    "no_fallback",
+    "policy_id",
+    "resources",
+    "simulator_semantics_sha256",
+    "target_admission_rate_max_per_s",
+    "target_admission_rate_min_per_s",
+    "target_fleet_size_max",
+    "target_fleet_size_min"
+  ],
+  "title": "Assurance resource adapter policy",
+  "type": "object"
+}

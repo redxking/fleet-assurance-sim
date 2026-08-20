@@ -1,0 +1,616 @@
+{
+  "adapter_mode": "interface_verification",
+  "allowed_source_evidence_scopes": [
+    "synthetic_or_mixed_interface_only"
+  ],
+  "fit_policy_sha256": "dc887ba249064ae8489de41bcf0ba05a1fff454793f4daad70aad89843212e09",
+  "no_fallback": true,
+  "policy_id": "assurance-resource-adapter-interface-example-v1",
+  "resources": [
+    {
+      "arrival_count_mode": "poisson_count",
+      "capacity_selection": "point",
+      "completion_count_mode": "poisson_completion_count",
+      "deadline_semantics": "maximum_queue_wait_budget",
+      "field_evidence": [
+        {
+          "evidence_class": "notional",
+          "field_name": "arrival_count_mode",
+          "reference": "interface-example-arrival-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "completion_count_mode",
+          "reference": "interface-example-completion-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "capacity_selection",
+          "reference": "interface-example-capacity-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "service_time_selection",
+          "reference": "interface-example-service-summary-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "max_wait_selection",
+          "reference": "interface-example-max-wait-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "deadline_semantics",
+          "reference": "interface-example-deadline-semantics"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "overload_behavior",
+          "reference": "interface-example-overload-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "shedding_threshold",
+          "reference": "interface-example-shedding-threshold"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "recovery_capacity_multiplier",
+          "reference": "interface-example-recovery-multiplier"
+        }
+      ],
+      "max_wait_selection": "point",
+      "overload_behavior": "queue",
+      "recovery_capacity_multiplier": 1.15,
+      "resource_id": "identity-primary",
+      "resource_type": "identity_issuance",
+      "service_time_selection": "point_window_summary",
+      "shedding_threshold": 1.25
+    },
+    {
+      "arrival_count_mode": "poisson_count",
+      "capacity_selection": "point",
+      "completion_count_mode": "poisson_completion_count",
+      "deadline_semantics": "maximum_queue_wait_budget",
+      "field_evidence": [
+        {
+          "evidence_class": "notional",
+          "field_name": "arrival_count_mode",
+          "reference": "interface-example-arrival-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "completion_count_mode",
+          "reference": "interface-example-completion-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "capacity_selection",
+          "reference": "interface-example-capacity-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "service_time_selection",
+          "reference": "interface-example-service-summary-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "max_wait_selection",
+          "reference": "interface-example-max-wait-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "deadline_semantics",
+          "reference": "interface-example-deadline-semantics"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "overload_behavior",
+          "reference": "interface-example-overload-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "shedding_threshold",
+          "reference": "interface-example-shedding-threshold"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "recovery_capacity_multiplier",
+          "reference": "interface-example-recovery-multiplier"
+        }
+      ],
+      "max_wait_selection": "point",
+      "overload_behavior": "queue",
+      "recovery_capacity_multiplier": 1.15,
+      "resource_id": "certificate-primary",
+      "resource_type": "certificate_issuance_renewal",
+      "service_time_selection": "point_window_summary",
+      "shedding_threshold": 1.25
+    },
+    {
+      "arrival_count_mode": "poisson_count",
+      "capacity_selection": "point",
+      "completion_count_mode": "poisson_completion_count",
+      "deadline_semantics": "maximum_queue_wait_budget",
+      "field_evidence": [
+        {
+          "evidence_class": "notional",
+          "field_name": "arrival_count_mode",
+          "reference": "interface-example-arrival-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "completion_count_mode",
+          "reference": "interface-example-completion-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "capacity_selection",
+          "reference": "interface-example-capacity-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "service_time_selection",
+          "reference": "interface-example-service-summary-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "max_wait_selection",
+          "reference": "interface-example-max-wait-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "deadline_semantics",
+          "reference": "interface-example-deadline-semantics"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "overload_behavior",
+          "reference": "interface-example-overload-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "shedding_threshold",
+          "reference": "interface-example-shedding-threshold"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "recovery_capacity_multiplier",
+          "reference": "interface-example-recovery-multiplier"
+        }
+      ],
+      "max_wait_selection": "point",
+      "overload_behavior": "queue",
+      "recovery_capacity_multiplier": 1.15,
+      "resource_id": "authorization-primary",
+      "resource_type": "authorization_policy_evaluation",
+      "service_time_selection": "point_window_summary",
+      "shedding_threshold": 1.25
+    },
+    {
+      "arrival_count_mode": "poisson_count",
+      "capacity_selection": "point",
+      "completion_count_mode": "poisson_completion_count",
+      "deadline_semantics": "maximum_queue_wait_budget",
+      "field_evidence": [
+        {
+          "evidence_class": "notional",
+          "field_name": "arrival_count_mode",
+          "reference": "interface-example-arrival-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "completion_count_mode",
+          "reference": "interface-example-completion-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "capacity_selection",
+          "reference": "interface-example-capacity-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "service_time_selection",
+          "reference": "interface-example-service-summary-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "max_wait_selection",
+          "reference": "interface-example-max-wait-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "deadline_semantics",
+          "reference": "interface-example-deadline-semantics"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "overload_behavior",
+          "reference": "interface-example-overload-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "shedding_threshold",
+          "reference": "interface-example-shedding-threshold"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "recovery_capacity_multiplier",
+          "reference": "interface-example-recovery-multiplier"
+        }
+      ],
+      "max_wait_selection": "point",
+      "overload_behavior": "defer",
+      "recovery_capacity_multiplier": 1.15,
+      "resource_id": "dispatch-primary",
+      "resource_type": "task_dispatch_registration",
+      "service_time_selection": "point_window_summary",
+      "shedding_threshold": 1.25
+    },
+    {
+      "arrival_count_mode": "poisson_count",
+      "capacity_selection": "point",
+      "completion_count_mode": "poisson_completion_count",
+      "deadline_semantics": "maximum_queue_wait_budget",
+      "field_evidence": [
+        {
+          "evidence_class": "notional",
+          "field_name": "arrival_count_mode",
+          "reference": "interface-example-arrival-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "completion_count_mode",
+          "reference": "interface-example-completion-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "capacity_selection",
+          "reference": "interface-example-capacity-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "service_time_selection",
+          "reference": "interface-example-service-summary-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "max_wait_selection",
+          "reference": "interface-example-max-wait-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "deadline_semantics",
+          "reference": "interface-example-deadline-semantics"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "overload_behavior",
+          "reference": "interface-example-overload-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "shedding_threshold",
+          "reference": "interface-example-shedding-threshold"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "recovery_capacity_multiplier",
+          "reference": "interface-example-recovery-multiplier"
+        }
+      ],
+      "max_wait_selection": "point",
+      "overload_behavior": "defer",
+      "recovery_capacity_multiplier": 1.15,
+      "resource_id": "telemetry-primary",
+      "resource_type": "telemetry_source_registration",
+      "service_time_selection": "point_window_summary",
+      "shedding_threshold": 1.25
+    },
+    {
+      "arrival_count_mode": "poisson_count",
+      "capacity_selection": "point",
+      "completion_count_mode": "poisson_completion_count",
+      "deadline_semantics": "maximum_queue_wait_budget",
+      "field_evidence": [
+        {
+          "evidence_class": "notional",
+          "field_name": "arrival_count_mode",
+          "reference": "interface-example-arrival-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "completion_count_mode",
+          "reference": "interface-example-completion-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "capacity_selection",
+          "reference": "interface-example-capacity-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "service_time_selection",
+          "reference": "interface-example-service-summary-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "max_wait_selection",
+          "reference": "interface-example-max-wait-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "deadline_semantics",
+          "reference": "interface-example-deadline-semantics"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "overload_behavior",
+          "reference": "interface-example-overload-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "shedding_threshold",
+          "reference": "interface-example-shedding-threshold"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "recovery_capacity_multiplier",
+          "reference": "interface-example-recovery-multiplier"
+        }
+      ],
+      "max_wait_selection": "point",
+      "overload_behavior": "shed",
+      "recovery_capacity_multiplier": 1.15,
+      "resource_id": "evidence-primary",
+      "resource_type": "evidence_ingest_initialization",
+      "service_time_selection": "point_window_summary",
+      "shedding_threshold": 1.25
+    },
+    {
+      "arrival_count_mode": "poisson_count",
+      "capacity_selection": "point",
+      "completion_count_mode": "poisson_completion_count",
+      "deadline_semantics": "maximum_queue_wait_budget",
+      "field_evidence": [
+        {
+          "evidence_class": "notional",
+          "field_name": "arrival_count_mode",
+          "reference": "interface-example-arrival-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "completion_count_mode",
+          "reference": "interface-example-completion-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "capacity_selection",
+          "reference": "interface-example-capacity-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "service_time_selection",
+          "reference": "interface-example-service-summary-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "max_wait_selection",
+          "reference": "interface-example-max-wait-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "deadline_semantics",
+          "reference": "interface-example-deadline-semantics"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "overload_behavior",
+          "reference": "interface-example-overload-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "shedding_threshold",
+          "reference": "interface-example-shedding-threshold"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "recovery_capacity_multiplier",
+          "reference": "interface-example-recovery-multiplier"
+        }
+      ],
+      "max_wait_selection": "point",
+      "overload_behavior": "queue",
+      "recovery_capacity_multiplier": 1.15,
+      "resource_id": "supervision-primary",
+      "resource_type": "supervisory_review",
+      "service_time_selection": "point_window_summary",
+      "shedding_threshold": 1.25
+    },
+    {
+      "arrival_count_mode": "poisson_count",
+      "capacity_selection": "point",
+      "completion_count_mode": "poisson_completion_count",
+      "deadline_semantics": "maximum_queue_wait_budget",
+      "field_evidence": [
+        {
+          "evidence_class": "notional",
+          "field_name": "arrival_count_mode",
+          "reference": "interface-example-arrival-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "completion_count_mode",
+          "reference": "interface-example-completion-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "capacity_selection",
+          "reference": "interface-example-capacity-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "service_time_selection",
+          "reference": "interface-example-service-summary-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "max_wait_selection",
+          "reference": "interface-example-max-wait-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "deadline_semantics",
+          "reference": "interface-example-deadline-semantics"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "overload_behavior",
+          "reference": "interface-example-overload-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "shedding_threshold",
+          "reference": "interface-example-shedding-threshold"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "recovery_capacity_multiplier",
+          "reference": "interface-example-recovery-multiplier"
+        }
+      ],
+      "max_wait_selection": "point",
+      "overload_behavior": "queue",
+      "recovery_capacity_multiplier": 1.15,
+      "resource_id": "revocation-primary",
+      "resource_type": "revocation_readiness",
+      "service_time_selection": "point_window_summary",
+      "shedding_threshold": 1.25
+    },
+    {
+      "arrival_count_mode": "poisson_count",
+      "capacity_selection": "point",
+      "completion_count_mode": "poisson_completion_count",
+      "deadline_semantics": "maximum_queue_wait_budget",
+      "field_evidence": [
+        {
+          "evidence_class": "notional",
+          "field_name": "arrival_count_mode",
+          "reference": "interface-example-arrival-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "completion_count_mode",
+          "reference": "interface-example-completion-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "capacity_selection",
+          "reference": "interface-example-capacity-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "service_time_selection",
+          "reference": "interface-example-service-summary-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "max_wait_selection",
+          "reference": "interface-example-max-wait-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "deadline_semantics",
+          "reference": "interface-example-deadline-semantics"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "overload_behavior",
+          "reference": "interface-example-overload-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "shedding_threshold",
+          "reference": "interface-example-shedding-threshold"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "recovery_capacity_multiplier",
+          "reference": "interface-example-recovery-multiplier"
+        }
+      ],
+      "max_wait_selection": "point",
+      "overload_behavior": "defer",
+      "recovery_capacity_multiplier": 1.15,
+      "resource_id": "attestation-primary",
+      "resource_type": "configuration_attestation",
+      "service_time_selection": "point_window_summary",
+      "shedding_threshold": 1.25
+    },
+    {
+      "arrival_count_mode": "poisson_count",
+      "capacity_selection": "point",
+      "completion_count_mode": "poisson_completion_count",
+      "deadline_semantics": "maximum_queue_wait_budget",
+      "field_evidence": [
+        {
+          "evidence_class": "notional",
+          "field_name": "arrival_count_mode",
+          "reference": "interface-example-arrival-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "completion_count_mode",
+          "reference": "interface-example-completion-count-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "capacity_selection",
+          "reference": "interface-example-capacity-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "service_time_selection",
+          "reference": "interface-example-service-summary-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "max_wait_selection",
+          "reference": "interface-example-max-wait-selection"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "deadline_semantics",
+          "reference": "interface-example-deadline-semantics"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "overload_behavior",
+          "reference": "interface-example-overload-choice"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "shedding_threshold",
+          "reference": "interface-example-shedding-threshold"
+        },
+        {
+          "evidence_class": "notional",
+          "field_name": "recovery_capacity_multiplier",
+          "reference": "interface-example-recovery-multiplier"
+        }
+      ],
+      "max_wait_selection": "point",
+      "overload_behavior": "defer",
+      "recovery_capacity_multiplier": 1.15,
+      "resource_id": "dependency-primary",
+      "resource_type": "dependency_registration",
+      "service_time_selection": "point_window_summary",
+      "shedding_threshold": 1.25
+    }
+  ],
+  "simulator_semantics_sha256": "d5c955972307ee9e9077073dde775c2505effaeb18c13f0cb0a5a0acc64d1f32",
+  "target_admission_rate_max_per_s": 100.0,
+  "target_admission_rate_min_per_s": 0.0,
+  "target_fleet_size_max": 10000,
+  "target_fleet_size_min": 100
+}

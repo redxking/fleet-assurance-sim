@@ -58,6 +58,17 @@ The next milestone is not a larger synthetic demonstration. It is a change in ev
 
 The admission branch will measure the ten modeled assurance services and test forecasts prospectively across capacity, architecture, and workload shifts. The compromise branch will use external or separately implemented traces, measured observation error, and more operationally meaningful outcomes. A separate synthetic implementation can test implementation dependence, but it is not external validation.
 
+The first successor-study engineering slice is now implemented. It accepts only public or synthetic campaign inputs, verifies authority and data-rights metadata, preserves prospective calibration and held-out partitions, fits all ten resource models from calibration data only, applies explicit fit and uncertainty gates, and can translate an accepted fit into ten simulator resource specifications through a no-fallback policy. The adapter remains engineering-only because several simulator fields are still aggregate approximations rather than faithful replay or service-time semantics.
+
+| Successor capability | Current state | What remains |
+|---|---|---|
+| Evidence intake | Implemented and fail-closed | Authorized measurements still require owner review and an approved collection plan. |
+| Calibration and uncertainty gate | Implemented for engineering review | Thresholds and target ranges require scientific justification and registration before a prospective study. |
+| Ten-resource adapter | Implemented, no fallback, runner authorization false | Resolve replay, service-time, disturbance-multiplier, retry, and closed-loop-control gaps; replace notional policy fields with evidence-backed values. |
+| Prospective transfer study | Not authorized | Freeze a successor registration before held-out collection, bind realized evaluation inputs afterward, then score once. |
+
+A separate [successor-study status view](docs/successor_status_ui.md) keeps those states visible without changing the frozen Stage 3 console. It can be generated locally from externally digest-bound evidence packages. A public GitHub Pages version is planned only after the workflow, public evidence set, accessibility checks, and release controls are stable.
+
 The program will also strengthen interval coverage, retain strong simple comparators, expand cross-platform reproduction, and make evidence packages easier to review. Privilege-weighted loss, mission degradation, persistence, recovery cost, and operator decision quality will remain separate outcomes rather than being collapsed into one compromise fraction.
 
 Any retuned model, revised threshold, new observation process, or changed acceptance rule belongs in a new preregistered study with a new manifest and execution directory. The completed Stage 3 record will remain immutable.
@@ -73,6 +84,8 @@ Deployment or fleet-size recommendations still require implementation-specific t
 | Inspect the confirmatory evidence | [Stage 3 evidence JSON](results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/stage3_evidence.json) |
 | Review the scientific method | [Stage 3 preregistered protocol](docs/stage3_preregistered_protocol.md) and [architecture](docs/stage3_architecture.md) |
 | See the main results | [Stage 3 figures](figures/stage3/) and [research report](paper/stage3_research_report.md) |
+| Prepare successor-study evidence | [Empirical evidence intake and fit workflow](docs/empirical_evidence_intake.md) |
+| Review successor readiness | [Successor-study status UI](docs/successor_status_ui.md) |
 | Reproduce or extend the work | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | Report a security issue | [SECURITY.md](SECURITY.md) |
 
@@ -106,7 +119,7 @@ fleet-console --root .
 
 It normally opens at `http://127.0.0.1:5006`. Windows, Docker, Conda, offline, and troubleshooting instructions are in [LOCAL_DEPLOYMENT.md](LOCAL_DEPLOYMENT.md).
 
-The expected complete-suite result for the frozen source is `113 passed`:
+Run the complete repository test suite before proposing a change. The exact verified count for this branch is recorded with each completed implementation handoff:
 
 ```bash
 pytest -q

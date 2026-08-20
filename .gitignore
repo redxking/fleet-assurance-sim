@@ -13,6 +13,7 @@ build/
 *.egg-info/
 archive/
 logs/
+local_runs/
 verification_runs/
 results/stage3/engineering-pilots/
 results/stage3/consoles/

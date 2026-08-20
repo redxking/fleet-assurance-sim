@@ -1,0 +1,174 @@
+{
+  "$id": "https://fleet-assurance.local/schemas/empirical_calibration_policy.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "bootstrap_block_length": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "bootstrap_interval_level": {
+      "exclusiveMaximum": 1.0,
+      "exclusiveMinimum": 0.5,
+      "type": "number"
+    },
+    "bootstrap_replications": {
+      "maximum": 10000,
+      "minimum": 100,
+      "type": "integer"
+    },
+    "interval_scale_floor": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    },
+    "maximum_absolute_weighted_relative_bias": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    },
+    "maximum_admission_interval_relative_width": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    },
+    "maximum_background_interval_relative_width": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    },
+    "maximum_capacity_coefficient_of_variation": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    },
+    "maximum_capacity_interval_relative_width": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    },
+    "maximum_deadline_coefficient_of_variation": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    },
+    "maximum_max_wait_interval_relative_width": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    },
+    "maximum_scaled_condition_number": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    },
+    "maximum_scaled_target_hull_distance": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    },
+    "maximum_service_interval_relative_width": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    },
+    "maximum_weighted_normalized_rmse": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    },
+    "minimum_active_admission_blocks": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "minimum_bootstrap_success_fraction": {
+      "maximum": 1.0,
+      "minimum": 0.5,
+      "type": "number"
+    },
+    "minimum_calibration_time_blocks": {
+      "minimum": 4,
+      "type": "integer"
+    },
+    "minimum_observations_per_resource": {
+      "minimum": 4,
+      "type": "integer"
+    },
+    "minimum_unique_admission_rates": {
+      "minimum": 2,
+      "type": "integer"
+    },
+    "minimum_unique_fleet_sizes": {
+      "minimum": 2,
+      "type": "integer"
+    },
+    "minimum_unique_joint_predictor_vectors": {
+      "minimum": 2,
+      "type": "integer"
+    },
+    "minimum_weighted_r_squared": {
+      "maximum": 1.0,
+      "minimum": -1.0,
+      "type": "number"
+    },
+    "minimum_zero_admission_blocks": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "policy_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+      "type": "string"
+    },
+    "root_seed": {
+      "maximum": 9223372036854775807,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "study_mode": {
+      "enum": [
+        "interface_verification",
+        "successor_transfer"
+      ],
+      "type": "string"
+    },
+    "target_admission_rate_max_per_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "target_admission_rate_min_per_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "target_fleet_size_max": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "target_fleet_size_min": {
+      "minimum": 1,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "bootstrap_block_length",
+    "bootstrap_interval_level",
+    "bootstrap_replications",
+    "interval_scale_floor",
+    "maximum_absolute_weighted_relative_bias",
+    "maximum_admission_interval_relative_width",
+    "maximum_background_interval_relative_width",
+    "maximum_capacity_coefficient_of_variation",
+    "maximum_capacity_interval_relative_width",
+    "maximum_deadline_coefficient_of_variation",
+    "maximum_max_wait_interval_relative_width",
+    "maximum_scaled_condition_number",
+    "maximum_scaled_target_hull_distance",
+    "maximum_service_interval_relative_width",
+    "maximum_weighted_normalized_rmse",
+    "minimum_active_admission_blocks",
+    "minimum_bootstrap_success_fraction",
+    "minimum_calibration_time_blocks",
+    "minimum_observations_per_resource",
+    "minimum_unique_admission_rates",
+    "minimum_unique_fleet_sizes",
+    "minimum_unique_joint_predictor_vectors",
+    "minimum_weighted_r_squared",
+    "minimum_zero_admission_blocks",
+    "policy_id",
+    "root_seed",
+    "study_mode",
+    "target_admission_rate_max_per_s",
+    "target_admission_rate_min_per_s",
+    "target_fleet_size_max",
+    "target_fleet_size_min"
+  ],
+  "title": "Empirical assurance calibration fit policy",
+  "type": "object"
+}
