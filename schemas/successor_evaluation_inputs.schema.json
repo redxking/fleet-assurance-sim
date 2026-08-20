@@ -1,0 +1,166 @@
+{
+  "$id": "https://fleet-assurance.local/schemas/successor_evaluation_inputs.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "campaign_identity_reconciled": {
+      "const": true
+    },
+    "cell_block_reconciliation": {
+      "const": "exact"
+    },
+    "chronology_consistent": {
+      "const": true
+    },
+    "collection_window_reconciled": {
+      "const": true
+    },
+    "evaluation_campaign_evidence_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "evaluation_campaign_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+      "type": "string"
+    },
+    "evaluation_heldout_content_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "evaluation_input_id": {
+      "pattern": "^successor-evaluation-inputs-[0-9a-f]{20}$",
+      "type": "string"
+    },
+    "execution_chain_ready": {
+      "const": false
+    },
+    "external_validation": {
+      "const": false
+    },
+    "outcome_release_custody_verified": {
+      "const": false
+    },
+    "prediction_formula_frozen": {
+      "const": true
+    },
+    "prediction_rows_preoutcome_locked": {
+      "const": false
+    },
+    "predictor_design_reconciled": {
+      "const": true
+    },
+    "realized_cell_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "realized_cells": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "cell_id": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+            "type": "string"
+          },
+          "planned_blocks": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "agents_admitted": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "fleet_size": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "time_block_id": {
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+                  "type": "string"
+                },
+                "timestamp_utc": {
+                  "format": "date-time",
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6}Z$",
+                  "type": "string"
+                },
+                "window_duration_ms": {
+                  "exclusiveMinimum": 0.0,
+                  "multipleOf": 0.001,
+                  "type": "number"
+                }
+              },
+              "required": [
+                "agents_admitted",
+                "fleet_size",
+                "time_block_id",
+                "timestamp_utc",
+                "window_duration_ms"
+              ],
+              "type": "object"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "cell_id",
+          "planned_blocks"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "realized_time_block_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "registration_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+      "type": "string"
+    },
+    "registration_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "registration_time_externally_attested": {
+      "const": false
+    },
+    "runner_authorized": {
+      "const": false
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "scientific_use_authorized": {
+      "const": false
+    }
+  },
+  "required": [
+    "campaign_identity_reconciled",
+    "cell_block_reconciliation",
+    "chronology_consistent",
+    "collection_window_reconciled",
+    "evaluation_campaign_evidence_manifest_sha256",
+    "evaluation_campaign_id",
+    "evaluation_heldout_content_sha256",
+    "evaluation_input_id",
+    "execution_chain_ready",
+    "external_validation",
+    "outcome_release_custody_verified",
+    "prediction_formula_frozen",
+    "prediction_rows_preoutcome_locked",
+    "predictor_design_reconciled",
+    "realized_cell_count",
+    "realized_cells",
+    "realized_time_block_count",
+    "registration_id",
+    "registration_manifest_sha256",
+    "registration_time_externally_attested",
+    "runner_authorized",
+    "schema_version",
+    "scientific_use_authorized"
+  ],
+  "title": "Successor realized evaluation-input binding",
+  "type": "object"
+}

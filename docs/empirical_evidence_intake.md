@@ -220,14 +220,37 @@ At creation time, `adapter_manifest_externally_digest_bound` is `false`. Record 
 
 A generated specification package is therefore an inspectable engineering artifact, not an execution authorization, operational configuration, fleet-size recommendation, or external-validation result.
 
-## What comes next
+## Prospective registration and evaluation-input binding
 
-The next implementation slice is deliberately separate:
+The next evidence boundary is now implemented as a two-manifest protocol. See the [successor prospective transfer protocol](successor_prospective_protocol.md) for the complete commands, package inventories, schemas, and library APIs.
 
-1. Review and preregister justified fit thresholds and a prospective target domain before collecting confirmatory held-out measurements.
-2. Replace the interface example with an evidence-backed, no-notional successor-transfer policy and resolve the current simulator semantic limitations before runner authorization is considered.
-3. Add a separately defined operational outcome package and a two-step successor freeze: registration before held-out collection, followed by an evaluation-input binding before one-shot scoring.
-4. Commit predictions before opening held-out outcomes, then adjudicate resource-fit transfer separately from operational forecast transfer.
-5. Keep the completed Stage 3 hashes, execution, evidence, and negative dispositions unchanged.
+[![Five-step successor evidence chain showing bound calibration, frozen registration, a distinct future campaign, realized-input binding, and a still-locked execution gate.](assets/successor-evidence-chain.svg)](assets/successor-evidence-chain.svg)
 
-No fleet-size, deployment, or security-assurance recommendation should be derived from an intake or calibration-fit package alone.
+The distinction between the two held-out concepts matters:
+
+- The source campaign's historical held-out partition is verified as part of package integrity, but `heldout_used_for_fit=false` and `heldout_used_for_adapter=false` remain enforced.
+- The registration names a different future evaluation campaign and freezes its collection window, cells, time-block IDs, block timestamps, fleet sizes, admission counts, and observation-window durations before collection begins.
+- The evaluation-input binder runs after collection and requires the realized campaign identity, window, block set, predictor design, and ten-resource coverage to reconcile exactly to the registration.
+
+`scripts/freeze_successor_registration.py` creates the seven-file registration package. It binds the externally recorded source-campaign, fit, adapter-policy, and adapter-manifest digests to the registered plan, transfer contract, closed schemas, and implementation hashes. `scripts/bind_successor_evaluation_inputs.py` then creates a separate three-file package that binds the externally recorded registration digest and realized campaign digest.
+
+The only implemented transfer target is ten-resource `resource_arrival_rate_transfer`, using the frozen aggregate arrival-rate formula and duration-weighted normalized RMSE, absolute duration-weighted relative bias, and background-only relative-improvement metrics. The engineering example leaves numerical thresholds null rather than presenting unreviewed values as scientific criteria. A prospective contract requires complete numeric thresholds, a passing `successor_transfer` fit, a `successor_transfer` adapter, nonsynthetic calibration evidence, and no notional adapter fields.
+
+Operational-outcome transfer is explicitly disabled. The protocol does not score mission outcomes, security events, privilege-weighted loss, recovery cost, or deployment readiness.
+
+Both packages check that local registration precedes the planned and realized collection windows, but they record `registration_time_externally_attested=false`. This is an internal chronology check, not trusted timestamping, a signature, or proof of external receipt.
+
+After evaluation-input binding, the chain still records:
+
+- `prediction_rows_preoutcome_locked=false`;
+- `outcome_release_custody_verified=false`;
+- `execution_chain_ready=false`;
+- `external_validation=false`;
+- `scientific_use_authorized=false`; and
+- `runner_authorized=false`.
+
+The retained evaluation campaign already contains `arrival_count`, and its package verifier reads that artifact. This step is therefore not a preoutcome blind. It records that prediction rows were not committed before target access and that outcome-release custody is unverified, which keeps execution blocked.
+
+The next implementation slice is an independent preoutcome prediction commitment and outcome-release custody gate, followed by a separately reviewed one-shot scorer and immutable result package. It must not reuse or modify the frozen Stage 3 runner or evidence.
+
+No fleet-size, deployment, security-assurance, scientific-support, or external-validation recommendation should be derived from an intake, fit, adapter, registration, or evaluation-input package alone.

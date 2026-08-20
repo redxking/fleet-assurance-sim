@@ -1,0 +1,206 @@
+{
+  "$id": "https://fleet-assurance.local/schemas/successor_registration.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "adapter_bundle_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+      "type": "string"
+    },
+    "adapter_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "adapter_policy_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "adapter_specification_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "calibration_fit_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+      "type": "string"
+    },
+    "chronology_consistent": {
+      "const": true
+    },
+    "execution_chain_ready": {
+      "const": false
+    },
+    "external_validation": {
+      "const": false
+    },
+    "fit_evidence_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "fit_policy_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "implementation": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": "^(?![A-Za-z]:)(?![/~])(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$",
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "type": "object"
+      },
+      "maxItems": 5,
+      "minItems": 5,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "implementation_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "operational_outcome_extension_enabled": {
+      "const": false
+    },
+    "plan_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "planned_cell_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "planned_collection_end_utc": {
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6}Z$",
+      "type": "string"
+    },
+    "planned_collection_start_utc": {
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6}Z$",
+      "type": "string"
+    },
+    "planned_evaluation_campaign_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+      "type": "string"
+    },
+    "planned_time_block_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "prediction_formula_frozen": {
+      "const": true
+    },
+    "registered_at_utc": {
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6}Z$",
+      "type": "string"
+    },
+    "registration_id": {
+      "pattern": "^successor-registration-[0-9a-f]{20}$",
+      "type": "string"
+    },
+    "registration_mode": {
+      "enum": [
+        "engineering_dry_run",
+        "prospective_transfer"
+      ]
+    },
+    "registration_time_externally_attested": {
+      "const": false
+    },
+    "runner_authorized": {
+      "const": false
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "scientific_use_authorized": {
+      "const": false
+    },
+    "simulator_semantics_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_calibration_content_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_campaign_evidence_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_campaign_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+      "type": "string"
+    },
+    "source_dataset_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+      "type": "string"
+    },
+    "source_historical_heldout_used_for_fit": {
+      "const": false
+    },
+    "source_historical_heldout_verified": {
+      "const": true
+    },
+    "transfer_contract_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "upstream_chain_verified": {
+      "const": true
+    }
+  },
+  "required": [
+    "adapter_bundle_id",
+    "adapter_manifest_sha256",
+    "adapter_policy_sha256",
+    "adapter_specification_sha256",
+    "calibration_fit_id",
+    "chronology_consistent",
+    "execution_chain_ready",
+    "external_validation",
+    "fit_evidence_manifest_sha256",
+    "fit_policy_sha256",
+    "implementation",
+    "implementation_sha256",
+    "operational_outcome_extension_enabled",
+    "plan_sha256",
+    "planned_cell_count",
+    "planned_collection_end_utc",
+    "planned_collection_start_utc",
+    "planned_evaluation_campaign_id",
+    "planned_time_block_count",
+    "prediction_formula_frozen",
+    "registered_at_utc",
+    "registration_id",
+    "registration_mode",
+    "registration_time_externally_attested",
+    "runner_authorized",
+    "schema_version",
+    "scientific_use_authorized",
+    "simulator_semantics_sha256",
+    "source_calibration_content_sha256",
+    "source_campaign_evidence_manifest_sha256",
+    "source_campaign_id",
+    "source_dataset_id",
+    "source_historical_heldout_used_for_fit",
+    "source_historical_heldout_verified",
+    "transfer_contract_sha256",
+    "upstream_chain_verified"
+  ],
+  "title": "Frozen successor study registration",
+  "type": "object"
+}

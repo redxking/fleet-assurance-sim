@@ -17,7 +17,7 @@ from fleet_sim.visualization.successor_status import (
     write_successor_status_assets,
 )
 
-DIGESTS = tuple(character * 64 for character in "abcdef")
+DIGESTS = tuple(character * 64 for character in "abcdef0123456789")
 
 
 class _Criterion:
@@ -219,6 +219,87 @@ def _verified_chain() -> tuple[Any, Any, Any]:
     return campaign, fit_package, adapter_package
 
 
+def _verified_protocol_chain() -> tuple[Any, Any, Any, Any, Any]:
+    campaign, fit_package, adapter_package = _verified_chain()
+    fit_package.fit.gate_status = "passed"
+    fit_package.fit.blocking_reasons = ()
+    registration = SimpleNamespace(
+        registration_id="private-successor-registration",
+        registered_at_utc="2026-02-01T00:00:00.000000Z",
+        registration_mode="engineering_dry_run",
+        source_campaign_evidence_manifest_sha256=campaign.evidence_manifest_sha256,
+        fit_evidence_manifest_sha256=fit_package.fit_evidence_manifest_sha256,
+        adapter_manifest_sha256=adapter_package.adapter_manifest_sha256,
+        plan_sha256=DIGESTS[6],
+        transfer_contract_sha256=DIGESTS[7],
+        implementation_sha256=DIGESTS[8],
+        planned_cell_count=3,
+        planned_time_block_count=12,
+        chronology_consistent=True,
+        registration_time_externally_attested=False,
+        upstream_chain_verified=True,
+        prediction_formula_frozen=True,
+        operational_outcome_extension_enabled=False,
+        execution_chain_ready=False,
+        external_validation=False,
+        scientific_use_authorized=False,
+        runner_authorized=False,
+    )
+    registration_package = SimpleNamespace(
+        package_dir=Path("/private/registration-package"),
+        registration=registration,
+        plan=SimpleNamespace(
+            plan_id="private-plan",
+            study_id="private-study",
+            cells=(SimpleNamespace(cell_id="private-cell"),),
+        ),
+        contract=SimpleNamespace(
+            contract_id="private-contract",
+            criteria_frozen=True,
+            thresholds=SimpleNamespace(complete=True),
+        ),
+        registration_manifest_sha256=DIGESTS[9],
+        externally_digest_bound=True,
+    )
+    inputs = SimpleNamespace(
+        evaluation_input_id="private-evaluation-inputs",
+        registration_id="private-successor-registration",
+        registration_manifest_sha256=registration_package.registration_manifest_sha256,
+        evaluation_campaign_id="private-future-campaign",
+        evaluation_campaign_evidence_manifest_sha256=DIGESTS[10],
+        evaluation_heldout_content_sha256=DIGESTS[11],
+        realized_cell_count=3,
+        realized_time_block_count=12,
+        realized_cells=(SimpleNamespace(cell_id="private-cell"),),
+        campaign_identity_reconciled=True,
+        collection_window_reconciled=True,
+        predictor_design_reconciled=True,
+        cell_block_reconciliation="exact",
+        chronology_consistent=True,
+        registration_time_externally_attested=False,
+        prediction_formula_frozen=True,
+        prediction_rows_preoutcome_locked=False,
+        outcome_release_custody_verified=False,
+        execution_chain_ready=False,
+        external_validation=False,
+        scientific_use_authorized=False,
+        runner_authorized=False,
+    )
+    evaluation_package = SimpleNamespace(
+        package_dir=Path("/private/evaluation-inputs-package"),
+        inputs=inputs,
+        evaluation_inputs_manifest_sha256=DIGESTS[12],
+        externally_digest_bound=True,
+    )
+    return (
+        campaign,
+        fit_package,
+        adapter_package,
+        registration_package,
+        evaluation_package,
+    )
+
+
 def test_projection_is_data_minimized_and_surfaces_tri_state_fit() -> None:
     campaign, fit, _ = _verified_chain()
     result = assemble_successor_status(
@@ -234,6 +315,9 @@ def test_projection_is_data_minimized_and_surfaces_tri_state_fit() -> None:
     assert "measurement_provenance" not in encoded
     assert "resource-authorization_policy_evaluation" not in encoded
     assert "secret-site-fit-policy-v1" not in encoded
+    assert "dataset-public-commitment" not in encoded
+    assert "fit-public-id" not in encoded
+    assert "duration-weighted-nonnegative-arrival-rate-v1" not in encoded
     assert "policy_id" not in result["fit"]  # type: ignore[operator]
     assert result["fit"]["resource_status_counts"] == {  # type: ignore[index]
         "passed": 1,
@@ -243,25 +327,28 @@ def test_projection_is_data_minimized_and_surfaces_tri_state_fit() -> None:
     states = {item["stage"]: item["state"] for item in result["lifecycle"]}
     assert states["fit"] == "failed"
     assert states["adapter"] == "blocked"
-    assert states["registration"] == "not_authorized"
-    assert states["evaluation"] == "not_authorized"
+    assert states["frozen_study_plan"] == "blocked"
+    assert states["evaluation_inputs"] == "blocked"
+    assert states["execution"] == "not_authorized"
+    assert result["schema_version"] == "successor-study-status-v2"
     assert result["assurance_boundary"]["runner_authorized"] is False
     assert result["assurance_boundary"]["scientific_use_authorized"] is False
     assert result["assurance_boundary"]["external_validation"] is False
     assert result["fit"]["source_package_heldout_verified"] is True  # type: ignore[index]
     assert result["fit"]["heldout_used_for_fit"] is False  # type: ignore[index]
     criteria = {  # type: ignore[union-attr]
-        item["criterion_id"]: item
+        item["criterion"]: item
         for item in result["fit"]["global_criteria"]  # type: ignore[index]
     }
     assert criteria["joint_target_domain_hull_distance"] == {
-        "criterion_id": "joint_target_domain_hull_distance",
+        "criterion": "joint_target_domain_hull_distance",
         "state": "failed",
         "observed": 0.18,
         "operator": "<=",
         "threshold": 1e-9,
         "reason": "joint_target_domain_requires_extrapolation",
     }
+    assert '"criterion_id"' not in encoded
 
 
 def test_adapter_projection_surfaces_policy_semantics_and_limitations(tmp_path: Path) -> None:
@@ -278,6 +365,7 @@ def test_adapter_projection_surfaces_policy_semantics_and_limitations(tmp_path: 
     assert result["adapter"]["no_fallback"] is True  # type: ignore[index]
     assert "adapter_policy_id" not in result["adapter"]  # type: ignore[operator]
     assert "private-program-adapter-policy-v1" not in json.dumps(result, sort_keys=True)
+    assert "adapter-public-id" not in json.dumps(result, sort_keys=True)
     assert result["adapter"]["source_package_heldout_verified"] is True  # type: ignore[index]
     assert result["adapter"]["heldout_used_for_adapter"] is False  # type: ignore[index]
     assert result["adapter"]["resources"][0]["arrival_process"] == "poisson"  # type: ignore[index]
@@ -310,6 +398,154 @@ def test_adapter_requires_bound_matching_fit() -> None:
             cast(Any, campaign),
             fit=cast(Any, fit),
             adapter=cast(Any, adapter),
+        )
+
+
+def test_two_manifest_projection_is_aggregate_and_never_authorizes_execution() -> None:
+    campaign, fit, adapter, registration, evaluation = _verified_protocol_chain()
+    result = assemble_successor_status(
+        cast(Any, campaign),
+        fit=cast(Any, fit),
+        adapter=cast(Any, adapter),
+        registration=cast(Any, registration),
+        evaluation_inputs=cast(Any, evaluation),
+    ).payload
+
+    encoded = json.dumps(result, sort_keys=True)
+    for private_value in (
+        "private-successor-registration",
+        "private-plan",
+        "private-study",
+        "private-contract",
+        "private-cell",
+        "private-evaluation-inputs",
+        "private-future-campaign",
+        "2026-02-01T00:00:00.000000Z",
+        "/private/registration-package",
+        "/private/evaluation-inputs-package",
+    ):
+        assert private_value not in encoded
+    assert "outcomes remain locked" not in encoded.lower()
+    assert "no prediction commitment was established before target access" in encoded.lower()
+    for forbidden_key in (
+        "registration_id",
+        "registered_at_utc",
+        "plan_id",
+        "study_id",
+        "contract_id",
+        "criterion_id",
+        "cells",
+        "cell_id",
+        "planned_blocks",
+        "timestamp_utc",
+        "fleet_size",
+        "agents_admitted",
+        "window_duration_ms",
+        "evaluation_input_id",
+        "evaluation_campaign_id",
+        "realized_cells",
+        "arrival_count",
+        "implementation",
+    ):
+        assert f'"{forbidden_key}"' not in encoded
+
+    registration_view = result["registration"]
+    assert registration_view["planned_cell_count"] == 3  # type: ignore[index]
+    assert registration_view["planned_time_block_count"] == 12  # type: ignore[index]
+    assert registration_view["registration_manifest_sha256"] == DIGESTS[9]  # type: ignore[index]
+    assert registration_view["registration_time_externally_attested"] is False  # type: ignore[index]
+    assert registration_view["prediction_formula_frozen"] is True  # type: ignore[index]
+    assert "prediction_function_frozen" not in registration_view  # type: ignore[operator]
+    evaluation_view = result["evaluation_inputs"]
+    assert evaluation_view["realized_cell_count"] == 3  # type: ignore[index]
+    assert evaluation_view["predictor_design_reconciled"] is True  # type: ignore[index]
+    assert evaluation_view["exact_cell_block_reconciliation"] is True  # type: ignore[index]
+    assert evaluation_view["prediction_rows_preoutcome_locked"] is False  # type: ignore[index]
+    assert evaluation_view["outcome_release_custody_verified"] is False  # type: ignore[index]
+
+    states = {item["stage"]: item["state"] for item in result["lifecycle"]}
+    assert states == {
+        "intake": "verified",
+        "fit": "passed",
+        "adapter": "verified",
+        "frozen_study_plan": "verified",
+        "evaluation_inputs": "verified",
+        "execution": "not_authorized",
+    }
+    boundary = result["assurance_boundary"]
+    assert boundary["registration_verified"] is True  # type: ignore[index]
+    assert boundary["evaluation_inputs_verified"] is True  # type: ignore[index]
+    assert boundary["runner_authorized"] is False  # type: ignore[index]
+    assert boundary["scientific_use_authorized"] is False  # type: ignore[index]
+    assert boundary["external_validation"] is False  # type: ignore[index]
+    assert boundary["evaluation_executed"] is False  # type: ignore[index]
+    assert (
+        "No separate execution authorization or result artifact is connected."
+        in result["blocking_conditions"]
+    )
+    assert (
+        "Executable prediction-row construction and scoring are not implemented or authorized."
+        in result["blocking_conditions"]
+    )
+
+
+def test_registration_and_evaluation_inputs_require_the_exact_verified_chain() -> None:
+    campaign, fit, adapter, registration, evaluation = _verified_protocol_chain()
+    with pytest.raises(ValueError, match="upstream fit and adapter"):
+        assemble_successor_status(
+            cast(Any, campaign),
+            registration=cast(Any, registration),
+        )
+    with pytest.raises(ValueError, match="verified registration"):
+        assemble_successor_status(
+            cast(Any, campaign),
+            fit=cast(Any, fit),
+            adapter=cast(Any, adapter),
+            evaluation_inputs=cast(Any, evaluation),
+        )
+    registration.registration.adapter_manifest_sha256 = DIGESTS[13]
+    with pytest.raises(ValueError, match="different adapter manifest"):
+        assemble_successor_status(
+            cast(Any, campaign),
+            fit=cast(Any, fit),
+            adapter=cast(Any, adapter),
+            registration=cast(Any, registration),
+        )
+
+
+def test_registration_verification_does_not_convert_authority_flags() -> None:
+    campaign, fit, adapter, registration, _ = _verified_protocol_chain()
+    registration.registration.runner_authorized = True
+
+    with pytest.raises(ValueError, match="engineering-evidence boundary"):
+        assemble_successor_status(
+            cast(Any, campaign),
+            fit=cast(Any, fit),
+            adapter=cast(Any, adapter),
+            registration=cast(Any, registration),
+        )
+
+
+def test_public_status_rechecks_registration_and_input_gate_booleans() -> None:
+    campaign, fit, adapter, registration, evaluation = _verified_protocol_chain()
+    registration.registration.prediction_formula_frozen = False
+    with pytest.raises(ValueError, match="registration verification gates"):
+        assemble_successor_status(
+            cast(Any, campaign),
+            fit=cast(Any, fit),
+            adapter=cast(Any, adapter),
+            registration=cast(Any, registration),
+        )
+
+    campaign, fit, adapter, registration, evaluation = _verified_protocol_chain()
+    evaluation.inputs.predictor_design_reconciled = False
+    with pytest.raises(ValueError, match="reconciliation gates"):
+        assemble_successor_status(
+            cast(Any, campaign),
+            fit=cast(Any, fit),
+            adapter=cast(Any, adapter),
+            registration=cast(Any, registration),
+            evaluation_inputs=cast(Any, evaluation),
         )
 
 
@@ -351,6 +587,85 @@ def test_load_verifies_the_complete_digest_chain(monkeypatch: pytest.MonkeyPatch
     assert result.payload["adapter"] is not None
 
 
+def test_load_verifies_the_two_manifest_chain_in_order(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    campaign, fit, adapter, registration, evaluation = _verified_protocol_chain()
+    evaluation_campaign = SimpleNamespace(evidence_manifest_sha256=DIGESTS[10])
+    calls: list[tuple[str, object, dict[str, object]]] = []
+
+    def campaign_verify(path: object, **kwargs: object) -> Any:
+        calls.append(("campaign", path, kwargs))
+        return campaign if path == "source-campaign" else evaluation_campaign
+
+    def fit_verify(path: object, **kwargs: object) -> Any:
+        calls.append(("fit", path, kwargs))
+        return fit
+
+    def adapter_verify(path: object, **kwargs: object) -> Any:
+        calls.append(("adapter", path, kwargs))
+        return adapter
+
+    def registration_verify(path: object, **kwargs: object) -> Any:
+        calls.append(("registration", path, kwargs))
+        return registration
+
+    def evaluation_verify(path: object, **kwargs: object) -> Any:
+        calls.append(("evaluation_inputs", path, kwargs))
+        return evaluation
+
+    monkeypatch.setattr(status_module, "verify_empirical_campaign_package", campaign_verify)
+    monkeypatch.setattr(status_module, "verify_empirical_calibration_package", fit_verify)
+    monkeypatch.setattr(status_module, "verify_adapted_resource_bundle", adapter_verify)
+    monkeypatch.setattr(
+        status_module,
+        "verify_successor_registration_package",
+        registration_verify,
+    )
+    monkeypatch.setattr(
+        status_module,
+        "verify_successor_evaluation_inputs_package",
+        evaluation_verify,
+    )
+
+    result = load_successor_status(
+        "source-campaign",
+        expected_campaign_evidence_manifest_sha256=DIGESTS[0],
+        fit_package="fit",
+        expected_fit_evidence_manifest_sha256=DIGESTS[4],
+        adapter_package="adapter",
+        expected_adapter_policy_sha256=DIGESTS[5],
+        expected_adapter_manifest_sha256=DIGESTS[2],
+        registration_package="registration",
+        expected_registration_manifest_sha256=DIGESTS[9],
+        evaluation_campaign_package="evaluation-campaign",
+        expected_evaluation_campaign_evidence_manifest_sha256=DIGESTS[10],
+        evaluation_inputs_package="evaluation-inputs",
+        expected_evaluation_inputs_manifest_sha256=DIGESTS[12],
+    )
+
+    assert [name for name, _, _ in calls] == [
+        "campaign",
+        "fit",
+        "adapter",
+        "registration",
+        "campaign",
+        "evaluation_inputs",
+    ]
+    registration_kwargs = calls[3][2]
+    assert registration_kwargs["source_campaign"] is campaign
+    assert registration_kwargs["fit_package"] is fit
+    assert registration_kwargs["adapter_package"] is adapter
+    assert registration_kwargs["expected_registration_manifest_sha256"] == DIGESTS[9]
+    evaluation_kwargs = calls[5][2]
+    assert evaluation_kwargs["registration_package"] is registration
+    assert evaluation_kwargs["evaluation_campaign"] is evaluation_campaign
+    assert evaluation_kwargs["expected_evaluation_inputs_manifest_sha256"] == DIGESTS[12]
+    assert result.payload["registration"] is not None
+    assert result.payload["evaluation_inputs"] is not None
+    assert result.payload["assurance_boundary"]["runner_authorized"] is False  # type: ignore[index]
+
+
 def test_load_rejects_partial_optional_evidence_sets() -> None:
     with pytest.raises(ValueError, match="fit package"):
         load_successor_status(
@@ -364,6 +679,18 @@ def test_load_rejects_partial_optional_evidence_sets() -> None:
             expected_campaign_evidence_manifest_sha256=DIGESTS[0],
             adapter_package="adapter",
             expected_adapter_policy_sha256=DIGESTS[1],
+        )
+    with pytest.raises(ValueError, match="registration package"):
+        load_successor_status(
+            "campaign",
+            expected_campaign_evidence_manifest_sha256=DIGESTS[0],
+            registration_package="registration",
+        )
+    with pytest.raises(ValueError, match="evaluation campaign"):
+        load_successor_status(
+            "campaign",
+            expected_campaign_evidence_manifest_sha256=DIGESTS[0],
+            evaluation_campaign_package="evaluation-campaign",
         )
 
 
@@ -388,7 +715,14 @@ def test_writer_builds_strict_offline_accessible_assets(tmp_path: Path) -> None:
     assert 'aria-label="Generated assurance resource semantics;' in html
     assert 'tabindex="0"' in html
     assert "min-height:2.75rem" in html
-    assert "prospective evaluation not authorized" in html
+    assert "prospective execution not authorized" in html
+    assert 'aria-labelledby="protocol-title"' in html
+    assert 'aria-labelledby="registration-title"' in html
+    assert 'aria-labelledby="evaluation-inputs-title"' in html
+    assert "renderRegistration();renderEvaluationInputs()" in html
+    assert "evidenceKind(value[1])" in html
+    assert "implemented prediction-row construction" in html
+    assert "registration verification" not in html.lower()
     assert '<div id="globalGates" class="gate-grid">' in html
     assert "fit.global_criteria.forEach" in html
     assert "joint_target_domain_hull_distance" in html
@@ -639,10 +973,23 @@ def test_writer_restores_the_previous_pair_when_commit_fails(
         "retained at /private/tmp/campaign-package",
         "retained at /tmp/calibration-fit",
         "retained at /var/folders/task/evidence",
+        "retained at /root/private-evidence",
+        "retained at /usr/local/evidence",
+        "retained at /workspace/evidence",
+        "retained at /data/evidence",
+        "retained at /an-unlisted-absolute-root/evidence",
+        "retained at //network-share/evidence",
+        "/",
         "source=/tmp/calibration-fit",
+        "source=/workspace/evaluation-inputs",
         "see(/var/folders/task/evidence)",
+        "source=../private/evidence",
+        "source=./private/evidence",
+        "see(../private/evidence)",
         r"retained at C:\Users\analyst\evidence",
         "retained at C:/Users/analyst/evidence",
+        r"retained at C:relative\evidence",
+        "retained at C:relative/evidence",
         r"retained at \\research-host\assurance-share\evidence",
         "file:///tmp/evidence.json",
     ),
@@ -656,6 +1003,25 @@ def test_writer_rejects_embedded_local_paths(
     bundle.payload["blocking_conditions"].append(embedded_path)
 
     with pytest.raises(ValueError, match="local path string"):
+        write_successor_status_assets(bundle, tmp_path / "public")
+
+
+@pytest.mark.parametrize(
+    "embedded_timestamp",
+    (
+        "registered 2026-02-01T00:00:00Z",
+        "collected 2026-02-01T00:00:00.000000+00:00",
+    ),
+)
+def test_writer_rejects_embedded_collection_or_registration_timestamps(
+    tmp_path: Path,
+    embedded_timestamp: str,
+) -> None:
+    campaign, fit, _ = _verified_chain()
+    bundle = assemble_successor_status(cast(Any, campaign), fit=cast(Any, fit))
+    bundle.payload["blocking_conditions"].append(embedded_timestamp)
+
+    with pytest.raises(ValueError, match="timestamp string"):
         write_successor_status_assets(bundle, tmp_path / "public")
 
 
@@ -678,6 +1044,47 @@ def test_writer_rejects_human_supplied_policy_identifiers(
     )
     projected_section = cast(dict[str, object], bundle.payload[section])
     projected_section[forbidden_key] = "secret-site-policy"
+
+    with pytest.raises(ValueError, match=f"forbidden field: {forbidden_key}"):
+        write_successor_status_assets(bundle, tmp_path / "public")
+
+
+@pytest.mark.parametrize(
+    "forbidden_key",
+    (
+        "registration_id",
+        "registered_at_utc",
+        "study_id",
+        "plan_id",
+        "contract_id",
+        "criterion_id",
+        "cells",
+        "planned_blocks",
+        "timestamp_utc",
+        "fleet_size",
+        "agents_admitted",
+        "window_duration_ms",
+        "evaluation_campaign_id",
+        "evaluation_input_id",
+        "realized_cells",
+        "arrival_count",
+        "implementation",
+    ),
+)
+def test_writer_rejects_successor_entity_details(
+    tmp_path: Path,
+    forbidden_key: str,
+) -> None:
+    campaign, fit, adapter, registration, evaluation = _verified_protocol_chain()
+    bundle = assemble_successor_status(
+        cast(Any, campaign),
+        fit=cast(Any, fit),
+        adapter=cast(Any, adapter),
+        registration=cast(Any, registration),
+        evaluation_inputs=cast(Any, evaluation),
+    )
+    section = cast(dict[str, object], bundle.payload["registration"])
+    section[forbidden_key] = "private-value"
 
     with pytest.raises(ValueError, match=f"forbidden field: {forbidden_key}"):
         write_successor_status_assets(bundle, tmp_path / "public")

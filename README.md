@@ -2,7 +2,7 @@
 
 **An open research platform for testing what happens when fleets of software agents grow faster than the control, security, and recovery systems that support them.**
 
-[Quick start](QUICKSTART.md) | [Stage 3 report](paper/stage3_research_report.md) | [Results and figures](figures/stage3/) | [Research protocol](docs/stage3_preregistered_protocol.md) | [Contributing](CONTRIBUTING.md)
+[Quick start](QUICKSTART.md) | [Stage 3 report](paper/stage3_research_report.md) | [Results and figures](figures/stage3/) | [Successor protocol](docs/successor_prospective_protocol.md) | [Contributing](CONTRIBUTING.md)
 
 Public repository: [github.com/redxking/fleet-assurance-sim](https://github.com/redxking/fleet-assurance-sim)
 
@@ -58,14 +58,19 @@ The next milestone is not a larger synthetic demonstration. It is a change in ev
 
 The admission branch will measure the ten modeled assurance services and test forecasts prospectively across capacity, architecture, and workload shifts. The compromise branch will use external or separately implemented traces, measured observation error, and more operationally meaningful outcomes. A separate synthetic implementation can test implementation dependence, but it is not external validation.
 
-The first successor-study engineering slice is now implemented. It accepts only public or synthetic campaign inputs, verifies authority and data-rights metadata, preserves prospective calibration and held-out partitions, fits all ten resource models from calibration data only, applies explicit fit and uncertainty gates, and can translate an accepted fit into ten simulator resource specifications through a no-fallback policy. The adapter remains engineering-only because several simulator fields are still aggregate approximations rather than faithful replay or service-time semantics.
+The successor engineering chain is now implemented through realized-input binding. It accepts only public or synthetic campaign inputs, verifies authority and data-rights metadata, fits all ten resource models from calibration data only, applies explicit fit and uncertainty gates, and translates an accepted fit into ten simulator resource specifications through a no-fallback policy. A separate protocol can then freeze a distinct future campaign before collection and bind the realized inputs afterward. The adapter and protocol remain engineering-only because several simulator fields are aggregate approximations and prediction custody, outcome release, scoring, and scientific adjudication are separate gates.
 
 | Successor capability | Current state | What remains |
 |---|---|---|
 | Evidence intake | Implemented and fail-closed | Authorized measurements still require owner review and an approved collection plan. |
 | Calibration and uncertainty gate | Implemented for engineering review | Thresholds and target ranges require scientific justification and registration before a prospective study. |
 | Ten-resource adapter | Implemented, no fallback, runner authorization false | Resolve replay, service-time, disturbance-multiplier, retry, and closed-loop-control gaps; replace notional policy fields with evidence-backed values. |
-| Prospective transfer study | Not authorized | Freeze a successor registration before held-out collection, bind realized evaluation inputs afterward, then score once. |
+| Prospective registration | Implemented as a closed seven-file package | Replace the engineering examples with justified numeric criteria, authorized nonsynthetic evidence, and an evidence-backed successor adapter. |
+| Evaluation-input binding | Implemented as a closed three-file package | Add independent preoutcome prediction custody and outcome-release evidence before any one-shot scorer is considered. |
+
+[![Five-step successor evidence chain showing bound calibration, frozen registration, a distinct future campaign, realized-input binding, and a still-locked execution gate.](docs/assets/successor-evidence-chain.svg)](docs/assets/successor-evidence-chain.svg)
+
+The historical held-out partition in the source campaign is verified for package integrity but never used to fit the model. The registration names a different future campaign and freezes its collection window, cells, time-block IDs, block timestamps, fleet sizes, admission counts, and observation windows before collection. The second manifest binds the realized campaign and proves exact block and predictor-design reconciliation. Local chronology checks are not external timestamp attestation, and both manifests keep execution, scientific use, and external validation false.
 
 A separate [successor-study status view](docs/successor_status_ui.md) keeps those states visible without changing the frozen Stage 3 console. It can be generated locally from externally digest-bound evidence packages. A public GitHub Pages version is planned only after the workflow, public evidence set, accessibility checks, and release controls are stable.
 
@@ -85,6 +90,7 @@ Deployment or fleet-size recommendations still require implementation-specific t
 | Review the scientific method | [Stage 3 preregistered protocol](docs/stage3_preregistered_protocol.md) and [architecture](docs/stage3_architecture.md) |
 | See the main results | [Stage 3 figures](figures/stage3/) and [research report](paper/stage3_research_report.md) |
 | Prepare successor-study evidence | [Empirical evidence intake and fit workflow](docs/empirical_evidence_intake.md) |
+| Freeze or review the prospective evidence chain | [Successor prospective transfer protocol](docs/successor_prospective_protocol.md) |
 | Review successor readiness | [Successor-study status UI](docs/successor_status_ui.md) |
 | Reproduce or extend the work | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | Report a security issue | [SECURITY.md](SECURITY.md) |

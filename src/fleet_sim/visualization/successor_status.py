@@ -32,8 +32,14 @@ from fleet_sim.empirical.resource_adapter import (
     AdaptedResourcePackageVerification,
     verify_adapted_resource_bundle,
 )
+from fleet_sim.empirical.successor_protocol import (
+    SuccessorEvaluationInputsPackageVerification,
+    SuccessorRegistrationPackageVerification,
+    verify_successor_evaluation_inputs_package,
+    verify_successor_registration_package,
+)
 
-STATUS_SCHEMA_VERSION = "successor-study-status-v1"
+STATUS_SCHEMA_VERSION = "successor-study-status-v2"
 STATUS_ASSET_NAMES = ("index.html", "successor-status.json")
 SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
 INTERVAL_FIELDS = (
@@ -48,15 +54,41 @@ INTERVAL_FIELDS = (
 )
 PUBLIC_FORBIDDEN_KEYS = {
     "authorization_reference",
+    "agents_admitted",
+    "arrival_count",
+    "adapter_bundle_id",
     "campaign_id",
+    "calibration_fit_id",
+    "cell_id",
+    "cells",
+    "contract_id",
+    "criterion_id",
     "data_rights_reference",
+    "dataset_id",
     "site_alias",
     "system_alias",
     "collection_start",
     "collection_end",
     "environment_description",
+    "evaluation_campaign_id",
+    "evaluation_input_id",
+    "fleet_size",
+    "implementation",
+    "model_id",
     "package_dir",
+    "plan_id",
+    "planned_collection_end_utc",
+    "planned_collection_start_utc",
+    "planned_blocks",
+    "planned_evaluation_campaign_id",
+    "planned_time_block_ids",
+    "realized_cells",
+    "realized_blocks",
+    "registered_at_utc",
+    "registration_id",
     "source_path",
+    "source_campaign_id",
+    "source_dataset_id",
     "local_path",
     "measurement_rows",
     "measurement_provenance",
@@ -64,10 +96,22 @@ PUBLIC_FORBIDDEN_KEYS = {
     "raw_rows",
     "resource_id",
     "adapter_policy_id",
+    "study_id",
+    "time_block_id",
+    "timestamp_utc",
+    "window_duration_ms",
 }
 LOCAL_PATH_PATTERN = re.compile(
-    r"(?:~[/\\]|/(?:Users|home|private|tmp|var|etc|opt|Volumes|mnt|srv)(?:/|$)"
-    r"|[A-Za-z]:[/\\]|\\\\[^\\\s]+\\[^\\\s]+)"
+    r"(?:"
+    r"~[/\\]"
+    r"|(?<![A-Za-z0-9:/\\])/{1,2}[A-Za-z0-9._-]+(?:/[^\s,;:)\]}]*)?"
+    r"|(?<![A-Za-z0-9.])\.{1,2}[/\\][^\s,;:)\]}]+"
+    r"|\b[A-Za-z]:(?:[/\\][^\s,;:)\]}]*|[A-Za-z0-9._-][^\s,;:)\]}]*)"
+    r"|\\\\[^\\\s]+\\[^\\\s]+"
+    r")"
+)
+UTC_TIMESTAMP_PATTERN = re.compile(
+    r"\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})\b"
 )
 
 
@@ -141,10 +185,15 @@ def _assert_public_safe(value: object, *, key: str = "root") -> None:
         for index, child in enumerate(value):
             _assert_public_safe(child, key=f"{key}[{index}]")
         return
-    if isinstance(value, str) and (
-        value.startswith("file://") or LOCAL_PATH_PATTERN.search(value) is not None
-    ):
-        raise ValueError(f"public status payload contains a local path string at {key}")
+    if isinstance(value, str):
+        if (
+            value.strip() == "/"
+            or value.startswith("file://")
+            or LOCAL_PATH_PATTERN.search(value) is not None
+        ):
+            raise ValueError(f"public status payload contains a local path string at {key}")
+        if UTC_TIMESTAMP_PATTERN.search(value) is not None:
+            raise ValueError(f"public status payload contains a timestamp string at {key}")
     if isinstance(value, float) and not math.isfinite(value):
         raise ValueError(f"public status payload contains a nonfinite value at {key}")
 
@@ -163,7 +212,6 @@ def _campaign_projection(campaign: CampaignPackageVerification) -> dict[str, obj
             ),
         }
     return {
-        "dataset_id": str(campaign.dataset_id),
         "evidence_scope": str(campaign.evidence_scope),
         "intake_contract_verified": True,
         "intake_status": str(evidence.get("intake_status", "unknown")),
@@ -209,8 +257,6 @@ def _fit_projection(
             }
         )
     return {
-        "calibration_fit_id": fit.calibration_fit_id,
-        "model_id": fit.model_id,
         "gate_status": fit.gate_status,
         "blocking_reasons": list(fit.blocking_reasons),
         "input_partition": fit.input_partition,
@@ -226,7 +272,17 @@ def _fit_projection(
         "runner_authorized": fit.runner_authorized,
         "scientific_use_authorized": fit.scientific_use_authorized,
         "external_validation": fit.external_validation,
-        "global_criteria": [criterion.to_dict() for criterion in fit.global_criteria],
+        "global_criteria": [
+            {
+                "criterion": criterion.criterion_id,
+                "state": criterion.state,
+                "observed": criterion.observed,
+                "operator": criterion.operator,
+                "threshold": criterion.threshold,
+                "reason": criterion.reason,
+            }
+            for criterion in fit.global_criteria
+        ],
         "resource_status_counts": {
             state: sum(resource.gate_status == state for resource in fit.resources)
             for state in ("passed", "failed", "not_evaluable")
@@ -257,9 +313,7 @@ def _adapter_projection(
             }
         )
     return {
-        "adapter_bundle_id": bundle.adapter_bundle_id,
         "adapter_mode": bundle.adapter_mode,
-        "calibration_fit_id": bundle.calibration_fit_id,
         "adapter_policy_sha256": bundle.adapter_policy_sha256,
         "simulator_semantics_sha256": bundle.simulator_semantics_sha256,
         "specification_sha256": bundle.specification_sha256,
@@ -280,9 +334,77 @@ def _adapter_projection(
     }
 
 
+def _registration_projection(
+    package: SuccessorRegistrationPackageVerification,
+) -> dict[str, object]:
+    registration = package.registration
+    return {
+        "registration_manifest_sha256": package.registration_manifest_sha256,
+        "externally_digest_bound": package.externally_digest_bound,
+        "registration_mode": registration.registration_mode,
+        "planned_cell_count": registration.planned_cell_count,
+        "planned_time_block_count": registration.planned_time_block_count,
+        "source_campaign_evidence_manifest_sha256": (
+            registration.source_campaign_evidence_manifest_sha256
+        ),
+        "fit_evidence_manifest_sha256": registration.fit_evidence_manifest_sha256,
+        "adapter_manifest_sha256": registration.adapter_manifest_sha256,
+        "plan_sha256": registration.plan_sha256,
+        "transfer_contract_sha256": registration.transfer_contract_sha256,
+        "implementation_sha256": registration.implementation_sha256,
+        "chronology_consistent": registration.chronology_consistent,
+        "registration_time_externally_attested": (
+            registration.registration_time_externally_attested
+        ),
+        "upstream_chain_verified": registration.upstream_chain_verified,
+        "prediction_formula_frozen": registration.prediction_formula_frozen,
+        "criteria_frozen": package.contract.criteria_frozen,
+        "numeric_thresholds_complete": package.contract.thresholds.complete,
+        "operational_outcome_extension_enabled": (
+            registration.operational_outcome_extension_enabled
+        ),
+        "execution_chain_ready": registration.execution_chain_ready,
+        "external_validation": registration.external_validation,
+        "scientific_use_authorized": registration.scientific_use_authorized,
+        "runner_authorized": registration.runner_authorized,
+    }
+
+
+def _evaluation_inputs_projection(
+    package: SuccessorEvaluationInputsPackageVerification,
+) -> dict[str, object]:
+    inputs = package.inputs
+    return {
+        "evaluation_inputs_manifest_sha256": package.evaluation_inputs_manifest_sha256,
+        "externally_digest_bound": package.externally_digest_bound,
+        "registration_manifest_sha256": inputs.registration_manifest_sha256,
+        "evaluation_campaign_evidence_manifest_sha256": (
+            inputs.evaluation_campaign_evidence_manifest_sha256
+        ),
+        "evaluation_heldout_content_sha256": inputs.evaluation_heldout_content_sha256,
+        "realized_cell_count": inputs.realized_cell_count,
+        "realized_time_block_count": inputs.realized_time_block_count,
+        "campaign_identity_reconciled": inputs.campaign_identity_reconciled,
+        "collection_window_reconciled": inputs.collection_window_reconciled,
+        "predictor_design_reconciled": inputs.predictor_design_reconciled,
+        "exact_cell_block_reconciliation": inputs.cell_block_reconciliation == "exact",
+        "chronology_consistent": inputs.chronology_consistent,
+        "registration_time_externally_attested": (inputs.registration_time_externally_attested),
+        "prediction_formula_frozen": inputs.prediction_formula_frozen,
+        "prediction_rows_preoutcome_locked": inputs.prediction_rows_preoutcome_locked,
+        "outcome_release_custody_verified": inputs.outcome_release_custody_verified,
+        "execution_chain_ready": inputs.execution_chain_ready,
+        "external_validation": inputs.external_validation,
+        "scientific_use_authorized": inputs.scientific_use_authorized,
+        "runner_authorized": inputs.runner_authorized,
+    }
+
+
 def _lifecycle(
     fit: EmpiricalCalibrationPackageVerification | None,
     adapter: AdaptedResourcePackageVerification | None,
+    registration: SuccessorRegistrationPackageVerification | None,
+    evaluation_inputs: SuccessorEvaluationInputsPackageVerification | None,
 ) -> list[dict[str, object]]:
     fit_state = "pending" if fit is None else fit.fit.gate_status
     if fit is None:
@@ -302,6 +424,29 @@ def _lifecycle(
     else:
         adapter_state = "pending"
         adapter_detail = "No verified adapter package was supplied."
+    if registration is not None:
+        registration_state = "verified"
+        registration_detail = (
+            "The study plan and transfer contract were reverified; this does not authorize a run."
+        )
+    elif adapter is None or fit is None or fit.fit.gate_status != "passed":
+        registration_state = "blocked"
+        registration_detail = "Study-plan freezing remains blocked by the upstream evidence chain."
+    else:
+        registration_state = "pending"
+        registration_detail = "No externally digest-bound study-plan package was supplied."
+    if evaluation_inputs is not None:
+        inputs_state = "verified"
+        inputs_detail = (
+            "Campaign, window, block, predictor design, and ten-resource coverage reconcile; "
+            "no prediction commitment was established before target access."
+        )
+    elif registration is None:
+        inputs_state = "blocked"
+        inputs_detail = "Evaluation inputs cannot be bound before the study plan is frozen."
+    else:
+        inputs_state = "pending"
+        inputs_detail = "No externally digest-bound evaluation-input package was supplied."
     return [
         {
             "stage": "intake",
@@ -317,22 +462,25 @@ def _lifecycle(
             "detail": adapter_detail,
         },
         {
-            "stage": "registration",
-            "label": "Frozen registration",
-            "state": "not_authorized",
-            "detail": "No successor registration verifier is connected to this status build.",
+            "stage": "frozen_study_plan",
+            "label": "Frozen study plan",
+            "state": registration_state,
+            "detail": registration_detail,
         },
         {
-            "stage": "heldout_binding",
-            "label": "Held-out binding",
-            "state": "not_authorized",
-            "detail": "Held-out evidence is retained but not bound to a frozen protocol here.",
+            "stage": "evaluation_inputs",
+            "label": "Evaluation inputs",
+            "state": inputs_state,
+            "detail": inputs_detail,
         },
         {
-            "stage": "evaluation",
-            "label": "Prospective evaluation",
+            "stage": "execution",
+            "label": "Execution",
             "state": "not_authorized",
-            "detail": "The successor evaluation runner is not authorized or executed.",
+            "detail": (
+                "No separate authorization, implemented prediction-row construction, custody "
+                "proof, or result artifact is connected."
+            ),
         },
     ]
 
@@ -342,6 +490,8 @@ def assemble_successor_status(
     *,
     fit: EmpiricalCalibrationPackageVerification | None = None,
     adapter: AdaptedResourcePackageVerification | None = None,
+    registration: SuccessorRegistrationPackageVerification | None = None,
+    evaluation_inputs: SuccessorEvaluationInputsPackageVerification | None = None,
 ) -> SuccessorStatusBundle:
     """Assemble a data-minimized projection from already verified packages."""
 
@@ -391,12 +541,71 @@ def assemble_successor_status(
         ):
             raise ValueError("adapter package exceeds the engineering-evidence boundary")
 
+    if registration is not None:
+        if fit is None or adapter is None:
+            raise ValueError("registration status requires the verified upstream fit and adapter")
+        record = registration.registration
+        if not registration.externally_digest_bound:
+            raise ValueError("status UI requires an externally digest-bound registration package")
+        if record.source_campaign_evidence_manifest_sha256 != campaign.evidence_manifest_sha256:
+            raise ValueError("registration package is bound to a different source campaign")
+        if record.fit_evidence_manifest_sha256 != fit.fit_evidence_manifest_sha256:
+            raise ValueError("registration package is bound to a different fit manifest")
+        if record.adapter_manifest_sha256 != adapter.adapter_manifest_sha256:
+            raise ValueError("registration package is bound to a different adapter manifest")
+        if not (
+            record.chronology_consistent
+            and record.upstream_chain_verified
+            and record.prediction_formula_frozen
+        ):
+            raise ValueError("registration verification gates are not all satisfied")
+        if (
+            record.execution_chain_ready
+            or record.operational_outcome_extension_enabled
+            or record.runner_authorized
+            or record.scientific_use_authorized
+            or record.external_validation
+        ):
+            raise ValueError("registration package exceeds the engineering-evidence boundary")
+    if evaluation_inputs is not None:
+        if registration is None:
+            raise ValueError("evaluation-input status requires the verified registration package")
+        inputs = evaluation_inputs.inputs
+        if not evaluation_inputs.externally_digest_bound:
+            raise ValueError(
+                "status UI requires an externally digest-bound evaluation-input package"
+            )
+        if inputs.registration_manifest_sha256 != registration.registration_manifest_sha256:
+            raise ValueError("evaluation inputs are bound to a different registration manifest")
+        if not (
+            inputs.campaign_identity_reconciled
+            and inputs.collection_window_reconciled
+            and inputs.predictor_design_reconciled
+            and inputs.cell_block_reconciliation == "exact"
+            and inputs.chronology_consistent
+            and inputs.prediction_formula_frozen
+        ):
+            raise ValueError("evaluation-input reconciliation gates are not all satisfied")
+        if (
+            inputs.execution_chain_ready
+            or inputs.runner_authorized
+            or inputs.scientific_use_authorized
+            or inputs.external_validation
+        ):
+            raise ValueError("evaluation-input package exceeds the engineering-evidence boundary")
+
     fit_projection = None if fit is None else _fit_projection(fit)
     adapter_projection = None if adapter is None else _adapter_projection(adapter)
+    registration_projection = (
+        None if registration is None else _registration_projection(registration)
+    )
+    evaluation_inputs_projection = (
+        None if evaluation_inputs is None else _evaluation_inputs_projection(evaluation_inputs)
+    )
     blockers = [
-        "No verified successor registration manifest is connected.",
-        "Held-out evidence is not bound to a frozen successor protocol.",
-        "The prospective evaluation runner is not authorized.",
+        "Executable prediction-row construction and scoring are not implemented or authorized.",
+        "No separate execution authorization or result artifact is connected.",
+        "The prospective evaluation has not been executed.",
         "External validation has not been established.",
     ]
     if fit is None:
@@ -405,6 +614,19 @@ def assemble_successor_status(
         blockers.extend(fit.fit.blocking_reasons)
     if adapter is None:
         blockers.append("A verified resource-adapter package has not been supplied.")
+    if registration is None:
+        blockers.append("A verified frozen study-plan package has not been supplied.")
+    elif not registration.registration.registration_time_externally_attested:
+        blockers.append(
+            "The registration time is internally consistent but not externally attested."
+        )
+    if evaluation_inputs is None:
+        blockers.append("A verified evaluation-input package has not been supplied.")
+    else:
+        if not evaluation_inputs.inputs.prediction_rows_preoutcome_locked:
+            blockers.append("Prediction commitment was not established before target-value access.")
+        if not evaluation_inputs.inputs.outcome_release_custody_verified:
+            blockers.append("Outcome-release custody has not been verified.")
     blockers = sorted(set(blockers))
 
     payload: dict[str, Any] = {
@@ -418,23 +640,29 @@ def assemble_successor_status(
             "external_validation": False,
             "scientific_use_authorized": False,
             "runner_authorized": False,
-            "registration_verified": False,
-            "heldout_binding_verified": False,
+            "registration_verified": registration is not None,
+            "evaluation_inputs_verified": evaluation_inputs is not None,
+            "prediction_rows_preoutcome_locked": False,
+            "outcome_release_custody_verified": False,
             "evaluation_executed": False,
         },
-        "lifecycle": _lifecycle(fit, adapter),
+        "lifecycle": _lifecycle(fit, adapter, registration, evaluation_inputs),
         "campaign": campaign_projection,
         "fit": fit_projection,
         "adapter": adapter_projection,
+        "registration": registration_projection,
+        "evaluation_inputs": evaluation_inputs_projection,
         "blocking_conditions": blockers,
         "disclosure_boundary": {
             "includes": [
                 "aggregate partition counts and integrity commitments",
                 "fit-gate dispositions, diagnostics, and uncertainty intervals",
                 "adapter semantics and documented simulator limitations",
+                "study-plan and evaluation-input counts, commitments, and gate flags",
             ],
             "excludes": [
                 "raw measurement rows",
+                "campaign, dataset, study, plan, cell, and package identifiers",
                 "site and system aliases",
                 "collection timestamps",
                 "authority references and local source paths",
@@ -455,6 +683,12 @@ def load_successor_status(
     adapter_package: str | Path | None = None,
     expected_adapter_policy_sha256: str | None = None,
     expected_adapter_manifest_sha256: str | None = None,
+    registration_package: str | Path | None = None,
+    expected_registration_manifest_sha256: str | None = None,
+    evaluation_campaign_package: str | Path | None = None,
+    expected_evaluation_campaign_evidence_manifest_sha256: str | None = None,
+    evaluation_inputs_package: str | Path | None = None,
+    expected_evaluation_inputs_manifest_sha256: str | None = None,
 ) -> SuccessorStatusBundle:
     """Verify the supplied evidence chain and return its public-safe projection."""
 
@@ -475,6 +709,30 @@ def load_successor_status(
         raise ValueError("adapter package, policy digest, and manifest digest are one closed set")
     if adapter_package is not None and fit_package is None:
         raise ValueError("adapter verification requires the verified source fit package")
+    registration_arguments = (
+        registration_package,
+        expected_registration_manifest_sha256,
+    )
+    if any(value is not None for value in registration_arguments) and not all(
+        value is not None for value in registration_arguments
+    ):
+        raise ValueError("registration package and manifest digest are one closed set")
+    if registration_package is not None and adapter_package is None:
+        raise ValueError("registration verification requires the verified upstream adapter")
+    evaluation_arguments = (
+        evaluation_campaign_package,
+        expected_evaluation_campaign_evidence_manifest_sha256,
+        evaluation_inputs_package,
+        expected_evaluation_inputs_manifest_sha256,
+    )
+    if any(value is not None for value in evaluation_arguments) and not all(
+        value is not None for value in evaluation_arguments
+    ):
+        raise ValueError(
+            "evaluation campaign, evaluation inputs, and both manifest digests are one closed set"
+        )
+    if evaluation_inputs_package is not None and registration_package is None:
+        raise ValueError("evaluation-input verification requires the verified registration")
 
     checked_campaign = verify_empirical_campaign_package(
         campaign_package,
@@ -511,10 +769,53 @@ def load_successor_status(
                 "expected adapter manifest digest",
             ),
         )
+    checked_registration = None
+    if (
+        registration_package is not None
+        and expected_registration_manifest_sha256 is not None
+        and checked_fit is not None
+        and checked_adapter is not None
+    ):
+        checked_registration = verify_successor_registration_package(
+            registration_package,
+            source_campaign=checked_campaign,
+            fit_package=checked_fit,
+            adapter_package=checked_adapter,
+            expected_registration_manifest_sha256=_sha256(
+                expected_registration_manifest_sha256,
+                "expected registration manifest digest",
+            ),
+        )
+    checked_evaluation_inputs = None
+    if (
+        evaluation_campaign_package is not None
+        and expected_evaluation_campaign_evidence_manifest_sha256 is not None
+        and evaluation_inputs_package is not None
+        and expected_evaluation_inputs_manifest_sha256 is not None
+        and checked_registration is not None
+    ):
+        checked_evaluation_campaign = verify_empirical_campaign_package(
+            evaluation_campaign_package,
+            expected_evidence_manifest_sha256=_sha256(
+                expected_evaluation_campaign_evidence_manifest_sha256,
+                "expected evaluation campaign evidence manifest digest",
+            ),
+        )
+        checked_evaluation_inputs = verify_successor_evaluation_inputs_package(
+            evaluation_inputs_package,
+            registration_package=checked_registration,
+            evaluation_campaign=checked_evaluation_campaign,
+            expected_evaluation_inputs_manifest_sha256=_sha256(
+                expected_evaluation_inputs_manifest_sha256,
+                "expected evaluation-input manifest digest",
+            ),
+        )
     return assemble_successor_status(
         checked_campaign,
         fit=checked_fit,
         adapter=checked_adapter,
+        registration=checked_registration,
+        evaluation_inputs=checked_evaluation_inputs,
     )
 
 
@@ -653,6 +954,12 @@ def build_successor_status(
     adapter_package: str | Path | None = None,
     expected_adapter_policy_sha256: str | None = None,
     expected_adapter_manifest_sha256: str | None = None,
+    registration_package: str | Path | None = None,
+    expected_registration_manifest_sha256: str | None = None,
+    evaluation_campaign_package: str | Path | None = None,
+    expected_evaluation_campaign_evidence_manifest_sha256: str | None = None,
+    evaluation_inputs_package: str | Path | None = None,
+    expected_evaluation_inputs_manifest_sha256: str | None = None,
     overwrite: bool = False,
 ) -> tuple[Path, Path]:
     """Verify evidence and build a deployable, network-free status directory."""
@@ -661,7 +968,15 @@ def build_successor_status(
     resolved_destination = destination.resolve()
     source_roots = [Path(campaign_package).resolve()]
     source_roots.extend(
-        Path(value).resolve() for value in (fit_package, adapter_package) if value is not None
+        Path(value).resolve()
+        for value in (
+            fit_package,
+            adapter_package,
+            registration_package,
+            evaluation_campaign_package,
+            evaluation_inputs_package,
+        )
+        if value is not None
     )
     if any(
         resolved_destination == root or root in resolved_destination.parents
@@ -676,6 +991,14 @@ def build_successor_status(
         adapter_package=adapter_package,
         expected_adapter_policy_sha256=expected_adapter_policy_sha256,
         expected_adapter_manifest_sha256=expected_adapter_manifest_sha256,
+        registration_package=registration_package,
+        expected_registration_manifest_sha256=expected_registration_manifest_sha256,
+        evaluation_campaign_package=evaluation_campaign_package,
+        expected_evaluation_campaign_evidence_manifest_sha256=(
+            expected_evaluation_campaign_evidence_manifest_sha256
+        ),
+        evaluation_inputs_package=evaluation_inputs_package,
+        expected_evaluation_inputs_manifest_sha256=(expected_evaluation_inputs_manifest_sha256),
     )
     return write_successor_status_assets(bundle, destination, overwrite=overwrite)
 
@@ -689,11 +1012,12 @@ _HTML_TEMPLATE = r"""<!doctype html>
   <meta name="color-scheme" content="dark light">
   <title>Fleet Assurance Successor Study | Evidence Status</title>
   <style>
-    :root{--ink:#eaf2f6;--muted:#9fb2bd;--panel:#12232c;--panel2:#18303b;--line:#2d4855;--canvas:#07141b;--accent:#4bd6b2;--blue:#5db8e8;--amber:#f0bc64;--red:#f17c75;--white:#fff;--shadow:0 16px 48px rgba(0,0,0,.2);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    :root{--ink:#eaf2f6;--muted:#adc0ca;--panel:#12232c;--panel2:#18303b;--line:#527583;--canvas:#07141b;--accent:#4bd6b2;--blue:#70c5f0;--amber:#f4c774;--red:#ff9189;--white:#fff;--shadow:0 16px 48px rgba(0,0,0,.2);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
     *{box-sizing:border-box}html{scroll-behavior:smooth;max-width:100%;overflow-x:hidden}body{margin:0;max-width:100%;overflow-x:hidden;background:radial-gradient(circle at 85% -10%,#123b46 0,transparent 35rem),var(--canvas);color:var(--ink);line-height:1.5}.skip{position:absolute;left:-9999px}.skip:focus{left:1rem;top:1rem;background:var(--white);color:#07141b;padding:.65rem 1rem;border-radius:.4rem;z-index:20}.shell{width:min(1180px,calc(100% - 2rem));margin-inline:auto;min-width:0}.masthead{padding:3.5rem 0 2rem}.eyebrow{margin:0 0 .5rem;color:var(--accent);font-size:.77rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.masthead h1{margin:0;font-size:clamp(2rem,5vw,4.2rem);line-height:1.02;letter-spacing:-.045em;max-width:900px;overflow-wrap:break-word}.lead{max-width:720px;color:var(--muted);font-size:1.08rem;margin:1rem 0 1.4rem;overflow-wrap:break-word}.boundary{display:flex;align-items:flex-start;gap:.75rem;width:fit-content;max-width:100%;border:1px solid rgba(240,188,100,.5);background:rgba(240,188,100,.1);padding:.72rem .9rem;border-radius:.55rem;color:#ffe0aa;font-weight:750;overflow-wrap:anywhere}.boundary span{min-width:0}.boundary::before{content:"";width:.7rem;height:.7rem;flex:0 0 auto;border-radius:50%;background:var(--amber);box-shadow:0 0 0 .28rem rgba(240,188,100,.14);margin-top:.35rem}main{padding-bottom:4rem}.section{margin-top:1.2rem;min-width:0;background:linear-gradient(145deg,rgba(24,48,59,.94),rgba(14,31,40,.94));border:1px solid var(--line);border-radius:1rem;box-shadow:var(--shadow);padding:clamp(1rem,2.5vw,1.65rem)}.section-head{display:flex;justify-content:space-between;gap:1rem;align-items:end;margin-bottom:1rem;min-width:0}.section h2{font-size:1.15rem;margin:0;letter-spacing:-.015em}.section-copy{margin:.25rem 0 0;color:var(--muted);font-size:.9rem;overflow-wrap:break-word}.lifecycle{list-style:none;margin:1.4rem 0 .25rem;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.5rem;counter-reset:stage}.life{position:relative;min-width:0;min-height:10rem;padding:1rem .8rem .8rem;border:1px solid var(--line);border-radius:.75rem;background:rgba(7,20,27,.54);overflow-wrap:anywhere}.life::before{counter-increment:stage;content:counter(stage);display:grid;place-items:center;width:1.75rem;height:1.75rem;border-radius:50%;background:var(--line);font-size:.78rem;font-weight:800;margin-bottom:.75rem}.life[data-state="verified"]::before,.life[data-state="passed"]::before{background:var(--accent);color:#06231c}.life[data-state="failed"]::before{background:var(--red);color:#2c0907}.life[data-state="not_evaluable"]::before,.life[data-state="blocked"]::before{background:var(--amber);color:#2a1902}.life strong{display:block;font-size:.9rem}.life p{color:var(--muted);font-size:.76rem;line-height:1.4;margin:.5rem 0 0}.state{display:inline-flex;align-items:center;gap:.35rem;margin-top:.5rem;font-size:.7rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}.state::before{content:"";width:.44rem;height:.44rem;flex:0 0 auto;border-radius:50%;background:var(--muted)}.state.verified::before,.state.passed::before{background:var(--accent)}.state.failed::before{background:var(--red)}.state.not_evaluable::before,.state.blocked::before{background:var(--amber)}.state.not_authorized::before,.state.pending::before{background:#7f929d}.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.65rem}.fact{min-width:0;padding:1rem;border:1px solid var(--line);border-radius:.75rem;background:rgba(7,20,27,.48)}.fact small{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}.fact strong{display:block;margin-top:.35rem;font-size:1rem;overflow-wrap:anywhere}.fact .ok{color:var(--accent)}.fact .locked{color:var(--amber)}.digest-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}.digest{min-width:0;padding:.75rem;border-left:3px solid var(--blue);background:rgba(7,20,27,.45);border-radius:.25rem}.digest span{display:block;color:var(--muted);font-size:.72rem}.digest code{display:block;margin-top:.28rem;color:#cbe8f6;font-size:.72rem;overflow-wrap:anywhere}.resource-summary{display:flex;flex-wrap:wrap;gap:.5rem;margin:.25rem 0 1rem}.filter{appearance:none;min-height:2.75rem;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:.45rem .72rem;font:inherit;font-size:.78rem;cursor:pointer}.filter[aria-pressed="true"]{background:var(--ink);color:#07141b;border-color:var(--ink)}.filter:focus-visible,summary:focus-visible,.adapter-grid:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.resource-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem}.resource{min-width:0;border:1px solid var(--line);border-radius:.75rem;background:rgba(7,20,27,.48);overflow:hidden}.resource summary{cursor:pointer;list-style:none;padding:.85rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;min-width:0}.resource summary::-webkit-details-marker{display:none}.resource summary strong{font-size:.88rem}.resource summary small{display:block;color:var(--muted);font-weight:500;overflow-wrap:anywhere}.resource-body{border-top:1px solid var(--line);padding:.8rem 1rem 1rem}.metric-row{display:grid;grid-template-columns:minmax(9rem,1.3fr) 2fr;gap:.75rem;align-items:center;padding:.45rem 0;border-bottom:1px solid rgba(45,72,85,.55)}.metric-row:last-child{border:0}.metric-row label{font-size:.76rem;color:var(--muted)}.interval-value{font-size:.72rem;font-variant-numeric:tabular-nums}.whisker{position:relative;height:.45rem;background:#263f4b;border-radius:999px;margin-top:.35rem}.whisker::after{content:"";position:absolute;left:var(--point);top:-.2rem;width:.12rem;height:.85rem;background:var(--accent);border-radius:1rem}.diagnostics{display:grid;grid-template-columns:repeat(auto-fit,minmax(7.5rem,1fr));gap:.45rem;margin:0 0 .8rem}.diagnostic{min-width:0;padding:.55rem .6rem;background:rgba(24,48,59,.55);border-radius:.4rem}.diagnostic dt{color:var(--muted);font-size:.64rem;line-height:1.3}.diagnostic dd{margin:.2rem 0 0;font-size:.8rem;font-weight:750;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.blocker-list,.limitations{margin:.5rem 0 0;padding-left:1.1rem;color:#d5e1e6}.blocker-list li,.limitations li{margin:.35rem 0;overflow-wrap:anywhere}.adapter-grid{overflow:auto}.adapter-grid table{width:100%;border-collapse:collapse;font-size:.78rem}.adapter-grid th,.adapter-grid td{text-align:left;padding:.65rem;border-bottom:1px solid var(--line);white-space:nowrap}.adapter-grid th{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em}.empty{padding:1rem;border:1px dashed var(--line);border-radius:.65rem;color:var(--muted)}.two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:.75rem}.disclosure{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}.disclosure article{padding:.9rem;border:1px solid var(--line);border-radius:.65rem}.disclosure h3{font-size:.85rem;margin:0 0 .5rem}.disclosure ul{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.8rem}.footer{color:var(--muted);font-size:.72rem;padding:1.5rem 0 3rem}.footer code{overflow-wrap:anywhere}noscript{display:block;padding:1rem;background:#3a1e1a;color:#ffe2db}
-    @media(max-width:900px){.lifecycle{grid-template-columns:repeat(3,1fr)}.facts{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}}
+    .protocol-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.protocol-panel{min-width:0;padding:1rem;border:1px solid var(--line);border-radius:.8rem;background:rgba(7,20,27,.4)}.protocol-panel .section-head{align-items:start}.protocol-panel .facts{grid-template-columns:repeat(2,minmax(0,1fr))}.protocol-panel .digest-grid{grid-template-columns:minmax(0,1fr)}
+    @media(max-width:900px){.lifecycle{grid-template-columns:repeat(3,1fr)}.facts{grid-template-columns:repeat(2,1fr)}.two-col,.protocol-grid{grid-template-columns:1fr}}
     .subhead{font-size:.82rem;margin:1rem 0 .55rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}.gate-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem}.gate{min-width:0;padding:.7rem;border:1px solid var(--line);border-radius:.55rem;background:rgba(7,20,27,.48)}.gate strong{display:block;font-size:.76rem;overflow-wrap:anywhere}.gate small{display:block;margin-top:.35rem;color:var(--muted);font-size:.68rem;overflow-wrap:anywhere}
-    @media(max-width:620px){.shell{width:calc(100% - 1rem)}.masthead{padding-top:2rem}.masthead h1{font-size:clamp(2rem,10vw,3rem)}.boundary{width:100%}.lifecycle,.facts,.resource-list,.digest-grid,.disclosure,.gate-grid{grid-template-columns:minmax(0,1fr)}.life{min-height:auto}.section{border-radius:.75rem}.diagnostics{grid-template-columns:1fr}.metric-row{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}}
+    @media(max-width:620px){.shell{width:calc(100% - 1rem)}.masthead{padding-top:2rem}.masthead h1{font-size:clamp(2rem,10vw,3rem)}.boundary{width:100%}.lifecycle,.facts,.resource-list,.digest-grid,.disclosure,.gate-grid,.protocol-panel .facts{grid-template-columns:minmax(0,1fr)}.life{min-height:auto}.section{border-radius:.75rem}.protocol-panel{padding:.8rem}.diagnostics{grid-template-columns:1fr}.metric-row{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
     @media print{body{background:#fff;color:#111}.section,.fact,.life,.resource{box-shadow:none;background:#fff;color:#111;border-color:#bbb}.masthead,.section{break-inside:avoid}.lead,.section-copy,.life p,.fact small{color:#444}}
   </style>
@@ -704,12 +1028,12 @@ _HTML_TEMPLATE = r"""<!doctype html>
   <header class="masthead shell">
     <p class="eyebrow">Fleet Assurance / Successor Study</p>
     <h1>Evidence readiness, without overstating the science.</h1>
-    <p class="lead">A public-safe view of campaign intake, calibration quality, uncertainty, and simulator adaptation. Every downstream research action remains locked until a new protocol is frozen and bound to externally recorded digests.</p>
-    <div class="boundary" role="status"><span>Engineering evidence only · prospective evaluation not authorized</span></div>
+    <p class="lead">A public-safe view of campaign intake, calibration quality, simulator adaptation, and the two-manifest evidence chain. Verified planning and input binding remain distinct from authority to execute or claim transfer.</p>
+    <div class="boundary" role="status"><span>Engineering evidence only · prospective execution not authorized</span></div>
   </header>
   <main id="main" class="shell">
     <section class="section" aria-labelledby="life-title">
-      <div class="section-head"><div><h2 id="life-title">Successor-study lifecycle</h2><p class="section-copy">The connected evidence chain ends before protocol registration and held-out evaluation.</p></div></div>
+      <div class="section-head"><div><h2 id="life-title">Successor-study lifecycle</h2><p class="section-copy">Six distinct gates separate evidence readiness, frozen planning, realized inputs, and execution authority.</p></div></div>
       <ol id="lifecycle" class="lifecycle"></ol>
     </section>
     <section class="section" aria-labelledby="boundary-title">
@@ -731,6 +1055,21 @@ _HTML_TEMPLATE = r"""<!doctype html>
       <div id="adapterEmpty" class="empty" hidden></div>
       <div id="adapterContent" hidden><div class="adapter-grid" role="region" aria-label="Generated assurance resource semantics; scroll horizontally to view all columns" tabindex="0"><table><caption class="skip">Generated assurance resource semantics</caption><thead><tr><th>Resource</th><th>Arrival</th><th>Service</th><th>Overload</th><th>Capacity</th><th>Max wait</th><th>Class</th></tr></thead><tbody id="adapterRows"></tbody></table></div><h3 style="font-size:.9rem;margin:1.1rem 0 .35rem">Current simulator limitations</h3><ul id="limitations" class="limitations"></ul></div>
     </section>
+    <section class="section" aria-labelledby="protocol-title">
+      <div class="section-head"><div><h2 id="protocol-title">Prospective protocol evidence</h2><p class="section-copy">Only aggregate counts, cryptographic commitments, and verifier-produced gate flags are disclosed. Registration never grants execution authority.</p></div></div>
+      <div class="protocol-grid">
+        <article class="protocol-panel" aria-labelledby="registration-title">
+          <div class="section-head"><div><h3 id="registration-title" style="margin:0;font-size:1rem">Frozen study plan</h3><p class="section-copy">Plan, transfer criteria, implementation, and upstream evidence commitments.</p></div><div id="registrationState"></div></div>
+          <div id="registrationEmpty" class="empty" hidden></div>
+          <div id="registrationContent" hidden><div id="registrationFacts" class="facts"></div><div id="registrationDigests" class="digest-grid" style="margin-top:.75rem"></div></div>
+        </article>
+        <article class="protocol-panel" aria-labelledby="evaluation-inputs-title">
+          <div class="section-head"><div><h3 id="evaluation-inputs-title" style="margin:0;font-size:1rem">Evaluation inputs</h3><p class="section-copy">Realized campaign, window, predictor design, block plan, and ten-resource coverage reconciliation.</p></div><div id="evaluationInputsState"></div></div>
+          <div id="evaluationInputsEmpty" class="empty" hidden></div>
+          <div id="evaluationInputsContent" hidden><div id="evaluationInputsFacts" class="facts"></div><div id="evaluationInputsDigests" class="digest-grid" style="margin-top:.75rem"></div></div>
+        </article>
+      </div>
+    </section>
     <section class="section two-col" aria-labelledby="blockers-title">
       <article><h2 id="blockers-title">What still blocks evaluation</h2><ul id="blockers" class="blocker-list"></ul></article>
       <article><h2>Public disclosure boundary</h2><div id="disclosure" class="disclosure"></div></article>
@@ -751,17 +1090,20 @@ _HTML_TEMPLATE = r"""<!doctype html>
   function addState(parent,state){const clean=safeState(state),node=make('span','state '+clean,stateLabel(clean));parent.appendChild(node)}
   function renderLifecycle(){DATA.lifecycle.forEach(stage=>{const item=make('li','life');item.dataset.state=safeState(stage.state);item.append(make('strong','',stage.label));addState(item,stage.state);item.append(make('p','',stage.detail));byId('lifecycle').append(item)})}
   function fact(label,value,kind){const node=make('div','fact');node.append(make('small','',label),make('strong',kind||'',value));return node}
-  function renderBoundary(){const b=DATA.assurance_boundary,items=[['Evidence digests',b.digest_bound_inputs?'Bound':'Not bound',b.digest_bound_inputs?'ok':'locked'],['Scientific use',b.scientific_use_authorized?'Authorized':'Not authorized',b.scientific_use_authorized?'ok':'locked'],['Evaluation runner',b.runner_authorized?'Authorized':'Locked',b.runner_authorized?'ok':'locked'],['External validation',b.external_validation?'Established':'Not established',b.external_validation?'ok':'locked']];items.forEach(item=>byId('facts').append(fact(...item)))}
+  const evidenceKind=value=>typeof value==='string'&&value.startsWith('Not ')?'locked':['Verified','Consistent','Frozen','Frozen and complete','Reconciled','Exact','Established before targets'].includes(value)?'ok':'';
+  function renderBoundary(){const b=DATA.assurance_boundary,items=[['Evidence digests',b.digest_bound_inputs?'Bound':'Not bound',b.digest_bound_inputs?'ok':'locked'],['Frozen study plan',b.registration_verified?'Verified':'Not verified',b.registration_verified?'ok':'locked'],['Evaluation inputs',b.evaluation_inputs_verified?'Verified':'Not verified',b.evaluation_inputs_verified?'ok':'locked'],['Scientific use',b.scientific_use_authorized?'Authorized':'Not authorized',b.scientific_use_authorized?'ok':'locked'],['Evaluation runner',b.runner_authorized?'Authorized':'Locked',b.runner_authorized?'ok':'locked'],['External validation',b.external_validation?'Established':'Not established',b.external_validation?'ok':'locked']];items.forEach(item=>byId('facts').append(fact(...item)))}
   function digest(label,value){const node=make('div','digest');node.append(make('span','',label),make('code','',value));return node}
-  function renderIntake(){const c=DATA.campaign,cal=c.partitions.calibration,held=c.partitions.heldout;[['Evidence scope',scopeLabel(c.evidence_scope)],['Intake contract',c.intake_contract_verified?'Verified':'Not verified'],['Calibration blocks',cal.time_block_count],['Held-out blocks retained',held.time_block_count]].forEach(item=>byId('intakeFacts').append(fact(item[0],item[1],'')));byId('digests').append(digest('Campaign evidence manifest',c.evidence_manifest_sha256),digest('Calibration content commitment',cal.content_sha256),digest('Held-out content commitment',held.content_sha256),digest('Dataset identity',c.dataset_id))}
+  function renderIntake(){const c=DATA.campaign,cal=c.partitions.calibration,held=c.partitions.heldout;[['Evidence scope',scopeLabel(c.evidence_scope)],['Intake contract',c.intake_contract_verified?'Verified':'Not verified'],['Calibration blocks',cal.time_block_count],['Held-out blocks retained',held.time_block_count]].forEach(item=>byId('intakeFacts').append(fact(item[0],item[1],'')));byId('digests').append(digest('Campaign evidence manifest',c.evidence_manifest_sha256),digest('Calibration content commitment',cal.content_sha256),digest('Held-out content commitment',held.content_sha256))}
   const intervalLabels={background_work_per_agent_s:'Background work / agent / s',admission_work_units_per_agent:'Admission work / agent',capacity_units_per_second:'Capacity / s',service_time_window_mean_ms:'Service-time mean, ms',service_time_between_window_standard_deviation_ms:'Between-window service SD, ms',max_wait_s:'Maximum wait, s',dropped_work_fraction:'Dropped-work fraction',deferred_work_fraction:'Deferred-work fraction'};
   function intervalRow(name,value){const row=make('div','metric-row');row.append(make('label','',intervalLabels[name]||name));const holder=make('div','');if(!value){holder.append(make('div','interval-value','not available'));row.append(holder);return row}holder.append(make('div','interval-value',fmt(value.lower)+'  /  '+fmt(value.point)+'  /  '+fmt(value.upper)+'   [lower / point / upper]'));const track=make('div','whisker');const width=value.upper-value.lower;const pct=width>0?Math.max(0,Math.min(100,(value.point-value.lower)/width*100)):50;track.style.setProperty('--point',pct+'%');track.setAttribute('role','img');track.setAttribute('aria-label',(intervalLabels[name]||name)+': lower '+fmt(value.lower)+', point '+fmt(value.point)+', upper '+fmt(value.upper));holder.append(track);row.append(holder);return row}
   function renderResource(resource){const card=make('details','resource');card.dataset.state=safeState(resource.gate_status);const summary=make('summary','');summary.append(make('strong','',titleLabel(resource.resource_type)));addState(summary,resource.gate_status);card.append(summary);const body=make('div','resource-body');const diagnostics=make('dl','diagnostics');diagnostics.setAttribute('aria-label','Resource fit diagnostics');[['Observations',resource.observation_count],['Time blocks',resource.time_block_count],['Scaled design rank',resource.scaled_design_rank],['Scaled condition number',fmt(resource.scaled_design_condition_number)],['Normalized RMSE',fmt(resource.weighted_normalized_rmse)],['Absolute weighted relative bias',fmt(resource.absolute_weighted_relative_bias)],['Weighted R²',fmt(resource.weighted_r_squared)],['Bootstrap success',fmt(resource.bootstrap_success_fraction)]].forEach(item=>{const d=make('div','diagnostic');d.append(make('dt','',item[0]),make('dd','',item[1]));diagnostics.append(d)});body.append(diagnostics);Object.entries(resource.intervals).forEach(([name,value])=>body.append(intervalRow(name,value)));if(resource.blocking_reasons.length){const list=make('ul','blocker-list');resource.blocking_reasons.forEach(reason=>list.append(make('li','',titleLabel(reason))));body.append(list)}card.append(body);return card}
-  function renderGlobalGate(criterion){const node=make('article','gate');node.append(make('strong','',titleLabel(criterion.criterion_id)));addState(node,criterion.state);node.append(make('small','',criterion.observed===null?'Not evaluable':'Observed '+fmt(criterion.observed)+' '+criterion.operator+' '+fmt(criterion.threshold)));return node}
+  function renderGlobalGate(criterion){const node=make('article','gate');node.append(make('strong','',titleLabel(criterion.criterion)));addState(node,criterion.state);node.append(make('small','',criterion.observed===null?'Not evaluable':'Observed '+fmt(criterion.observed)+' '+criterion.operator+' '+fmt(criterion.threshold)));return node}
   function renderFit(){const fit=DATA.fit;if(!fit){byId('fitEmpty').hidden=false;byId('fitEmpty').textContent='No fit package is connected. Intake remains visible while calibration readiness is pending.';addState(byId('fitState'),'pending');return}addState(byId('fitState'),fit.gate_status);byId('fitContent').hidden=false;fit.global_criteria.forEach(criterion=>byId('globalGates').append(renderGlobalGate(criterion)));const states=['all','passed','failed','not_evaluable'];states.forEach((state,index)=>{const count=state==='all'?fit.resources.length:fit.resource_status_counts[state];const button=make('button','filter',stateLabel(state)+' · '+count);button.type='button';button.dataset.filter=state;button.setAttribute('aria-pressed',index===0?'true':'false');button.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(item=>item.setAttribute('aria-pressed','false'));button.setAttribute('aria-pressed','true');document.querySelectorAll('.resource').forEach(item=>{item.hidden=state!=='all'&&item.dataset.state!==state})});byId('resourceFilters').append(button)});fit.resources.forEach(resource=>byId('resourceList').append(renderResource(resource)))}
   function renderAdapter(){const adapter=DATA.adapter;if(!adapter){byId('adapterEmpty').hidden=false;byId('adapterEmpty').textContent='No verified adapter package is connected. No simulator semantics are inferred or filled in.';addState(byId('adapterState'),'pending');return}addState(byId('adapterState'),'verified');byId('adapterContent').hidden=false;adapter.resources.forEach(resource=>{const row=make('tr','');[titleLabel(resource.resource_type),stateLabel(resource.arrival_process),stateLabel(resource.service_time_distribution),stateLabel(resource.overload_behavior),fmt(resource.capacity_units_per_second),fmt(resource.max_wait_s),stateLabel(resource.parameter_class)].forEach(value=>row.append(make('td','',value)));byId('adapterRows').append(row)});adapter.simulator_limitations.forEach(item=>byId('limitations').append(make('li','',titleLabel(item))))}
+  function renderRegistration(){const item=DATA.registration;if(!item){byId('registrationEmpty').hidden=false;byId('registrationEmpty').textContent='No verified frozen study-plan package is connected.';addState(byId('registrationState'),'pending');return}addState(byId('registrationState'),'verified');byId('registrationContent').hidden=false;[['Mode',titleLabel(item.registration_mode)],['Planned cells',item.planned_cell_count],['Planned time blocks',item.planned_time_block_count],['Upstream chain',item.upstream_chain_verified?'Verified':'Not verified'],['Chronology',item.chronology_consistent?'Consistent':'Not verified'],['Time attestation',item.registration_time_externally_attested?'Externally attested':'Not externally attested'],['Prediction formula',item.prediction_formula_frozen?'Frozen':'Not frozen'],['Transfer criteria',item.criteria_frozen&&item.numeric_thresholds_complete?'Frozen and complete':'Not complete']].forEach(value=>byId('registrationFacts').append(fact(value[0],value[1],evidenceKind(value[1]))));[['Registration manifest',item.registration_manifest_sha256],['Study plan',item.plan_sha256],['Transfer contract',item.transfer_contract_sha256],['Implementation',item.implementation_sha256]].forEach(value=>byId('registrationDigests').append(digest(value[0],value[1])))}
+  function renderEvaluationInputs(){const item=DATA.evaluation_inputs;if(!item){byId('evaluationInputsEmpty').hidden=false;byId('evaluationInputsEmpty').textContent='No verified evaluation-input package is connected.';addState(byId('evaluationInputsState'),'pending');return}addState(byId('evaluationInputsState'),'verified');byId('evaluationInputsContent').hidden=false;[['Realized cells',item.realized_cell_count],['Realized time blocks',item.realized_time_block_count],['Campaign identity',item.campaign_identity_reconciled?'Reconciled':'Not reconciled'],['Collection window',item.collection_window_reconciled?'Reconciled':'Not reconciled'],['Predictor design',item.predictor_design_reconciled?'Reconciled':'Not reconciled'],['Plan coverage',item.exact_cell_block_reconciliation?'Exact':'Not exact'],['Chronology',item.chronology_consistent?'Consistent':'Not verified'],['Prediction commitment',item.prediction_rows_preoutcome_locked?'Established before targets':'Not established before targets'],['Outcome custody',item.outcome_release_custody_verified?'Verified':'Not verified']].forEach(value=>byId('evaluationInputsFacts').append(fact(value[0],value[1],evidenceKind(value[1]))));[['Evaluation-input manifest',item.evaluation_inputs_manifest_sha256],['Evaluation campaign evidence',item.evaluation_campaign_evidence_manifest_sha256],['Held-out content commitment',item.evaluation_heldout_content_sha256],['Frozen registration manifest',item.registration_manifest_sha256]].forEach(value=>byId('evaluationInputsDigests').append(digest(value[0],value[1])))}
   function renderBlockers(){DATA.blocking_conditions.forEach(item=>byId('blockers').append(make('li','',titleLabel(item))));[['Included',DATA.disclosure_boundary.includes],['Excluded',DATA.disclosure_boundary.excludes]].forEach(([title,items])=>{const article=make('article','');article.append(make('h3','',title));const list=make('ul','');items.forEach(item=>list.append(make('li','',item)));article.append(list);byId('disclosure').append(article)})}
-  renderLifecycle();renderBoundary();renderIntake();renderFit();renderAdapter();renderBlockers();byId('projectionHash').textContent=DATA.projection_sha256;
+  renderLifecycle();renderBoundary();renderIntake();renderFit();renderAdapter();renderRegistration();renderEvaluationInputs();renderBlockers();byId('projectionHash').textContent=DATA.projection_sha256;
   </script>
 </body>
 </html>

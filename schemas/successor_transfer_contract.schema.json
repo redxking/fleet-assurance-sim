@@ -1,0 +1,304 @@
+{
+  "$id": "https://fleet-assurance.local/schemas/successor_transfer_contract.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "contract_mode": {
+            "const": "prospective_transfer"
+          }
+        },
+        "required": [
+          "contract_mode"
+        ]
+      },
+      "then": {
+        "properties": {
+          "criteria_frozen": {
+            "const": true
+          },
+          "thresholds": {
+            "additionalProperties": false,
+            "properties": {
+              "maximum_absolute_duration_weighted_relative_bias": {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              "maximum_duration_weighted_nrmse": {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              "minimum_candidate_relative_improvement": {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              "minimum_valid_time_blocks_per_cell": {
+                "minimum": 1,
+                "type": "integer"
+              },
+              "require_every_resource": {
+                "const": true
+              }
+            },
+            "required": [
+              "maximum_absolute_duration_weighted_relative_bias",
+              "maximum_duration_weighted_nrmse",
+              "minimum_candidate_relative_improvement",
+              "minimum_valid_time_blocks_per_cell",
+              "require_every_resource"
+            ],
+            "type": "object"
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "comparator": {
+      "const": "calibration_background_only_nonnegative_least_squares"
+    },
+    "contract_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+      "type": "string"
+    },
+    "contract_mode": {
+      "enum": [
+        "engineering_dry_run",
+        "prospective_transfer"
+      ]
+    },
+    "criteria_frozen": {
+      "type": "boolean"
+    },
+    "external_validation": {
+      "const": false
+    },
+    "metrics": {
+      "maxItems": 3,
+      "minItems": 3,
+      "prefixItems": [
+        {
+          "const": "duration_weighted_normalized_rmse"
+        },
+        {
+          "const": "absolute_duration_weighted_relative_bias"
+        },
+        {
+          "const": "candidate_relative_improvement_over_background_only"
+        }
+      ],
+      "type": "array"
+    },
+    "operational_outcome_extension_enabled": {
+      "const": false
+    },
+    "outcome_custody_evidence_required": {
+      "const": true
+    },
+    "outcome_field": {
+      "const": "arrival_count"
+    },
+    "prediction_formula": {
+      "const": "arrival_rate=background_work_per_agent_s*fleet_size+admission_work_units_per_agent*(agents_admitted/window_duration_s)"
+    },
+    "prediction_rows_preoutcome_lock_required": {
+      "const": true
+    },
+    "predictor_fields": {
+      "maxItems": 3,
+      "minItems": 3,
+      "prefixItems": [
+        {
+          "const": "fleet_size"
+        },
+        {
+          "const": "agents_admitted"
+        },
+        {
+          "const": "window_duration_ms"
+        }
+      ],
+      "type": "array"
+    },
+    "primary_estimand": {
+      "const": "resource_arrival_rate_transfer"
+    },
+    "resource_types": {
+      "allOf": [
+        {
+          "contains": {
+            "const": "identity_issuance"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "const": "certificate_issuance_renewal"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "const": "authorization_policy_evaluation"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "const": "task_dispatch_registration"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "const": "telemetry_source_registration"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "const": "evidence_ingest_initialization"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "const": "supervisory_review"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "const": "revocation_readiness"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "const": "configuration_attestation"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "const": "dependency_registration"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        }
+      ],
+      "items": {
+        "enum": [
+          "authorization_policy_evaluation",
+          "certificate_issuance_renewal",
+          "configuration_attestation",
+          "dependency_registration",
+          "evidence_ingest_initialization",
+          "identity_issuance",
+          "revocation_readiness",
+          "supervisory_review",
+          "task_dispatch_registration",
+          "telemetry_source_registration"
+        ]
+      },
+      "maxItems": 10,
+      "minItems": 10,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "runner_authorized": {
+      "const": false
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "scientific_use_authorized": {
+      "const": false
+    },
+    "thresholds": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum_absolute_duration_weighted_relative_bias": {
+          "minimum": 0.0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "maximum_duration_weighted_nrmse": {
+          "minimum": 0.0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "minimum_candidate_relative_improvement": {
+          "minimum": 0.0,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "minimum_valid_time_blocks_per_cell": {
+          "minimum": 1,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "require_every_resource": {
+          "const": true
+        }
+      },
+      "required": [
+        "maximum_absolute_duration_weighted_relative_bias",
+        "maximum_duration_weighted_nrmse",
+        "minimum_candidate_relative_improvement",
+        "minimum_valid_time_blocks_per_cell",
+        "require_every_resource"
+      ],
+      "type": "object"
+    },
+    "uncertainty_method": {
+      "const": "joint_calibration_time_block_bootstrap"
+    },
+    "uncertainty_scope": {
+      "const": "mean_parameter_uncertainty_not_future_observation_interval"
+    }
+  },
+  "required": [
+    "comparator",
+    "contract_id",
+    "contract_mode",
+    "criteria_frozen",
+    "external_validation",
+    "metrics",
+    "operational_outcome_extension_enabled",
+    "outcome_custody_evidence_required",
+    "outcome_field",
+    "prediction_formula",
+    "prediction_rows_preoutcome_lock_required",
+    "predictor_fields",
+    "primary_estimand",
+    "resource_types",
+    "runner_authorized",
+    "schema_version",
+    "scientific_use_authorized",
+    "thresholds",
+    "uncertainty_method",
+    "uncertainty_scope"
+  ],
+  "title": "Successor resource-arrival transfer contract",
+  "type": "object"
+}

@@ -1,0 +1,47 @@
+{
+  "comparator": "calibration_background_only_nonnegative_least_squares",
+  "contract_id": "resource-arrival-transfer-engineering-v1",
+  "contract_mode": "engineering_dry_run",
+  "criteria_frozen": false,
+  "external_validation": false,
+  "metrics": [
+    "duration_weighted_normalized_rmse",
+    "absolute_duration_weighted_relative_bias",
+    "candidate_relative_improvement_over_background_only"
+  ],
+  "operational_outcome_extension_enabled": false,
+  "outcome_custody_evidence_required": true,
+  "outcome_field": "arrival_count",
+  "prediction_formula": "arrival_rate=background_work_per_agent_s*fleet_size+admission_work_units_per_agent*(agents_admitted/window_duration_s)",
+  "prediction_rows_preoutcome_lock_required": true,
+  "predictor_fields": [
+    "fleet_size",
+    "agents_admitted",
+    "window_duration_ms"
+  ],
+  "primary_estimand": "resource_arrival_rate_transfer",
+  "resource_types": [
+    "authorization_policy_evaluation",
+    "certificate_issuance_renewal",
+    "configuration_attestation",
+    "dependency_registration",
+    "evidence_ingest_initialization",
+    "identity_issuance",
+    "revocation_readiness",
+    "supervisory_review",
+    "task_dispatch_registration",
+    "telemetry_source_registration"
+  ],
+  "runner_authorized": false,
+  "schema_version": "1.0",
+  "scientific_use_authorized": false,
+  "thresholds": {
+    "maximum_absolute_duration_weighted_relative_bias": null,
+    "maximum_duration_weighted_nrmse": null,
+    "minimum_candidate_relative_improvement": null,
+    "minimum_valid_time_blocks_per_cell": null,
+    "require_every_resource": true
+  },
+  "uncertainty_method": "joint_calibration_time_block_bootstrap",
+  "uncertainty_scope": "mean_parameter_uncertainty_not_future_observation_interval"
+}

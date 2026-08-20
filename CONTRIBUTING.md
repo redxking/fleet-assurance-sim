@@ -14,6 +14,8 @@ The retained Stage 3 confirmation is immutable. Do not alter its protocol, manif
 - External or high-fidelity resource measurements for Stage 3A calibration
 - Review of successor-study fit thresholds, target-domain coverage, and uncertainty methods
 - Evidence-backed ten-resource adapter policies and faithful simulator semantics
+- Review of successor registration plans, transfer metrics, chronology, and exact cell, block, and predictor-design reconciliation
+- Independent prediction-custody, outcome-release, and one-shot scoring designs that preserve the frozen evidence chain
 - External or separately implemented attack traces for Stage 3B validation
 - Statistical and numerical review of the acceptance methods
 - Additional matched-capacity comparators and uncertainty methods
@@ -31,7 +33,20 @@ The retained Stage 3 confirmation is immutable. Do not alter its protocol, manif
 
 When a package schema, verifier, lifecycle state, authorization flag, diagnostic, uncertainty interval, or simulator limitation changes, update the corresponding command-line output, status UI, documentation, and tests in the same change. A UI must display failed, blocked, and not-evaluable states; it must not infer readiness from artifact presence.
 
-The successor empirical workflow is intentionally split into evidence intake, calibration fitting, resource adaptation, future registration, future held-out binding, and future one-shot evaluation. Do not bypass those gates by connecting an engineering-only adapter to the frozen Stage 3 runner. A prospective study requires a new protocol and manifest chain.
+The successor empirical workflow is intentionally split into evidence intake, calibration fitting, resource adaptation, registration before a distinct future campaign, evaluation-input binding after collection, preoutcome prediction custody, outcome release, and one-shot evaluation. The first five stages are implemented; prediction custody, outcome release, and scoring remain locked. Do not bypass those gates by connecting an engineering-only adapter or manifest package to the frozen Stage 3 runner.
+
+Registration changes require coordinated updates to the closed schemas, command-line output, status UI, protocol documentation, and failure-path tests. Preserve these rules:
+
+- Historical held-out content may be verified for integrity but must not influence fitting or adaptation.
+- The planned evaluation campaign must be distinct from the source campaign and begin after registration.
+- Planned cells and time-block IDs are a closed set. Each block also freezes its timestamp, fleet size, admission count, and observation-window duration; missing, extra, or changed realized designs fail closed.
+- `engineering_dry_run` examples must not invent scientific thresholds or imply authorization.
+- `prospective_transfer` requires complete frozen numeric criteria, nonsynthetic calibration evidence, a passing successor-transfer fit, and an evidence-backed successor adapter.
+- Local timestamp ordering must not be described as external timestamp attestation.
+- Operational-outcome transfer remains disabled until a separate contract and evidence package are reviewed.
+- `external_validation`, `scientific_use_authorized`, `runner_authorized`, and `execution_chain_ready` remain false in registration and evaluation-input artifacts.
+
+The detailed lifecycle and current public APIs are in [docs/successor_prospective_protocol.md](docs/successor_prospective_protocol.md).
 
 Do not submit proprietary, classified, export-controlled, personal, operationally sensitive, or third-party restricted data. Synthetic examples must be clearly labeled synthetic. External measurements must include provenance, collection authority, licensing, and an explicit statement of what they do and do not establish.
 

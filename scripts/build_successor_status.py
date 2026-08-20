@@ -68,6 +68,36 @@ def build_parser() -> argparse.ArgumentParser:
         help="Externally recorded adapter-manifest digest",
     )
     parser.add_argument(
+        "--registration-package",
+        type=Path,
+        help="Optional frozen successor study-plan package",
+    )
+    parser.add_argument(
+        "--expected-registration-manifest-sha256",
+        type=_sha256_argument,
+        help="Externally recorded successor registration-manifest digest",
+    )
+    parser.add_argument(
+        "--evaluation-campaign-package",
+        type=Path,
+        help="Optional realized evaluation campaign package",
+    )
+    parser.add_argument(
+        "--expected-evaluation-campaign-evidence-manifest-sha256",
+        type=_sha256_argument,
+        help="Externally recorded evaluation campaign evidence-manifest digest",
+    )
+    parser.add_argument(
+        "--evaluation-inputs-package",
+        type=Path,
+        help="Optional evaluation-input binding package",
+    )
+    parser.add_argument(
+        "--expected-evaluation-inputs-manifest-sha256",
+        type=_sha256_argument,
+        help="Externally recorded evaluation-input manifest digest",
+    )
+    parser.add_argument(
         "--overwrite",
         action="store_true",
         help="Replace existing status assets in the output directory",
@@ -88,6 +118,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         adapter_package=args.adapter_package,
         expected_adapter_policy_sha256=args.expected_adapter_policy_sha256,
         expected_adapter_manifest_sha256=args.expected_adapter_manifest_sha256,
+        registration_package=args.registration_package,
+        expected_registration_manifest_sha256=(args.expected_registration_manifest_sha256),
+        evaluation_campaign_package=args.evaluation_campaign_package,
+        expected_evaluation_campaign_evidence_manifest_sha256=(
+            args.expected_evaluation_campaign_evidence_manifest_sha256
+        ),
+        evaluation_inputs_package=args.evaluation_inputs_package,
+        expected_evaluation_inputs_manifest_sha256=(
+            args.expected_evaluation_inputs_manifest_sha256
+        ),
         overwrite=args.overwrite,
     )
     payload = json.loads(json_path.read_text(encoding="utf-8"))
@@ -98,6 +138,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "json": str(json_path),
                 "overall_state": payload["overall_state"],
                 "projection_sha256": payload["projection_sha256"],
+                "registration_verified": payload["assurance_boundary"]["registration_verified"],
+                "evaluation_inputs_verified": payload["assurance_boundary"][
+                    "evaluation_inputs_verified"
+                ],
                 "scientific_use_authorized": False,
                 "runner_authorized": False,
                 "external_validation": False,
