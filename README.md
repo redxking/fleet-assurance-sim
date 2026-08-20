@@ -2,7 +2,7 @@
 
 **An open research platform for testing what happens when fleets of software agents grow faster than the control, security, and recovery systems that support them.**
 
-[Quick start](QUICKSTART.md) | [Stage 3 report](paper/stage3_research_report.md) | [Results and figures](figures/stage3/) | [Successor protocol](docs/successor_prospective_protocol.md) | [Contributing](CONTRIBUTING.md)
+[Try the public playground](https://redxking.github.io/fleet-assurance-sim/) | [Quick start](QUICKSTART.md) | [Stage 3 report](paper/stage3_research_report.md) | [Successor protocol](docs/successor_prospective_protocol.md) | [Contributing](CONTRIBUTING.md)
 
 Public repository: [github.com/redxking/fleet-assurance-sim](https://github.com/redxking/fleet-assurance-sim)
 
@@ -19,6 +19,16 @@ The practical question is:
 > Can we recognize an approaching control or security limit early enough to make defensible admission, capacity, segmentation, and response decisions?
 
 This repository turns candidate answers into executable models and tries to falsify them. Its outputs describe the implemented model under stated assumptions. They do not show that a real fleet is secure or ready to deploy.
+
+## Try the public feedback MVP
+
+The [Fleet Assurance Scenario Explorer](https://redxking.github.io/fleet-assurance-sim/) is the fastest way to use the project. It runs as a static browser experience and requires no account, installation, data upload, or telemetry. Choose or compare controlled scenarios across three fleet sizes, three admission profiles, and three capacity cases. Each cell summarizes 16 fixed-seed stochastic replications and includes a bounded representative time-series view. The resource capacities are provisioned in proportion to target fleet size before the capacity-case multiplier is applied, so cross-fleet views are not fixed-capacity scale-transfer tests. The displayed rates and means are descriptive samples without confidence, credible, prediction, or transfer intervals.
+
+The explorer keeps projected assurance pressure separate from simulated operational outcomes. Projected pressure is an ex-ante model diagnostic, not a failure label, capacity recommendation, or security threshold. Every result is synthetic and model-conditioned.
+
+- [Open the scenario explorer](https://redxking.github.io/fleet-assurance-sim/)
+- [Report a bug or suggest an experiment](https://github.com/redxking/fleet-assurance-sim/issues/new/choose)
+- [Review the public MVP scope and reproduction steps](docs/public_mvp.md)
 
 ## What the software does
 
@@ -73,7 +83,7 @@ The successor engineering chain now reaches a target-free prediction commitment 
 
 The historical held-out partition in the source campaign is verified for package integrity but never used to fit the model. The registration names a different future campaign and freezes its collection window, cells, time-block IDs, block timestamps, fleet sizes, admission counts, and observation windows with a declared timestamp ordered before collection. The prediction package generates a complete ten-resource prediction vector for every planned block without accepting the future campaign or target values. The evaluation-input manifest later binds the realized campaign to that commitment and requires exact block and predictor-design reconciliation. Local chronology checks do not prove package creation or publication time and are not external timestamp attestation; all packages keep scientific pre-outcome custody, execution, scientific use, and external validation false.
 
-A separate [successor-study status view](docs/successor_status_ui.md) keeps those states visible without changing the frozen Stage 3 console. It can be generated locally from externally digest-bound evidence packages. A public GitHub Pages version is planned only after the workflow, public evidence set, accessibility checks, and release controls are stable.
+A separate [successor-study status view](docs/successor_status_ui.md) keeps those states visible without changing the frozen Stage 3 console. It can be generated locally from externally digest-bound evidence packages. The public scenario explorer does not publish successor-study evidence or imply successor readiness; publishing that status view remains a separate gated release decision.
 
 The program will also strengthen interval coverage, retain strong simple comparators, expand cross-platform reproduction, and make evidence packages easier to review. Privilege-weighted loss, mission degradation, persistence, recovery cost, and operator decision quality will remain separate outcomes rather than being collapsed into one compromise fraction.
 
@@ -85,6 +95,7 @@ Deployment or fleet-size recommendations still require implementation-specific t
 
 | If you want to... | Start with... |
 |---|---|
+| Try the project without installing anything | [Public scenario explorer](https://redxking.github.io/fleet-assurance-sim/) |
 | Understand the project in five minutes | This README, then the [Stage 3 decision table](docs/stage3_research_decision_table.md) |
 | Install and run one scenario | [QUICKSTART.md](QUICKSTART.md) |
 | Inspect the confirmatory evidence | [Stage 3 evidence JSON](results/stage3/b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851/stage3-confirmatory-20260819-01/stage3_evidence.json) |

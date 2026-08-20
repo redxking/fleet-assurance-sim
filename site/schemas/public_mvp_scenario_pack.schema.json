@@ -1,0 +1,590 @@
+{
+  "$defs": {
+    "capacityCase": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "enum": [
+            "constrained",
+            "baseline",
+            "expanded"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "multiplier": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "multiplier",
+        "description"
+      ],
+      "type": "object"
+    },
+    "fraction": {
+      "maximum": 1,
+      "minimum": 0,
+      "type": "number"
+    },
+    "profile": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "enum": [
+            "linear",
+            "step",
+            "bursty"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "description"
+      ],
+      "type": "object"
+    },
+    "scenario": {
+      "additionalProperties": false,
+      "properties": {
+        "architecture": {
+          "const": "centralized",
+          "type": "string"
+        },
+        "capacity_case": {
+          "enum": [
+            "constrained",
+            "baseline",
+            "expanded"
+          ],
+          "type": "string"
+        },
+        "capacity_label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "capacity_multiplier": {
+          "enum": [
+            0.8,
+            1.0,
+            1.25
+          ],
+          "type": "number"
+        },
+        "disturbance_fraction": {
+          "const": 0.0,
+          "type": "number"
+        },
+        "ex_ante_pressure": {
+          "additionalProperties": false,
+          "properties": {
+            "binding_resource": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "boundary": {
+              "const": 1.0,
+              "type": "number"
+            },
+            "boundary_crossed": {
+              "type": "boolean"
+            },
+            "metric": {
+              "const": "omega_a",
+              "type": "string"
+            },
+            "not_an_operational_outcome": {
+              "const": true,
+              "type": "boolean"
+            },
+            "peak_admission_rate_agents_per_s": {
+              "minimum": 0,
+              "type": "number"
+            },
+            "value": {
+              "minimum": 0,
+              "type": "number"
+            }
+          },
+          "required": [
+            "metric",
+            "value",
+            "boundary",
+            "boundary_crossed",
+            "binding_resource",
+            "peak_admission_rate_agents_per_s",
+            "not_an_operational_outcome"
+          ],
+          "type": "object"
+        },
+        "fleet_size": {
+          "enum": [
+            100,
+            1000,
+            10000
+          ],
+          "type": "integer"
+        },
+        "id": {
+          "pattern": "^n(00100|01000|10000)-(linear|step|bursty)-capacity-(constrained|baseline|expanded)$",
+          "type": "string"
+        },
+        "initial_fleet_size": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "operational_outcomes": {
+          "additionalProperties": false,
+          "properties": {
+            "definition_uses_ex_ante_pressure": {
+              "const": false,
+              "type": "boolean"
+            },
+            "failure_rate": {
+              "$ref": "#/$defs/fraction"
+            },
+            "mean_deadline_miss_fraction": {
+              "$ref": "#/$defs/fraction"
+            },
+            "mean_incomplete_exposure_per_agent_s": {
+              "minimum": 0,
+              "type": "number"
+            },
+            "mean_shed_fraction": {
+              "$ref": "#/$defs/fraction"
+            },
+            "mean_useful_task_throughput_ratio": {
+              "$ref": "#/$defs/fraction"
+            }
+          },
+          "required": [
+            "failure_rate",
+            "mean_deadline_miss_fraction",
+            "mean_shed_fraction",
+            "mean_useful_task_throughput_ratio",
+            "mean_incomplete_exposure_per_agent_s",
+            "definition_uses_ex_ante_pressure"
+          ],
+          "type": "object"
+        },
+        "profile": {
+          "enum": [
+            "linear",
+            "step",
+            "bursty"
+          ],
+          "type": "string"
+        },
+        "profile_label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "replications": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "timeseries": {
+          "items": {
+            "$ref": "#/$defs/timeseriesPoint"
+          },
+          "maxItems": 61,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "fleet_size",
+        "initial_fleet_size",
+        "profile",
+        "profile_label",
+        "capacity_case",
+        "capacity_label",
+        "capacity_multiplier",
+        "architecture",
+        "disturbance_fraction",
+        "replications",
+        "ex_ante_pressure",
+        "operational_outcomes",
+        "timeseries"
+      ],
+      "type": "object"
+    },
+    "timeseriesPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "admitted_agents": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "observed_fleet_size": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "observed_maximum_pressure": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "pending_admissions": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "planned_admissions": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "projected_fleet_size": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "projected_maximum_pressure": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "time_s": {
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "time_s",
+        "planned_admissions",
+        "admitted_agents",
+        "pending_admissions",
+        "observed_fleet_size",
+        "projected_fleet_size",
+        "projected_maximum_pressure",
+        "observed_maximum_pressure"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://redxking.github.io/fleet-assurance-sim/schemas/public_mvp_scenario_pack.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Closed schema for the browser-safe synthetic Fleet Assurance MVP scenario pack.",
+  "properties": {
+    "definitions": {
+      "additionalProperties": false,
+      "properties": {
+        "ex_ante_pressure": {
+          "additionalProperties": false,
+          "properties": {
+            "boundary": {
+              "const": 1.0,
+              "type": "number"
+            },
+            "computed_before_stochastic_simulation": {
+              "const": true,
+              "type": "boolean"
+            },
+            "description": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "metric": {
+              "const": "omega_a",
+              "type": "string"
+            },
+            "symbol": {
+              "const": "Omega_A",
+              "type": "string"
+            }
+          },
+          "required": [
+            "metric",
+            "symbol",
+            "boundary",
+            "computed_before_stochastic_simulation",
+            "description"
+          ],
+          "type": "object"
+        },
+        "operational_outcomes": {
+          "additionalProperties": false,
+          "properties": {
+            "definition_uses_ex_ante_pressure": {
+              "const": false,
+              "type": "boolean"
+            },
+            "description": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "failure_criteria": {
+              "additionalProperties": false,
+              "properties": {
+                "maximum_deadline_miss_fraction": {
+                  "$ref": "#/$defs/fraction"
+                },
+                "maximum_incomplete_exposure_per_agent_s": {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                "maximum_shed_fraction": {
+                  "$ref": "#/$defs/fraction"
+                },
+                "minimum_useful_throughput_ratio": {
+                  "$ref": "#/$defs/fraction"
+                },
+                "require_recovery": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "maximum_deadline_miss_fraction",
+                "maximum_shed_fraction",
+                "maximum_incomplete_exposure_per_agent_s",
+                "minimum_useful_throughput_ratio",
+                "require_recovery"
+              ],
+              "type": "object"
+            },
+            "not_claimed_statistically_independent": {
+              "const": true,
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "definition_uses_ex_ante_pressure",
+            "not_claimed_statistically_independent",
+            "description",
+            "failure_criteria"
+          ],
+          "type": "object"
+        },
+        "timeseries": {
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "maximum_points_per_scenario": {
+              "const": 61,
+              "type": "integer"
+            },
+            "representative_replication": {
+              "const": 0,
+              "type": "integer"
+            },
+            "selection": {
+              "const": "endpoints_peaks_and_even_interval_sampling",
+              "type": "string"
+            }
+          },
+          "required": [
+            "representative_replication",
+            "maximum_points_per_scenario",
+            "selection",
+            "description"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "ex_ante_pressure",
+        "operational_outcomes",
+        "timeseries"
+      ],
+      "type": "object"
+    },
+    "design": {
+      "additionalProperties": false,
+      "properties": {
+        "admission_duration_s": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "admission_profiles": {
+          "items": {
+            "$ref": "#/$defs/profile"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array"
+        },
+        "capacity_cases": {
+          "items": {
+            "$ref": "#/$defs/capacityCase"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array"
+        },
+        "capacity_scaling": {
+          "const": "proportional_to_target_fleet_size",
+          "type": "string"
+        },
+        "fleet_sizes": {
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "const": 100
+            },
+            {
+              "const": 1000
+            },
+            {
+              "const": 10000
+            }
+          ],
+          "type": "array"
+        },
+        "paired_capacity_comparisons": {
+          "const": true,
+          "type": "boolean"
+        },
+        "recovery_window_s": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "replications_per_scenario": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "root_seed": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "scenario_count": {
+          "const": 27,
+          "type": "integer"
+        },
+        "time_step_s": {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        "timeseries_max_points_per_scenario": {
+          "const": 61,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "root_seed",
+        "replications_per_scenario",
+        "fleet_sizes",
+        "admission_duration_s",
+        "recovery_window_s",
+        "time_step_s",
+        "admission_profiles",
+        "capacity_cases",
+        "capacity_scaling",
+        "scenario_count",
+        "timeseries_max_points_per_scenario",
+        "paired_capacity_comparisons"
+      ],
+      "type": "object"
+    },
+    "external_validation": {
+      "const": false,
+      "type": "boolean"
+    },
+    "generated_from": {
+      "additionalProperties": false,
+      "properties": {
+        "engine": {
+          "const": "fleet_sim.experiments.stage3a",
+          "type": "string"
+        },
+        "experiment_id": {
+          "pattern": "^stage3a-[0-9a-f]{16}$",
+          "type": "string"
+        },
+        "interface": {
+          "const": "run_stage3a",
+          "type": "string"
+        },
+        "package_version": {
+          "const": "0.2.0",
+          "type": "string"
+        }
+      },
+      "required": [
+        "engine",
+        "interface",
+        "package_version",
+        "experiment_id"
+      ],
+      "type": "object"
+    },
+    "limitations": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 4,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "operational_use_authorized": {
+      "const": false,
+      "type": "boolean"
+    },
+    "pack_id": {
+      "const": "fleet-public-mvp-synthetic-v1",
+      "type": "string"
+    },
+    "scenarios": {
+      "items": {
+        "$ref": "#/$defs/scenario"
+      },
+      "maxItems": 27,
+      "minItems": 27,
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "type": "string"
+    },
+    "synthetic_only": {
+      "const": true,
+      "type": "boolean"
+    },
+    "title": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "pack_id",
+    "title",
+    "generated_from",
+    "synthetic_only",
+    "external_validation",
+    "operational_use_authorized",
+    "design",
+    "definitions",
+    "limitations",
+    "scenarios"
+  ],
+  "title": "Public MVP synthetic scenario pack",
+  "type": "object"
+}

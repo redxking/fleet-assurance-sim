@@ -1,0 +1,99 @@
+name: Public MVP bug
+description: Report a reproducible usability, accessibility, rendering, or data-loading defect.
+title: "[Public MVP bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for testing the public Fleet Assurance playground. This form is for product defects. Use the research-review form for a claim, method, or interpretation concern.
+
+        **Do not paste or attach proprietary, classified, export-controlled, personal, operationally sensitive, security-sensitive, or third-party restricted information.** Report suspected vulnerabilities through the repository's private security-reporting process.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      description: Select the part of the public MVP that failed.
+      options:
+        - Scenario controls
+        - Comparison view
+        - Chart or table
+        - Plain-language explanation
+        - Data download
+        - Accessibility
+        - Responsive layout
+        - Page or data loading
+        - Other public UI behavior
+    validations:
+      required: true
+
+  - type: input
+    id: page
+    attributes:
+      label: Page and scenario
+      description: Give the public page URL and selected fleet size, admission profile, and capacity case, if applicable.
+      placeholder: "Example: public playground; 1,000 agents; bursty; constrained"
+    validations:
+      required: true
+
+  - type: textarea
+    id: observed
+    attributes:
+      label: What happened?
+      description: Describe the observed behavior and its user impact. Do not include sensitive logs or data.
+      placeholder: "Describe only what you observed in the public MVP."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: Provide the shortest reliable sequence that reproduces the problem.
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Explain what the interface should have done instead.
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and device
+      description: Include browser version, operating system, device class, and approximate viewport or zoom level.
+      placeholder: "Example: Firefox 142, macOS, laptop, 1440 x 900, 100% zoom"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: Frequency
+      options:
+        - Every time
+        - Intermittent
+        - Happened once
+        - Unknown
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Public-reporting checks
+      options:
+        - label: I verified that this report and any links contain only public or synthetic information and no sensitive or restricted data.
+          required: true
+        - label: This is not a suspected security vulnerability; I will use private vulnerability reporting for security-sensitive findings.
+          required: true
+        - label: I understand that correcting a UI defect does not by itself validate a scientific claim, validate the model, or establish an operational conclusion.
+          required: true

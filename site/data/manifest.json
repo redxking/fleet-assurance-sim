@@ -1,0 +1,24 @@
+{
+  "artifact": {
+    "bytes": 560314,
+    "filename": "scenario-pack.json",
+    "sha256": "e2a817f05b7d31ed9581bc12bdaa0e6096efc7d04817922be6c16629e0605016"
+  },
+  "external_validation": false,
+  "generator_name": "build_public_mvp_scenarios",
+  "manifest_content_sha256": "871fd4e240f49442a03f5af81befa3db122c74904fb19b7906dd4498e0f7d3d6",
+  "manifest_id": "fleet-public-mvp-synthetic-v1-manifest",
+  "operational_use_authorized": false,
+  "pack_id": "fleet-public-mvp-synthetic-v1",
+  "replications_per_scenario": 16,
+  "root_seed": 20260820,
+  "scenario_count": 27,
+  "schema": {
+    "bytes": 14649,
+    "id": "https://redxking.github.io/fleet-assurance-sim/schemas/public_mvp_scenario_pack.schema.json",
+    "sha256": "ebd681856c3c79010c1425503274223f0deb4f3c6f746d8378c20c538f13c187"
+  },
+  "schema_version": "1.0",
+  "synthetic_only": true,
+  "timeseries_point_count": 1647
+}

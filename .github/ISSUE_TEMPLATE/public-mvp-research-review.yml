@@ -1,0 +1,91 @@
+name: Research or evidence review
+description: Identify a traceability, method, uncertainty, reproducibility, or interpretation concern.
+title: "[Research review]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to review a public claim, method, evidence link, uncertainty statement, or model interpretation. Product usability defects belong in the public-MVP bug form.
+
+        **Do not paste or attach proprietary, classified, export-controlled, personal, operationally sensitive, security-sensitive, or third-party restricted information.** A public port, telemetry record, or unverified assertion is not proof of ownership, compromise, controllability, or operational impact.
+
+  - type: dropdown
+    id: review_type
+    attributes:
+      label: Review type
+      options:
+        - Claim-to-evidence traceability
+        - Model assumption or scope
+        - Statistical method
+        - Calibration or uncertainty
+        - Reproducibility
+        - Result interpretation
+        - Missing comparator or alternative explanation
+        - Other research concern
+    validations:
+      required: true
+
+  - type: input
+    id: claim_location
+    attributes:
+      label: Claim or artifact under review
+      description: Link to the exact public page, file, line, figure, scenario identifier, or manifest entry.
+      placeholder: "Public URL or repository permalink"
+    validations:
+      required: true
+
+  - type: textarea
+    id: concern
+    attributes:
+      label: Technical concern
+      description: Separate what is directly observed from your analysis, assumptions, and remaining uncertainty.
+      placeholder: |
+        Observed:
+        Analysis:
+        Assumptions:
+        Uncertainty:
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Public supporting evidence
+      description: Link to primary public sources, repository evidence, or a reproducible public example. Explain what each source supports and does not support.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Potential impact if confirmed
+      options:
+        - Cosmetic or editorial only
+        - Reproducibility affected
+        - One displayed comparison affected
+        - Interpretation or limitation affected
+        - Public scenario pack may need withdrawal
+        - Frozen result may require a separate corrected release
+        - Unknown pending reproduction
+    validations:
+      required: true
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Proposed verification
+      description: Give a bounded test, calculation, or review that could confirm or reject the concern without changing frozen evidence in place.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Research-boundary checks
+      options:
+        - label: This submission and its links contain only public or synthetic information and no sensitive or restricted data.
+          required: true
+        - label: I have distinguished observed facts, assumptions, analytical judgments, and uncertainty.
+          required: true
+        - label: I understand that an accepted review finding does not itself establish external validation, scientific support, operational assurance, or deployment authority.
+          required: true

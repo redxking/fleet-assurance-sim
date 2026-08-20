@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability privately
+    url: https://github.com/redxking/fleet-assurance-sim/security/advisories/new
+    about: Do not disclose suspected vulnerabilities, credentials, or sensitive evidence in a public issue.
+  - name: Ask a general question
+    url: https://github.com/redxking/fleet-assurance-sim/discussions
+    about: Use Discussions for questions that are not defects, scenario proposals, or research reviews.

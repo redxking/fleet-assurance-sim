@@ -1,0 +1,58 @@
+title: "[Public MVP feedback] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this discussion to share experience-based feedback or a product idea for the public playground. Use a structured issue form for a reproducible defect, bounded scenario proposal, or formal research review.
+
+        **Do not paste or attach proprietary, classified, export-controlled, personal, operationally sensitive, security-sensitive, or third-party restricted information.** Report suspected vulnerabilities privately through the Security tab.
+
+  - type: dropdown
+    id: feedback_area
+    attributes:
+      label: Feedback area
+      options:
+        - Understanding the project
+        - Selecting or comparing scenarios
+        - Interpreting a chart or metric
+        - Finding evidence and limitations
+        - Reproducing the public scenario pack
+        - Providing feedback or contributing
+        - Accessibility or inclusive design
+        - Another public-MVP idea
+    validations:
+      required: true
+
+  - type: textarea
+    id: experience
+    attributes:
+      label: What did you try, and what did you learn?
+      description: Describe the public scenario or user journey you used and the conclusion you believe the interface supports.
+    validations:
+      required: true
+
+  - type: textarea
+    id: friction
+    attributes:
+      label: What was unclear or difficult?
+      description: Identify the wording, control, comparison, or evidence boundary that created friction.
+    validations:
+      required: true
+
+  - type: textarea
+    id: improvement
+    attributes:
+      label: Suggested improvement
+      description: Explain the change and how a reviewer could tell whether it improved the experience.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Public-discussion checks
+      options:
+        - label: This discussion and its links contain only public or synthetic information and no sensitive or restricted data.
+          required: true
+        - label: I understand that playground outputs are synthetic and model-conditioned, not operational validation or a deployment recommendation.
+          required: true

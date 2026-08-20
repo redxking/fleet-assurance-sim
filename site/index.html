@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore reproducible synthetic Fleet Assurance scenarios and see how assurance capacity changes as modeled software-agent fleets scale.">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; manifest-src 'self'">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fleet Assurance Simulation">
+  <meta property="og:title" content="Fleet Assurance Playground">
+  <meta property="og:description" content="Explore reproducible synthetic scenarios showing how assurance demand, admission timing, and proportionally provisioned capacity interact as modeled software-agent fleets scale.">
+  <meta property="og:url" content="https://redxking.github.io/fleet-assurance-sim/">
+  <meta property="og:image" content="https://redxking.github.io/fleet-assurance-sim/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A dark navy network-control field with mint and sky-blue assurance signals.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fleet Assurance Playground">
+  <meta name="twitter:description" content="Explore reproducible synthetic fleet-assurance scenarios and help strengthen the evidence.">
+  <meta name="twitter:image" content="https://redxking.github.io/fleet-assurance-sim/assets/social-preview.png">
+  <meta name="twitter:image:alt" content="A dark navy network-control field with mint and sky-blue assurance signals.">
+  <title>Fleet Assurance Playground</title>
+  <link rel="canonical" href="https://redxking.github.io/fleet-assurance-sim/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/app.js" defer></script>
+</head>
+<body data-app-state="loading">
+  <a class="skip-link" href="#main-content">Skip to the playground</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="./" aria-label="Fleet Assurance Playground home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>Fleet Assurance</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#playground">Playground</a><a href="#evidence">Evidence</a><a href="#feedback">Contribute</a>
+        <a class="nav-repo" href="https://github.com/redxking/fleet-assurance-sim">View repository <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Open research playground</p>
+        <h1 id="hero-title">See where fleet assurance starts to bend.</h1>
+        <p class="hero-lead">Explore a bounded set of reproducible scenarios showing how modeled control-plane demand, admission timing, and proportionally provisioned capacity interact as software-agent fleets grow.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#playground">Explore the scenarios</a>
+          <a class="button button-secondary" href="https://github.com/redxking/fleet-assurance-sim/blob/main/QUICKSTART.md">Reproduce locally <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="boundary"><span aria-hidden="true"></span><strong>Synthetic research only.</strong> Results are model-conditioned and not operational recommendations.</p>
+      </div>
+      <aside class="hero-signal" aria-label="How to read the playground">
+        <div class="signal-orbit" aria-hidden="true">
+          <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><span class="orbit orbit-three"></span><span class="signal-core"></span>
+          <span class="signal-node node-one"></span><span class="signal-node node-two"></span><span class="signal-node node-three"></span><span class="signal-node node-four"></span>
+        </div>
+        <div class="signal-note"><span class="signal-label">Research diagnostic</span><strong>Pressure is not a failure forecast</strong><p>Compare it with independently defined simulated outcomes only to form questions for the next experiment.</p></div>
+      </aside>
+    </section>
+    <section class="orientation" aria-label="Playground principles">
+      <div class="shell orientation-grid">
+        <article><span>01</span><div><strong>Choose a scenario</strong><small>Use a retained, versioned synthetic case.</small></div></article>
+        <article><span>02</span><div><strong>Inspect the pressure</strong><small>See how fleet-wide pressure changes over time.</small></div></article>
+        <article><span>03</span><div><strong>Compare, then question</strong><small>Use differences to form testable engineering hypotheses.</small></div></article>
+      </div>
+    </section>
+    <section id="playground" class="playground shell" aria-labelledby="playground-title">
+      <div class="section-heading"><div><p class="eyebrow">Interactive scenario explorer</p><h2 id="playground-title">Explore the modeled trade space</h2><p>Every view comes from the checked-in scenario pack. The browser does not run a new simulation or transmit your selections or user-provided data; it only loads the checked-in static package from this site.</p></div><a class="text-link" href="data/scenario-pack.json" download>Download scenario data <span aria-hidden="true">↓</span></a></div>
+      <div id="load-status" class="load-status" role="status" aria-live="polite"><span class="loading-indicator" aria-hidden="true"></span><div><strong>Loading the retained scenario pack…</strong><small>The explorer stays locked until the data contract passes validation.</small></div></div>
+      <div id="load-error" class="load-error" role="alert" hidden><span class="error-mark" aria-hidden="true">!</span><div><strong>The scenario pack could not be verified.</strong><p id="load-error-detail">The interactive results are unavailable. No fallback values have been substituted.</p><a href="https://github.com/redxking/fleet-assurance-sim/issues/new">Report this problem <span aria-hidden="true">↗</span></a></div></div>
+      <div id="explorer" class="explorer" hidden>
+        <form class="control-deck" aria-label="Scenario controls">
+          <div class="control-primary"><label for="scenario-select">Scenario</label><select id="scenario-select" name="scenario" aria-describedby="scenario-help"></select><p id="scenario-help">Select a retained synthetic case to inspect.</p></div>
+          <div class="compare-control"><input id="compare-toggle" type="checkbox" name="compare"><label for="compare-toggle"><span class="toggle-track" aria-hidden="true"><span></span></span><span><strong>Compare scenarios</strong><small>Place a second case beside this one</small></span></label></div>
+          <div id="compare-picker" class="control-secondary" hidden><label for="compare-select">Compare with</label><select id="compare-select" name="comparison"></select></div>
+        </form>
+        <p id="selection-announcement" class="screen-reader-only" role="status" aria-live="polite" aria-atomic="true"></p>
+        <div class="scenario-header"><div><div id="scenario-tags" class="tag-row" aria-label="Selected scenario characteristics"></div><h3 id="scenario-title"></h3><p id="scenario-summary"></p><p class="provisioning-note"><strong>Proportional provisioning:</strong> Each resource capacity is recomputed from target fleet size before the 0.8×, 1.0×, or 1.25× case multiplier. Cross-fleet views are not fixed-capacity scale-transfer tests.</p></div><div class="scenario-index"><span>Scenario</span><strong id="scenario-index"></strong></div></div>
+        <section class="metric-grid" aria-labelledby="signals-title"><div class="subsection-heading"><p class="eyebrow">Research signals</p><h3 id="signals-title">What the retained model produced</h3><p class="sample-note"><strong>Uncertainty boundary:</strong> The displayed means and rates are descriptive fixed-seed <span id="replication-summary"></span>. No confidence or credible interval is provided; they cannot support threshold or transfer decisions.</p></div><div id="metric-cards" class="metric-cards"></div></section>
+        <div class="analysis-grid">
+          <section class="chart-panel" aria-labelledby="pressure-title">
+            <div class="panel-heading"><div><p class="eyebrow">Representative simulated trace</p><h3 id="pressure-title">Observed modeled wait pressure over time</h3></div><div class="legend" aria-label="Chart legend"><span><i class="legend-primary"></i>Selected observed</span><span id="comparison-legend" hidden><i class="legend-compare"></i>Comparison observed</span><span><i class="legend-boundary"></i>Registered wait boundary</span></div></div>
+            <p class="chart-help">The line shows the maximum queue-wait pressure ratio from retained representative replication 0, not a 16-replication mean. A value above 1.0× means projected or observed queue wait exceeded the configured max-wait boundary for at least one modeled resource.</p>
+            <div id="pressure-chart" class="pressure-chart" role="img" aria-labelledby="pressure-title" aria-describedby="chart-description"><canvas id="pressure-canvas" aria-hidden="true"></canvas></div>
+            <p id="chart-description" class="screen-reader-only"></p>
+            <details class="data-table-disclosure"><summary>View the accessible data table</summary><div class="table-wrap" tabindex="0" role="region" aria-label="Wait pressure over time data table"><table><caption>Modeled maximum queue-wait pressure ratio over time for retained representative replication 0</caption><thead><tr id="pressure-table-head"></tr></thead><tbody id="pressure-table-body"></tbody></table></div></details>
+          </section>
+          <aside class="reading-panel" aria-labelledby="reading-title"><p class="eyebrow">Engineering reading</p><h3 id="reading-title">What changed, and what it means</h3><div id="scenario-reading"></div><div id="comparison-reading" class="comparison-reading" hidden></div></aside>
+        </div>
+        <div class="provenance-strip"><div><span>Scenario pack</span><code id="pack-version"></code></div><div><span>Evidence scope</span><strong id="evidence-scope">Synthetic only</strong></div><div><span>Pack integrity</span><strong id="pack-integrity">Contract verified</strong></div><a href="data/manifest.json">Review manifest <span aria-hidden="true">→</span></a></div>
+      </div>
+    </section>
+    <section id="evidence" class="evidence-section">
+      <div class="shell"><div class="section-heading compact"><div><p class="eyebrow">Evidence boundary</p><h2>Useful for inquiry, not proof of deployment readiness.</h2><p>The playground helps reviewers inspect model behavior and identify better experiments. It deliberately separates what the retained synthetic evidence supports from what still requires measurement and independent validation.</p></div></div>
+        <div class="boundary-grid">
+          <article class="support-card"><span class="card-icon supported" aria-hidden="true">✓</span><h3>What this supports</h3><ul><li>Comparing retained synthetic scenarios under stated assumptions</li><li>Finding cases that lose modeled assurance headroom</li><li>Forming falsifiable questions for follow-on testing</li><li>Reproducing the published cases from source</li></ul></article>
+          <article class="support-card"><span class="card-icon limited" aria-hidden="true">×</span><h3>What this does not establish</h3><ul><li>A safe fleet-size limit for any real implementation</li><li>Security, resilience, or mission readiness</li><li>External validation or authorized measured evidence</li><li>Permission to deploy, admit agents, or change capacity</li></ul></article>
+          <article class="next-evidence"><span>Next evidence step</span><h3>Connect forecasts to authorized measurements.</h3><p>The successor study freezes a prospective protocol, keeps calibration separate from evaluation, and preserves uncertainty gates. Independent timing and outcome custody remain open research gates.</p><a href="https://github.com/redxking/fleet-assurance-sim/blob/main/docs/successor_prospective_protocol.md">Review the protocol <span aria-hidden="true">↗</span></a></article>
+        </div>
+      </div>
+    </section>
+    <section id="feedback" class="feedback-section shell" aria-labelledby="feedback-title"><div><p class="eyebrow">Help strengthen the work</p><h2 id="feedback-title">Challenge the assumptions. Test the code. Improve the evidence.</h2><p>Useful feedback is specific: identify a model assumption, reproduce an unexpected result, propose a falsification test, or improve the interface for another reviewer.</p></div><div class="feedback-actions"><a class="button button-primary" href="https://github.com/redxking/fleet-assurance-sim/discussions">Join the discussion <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="https://github.com/redxking/fleet-assurance-sim/issues/new/choose">Open a structured issue <span aria-hidden="true">↗</span></a><a class="text-link" href="https://github.com/redxking/fleet-assurance-sim/blob/main/CONTRIBUTING.md">Read the contribution guide <span aria-hidden="true">→</span></a></div></section>
+  </main>
+  <footer class="site-footer"><div class="shell footer-grid"><div><strong>Fleet Assurance Simulation</strong><p>Open, reproducible research into control and security limits in modeled software-agent fleets.</p></div><div class="footer-links"><a href="https://github.com/redxking/fleet-assurance-sim">Source</a><a href="https://github.com/redxking/fleet-assurance-sim/blob/main/LICENSE">License</a><a href="https://github.com/redxking/fleet-assurance-sim/blob/main/SECURITY.md">Security</a></div><p class="privacy-note">No accounts. No uploads. No analytics. No operational actions.</p></div></footer>
+</body>
+</html>

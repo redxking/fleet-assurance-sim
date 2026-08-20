@@ -1,9 +1,11 @@
-.PHONY: install install-dev install-science verify preflight quickstart stage0 demo flat micro scale-1000 scale-10000 cycle7 stage3-pilot stage3-freeze stage3-confirm stage3-confirm-status stage3-confirm-console console console-remote replay-check docker-build docker-console clean package wheel
+.PHONY: install install-dev install-science verify preflight quickstart public-mvp-data public-mvp-verify public-mvp-preview stage0 demo flat micro scale-1000 scale-10000 cycle7 stage3-pilot stage3-freeze stage3-confirm stage3-confirm-status stage3-confirm-console console console-remote replay-check docker-build docker-console clean package wheel
 
 STAGE3_PROTOCOL_HASH := b8b6b320cb43a16ab0a12203ce63ec15e089fe8736c4849279a32093ffdd4851
 STAGE3_CONFIRM_ID := stage3-confirmatory-20260819-01
 STAGE3_CONFIRM_DIR := results/stage3/$(STAGE3_PROTOCOL_HASH)/$(STAGE3_CONFIRM_ID)
 STAGE3_EXAMPLE_PILOT_ID := stage3-engineering-pilot-20260819-06
+PUBLIC_MVP_OUTPUT ?= local_runs/public-mvp-data
+PUBLIC_MVP_PORT ?= 8000
 
 install:
 	python -m pip install -e .
@@ -22,6 +24,15 @@ preflight:
 
 quickstart:
 	python scripts/verify_local_install.py --tests --demo
+
+public-mvp-data:
+	PYTHONPATH=src python scripts/build_public_mvp_scenarios.py $(PUBLIC_MVP_OUTPUT)
+
+public-mvp-verify:
+	pytest -q tests/schema/test_public_mvp_scenario_pack.py tests/visualization/test_public_mvp_site.py tests/integration/test_public_mvp_release_surface.py
+
+public-mvp-preview:
+	python -m http.server $(PUBLIC_MVP_PORT) --bind 127.0.0.1 --directory site
 
 stage0:
 	fleet-sim stage0 --repository-root . --output local_runs/stage0-v020-001 --replications 30

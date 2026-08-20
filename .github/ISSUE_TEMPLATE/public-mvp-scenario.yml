@@ -1,0 +1,88 @@
+name: Public scenario proposal
+description: Propose a bounded synthetic scenario that would make the playground more useful.
+title: "[Scenario proposal]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Propose a decision-relevant scenario that can be represented with public or synthetic inputs. A proposal is not evidence that its expected result is correct, and acceptance does not authorize operational use.
+
+        **Do not paste or attach proprietary, classified, export-controlled, personal, operationally sensitive, security-sensitive, or third-party restricted information.** Link only to sources that are already lawfully public.
+
+  - type: input
+    id: decision
+    attributes:
+      label: Decision or research question
+      description: State the specific question the scenario should help a reviewer examine.
+      placeholder: "Example: How does admission burst shape change queue pressure at fixed final fleet size?"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: evidence_class
+    attributes:
+      label: Proposed input class
+      description: The public MVP accepts only these two input classes.
+      options:
+        - Synthetic inputs
+        - Published public inputs with documented reuse rights
+    validations:
+      required: true
+
+  - type: textarea
+    id: assumptions
+    attributes:
+      label: Assumptions and boundaries
+      description: Identify modeled system boundaries, simplifying assumptions, exclusions, and known non-inferences.
+    validations:
+      required: true
+
+  - type: textarea
+    id: design
+    attributes:
+      label: Proposed scenario design
+      description: Describe fleet sizes, admission profile, capacity condition, comparison, and any other controlled variables.
+      placeholder: |
+        Fleet size(s):
+        Admission profile:
+        Capacity case:
+        Comparator:
+        Variables held fixed:
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_observation
+    attributes:
+      label: Expected observation and competing explanation
+      description: State what you expect to observe and at least one plausible competing explanation. This is a hypothesis, not a requested outcome.
+    validations:
+      required: true
+
+  - type: textarea
+    id: falsification
+    attributes:
+      label: Validation or falsification approach
+      description: Explain what result would challenge the proposal and how a reviewer could reproduce the comparison.
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Public sources and reuse rights
+      description: Provide direct public links and their licenses or reuse conditions. Write "Synthetic only" if no external source is proposed.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Evidence-boundary checks
+      options:
+        - label: The proposal contains only synthetic information or lawfully public information with stated reuse rights.
+          required: true
+        - label: The proposal contains no proprietary, classified, export-controlled, personal, operationally sensitive, security-sensitive, or third-party restricted data.
+          required: true
+        - label: I understand that playground results are synthetic and model-conditioned, not operational validation, scientific transfer evidence, or a deployment recommendation.
+          required: true

@@ -36,6 +36,8 @@ The registration, prediction-commitment, and evaluation-input packages record de
 
 Only the ten-resource arrival-rate transfer contract is implemented. Operational-outcome transfer is disabled and must not be implied by public documentation or UI states.
 
-## Future public interface
+## Public interface boundary
 
-A GitHub Pages interface is a later product milestone, after the successor workflow and evidence contracts stabilize. Publication requires a clean-checkout build, accessibility and responsive-layout checks, an offline/no-secret review, verified links from every displayed claim to immutable public evidence, and explicit release authorization. A public view must distinguish target-free local commitment from independently attested pre-outcome custody, keep outcome-release and scoring blockers visible, and show false authorization states directly. Negative and not-evaluable results must remain visible; the site must not imply operational approval, external validation, scientific support, or deployment readiness.
+The approved GitHub Pages surface is the static, synthetic-only public-feedback MVP in `site/`. It publishes a closed 27-cell scenario pack, a browser explorer, explicit model limitations, and structured feedback paths. It contains no accounts, uploads, telemetry, live simulation, operational data, or successor-study evidence. Its Pages workflow must pass the clean-checkout, data-integrity, accessibility, responsive-layout, offline/no-external-runtime, no-secret, and claim-boundary gates in `docs/public_mvp.md` before deployment from `main`.
+
+Publishing the successor-study status view remains a separate product and evidence-release decision. Any future public successor view must distinguish target-free local commitment from independently attested pre-outcome custody, keep outcome-release and scoring blockers visible, and show false authorization states directly. Negative and not-evaluable results must remain visible; no public surface may imply operational approval, external validation, scientific support, or deployment readiness.

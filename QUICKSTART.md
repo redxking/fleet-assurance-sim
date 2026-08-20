@@ -1,22 +1,44 @@
 # Fleet Assurance Simulation 0.2.0: Local Quick Start
 
-This package contains the source tree, 113-test prefreeze verification suite, experiment configurations, immutable Stage 2 and Stage 3 evidence, replay artifacts, offline consoles, and local deployment tooling.
+This repository contains the source tree, verification suite, experiment configurations, immutable Stage 2 and Stage 3 evidence, replay artifacts, offline consoles, and local deployment tooling.
 
 All research outcomes are model-conditioned. Stage 3 uses synthetic data and has no external validation. Execution integrity passed, while Stage 3A and Stage 3B are both `not_supported_under_preregistered_rule`.
+
+## Try it in a browser
+
+Open the [Fleet Assurance Scenario Explorer](https://redxking.github.io/fleet-assurance-sim/). It is a static public-feedback MVP with no account, installation, data upload, or telemetry. It lets you choose or compare 27 controlled synthetic scenario cells and keeps projected assurance pressure visibly separate from simulated operational outcomes. Resource capacity scales proportionally with target fleet size before each capacity-case multiplier, and the 16-replication summaries have no confidence, credible, prediction, or transfer intervals.
+
+Use the explorer to understand the model and suggest better experiments. Do not use its outputs as a fleet-size recommendation, security threshold, deployment authorization, or evidence about a real system.
+
+- [Open the explorer](https://redxking.github.io/fleet-assurance-sim/)
+- [Report a bug or propose a scenario](https://github.com/redxking/fleet-assurance-sim/issues/new/choose)
+- [Review the MVP evidence and reproduction contract](docs/public_mvp.md)
+
+To preview the exact checked-in site from a clone, run:
+
+```bash
+make public-mvp-preview
+```
+
+Then open `http://127.0.0.1:8000/`. The server is bound to the local machine only. To regenerate the 27-cell scenario pack into a new local output directory and verify the public release surface, run:
+
+```bash
+make public-mvp-data
+make public-mvp-verify
+```
 
 ## Recommended path for macOS and Linux
 
 Python 3.11 or later is required. Python 3.13.0 reproduces the frozen Stage 3 environment.
 
 ```bash
-cd fleet-assurance-sim-local-release-v0.2.0-2026-08-19
+git clone https://github.com/redxking/fleet-assurance-sim.git
+cd fleet-assurance-sim
 chmod +x scripts/bootstrap.sh scripts/quick_demo.sh
 ./scripts/bootstrap.sh --dev --science
 source .venv/bin/activate
 python scripts/verify_local_install.py --tests --demo
 ```
-
-The expected complete-suite count for the frozen source is `113 passed`.
 
 Launch the general interactive console:
 
@@ -29,7 +51,8 @@ It normally opens at `http://127.0.0.1:5006`.
 ## Recommended path for Windows PowerShell
 
 ```powershell
-cd fleet-assurance-sim-local-release-v0.2.0-2026-08-19
+git clone https://github.com/redxking/fleet-assurance-sim.git
+cd fleet-assurance-sim
 Set-ExecutionPolicy -Scope Process Bypass
 .\scripts\bootstrap.ps1 -Dev -Science
 .\.venv\Scripts\Activate.ps1
