@@ -43,8 +43,25 @@
     "prediction_formula_frozen": {
       "const": true
     },
+    "prediction_lock_binding_reconciled": {
+      "const": true
+    },
+    "prediction_lock_id": {
+      "pattern": "^successor-prediction-lock-[0-9a-f]{20}$",
+      "type": "string"
+    },
+    "prediction_lock_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "prediction_lock_time_externally_attested": {
+      "const": false
+    },
     "prediction_rows_preoutcome_locked": {
       "const": false
+    },
+    "prediction_rows_target_free": {
+      "const": true
     },
     "predictor_design_reconciled": {
       "const": true
@@ -130,10 +147,13 @@
       "const": false
     },
     "schema_version": {
-      "const": "1.0"
+      "const": "1.1"
     },
     "scientific_use_authorized": {
       "const": false
+    },
+    "workflow_prediction_commitment": {
+      "const": true
     }
   },
   "required": [
@@ -149,7 +169,12 @@
     "external_validation",
     "outcome_release_custody_verified",
     "prediction_formula_frozen",
+    "prediction_lock_binding_reconciled",
+    "prediction_lock_id",
+    "prediction_lock_manifest_sha256",
+    "prediction_lock_time_externally_attested",
     "prediction_rows_preoutcome_locked",
+    "prediction_rows_target_free",
     "predictor_design_reconciled",
     "realized_cell_count",
     "realized_cells",
@@ -159,7 +184,8 @@
     "registration_time_externally_attested",
     "runner_authorized",
     "schema_version",
-    "scientific_use_authorized"
+    "scientific_use_authorized",
+    "workflow_prediction_commitment"
   ],
   "title": "Successor realized evaluation-input binding",
   "type": "object"

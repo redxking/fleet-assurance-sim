@@ -1,24 +1,37 @@
 {
-  "comparator": "calibration_background_only_nonnegative_least_squares",
-  "contract_id": "resource-arrival-transfer-engineering-v1",
+  "candidate": {
+    "fit_objective": "duration_weighted_nonnegative_least_squares",
+    "fit_partition": "calibration",
+    "formula": "arrival_rate=background_work_per_agent_s*fleet_size+admission_work_units_per_agent*(agents_admitted/window_duration_s)",
+    "model_id": "duration-weighted-nonnegative-arrival-rate-v1",
+    "point_parameter_source": "accepted_calibration_fit",
+    "predictor_fields": [
+      "fleet_size",
+      "agents_admitted",
+      "window_duration_ms"
+    ]
+  },
+  "comparator": {
+    "constraint": "coefficient_nonnegative",
+    "estimator": "max_zero_fsum_fleet_arrival_count_over_fsum_window_s_fleet_squared",
+    "fit_partition": "calibration",
+    "formula": "arrival_rate=background_only_work_per_agent_s*fleet_size",
+    "intercept": "none",
+    "model_id": "duration_weighted_background_only_nnls_v1",
+    "predictor": "fleet_size",
+    "response": "arrival_count/window_duration_s",
+    "scope": "separately_per_resource_type",
+    "weighting": "window_duration_s",
+    "zero_denominator_policy": "not_evaluable"
+  },
+  "contract_id": "resource-arrival-transfer-engineering-v1.1",
   "contract_mode": "engineering_dry_run",
   "criteria_frozen": false,
   "external_validation": false,
-  "metrics": [
-    "duration_weighted_normalized_rmse",
-    "absolute_duration_weighted_relative_bias",
-    "candidate_relative_improvement_over_background_only"
-  ],
   "operational_outcome_extension_enabled": false,
   "outcome_custody_evidence_required": true,
   "outcome_field": "arrival_count",
-  "prediction_formula": "arrival_rate=background_work_per_agent_s*fleet_size+admission_work_units_per_agent*(agents_admitted/window_duration_s)",
   "prediction_rows_preoutcome_lock_required": true,
-  "predictor_fields": [
-    "fleet_size",
-    "agents_admitted",
-    "window_duration_ms"
-  ],
   "primary_estimand": "resource_arrival_rate_transfer",
   "resource_types": [
     "authorization_policy_evaluation",
@@ -33,7 +46,25 @@
     "telemetry_source_registration"
   ],
   "runner_authorized": false,
-  "schema_version": "1.0",
+  "schema_version": "1.1",
+  "scoring": {
+    "absolute_relative_bias_formula": "abs(sum(d*(candidate-observed)))/sum(d*observed)",
+    "aggregation": "all_registered_resource_cell_pairs_must_pass",
+    "block_validity_rule": "invalidate_ten_resource_block_if_any_row_censored_or_missing",
+    "evaluation_unit": "resource_type_within_registered_cell",
+    "metrics": [
+      "duration_weighted_normalized_rmse",
+      "absolute_duration_weighted_relative_bias",
+      "candidate_relative_improvement_over_background_only"
+    ],
+    "missing_data_policy": "no_imputation_no_replacement",
+    "non_evaluable_policy": "fail_closed",
+    "nrmse_formula": "sqrt(sum(d*(candidate-observed)^2)/sum(d))/(sum(d*observed)/sum(d))",
+    "positive_comparator_rmse_required": true,
+    "positive_observed_mean_required": true,
+    "relative_improvement_formula": "1-sqrt(sum(d*(candidate-observed)^2)/sum(d))/sqrt(sum(d*(comparator-observed)^2)/sum(d))",
+    "weighting": "window_duration_s"
+  },
   "scientific_use_authorized": false,
   "thresholds": {
     "maximum_absolute_duration_weighted_relative_bias": null,
@@ -42,6 +73,12 @@
     "minimum_valid_time_blocks_per_cell": null,
     "require_every_resource": true
   },
-  "uncertainty_method": "joint_calibration_time_block_bootstrap",
-  "uncertainty_scope": "mean_parameter_uncertainty_not_future_observation_interval"
+  "uncertainty": {
+    "interval_level_source": "fit_gate_policy_bootstrap_interval_level",
+    "interval_type": "two_sided_equal_tail_percentile",
+    "method": "joint_calibration_time_block_bootstrap",
+    "quantile_method": "linear_hyndman_fan_type_7",
+    "replication_set": "successful_complete_ten_resource_joint_replications",
+    "scope": "marginal_per_row_mean_parameter_uncertainty_not_simultaneous_or_future_observation"
+  }
 }

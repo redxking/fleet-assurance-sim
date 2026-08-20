@@ -2,23 +2,25 @@
 
 ## Purpose
 
-This protocol separates a future transfer study into two immutable evidence packages:
+This protocol separates a future transfer study into three immutable evidence packages:
 
-1. A **registration package** created before a distinct future evaluation campaign begins.
-2. An **evaluation-input package** created after collection that binds the realized campaign to the frozen registration.
+1. A **registration package** whose declared timestamp is ordered before a distinct future evaluation campaign begins.
+2. A **target-free prediction-commitment package** generated from the frozen plan without accepting the future evaluation campaign as an input.
+3. An **evaluation-input package** that binds realized campaign evidence to both earlier packages.
 
 The implementation closes an important evidence gap. The original calibration campaign can contain a historical held-out partition because the package verifier must inspect the entire package for integrity. That historical held-out partition is verified, but it is not exposed to the estimator and is not used to fit the model. The new registration points to a different campaign identifier and a future collection window, so the later transfer evidence cannot be confused with the historical source package.
 
-[![Five-step successor evidence chain showing bound calibration, frozen registration, a distinct future campaign, realized-input binding, and a still-locked execution gate.](assets/successor-evidence-chain.svg)](assets/successor-evidence-chain.svg)
+[![Six-step successor evidence chain showing bound calibration, frozen registration, target-free prediction commitment, a distinct future campaign, realized-input binding, and a still-locked execution gate.](assets/successor-evidence-chain.svg)](assets/successor-evidence-chain.svg)
 
-The two packages establish a reproducible local evidence chain. They do not run an evaluation, open outcome custody, authorize the simulator, authenticate an external party, or establish external validation.
+The three packages establish a reproducible local evidence chain. They do not provide an independently trusted timestamp, prove that people or outside systems lacked target access, open outcome custody, run a scorer, authorize the simulator, authenticate an external party, or establish external validation.
 
 ## Current boundary
 
 | Question | Current answer |
 |---|---|
 | What can be registered? | Transfer of the fitted arrival-rate model across the ten assurance resources. |
-| What is frozen? | The upstream campaign, fit, adapter, model formula, predictors, comparator, metrics, thresholds, planned campaign identity, collection window, cells, per-block predictor design, schemas, and implementation hashes. |
+| What is frozen? | The upstream campaign, fit, adapter, candidate and comparator estimators, interval construction, scoring rules, thresholds, planned campaign identity, collection window, cells, per-block predictor design, schemas, and implementation hashes. |
+| What predictions are committed? | Candidate and background-only comparator rates and expected counts, with paired calibration-bootstrap mean-parameter intervals, for all ten resources in every planned block. |
 | What is collected later? | A distinct campaign whose held-out time blocks must reconcile exactly to the frozen plan. |
 | What can execute now? | Nothing in this component. It creates and verifies evidence packages only. |
 | Are operational outcomes covered? | No. Operational-outcome transfer is explicitly disabled. |
@@ -53,7 +55,18 @@ arrival_rate = background_work_per_agent_s * fleet_size
              * (agents_admitted / window_duration_s)
 ```
 
-Its predictor fields are `fleet_size`, `agents_admitted`, and `window_duration_ms`; the observed field is `arrival_count`. The registered metrics are duration-weighted normalized RMSE, absolute duration-weighted relative bias, and relative improvement over a calibration background-only nonnegative least-squares comparator. The uncertainty record describes joint calibration time-block bootstrap uncertainty for mean parameters, not a future-observation interval.
+Its predictor fields are `fleet_size`, `agents_admitted`, and `window_duration_ms`; the observed field is `arrival_count`. Protocol version 1.1 also freezes a separate duration-weighted background-only nonnegative least-squares comparator for each resource type:
+
+```text
+gamma = max(0, sum(fleet_size * arrival_count)
+               / sum(window_duration_s * fleet_size^2))
+
+comparator_arrival_rate = gamma * fleet_size
+```
+
+The future scorer must compute the registered metrics separately for every registered cell and resource type. They are duration-weighted normalized RMSE, absolute duration-weighted relative bias, and relative RMSE improvement over that comparator. Every registered resource-cell pair must pass. A ten-resource block containing censoring or nonzero missingness is invalid, no imputation or replacement block is allowed, and zero observed-mean or comparator-RMSE denominators are `not_evaluable` and fail closed.
+
+The prediction intervals apply each retained successful joint calibration-block bootstrap draw to the frozen predictor rows and use two-sided equal-tail linear quantiles at the fit policy's interval level. They are marginal mean-parameter intervals. They are not simultaneous intervals, future-observation intervals, transfer-coverage evidence, or operational-risk bounds.
 
 The example contract at [`configs/successor/resource_arrival_transfer_contract.example.json`](../configs/successor/resource_arrival_transfer_contract.example.json) is an `engineering_dry_run`. Its numerical thresholds are intentionally `null` and `criteria_frozen` is false. It demonstrates the interface without inventing scientific acceptance criteria.
 
@@ -64,13 +77,13 @@ A `prospective_transfer` contract is accepted only when all thresholds are numer
 - nonsynthetic calibration evidence;
 - no notional adapter fields;
 - a future evaluation campaign ID different from the source campaign ID; and
-- registration before the planned collection window.
+- a declared registration timestamp ordered before the planned collection window.
 
 Those checks make a prospective registration stricter than an engineering dry run. They still do not authorize execution or validate the thresholds scientifically.
 
 Operational-outcome transfer is outside this contract. `operational_outcome_extension_enabled` is fixed to false. Mission loss, security incidents, privilege-weighted compromise, recovery cost, and other operational consequences need a separately defined and authorized outcome contract.
 
-## Manifest one: freeze registration before collection
+## Manifest one: freeze registration and declared chronology
 
 The registration plan at [`configs/successor/successor_registration_plan.example.json`](../configs/successor/successor_registration_plan.example.json) declares:
 
@@ -117,16 +130,64 @@ The command prints `registration_manifest_sha256`. Record that digest outside th
 
 The optional `--registered-at-utc` argument exists for controlled testing and reproducible interface demonstrations. It does not create timestamp attestation and must not be used to backdate a scientific registration.
 
-## Manifest two: bind realized evaluation inputs
+## Manifest two: commit target-free predictions
 
-After the separately planned campaign has been collected and packaged, the evaluation-input binder verifies the full upstream chain again. It then requires:
+The intended workflow runs the prediction builder before the planned collection window begins. The builder reverifies the complete physical source, fit, adapter, and registration chain. It does not accept an evaluation-campaign path, evaluation-input package, outcome path, target values, or authorization override. It constructs one row for every registered block and resource type, plus paired candidate and comparator parameter draws reconstructed from the calibration-only bootstrap sequence. The verifier checks the declared timestamp's internal ordering; it does not establish the builder's actual invocation or publication time.
+
+Create the prediction-commitment package:
+
+```bash
+python scripts/lock_successor_predictions.py \
+  local_runs/source-campaign-001 \
+  local_runs/calibration-fit-001 \
+  local_runs/resource-adapter-001 \
+  local_runs/successor-registration-001 \
+  local_runs/successor-prediction-lock-001 \
+  --expected-source-campaign-manifest-sha256 <source-campaign-digest> \
+  --expected-fit-manifest-sha256 <fit-digest> \
+  --expected-adapter-policy-sha256 <adapter-policy-digest> \
+  --expected-adapter-manifest-sha256 <adapter-manifest-digest> \
+  --expected-registration-manifest-sha256 <registration-digest>
+```
+
+The destination must not exist. The command writes and verifies exactly seven files:
+
+| Artifact | Purpose |
+|---|---|
+| `prediction_lock.json` | Upstream bindings, aggregate counts, local chronology, model semantics, and explicit negative custody and authority gates |
+| `prediction_rows.parquet` | Canonically ordered target-free candidate and comparator predictions for every planned block-resource pair |
+| `prediction_parameter_draws.parquet` | Paired candidate and comparator calibration-bootstrap parameters |
+| `prediction_lock_schema.json` | Retained closed prediction-lock schema |
+| `prediction_rows_schema.json` | Retained exact prediction-row contract |
+| `prediction_parameter_draws_schema.json` | Retained exact paired-draw contract |
+| `prediction_lock_manifest.json` | Exact artifact inventory, digests, package identity, and self-integrity hash |
+
+The command prints `prediction_lock_manifest_sha256`. Record that digest outside the package. The package records that the future campaign was not supplied, its prediction rows are target-free, and its declared local lock timestamp is ordered after registration and before the planned collection window. It does not establish package creation or publication time. It also records:
+
+```text
+prediction_lock_time_externally_attested = false
+prediction_rows_preoutcome_locked = false
+outcome_release_custody_verified = false
+execution_chain_ready = false
+external_validation = false
+scientific_use_authorized = false
+runner_authorized = false
+```
+
+Those false values are not implementation defects. A local timestamp and digest cannot prove when an independent party received the commitment or that people and outside systems lacked target access. A later receipt-verification package must bind the registration and prediction-manifest digests to an approved trust anchor and a receipt time before planned and realized collection before the scientific pre-outcome gate may change.
+
+## Manifest three: bind realized evaluation inputs
+
+The intended workflow runs the evaluation-input binder after the separately planned campaign has been collected and packaged. The binder verifies the full upstream chain and prediction commitment again, while making no claim about the campaign package's wall-clock creation time. It then requires:
 
 - the realized campaign ID to match the registered future campaign ID;
 - the realized campaign to remain distinct from the source campaign;
-- collection to occur after local registration and within the registered window;
+- recorded collection timestamps to occur after the declared registration timestamp and within the registered window;
 - the held-out time-block set to match the planned set exactly; and
 - every realized block timestamp, fleet size, admission count, and observation-window duration to match its frozen predictor design exactly; and
 - every realized held-out block to contain all ten resource types.
+
+The binder also requires the externally recorded prediction-manifest digest and records `prediction_lock_binding_reconciled=true`. Binding proves that the same local commitment is referenced throughout the software evidence chain. It does not establish external timing or outcome-release custody.
 
 The realized evaluation set is taken only from the verified held-out partition. Missing held-out blocks, extra held-out blocks, campaign substitution, collection outside the window, or incomplete resource coverage in that partition fail closed. Calibration rows elsewhere in the valid seven-file campaign package remain part of package verification but are not part of the realized evaluation set. The package binds the registration-manifest digest, realized campaign evidence-manifest digest, and realized held-out content digest.
 
@@ -138,6 +199,7 @@ python scripts/bind_successor_evaluation_inputs.py \
   local_runs/calibration-fit-001 \
   local_runs/resource-adapter-001 \
   local_runs/successor-registration-001 \
+  local_runs/successor-prediction-lock-001 \
   local_runs/future-evaluation-campaign-001 \
   local_runs/successor-evaluation-inputs-001 \
   --expected-source-campaign-manifest-sha256 <source-campaign-digest> \
@@ -145,6 +207,7 @@ python scripts/bind_successor_evaluation_inputs.py \
   --expected-adapter-policy-sha256 <adapter-policy-digest> \
   --expected-adapter-manifest-sha256 <adapter-manifest-digest> \
   --expected-registration-manifest-sha256 <registration-digest> \
+  --expected-prediction-lock-manifest-sha256 <prediction-lock-digest> \
   --expected-evaluation-campaign-manifest-sha256 <evaluation-campaign-digest>
 ```
 
@@ -154,15 +217,16 @@ The destination must not exist. The command writes and verifies exactly three fi
 
 | Artifact | Purpose |
 |---|---|
-| `evaluation_inputs.json` | Registration binding, realized campaign and held-out digests, chronology, and exact block and predictor-design reconciliation |
+| `evaluation_inputs.json` | Registration and prediction-lock bindings, realized campaign and held-out digests, chronology, and exact block and predictor-design reconciliation |
 | `evaluation_inputs_schema.json` | Retained closed evaluation-input schema |
 | `evaluation_inputs_manifest.json` | Exact artifact inventory, digests, package identity, and self-integrity hash |
 
-This second manifest still does not make the chain executable. It records:
+This third manifest still does not make the chain executable. It records:
 
 ```text
 registration_time_externally_attested = false
 predictor_design_reconciled = true
+prediction_lock_binding_reconciled = true
 prediction_rows_preoutcome_locked = false
 outcome_release_custody_verified = false
 execution_chain_ready = false
@@ -171,9 +235,9 @@ scientific_use_authorized = false
 runner_authorized = false
 ```
 
-The verified campaign package already contains the `arrival_count` target, and package verification reads that retained artifact. The evaluation-input package therefore does not establish a preoutcome blind. It documents that no prediction-row commitment was in place before target access and that outcome-release custody is unverified. Those are blockers, not pending details that can be inferred away.
+The verified campaign package contains the `arrival_count` target, and package verification reads that retained artifact. The evaluation-input package therefore cannot retroactively establish a trusted pre-outcome blind. It proves exact software-chain reconciliation while preserving the false external-timing and outcome-custody gates.
 
-The next protocol slice must create an independent preoutcome prediction commitment and verify outcome-release custody before any one-shot scoring path can be considered. This implementation does not contain that scorer or connect either package to the frozen Stage 3 runner.
+The next protocol slice must verify an independent prediction receipt and outcome-release custody before any one-shot scoring path can be considered. This implementation does not contain that scorer or connect any successor package to the frozen Stage 3 runner.
 
 ## Library API
 
@@ -192,20 +256,29 @@ The public implementation is in [`src/fleet_sim/empirical/successor_protocol.py`
 - `successor_registration_schema()`
 - `successor_evaluation_inputs_schema()`
 
+The target-free prediction implementation is isolated in [`src/fleet_sim/empirical/prediction_lock.py`](../src/fleet_sim/empirical/prediction_lock.py). Its public entry points are:
+
+- `build_successor_prediction_lock(...)`
+- `write_successor_prediction_lock_package(...)`
+- `verify_successor_prediction_lock_package(...)`
+- `successor_prediction_lock_schema()`
+- `successor_prediction_rows_schema()`
+- `successor_prediction_parameter_draws_schema()`
+
 Loaders reject duplicate JSON keys and nonfinite values. Writers use a cooperative lock, stage a closed file set, refuse overwrite, and atomically rename the completed directory. Verifiers reject symlinked packages or entries, enforce cumulative byte limits, snapshot regular files without following symlinks where supported, verify an externally supplied manifest digest before reading the remaining package, validate exact artifact inventories, compare retained schemas with the live implementation, and deterministically recompute each record from its upstream packages.
 
-The registration implementation record contains hashes for the successor protocol, campaign intake, calibration fit, and resource adapter files plus a runtime digest. The registration bindings separately retain the adapter manifest and its simulator-semantics digest. Any change inside that combined boundary changes the registration identity.
+The registration implementation record contains hashes for the successor protocol, campaign intake, calibration fit, and resource adapter files plus a runtime digest. The prediction package adds the prediction builder to that implementation boundary and separately binds its canonical row and paired-draw content. The registration bindings retain the adapter manifest and simulator-semantics digest. Any change inside the applicable boundary changes the resulting package identity.
 
 ## What remains
 
-The protocol foundation is complete through realized-input binding. A scientific transfer study still requires:
+The protocol foundation is complete through target-free local commitment and realized-input binding. A scientific transfer study still requires:
 
 1. justified and frozen prospective thresholds;
 2. authorized nonsynthetic calibration and future campaign evidence;
 3. an evidence-backed adapter with no notional fields;
-4. external registration receipt or trusted timestamp evidence if timing attestation is required;
-5. independent prediction-row custody before outcome release;
+4. an independent prediction-manifest receipt or trusted timestamp binding before future collection;
+5. verified outcome-release custody that cannot be inferred from package order;
 6. a separately reviewed one-shot scorer and result package; and
 7. an explicit adjudication that keeps engineering transfer, operational outcomes, scientific support, and deployment authority separate.
 
-No fleet-size, deployment, operational-assurance, or external-validation claim follows from either manifest alone.
+No fleet-size, deployment, operational-assurance, or external-validation claim follows from any package in this chain alone.

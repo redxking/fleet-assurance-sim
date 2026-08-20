@@ -7,10 +7,10 @@ modify Stage 3 code, results, figures, or manifests.
 The page answers one practical question: how far has a verifier-backed evidence
 chain progressed, and what still prevents a prospective transfer claim?
 
-## Six distinct lifecycle gates
+## Nine distinct lifecycle states
 
-The version 2 view keeps planning, realized evidence, and execution authority
-separate:
+The version 3 view keeps local prediction commitment, external timing,
+outcome-release custody, scoring, and execution authority separate:
 
 1. **Evidence intake**: the source campaign package, schemas, partitions, and
    integrity commitments were reverified.
@@ -21,33 +21,44 @@ separate:
 4. **Frozen study plan**: a registration package binds the source evidence,
    fit, adapter, transfer contract, planned cells, per-block predictor design,
    and implementation commitment before the distinct future campaign begins.
-5. **Evaluation inputs**: a second manifest binds the realized future campaign
+5. **Target-free local commitment**: a prediction-lock package records
+   deterministic prediction rows and paired parameter draws generated from the
+   frozen plan and bound calibration chain without supplying the future
+   evaluation campaign.
+6. **Evaluation inputs**: a later manifest binds the realized future campaign
    to the frozen plan and verifies exact campaign, collection-window, cell,
-   predictor-design, time-block, and ten-resource reconciliation.
-6. **Execution**: remains `not_authorized`. No evaluation authorization,
-   valid pre-target prediction commitment, outcome-custody proof, or result
-   artifact is implemented by this view.
+   predictor-design, time-block, ten-resource, and prediction-lock
+   reconciliation.
+7. **Outcome custody**: remains `pending` after the two required packages
+   verify. No independent outcome-release custody package is connected.
+8. **One-shot scoring**: remains `not_implemented`. No separately reviewed
+   scorer or immutable result package is connected.
+9. **Evaluation execution**: remains `not_authorized`. No separate evaluation
+   authorization is connected and no prospective result has been executed.
 
-Registration and evaluation-input states use `pending`, `blocked`, or
-`verified`. Only the execution card uses `not_authorized`. A verified
-registration proves that the package and its digest chain were recomputed; it
-does not authorize collection, outcome access, evaluation, scientific use, or
-operational use. A verified evaluation-input package still leaves execution
-locked.
+Registration, prediction-lock, evaluation-input, and custody states use
+`pending`, `blocked`, or `verified`. Scoring uses `not_implemented`, and only
+execution uses `not_authorized`. A verified package proves that the package and
+its digest chain were recomputed; it does not authorize collection, outcome
+access, evaluation, scientific use, or operational use.
 
-The frozen transfer contract contains the implemented arrival-rate prediction
-formula and scoring criteria. That is a semantic and integrity commitment, not
-an implemented runner. Executable prediction-row construction and scoring are
-not implemented or authorized in this slice.
+The frozen transfer contract contains the arrival-rate prediction formula and
+scoring criteria. Prediction-row construction is implemented only as a
+target-free local commitment. The one-shot scorer and evaluation runner are not
+implemented or authorized by this view.
 
 The source campaign's retained historical held-out partition is not prospective
 evidence. Its integrity is verified, but its values are not used for fitting or
-adaptation. The evaluation-input stage refers to a distinct future campaign
-that begins after registration and matches the frozen plan. That verified
-campaign package already contains the `arrival_count` target values. In the
-current contract, the prediction rows were not committed before target access
-and outcome-release custody is unverified. The UI reports those negative gates
-directly; it does not describe the targets as still locked.
+adaptation. The prediction-lock builder does not receive the distinct future
+evaluation campaign. The declared local lock timestamp is ordered after
+registration and before the planned collection window. That establishes only
+internal chronology; it does not establish when the prediction rows or package
+were actually created, published, or externally received. No independent
+timestamp or custodian receipt has been verified, so
+`prediction_rows_preoutcome_locked` remains false and a scientific pre-outcome
+lock is not established. The later evaluation campaign package contains
+`arrival_count` target values. The UI does not describe those targets as still
+locked or infer that people and outside systems lacked access.
 
 ## What the page shows
 
@@ -66,15 +77,32 @@ When a registration package is supplied, the page shows only:
   authority-boundary flags; and
 - registration, study-plan, transfer-contract, and implementation digests.
 
+When a prediction-lock package is supplied, the page shows only:
+
+- prediction-row, planned-cell, planned-time-block, resource, and paired-draw
+  counts;
+- upstream-chain, predictor-design, formula-freeze, target-exclusion, local
+  chronology, workflow-commitment, and authority-boundary flags; and
+- prediction-lock, prediction-row-content, parameter-draw-content, and
+  registration-manifest digests.
+
+`future_evaluation_campaign_not_supplied=true` and
+`prediction_rows_target_free=true` describe the code-level input and artifact
+boundaries. `local_lock_chronology_consistent=true` describes only the declared
+timestamps' internal ordering. None of these fields establishes actual
+prediction or package creation time, publication time, external receipt, or
+human and outside-system non-access.
+
 When an evaluation-input package is supplied, the page shows only:
 
 - realized cell and time-block counts;
 - campaign-identity, collection-window, predictor-design, exact-plan, and
   chronology flags;
-- pre-target prediction-commitment, outcome-custody, and execution-readiness
-  flags; and
-- evaluation-input, evaluation-campaign, held-out-content, and registration
-  commitments.
+- prediction-lock binding, external pre-outcome timing, outcome-custody, and
+  execution-readiness flags;
+- target-free prediction-row and workflow-commitment flags; and
+- evaluation-input, prediction-lock, evaluation-campaign, held-out-content,
+  and registration commitments.
 
 The current executable transfer target is resource arrival rate. Operational
 failure transfer remains outside this chain until a separately adjudicated,
@@ -96,7 +124,10 @@ It excludes:
   identifiers;
 - planned, registration, or collection timestamps;
 - authority, data-rights, provenance, and policy references;
-- planned or realized cell and time-block lists; and
+- planned or realized cell and time-block lists;
+- prediction rows, parameter draws, predicted or comparator values, seeds,
+  bootstrap indices, residuals, scores, and results;
+- prediction, receipt, custody, signer, and outcome-release metadata; and
 - local package or source paths, including POSIX, drive-letter, and UNC paths.
 
 The builder rejects a final projection containing a forbidden field, embedded
@@ -149,7 +180,8 @@ python scripts/build_successor_status.py \
   --expected-registration-manifest-sha256 <registration-sha256>
 ```
 
-Add realized evaluation inputs only after the registration is verified:
+Add the target-free prediction-lock package without supplying the future
+evaluation campaign:
 
 ```bash
 python scripts/build_successor_status.py \
@@ -163,6 +195,27 @@ python scripts/build_successor_status.py \
   --expected-adapter-manifest-sha256 <adapter-manifest-sha256> \
   --registration-package /path/to/registration-package \
   --expected-registration-manifest-sha256 <registration-sha256> \
+  --prediction-lock-package /path/to/prediction-lock-package \
+  --expected-prediction-lock-manifest-sha256 <prediction-lock-sha256>
+```
+
+Add realized evaluation inputs only after the registration and prediction lock
+are verified:
+
+```bash
+python scripts/build_successor_status.py \
+  /path/to/source-campaign-package \
+  build/successor-status \
+  --expected-campaign-evidence-manifest-sha256 <source-campaign-sha256> \
+  --fit-package /path/to/calibration-fit-package \
+  --expected-fit-evidence-manifest-sha256 <fit-sha256> \
+  --adapter-package /path/to/adapter-package \
+  --expected-adapter-policy-sha256 <adapter-policy-sha256> \
+  --expected-adapter-manifest-sha256 <adapter-manifest-sha256> \
+  --registration-package /path/to/registration-package \
+  --expected-registration-manifest-sha256 <registration-sha256> \
+  --prediction-lock-package /path/to/prediction-lock-package \
+  --expected-prediction-lock-manifest-sha256 <prediction-lock-sha256> \
   --evaluation-campaign-package /path/to/evaluation-campaign-package \
   --expected-evaluation-campaign-evidence-manifest-sha256 <evaluation-campaign-sha256> \
   --evaluation-inputs-package /path/to/evaluation-inputs-package \
@@ -188,9 +241,11 @@ cannot be written inside any immutable evidence package used by the build.
 The page uses semantic landmarks, ordered lifecycle structure, text labels in
 addition to color, visible focus indicators, native keyboard controls, minimum
 44-pixel filter targets, accessible interval descriptions, and a labeled
-scrollable resource table. The layout collapses from six to three to one
-lifecycle columns, and from two protocol panels to one, without horizontal page
-overflow. Reduced-motion and print preferences are respected.
+scrollable resource table. The lifecycle uses three columns on wide screens,
+two on tablets, and one on narrow screens. The frozen-plan and prediction-lock
+panels sit side by side while evaluation inputs span the wide layout; all three
+collapse to one column without horizontal page overflow. Reduced-motion and
+print preferences are respected.
 
 Automated checks do not replace manual VoiceOver or NVDA testing. Before public
 release, verify keyboard-only operation, screen-reader announcements, contrast,

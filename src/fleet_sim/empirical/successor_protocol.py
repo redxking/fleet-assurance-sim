@@ -1,10 +1,11 @@
-"""Two-manifest foundation for a prospective successor transfer study.
+"""Three-package foundation for a prospective successor transfer study.
 
-The first manifest freezes a transfer contract and a distinct future evaluation
-campaign before that campaign begins. The second binds realized campaign inputs
-back to the frozen registration. Neither manifest authorizes execution, proves
-when a local file was created, authenticates an external party, or establishes
-external validation.
+The registration freezes a transfer contract and distinct future evaluation
+campaign. A separate target-free package commits the registered predictions
+without accepting that campaign as input. The evaluation-input package later
+binds realized evidence back to both commitments. None of these packages
+authorizes execution, proves when a local file was created, authenticates an
+external party, or establishes external validation.
 """
 
 from __future__ import annotations
@@ -27,7 +28,7 @@ from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 from errno import EEXIST, ENOTEMPTY
 from pathlib import Path
-from typing import Any, Literal
+from typing import TYPE_CHECKING, Any, Literal
 
 from fleet_sim.control_plane.resource_network import ResourceType
 from fleet_sim.empirical.assurance_campaign import (
@@ -45,7 +46,10 @@ from fleet_sim.empirical.resource_adapter import (
     verify_adapted_resource_bundle,
 )
 
-PROTOCOL_SCHEMA_VERSION = "1.0"
+if TYPE_CHECKING:
+    from fleet_sim.empirical.prediction_lock import SuccessorPredictionLockPackageVerification
+
+PROTOCOL_SCHEMA_VERSION = "1.1"
 RegistrationMode = Literal["engineering_dry_run", "prospective_transfer"]
 
 PRIMARY_ESTIMAND = "resource_arrival_rate_transfer"
@@ -54,14 +58,45 @@ PREDICTION_FORMULA = (
     "admission_work_units_per_agent*(agents_admitted/window_duration_s)"
 )
 PREDICTOR_FIELDS = ("fleet_size", "agents_admitted", "window_duration_ms")
+CANDIDATE_MODEL_ID = "duration-weighted-nonnegative-arrival-rate-v1"
+CANDIDATE_FIT_PARTITION = "calibration"
+CANDIDATE_FIT_OBJECTIVE = "duration_weighted_nonnegative_least_squares"
+CANDIDATE_POINT_PARAMETER_SOURCE = "accepted_calibration_fit"
 METRICS = (
     "duration_weighted_normalized_rmse",
     "absolute_duration_weighted_relative_bias",
     "candidate_relative_improvement_over_background_only",
 )
-COMPARATOR = "calibration_background_only_nonnegative_least_squares"
+COMPARATOR = "duration_weighted_background_only_nnls_v1"
+COMPARATOR_FORMULA = "arrival_rate=background_only_work_per_agent_s*fleet_size"
+COMPARATOR_FIT_PARTITION = "calibration"
+COMPARATOR_SCOPE = "separately_per_resource_type"
+COMPARATOR_RESPONSE = "arrival_count/window_duration_s"
+COMPARATOR_PREDICTOR = "fleet_size"
+COMPARATOR_INTERCEPT = "none"
+COMPARATOR_WEIGHTING = "window_duration_s"
+COMPARATOR_CONSTRAINT = "coefficient_nonnegative"
+COMPARATOR_ESTIMATOR = "max_zero_fsum_fleet_arrival_count_over_fsum_window_s_fleet_squared"
+COMPARATOR_ZERO_DENOMINATOR_POLICY = "not_evaluable"
 UNCERTAINTY_METHOD = "joint_calibration_time_block_bootstrap"
-UNCERTAINTY_SCOPE = "mean_parameter_uncertainty_not_future_observation_interval"
+UNCERTAINTY_REPLICATION_SET = "successful_complete_ten_resource_joint_replications"
+UNCERTAINTY_INTERVAL_TYPE = "two_sided_equal_tail_percentile"
+UNCERTAINTY_INTERVAL_LEVEL_SOURCE = "fit_gate_policy_bootstrap_interval_level"
+UNCERTAINTY_QUANTILE_METHOD = "linear_hyndman_fan_type_7"
+UNCERTAINTY_SCOPE = (
+    "marginal_per_row_mean_parameter_uncertainty_not_simultaneous_or_future_observation"
+)
+SCORING_EVALUATION_UNIT = "resource_type_within_registered_cell"
+SCORING_WEIGHTING = "window_duration_s"
+SCORING_NRMSE_FORMULA = "sqrt(sum(d*(candidate-observed)^2)/sum(d))/(sum(d*observed)/sum(d))"
+SCORING_ABSOLUTE_RELATIVE_BIAS_FORMULA = "abs(sum(d*(candidate-observed)))/sum(d*observed)"
+SCORING_RELATIVE_IMPROVEMENT_FORMULA = (
+    "1-sqrt(sum(d*(candidate-observed)^2)/sum(d))/sqrt(sum(d*(comparator-observed)^2)/sum(d))"
+)
+SCORING_BLOCK_VALIDITY_RULE = "invalidate_ten_resource_block_if_any_row_censored_or_missing"
+SCORING_MISSING_DATA_POLICY = "no_imputation_no_replacement"
+SCORING_AGGREGATION = "all_registered_resource_cell_pairs_must_pass"
+SCORING_NON_EVALUABLE_POLICY = "fail_closed"
 
 REGISTRATION_PACKAGE_FILES = {
     "registration.json",
@@ -302,19 +337,223 @@ class TransferMetricThresholds:
 
 
 @dataclass(frozen=True, slots=True)
+class CandidatePredictionContract:
+    model_id: str
+    formula: str
+    predictor_fields: tuple[str, ...]
+    fit_partition: str
+    fit_objective: str
+    point_parameter_source: str
+
+    def __post_init__(self) -> None:
+        if self.model_id != CANDIDATE_MODEL_ID:
+            raise ValueError("candidate model differs from the implemented contract")
+        if self.formula != PREDICTION_FORMULA:
+            raise ValueError("candidate formula differs from the implemented contract")
+        if self.predictor_fields != PREDICTOR_FIELDS:
+            raise ValueError("candidate predictor fields differ from the implemented contract")
+        if self.fit_partition != CANDIDATE_FIT_PARTITION:
+            raise ValueError("candidate fit partition must be calibration")
+        if self.fit_objective != CANDIDATE_FIT_OBJECTIVE:
+            raise ValueError("candidate fit objective differs from the implemented contract")
+        if self.point_parameter_source != CANDIDATE_POINT_PARAMETER_SOURCE:
+            raise ValueError("candidate point-parameter source differs from the contract")
+
+    @classmethod
+    def from_mapping(cls, value: object) -> CandidatePredictionContract:
+        selected = _exact_keys(value, set(cls.__dataclass_fields__), "candidate contract")
+        return cls(
+            model_id=_string(selected["model_id"], "candidate model_id"),
+            formula=_string(selected["formula"], "candidate formula"),
+            predictor_fields=_string_tuple(
+                selected["predictor_fields"], "candidate predictor_fields"
+            ),
+            fit_partition=_string(selected["fit_partition"], "candidate fit_partition"),
+            fit_objective=_string(selected["fit_objective"], "candidate fit_objective"),
+            point_parameter_source=_string(
+                selected["point_parameter_source"], "candidate point_parameter_source"
+            ),
+        )
+
+    def to_dict(self) -> dict[str, object]:
+        payload = asdict(self)
+        payload["predictor_fields"] = list(self.predictor_fields)
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class ComparatorPredictionContract:
+    model_id: str
+    formula: str
+    fit_partition: str
+    scope: str
+    response: str
+    predictor: str
+    intercept: str
+    weighting: str
+    constraint: str
+    estimator: str
+    zero_denominator_policy: str
+
+    def __post_init__(self) -> None:
+        expected = {
+            "model_id": COMPARATOR,
+            "formula": COMPARATOR_FORMULA,
+            "fit_partition": COMPARATOR_FIT_PARTITION,
+            "scope": COMPARATOR_SCOPE,
+            "response": COMPARATOR_RESPONSE,
+            "predictor": COMPARATOR_PREDICTOR,
+            "intercept": COMPARATOR_INTERCEPT,
+            "weighting": COMPARATOR_WEIGHTING,
+            "constraint": COMPARATOR_CONSTRAINT,
+            "estimator": COMPARATOR_ESTIMATOR,
+            "zero_denominator_policy": COMPARATOR_ZERO_DENOMINATOR_POLICY,
+        }
+        for field_name, expected_value in expected.items():
+            if getattr(self, field_name) != expected_value:
+                raise ValueError(f"comparator {field_name} differs from the implemented contract")
+
+    @classmethod
+    def from_mapping(cls, value: object) -> ComparatorPredictionContract:
+        selected = _exact_keys(value, set(cls.__dataclass_fields__), "comparator contract")
+        return cls(
+            **{
+                field_name: _string(selected[field_name], f"comparator {field_name}")
+                for field_name in cls.__dataclass_fields__
+            }
+        )
+
+    def to_dict(self) -> dict[str, object]:
+        return asdict(self)
+
+
+@dataclass(frozen=True, slots=True)
+class PredictionUncertaintyContract:
+    method: str
+    replication_set: str
+    interval_type: str
+    interval_level_source: str
+    quantile_method: str
+    scope: str
+
+    def __post_init__(self) -> None:
+        expected = {
+            "method": UNCERTAINTY_METHOD,
+            "replication_set": UNCERTAINTY_REPLICATION_SET,
+            "interval_type": UNCERTAINTY_INTERVAL_TYPE,
+            "interval_level_source": UNCERTAINTY_INTERVAL_LEVEL_SOURCE,
+            "quantile_method": UNCERTAINTY_QUANTILE_METHOD,
+            "scope": UNCERTAINTY_SCOPE,
+        }
+        for field_name, expected_value in expected.items():
+            if getattr(self, field_name) != expected_value:
+                raise ValueError(f"uncertainty {field_name} differs from the implemented contract")
+
+    @classmethod
+    def from_mapping(cls, value: object) -> PredictionUncertaintyContract:
+        selected = _exact_keys(value, set(cls.__dataclass_fields__), "uncertainty contract")
+        return cls(
+            **{
+                field_name: _string(selected[field_name], f"uncertainty {field_name}")
+                for field_name in cls.__dataclass_fields__
+            }
+        )
+
+    def to_dict(self) -> dict[str, object]:
+        return asdict(self)
+
+
+@dataclass(frozen=True, slots=True)
+class TransferScoringContract:
+    metrics: tuple[str, ...]
+    evaluation_unit: str
+    weighting: str
+    nrmse_formula: str
+    absolute_relative_bias_formula: str
+    relative_improvement_formula: str
+    positive_observed_mean_required: bool
+    positive_comparator_rmse_required: bool
+    block_validity_rule: str
+    missing_data_policy: str
+    aggregation: str
+    non_evaluable_policy: str
+
+    def __post_init__(self) -> None:
+        if self.metrics != METRICS:
+            raise ValueError("scoring metric set differs from the implemented contract")
+        expected = {
+            "evaluation_unit": SCORING_EVALUATION_UNIT,
+            "weighting": SCORING_WEIGHTING,
+            "nrmse_formula": SCORING_NRMSE_FORMULA,
+            "absolute_relative_bias_formula": SCORING_ABSOLUTE_RELATIVE_BIAS_FORMULA,
+            "relative_improvement_formula": SCORING_RELATIVE_IMPROVEMENT_FORMULA,
+            "block_validity_rule": SCORING_BLOCK_VALIDITY_RULE,
+            "missing_data_policy": SCORING_MISSING_DATA_POLICY,
+            "aggregation": SCORING_AGGREGATION,
+            "non_evaluable_policy": SCORING_NON_EVALUABLE_POLICY,
+        }
+        for field_name, expected_value in expected.items():
+            if getattr(self, field_name) != expected_value:
+                raise ValueError(f"scoring {field_name} differs from the implemented contract")
+        if not self.positive_observed_mean_required:
+            raise ValueError("scoring requires a positive observed-mean denominator")
+        if not self.positive_comparator_rmse_required:
+            raise ValueError("scoring requires a positive comparator-RMSE denominator")
+
+    @classmethod
+    def from_mapping(cls, value: object) -> TransferScoringContract:
+        selected = _exact_keys(value, set(cls.__dataclass_fields__), "scoring contract")
+        return cls(
+            metrics=_string_tuple(selected["metrics"], "scoring metrics"),
+            evaluation_unit=_string(selected["evaluation_unit"], "scoring evaluation_unit"),
+            weighting=_string(selected["weighting"], "scoring weighting"),
+            nrmse_formula=_string(selected["nrmse_formula"], "scoring nrmse_formula"),
+            absolute_relative_bias_formula=_string(
+                selected["absolute_relative_bias_formula"],
+                "scoring absolute_relative_bias_formula",
+            ),
+            relative_improvement_formula=_string(
+                selected["relative_improvement_formula"],
+                "scoring relative_improvement_formula",
+            ),
+            positive_observed_mean_required=_strict_bool(
+                selected["positive_observed_mean_required"],
+                "scoring positive_observed_mean_required",
+            ),
+            positive_comparator_rmse_required=_strict_bool(
+                selected["positive_comparator_rmse_required"],
+                "scoring positive_comparator_rmse_required",
+            ),
+            block_validity_rule=_string(
+                selected["block_validity_rule"], "scoring block_validity_rule"
+            ),
+            missing_data_policy=_string(
+                selected["missing_data_policy"], "scoring missing_data_policy"
+            ),
+            aggregation=_string(selected["aggregation"], "scoring aggregation"),
+            non_evaluable_policy=_string(
+                selected["non_evaluable_policy"], "scoring non_evaluable_policy"
+            ),
+        )
+
+    def to_dict(self) -> dict[str, object]:
+        payload = asdict(self)
+        payload["metrics"] = list(self.metrics)
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
 class ResourceArrivalTransferContract:
     schema_version: str
     contract_id: str
     contract_mode: RegistrationMode
     primary_estimand: str
-    prediction_formula: str
-    predictor_fields: tuple[str, ...]
+    candidate: CandidatePredictionContract
     outcome_field: str
     resource_types: tuple[str, ...]
-    comparator: str
-    metrics: tuple[str, ...]
-    uncertainty_method: str
-    uncertainty_scope: str
+    comparator: ComparatorPredictionContract
+    uncertainty: PredictionUncertaintyContract
+    scoring: TransferScoringContract
     criteria_frozen: bool
     thresholds: TransferMetricThresholds
     operational_outcome_extension_enabled: bool
@@ -332,10 +571,6 @@ class ResourceArrivalTransferContract:
             raise ValueError("contract_mode is not supported")
         if self.primary_estimand != PRIMARY_ESTIMAND:
             raise ValueError("only resource_arrival_rate_transfer is currently executable")
-        if self.prediction_formula != PREDICTION_FORMULA:
-            raise ValueError("prediction formula differs from the implemented contract")
-        if self.predictor_fields != PREDICTOR_FIELDS:
-            raise ValueError("predictor fields differ from the implemented contract")
         if self.outcome_field != "arrival_count":
             raise ValueError("outcome field differs from the implemented contract")
         expected_resources = tuple(sorted(item.value for item in ResourceType))
@@ -343,14 +578,6 @@ class ResourceArrivalTransferContract:
             self.resource_types
         ) != len(expected_resources):
             raise ValueError("transfer contract must cover exactly the ten resource types")
-        if self.comparator != COMPARATOR:
-            raise ValueError("comparator differs from the implemented contract")
-        if self.metrics != METRICS:
-            raise ValueError("metric set differs from the implemented contract")
-        if self.uncertainty_method != UNCERTAINTY_METHOD:
-            raise ValueError("uncertainty method differs from the implemented contract")
-        if self.uncertainty_scope != UNCERTAINTY_SCOPE:
-            raise ValueError("uncertainty scope differs from the implemented contract")
         if self.operational_outcome_extension_enabled:
             raise ValueError("operational outcome transfer is not implemented or authorized")
         if not self.prediction_rows_preoutcome_lock_required:
@@ -375,14 +602,12 @@ class ResourceArrivalTransferContract:
                 selected["contract_mode"], "contract_mode"
             ),
             primary_estimand=_string(selected["primary_estimand"], "primary_estimand"),
-            prediction_formula=_string(selected["prediction_formula"], "prediction_formula"),
-            predictor_fields=_string_tuple(selected["predictor_fields"], "predictor_fields"),
+            candidate=CandidatePredictionContract.from_mapping(selected["candidate"]),
             outcome_field=_string(selected["outcome_field"], "outcome_field"),
             resource_types=_string_tuple(selected["resource_types"], "resource_types"),
-            comparator=_string(selected["comparator"], "comparator"),
-            metrics=_string_tuple(selected["metrics"], "metrics"),
-            uncertainty_method=_string(selected["uncertainty_method"], "uncertainty_method"),
-            uncertainty_scope=_string(selected["uncertainty_scope"], "uncertainty_scope"),
+            comparator=ComparatorPredictionContract.from_mapping(selected["comparator"]),
+            uncertainty=PredictionUncertaintyContract.from_mapping(selected["uncertainty"]),
+            scoring=TransferScoringContract.from_mapping(selected["scoring"]),
             criteria_frozen=_strict_bool(selected["criteria_frozen"], "criteria_frozen"),
             thresholds=TransferMetricThresholds.from_mapping(selected["thresholds"]),
             operational_outcome_extension_enabled=_strict_bool(
@@ -408,9 +633,11 @@ class ResourceArrivalTransferContract:
 
     def to_dict(self) -> dict[str, object]:
         payload = asdict(self)
-        payload["predictor_fields"] = list(self.predictor_fields)
+        payload["candidate"] = self.candidate.to_dict()
         payload["resource_types"] = list(self.resource_types)
-        payload["metrics"] = list(self.metrics)
+        payload["comparator"] = self.comparator.to_dict()
+        payload["uncertainty"] = self.uncertainty.to_dict()
+        payload["scoring"] = self.scoring.to_dict()
         return payload
 
     @property
@@ -744,6 +971,8 @@ class SuccessorEvaluationInputs:
     evaluation_input_id: str
     registration_id: str
     registration_manifest_sha256: str
+    prediction_lock_id: str
+    prediction_lock_manifest_sha256: str
     evaluation_campaign_id: str
     evaluation_campaign_evidence_manifest_sha256: str
     evaluation_heldout_content_sha256: str
@@ -754,8 +983,12 @@ class SuccessorEvaluationInputs:
     collection_window_reconciled: bool
     cell_block_reconciliation: Literal["exact"]
     predictor_design_reconciled: bool
+    prediction_lock_binding_reconciled: bool
+    prediction_rows_target_free: bool
+    workflow_prediction_commitment: bool
     chronology_consistent: bool
     registration_time_externally_attested: bool
+    prediction_lock_time_externally_attested: bool
     prediction_formula_frozen: bool
     prediction_rows_preoutcome_locked: bool
     outcome_release_custody_verified: bool
@@ -770,11 +1003,13 @@ class SuccessorEvaluationInputs:
         for value, context in (
             (self.evaluation_input_id, "evaluation_input_id"),
             (self.registration_id, "registration_id"),
+            (self.prediction_lock_id, "prediction_lock_id"),
             (self.evaluation_campaign_id, "evaluation_campaign_id"),
         ):
             _identifier(value, context)
         for value, context in (
             (self.registration_manifest_sha256, "registration manifest hash"),
+            (self.prediction_lock_manifest_sha256, "prediction-lock manifest hash"),
             (
                 self.evaluation_campaign_evidence_manifest_sha256,
                 "evaluation campaign evidence hash",
@@ -795,12 +1030,16 @@ class SuccessorEvaluationInputs:
             self.campaign_identity_reconciled
             and self.collection_window_reconciled
             and self.predictor_design_reconciled
+            and self.prediction_lock_binding_reconciled
+            and self.prediction_rows_target_free
+            and self.workflow_prediction_commitment
             and self.chronology_consistent
             and self.prediction_formula_frozen
         ):
             raise ValueError("evaluation-input reconciliation gates must be true")
         if (
             self.registration_time_externally_attested
+            or self.prediction_lock_time_externally_attested
             or self.prediction_rows_preoutcome_locked
             or self.outcome_release_custody_verified
             or self.execution_chain_ready
@@ -1347,13 +1586,40 @@ def _validate_registration_package_snapshot(
 
 def bind_successor_evaluation_inputs(
     registration_package: SuccessorRegistrationPackageVerification,
+    prediction_lock_package: SuccessorPredictionLockPackageVerification,
     evaluation_campaign: CampaignPackageVerification,
+    *,
+    source_campaign: CampaignPackageVerification,
+    fit_package: EmpiricalCalibrationPackageVerification,
+    adapter_package: AdaptedResourcePackageVerification,
 ) -> SuccessorEvaluationInputs:
-    """Bind a realized distinct campaign without authorizing outcome access."""
+    """Bind a realized campaign to the registered target-free commitment."""
 
     if not registration_package.externally_digest_bound:
         raise ValueError("evaluation binding requires an externally bound registration")
     _validate_registration_package_snapshot(registration_package)
+    if not prediction_lock_package.externally_digest_bound:
+        raise ValueError("evaluation binding requires an externally bound prediction lock")
+    from fleet_sim.empirical.prediction_lock import verify_successor_prediction_lock_package
+
+    refreshed_lock = verify_successor_prediction_lock_package(
+        prediction_lock_package.package_dir,
+        registration_package=registration_package,
+        source_campaign=source_campaign,
+        fit_package=fit_package,
+        adapter_package=adapter_package,
+        expected_prediction_lock_manifest_sha256=(
+            prediction_lock_package.prediction_lock_manifest_sha256
+        ),
+    )
+    if (
+        refreshed_lock.package_dir.resolve() != prediction_lock_package.package_dir.resolve()
+        or refreshed_lock.lock.to_dict() != prediction_lock_package.lock.to_dict()
+        or not refreshed_lock.prediction_rows.equals(prediction_lock_package.prediction_rows)
+        or not refreshed_lock.parameter_draws.equals(prediction_lock_package.parameter_draws)
+        or refreshed_lock.externally_digest_bound != prediction_lock_package.externally_digest_bound
+    ):
+        raise ValueError("prediction-lock wrapper differs from its externally bound package")
     if not evaluation_campaign.externally_digest_bound:
         raise ValueError("evaluation binding requires an externally bound campaign")
     evaluation_campaign = _validate_campaign_package_snapshot(evaluation_campaign)
@@ -1362,6 +1628,7 @@ def bind_successor_evaluation_inputs(
     registration = registration_package.registration
     plan = registration_package.plan
     contract = registration_package.contract
+    prediction_lock = refreshed_lock.lock
     planned_block_count = sum(len(cell.planned_blocks) for cell in plan.cells)
     if (
         plan.semantic_sha256 != registration.plan_sha256
@@ -1375,6 +1642,26 @@ def bind_successor_evaluation_inputs(
         or planned_block_count != registration.planned_time_block_count
     ):
         raise ValueError("registration wrapper differs from its frozen plan or transfer contract")
+    if (
+        prediction_lock.registration_id != registration.registration_id
+        or prediction_lock.registration_manifest_sha256
+        != registration_package.registration_manifest_sha256
+        or prediction_lock.plan_sha256 != registration.plan_sha256
+        or prediction_lock.transfer_contract_sha256 != registration.transfer_contract_sha256
+        or prediction_lock.planned_evaluation_campaign_id
+        != registration.planned_evaluation_campaign_id
+        or not prediction_lock.future_evaluation_campaign_not_supplied
+        or not prediction_lock.prediction_rows_target_free
+        or not prediction_lock.workflow_prediction_commitment
+        or prediction_lock.prediction_lock_time_externally_attested
+        or prediction_lock.prediction_rows_preoutcome_locked
+        or prediction_lock.outcome_release_custody_verified
+        or prediction_lock.execution_chain_ready
+        or prediction_lock.external_validation
+        or prediction_lock.scientific_use_authorized
+        or prediction_lock.runner_authorized
+    ):
+        raise ValueError("prediction lock differs from the registered workflow boundary")
     if (
         registration.registration_mode == "prospective_transfer"
         and evaluation_campaign.evidence_scope == "synthetic_or_mixed_interface_only"
@@ -1444,6 +1731,8 @@ def bind_successor_evaluation_inputs(
         "schema_version": PROTOCOL_SCHEMA_VERSION,
         "registration_id": registration.registration_id,
         "registration_manifest_sha256": registration_package.registration_manifest_sha256,
+        "prediction_lock_id": prediction_lock.prediction_lock_id,
+        "prediction_lock_manifest_sha256": (refreshed_lock.prediction_lock_manifest_sha256),
         "evaluation_campaign_id": campaign_id,
         "evaluation_campaign_evidence_manifest_sha256": (
             evaluation_campaign.evidence_manifest_sha256
@@ -1456,8 +1745,12 @@ def bind_successor_evaluation_inputs(
         "collection_window_reconciled": True,
         "cell_block_reconciliation": "exact",
         "predictor_design_reconciled": True,
+        "prediction_lock_binding_reconciled": True,
+        "prediction_rows_target_free": True,
+        "workflow_prediction_commitment": True,
         "chronology_consistent": True,
         "registration_time_externally_attested": False,
+        "prediction_lock_time_externally_attested": False,
         "prediction_formula_frozen": registration.prediction_formula_frozen,
         "prediction_rows_preoutcome_locked": False,
         "outcome_release_custody_verified": False,
@@ -1488,6 +1781,11 @@ def _evaluation_inputs_from_mapping(value: object) -> SuccessorEvaluationInputs:
         registration_manifest_sha256=_sha256(
             selected["registration_manifest_sha256"], "registration manifest hash"
         ),
+        prediction_lock_id=_identifier(selected["prediction_lock_id"], "prediction_lock_id"),
+        prediction_lock_manifest_sha256=_sha256(
+            selected["prediction_lock_manifest_sha256"],
+            "prediction-lock manifest hash",
+        ),
         evaluation_campaign_id=_identifier(
             selected["evaluation_campaign_id"], "evaluation campaign ID"
         ),
@@ -1517,12 +1815,27 @@ def _evaluation_inputs_from_mapping(value: object) -> SuccessorEvaluationInputs:
         predictor_design_reconciled=_strict_bool(
             selected["predictor_design_reconciled"], "predictor design reconciled"
         ),
+        prediction_lock_binding_reconciled=_strict_bool(
+            selected["prediction_lock_binding_reconciled"],
+            "prediction-lock binding reconciled",
+        ),
+        prediction_rows_target_free=_strict_bool(
+            selected["prediction_rows_target_free"], "prediction rows target free"
+        ),
+        workflow_prediction_commitment=_strict_bool(
+            selected["workflow_prediction_commitment"],
+            "workflow prediction commitment",
+        ),
         chronology_consistent=_strict_bool(
             selected["chronology_consistent"], "chronology consistent"
         ),
         registration_time_externally_attested=_strict_bool(
             selected["registration_time_externally_attested"],
             "registration time externally attested",
+        ),
+        prediction_lock_time_externally_attested=_strict_bool(
+            selected["prediction_lock_time_externally_attested"],
+            "prediction-lock time externally attested",
         ),
         prediction_formula_frozen=_strict_bool(
             selected["prediction_formula_frozen"], "prediction formula frozen"
@@ -1584,6 +1897,67 @@ def _closed_object(
 def transfer_contract_schema() -> dict[str, object]:
     """Return the closed resource-arrival transfer-contract schema."""
 
+    candidate = _closed_object(
+        {
+            "model_id": {"const": CANDIDATE_MODEL_ID},
+            "formula": {"const": PREDICTION_FORMULA},
+            "predictor_fields": {
+                "type": "array",
+                "prefixItems": [{"const": item} for item in PREDICTOR_FIELDS],
+                "minItems": len(PREDICTOR_FIELDS),
+                "maxItems": len(PREDICTOR_FIELDS),
+            },
+            "fit_partition": {"const": CANDIDATE_FIT_PARTITION},
+            "fit_objective": {"const": CANDIDATE_FIT_OBJECTIVE},
+            "point_parameter_source": {"const": CANDIDATE_POINT_PARAMETER_SOURCE},
+        }
+    )
+    comparator = _closed_object(
+        {
+            "model_id": {"const": COMPARATOR},
+            "formula": {"const": COMPARATOR_FORMULA},
+            "fit_partition": {"const": COMPARATOR_FIT_PARTITION},
+            "scope": {"const": COMPARATOR_SCOPE},
+            "response": {"const": COMPARATOR_RESPONSE},
+            "predictor": {"const": COMPARATOR_PREDICTOR},
+            "intercept": {"const": COMPARATOR_INTERCEPT},
+            "weighting": {"const": COMPARATOR_WEIGHTING},
+            "constraint": {"const": COMPARATOR_CONSTRAINT},
+            "estimator": {"const": COMPARATOR_ESTIMATOR},
+            "zero_denominator_policy": {"const": COMPARATOR_ZERO_DENOMINATOR_POLICY},
+        }
+    )
+    uncertainty = _closed_object(
+        {
+            "method": {"const": UNCERTAINTY_METHOD},
+            "replication_set": {"const": UNCERTAINTY_REPLICATION_SET},
+            "interval_type": {"const": UNCERTAINTY_INTERVAL_TYPE},
+            "interval_level_source": {"const": UNCERTAINTY_INTERVAL_LEVEL_SOURCE},
+            "quantile_method": {"const": UNCERTAINTY_QUANTILE_METHOD},
+            "scope": {"const": UNCERTAINTY_SCOPE},
+        }
+    )
+    scoring = _closed_object(
+        {
+            "metrics": {
+                "type": "array",
+                "prefixItems": [{"const": item} for item in METRICS],
+                "minItems": len(METRICS),
+                "maxItems": len(METRICS),
+            },
+            "evaluation_unit": {"const": SCORING_EVALUATION_UNIT},
+            "weighting": {"const": SCORING_WEIGHTING},
+            "nrmse_formula": {"const": SCORING_NRMSE_FORMULA},
+            "absolute_relative_bias_formula": {"const": SCORING_ABSOLUTE_RELATIVE_BIAS_FORMULA},
+            "relative_improvement_formula": {"const": SCORING_RELATIVE_IMPROVEMENT_FORMULA},
+            "positive_observed_mean_required": {"const": True},
+            "positive_comparator_rmse_required": {"const": True},
+            "block_validity_rule": {"const": SCORING_BLOCK_VALIDITY_RULE},
+            "missing_data_policy": {"const": SCORING_MISSING_DATA_POLICY},
+            "aggregation": {"const": SCORING_AGGREGATION},
+            "non_evaluable_policy": {"const": SCORING_NON_EVALUABLE_POLICY},
+        }
+    )
     thresholds = _closed_object(
         {
             "maximum_duration_weighted_nrmse": {
@@ -1610,13 +1984,7 @@ def transfer_contract_schema() -> dict[str, object]:
         "contract_id": _identifier_schema(),
         "contract_mode": {"enum": ["engineering_dry_run", "prospective_transfer"]},
         "primary_estimand": {"const": PRIMARY_ESTIMAND},
-        "prediction_formula": {"const": PREDICTION_FORMULA},
-        "predictor_fields": {
-            "type": "array",
-            "prefixItems": [{"const": item} for item in PREDICTOR_FIELDS],
-            "minItems": len(PREDICTOR_FIELDS),
-            "maxItems": len(PREDICTOR_FIELDS),
-        },
+        "candidate": candidate,
         "outcome_field": {"const": "arrival_count"},
         "resource_types": {
             "type": "array",
@@ -1633,15 +2001,9 @@ def transfer_contract_schema() -> dict[str, object]:
                 for item in ResourceType
             ],
         },
-        "comparator": {"const": COMPARATOR},
-        "metrics": {
-            "type": "array",
-            "prefixItems": [{"const": item} for item in METRICS],
-            "minItems": len(METRICS),
-            "maxItems": len(METRICS),
-        },
-        "uncertainty_method": {"const": UNCERTAINTY_METHOD},
-        "uncertainty_scope": {"const": UNCERTAINTY_SCOPE},
+        "comparator": comparator,
+        "uncertainty": uncertainty,
+        "scoring": scoring,
         "criteria_frozen": {"type": "boolean"},
         "thresholds": thresholds,
         "operational_outcome_extension_enabled": {"const": False},
@@ -1850,6 +2212,11 @@ def successor_evaluation_inputs_schema() -> dict[str, object]:
             },
             "registration_id": _identifier_schema(),
             "registration_manifest_sha256": _digest_schema(),
+            "prediction_lock_id": {
+                "type": "string",
+                "pattern": "^successor-prediction-lock-[0-9a-f]{20}$",
+            },
+            "prediction_lock_manifest_sha256": _digest_schema(),
             "evaluation_campaign_id": _identifier_schema(),
             "evaluation_campaign_evidence_manifest_sha256": _digest_schema(),
             "evaluation_heldout_content_sha256": _digest_schema(),
@@ -1864,8 +2231,12 @@ def successor_evaluation_inputs_schema() -> dict[str, object]:
             "collection_window_reconciled": {"const": True},
             "cell_block_reconciliation": {"const": "exact"},
             "predictor_design_reconciled": {"const": True},
+            "prediction_lock_binding_reconciled": {"const": True},
+            "prediction_rows_target_free": {"const": True},
+            "workflow_prediction_commitment": {"const": True},
             "chronology_consistent": {"const": True},
             "registration_time_externally_attested": {"const": False},
+            "prediction_lock_time_externally_attested": {"const": False},
             "prediction_formula_frozen": {"const": True},
             "prediction_rows_preoutcome_locked": {"const": False},
             "outcome_release_custody_verified": {"const": False},
@@ -2282,17 +2653,35 @@ def write_successor_evaluation_inputs_package(
     output_dir: str | Path,
     *,
     registration_package: SuccessorRegistrationPackageVerification,
+    prediction_lock_package: SuccessorPredictionLockPackageVerification,
     evaluation_campaign: CampaignPackageVerification,
+    source_campaign: CampaignPackageVerification,
+    fit_package: EmpiricalCalibrationPackageVerification,
+    adapter_package: AdaptedResourcePackageVerification,
 ) -> Path:
     """Write a deterministic, immutable three-file realized-input package."""
 
-    recomputed = bind_successor_evaluation_inputs(registration_package, evaluation_campaign)
+    recomputed = bind_successor_evaluation_inputs(
+        registration_package,
+        prediction_lock_package,
+        evaluation_campaign,
+        source_campaign=source_campaign,
+        fit_package=fit_package,
+        adapter_package=adapter_package,
+    )
     if inputs.to_dict() != recomputed.to_dict():
         raise ValueError("evaluation inputs differ from deterministic upstream recomputation")
     destination = Path(output_dir)
     _assert_output_outside_sources(
         destination,
-        (registration_package.package_dir, evaluation_campaign.package_dir),
+        (
+            source_campaign.package_dir,
+            fit_package.package_dir,
+            adapter_package.package_dir,
+            registration_package.package_dir,
+            prediction_lock_package.package_dir,
+            evaluation_campaign.package_dir,
+        ),
     )
 
     def build(temporary: Path) -> None:
@@ -2314,7 +2703,11 @@ def write_successor_evaluation_inputs_package(
         verify_successor_evaluation_inputs_package(
             temporary,
             registration_package=registration_package,
+            prediction_lock_package=prediction_lock_package,
             evaluation_campaign=evaluation_campaign,
+            source_campaign=source_campaign,
+            fit_package=fit_package,
+            adapter_package=adapter_package,
             expected_evaluation_inputs_manifest_sha256=digest,
         )
 
@@ -2330,7 +2723,11 @@ def verify_successor_evaluation_inputs_package(
     package_dir: str | Path,
     *,
     registration_package: SuccessorRegistrationPackageVerification,
+    prediction_lock_package: SuccessorPredictionLockPackageVerification,
     evaluation_campaign: CampaignPackageVerification,
+    source_campaign: CampaignPackageVerification,
+    fit_package: EmpiricalCalibrationPackageVerification,
+    adapter_package: AdaptedResourcePackageVerification,
     expected_evaluation_inputs_manifest_sha256: str | None = None,
     maximum_package_bytes: int = _MAX_PACKAGE_BYTES,
 ) -> SuccessorEvaluationInputsPackageVerification:
@@ -2352,7 +2749,14 @@ def verify_successor_evaluation_inputs_package(
     inputs = _evaluation_inputs_from_mapping(
         _read_json_bytes(package_bytes["evaluation_inputs.json"], "evaluation_inputs.json")
     )
-    recomputed = bind_successor_evaluation_inputs(registration_package, evaluation_campaign)
+    recomputed = bind_successor_evaluation_inputs(
+        registration_package,
+        prediction_lock_package,
+        evaluation_campaign,
+        source_campaign=source_campaign,
+        fit_package=fit_package,
+        adapter_package=adapter_package,
+    )
     if inputs.to_dict() != recomputed.to_dict():
         raise ValueError("evaluation inputs do not match upstream evidence and registration")
     manifest = _read_json_bytes(

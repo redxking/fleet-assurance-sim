@@ -56,8 +56,102 @@
     }
   ],
   "properties": {
+    "candidate": {
+      "additionalProperties": false,
+      "properties": {
+        "fit_objective": {
+          "const": "duration_weighted_nonnegative_least_squares"
+        },
+        "fit_partition": {
+          "const": "calibration"
+        },
+        "formula": {
+          "const": "arrival_rate=background_work_per_agent_s*fleet_size+admission_work_units_per_agent*(agents_admitted/window_duration_s)"
+        },
+        "model_id": {
+          "const": "duration-weighted-nonnegative-arrival-rate-v1"
+        },
+        "point_parameter_source": {
+          "const": "accepted_calibration_fit"
+        },
+        "predictor_fields": {
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "const": "fleet_size"
+            },
+            {
+              "const": "agents_admitted"
+            },
+            {
+              "const": "window_duration_ms"
+            }
+          ],
+          "type": "array"
+        }
+      },
+      "required": [
+        "fit_objective",
+        "fit_partition",
+        "formula",
+        "model_id",
+        "point_parameter_source",
+        "predictor_fields"
+      ],
+      "type": "object"
+    },
     "comparator": {
-      "const": "calibration_background_only_nonnegative_least_squares"
+      "additionalProperties": false,
+      "properties": {
+        "constraint": {
+          "const": "coefficient_nonnegative"
+        },
+        "estimator": {
+          "const": "max_zero_fsum_fleet_arrival_count_over_fsum_window_s_fleet_squared"
+        },
+        "fit_partition": {
+          "const": "calibration"
+        },
+        "formula": {
+          "const": "arrival_rate=background_only_work_per_agent_s*fleet_size"
+        },
+        "intercept": {
+          "const": "none"
+        },
+        "model_id": {
+          "const": "duration_weighted_background_only_nnls_v1"
+        },
+        "predictor": {
+          "const": "fleet_size"
+        },
+        "response": {
+          "const": "arrival_count/window_duration_s"
+        },
+        "scope": {
+          "const": "separately_per_resource_type"
+        },
+        "weighting": {
+          "const": "window_duration_s"
+        },
+        "zero_denominator_policy": {
+          "const": "not_evaluable"
+        }
+      },
+      "required": [
+        "constraint",
+        "estimator",
+        "fit_partition",
+        "formula",
+        "intercept",
+        "model_id",
+        "predictor",
+        "response",
+        "scope",
+        "weighting",
+        "zero_denominator_policy"
+      ],
+      "type": "object"
     },
     "contract_id": {
       "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
@@ -75,22 +169,6 @@
     "external_validation": {
       "const": false
     },
-    "metrics": {
-      "maxItems": 3,
-      "minItems": 3,
-      "prefixItems": [
-        {
-          "const": "duration_weighted_normalized_rmse"
-        },
-        {
-          "const": "absolute_duration_weighted_relative_bias"
-        },
-        {
-          "const": "candidate_relative_improvement_over_background_only"
-        }
-      ],
-      "type": "array"
-    },
     "operational_outcome_extension_enabled": {
       "const": false
     },
@@ -100,27 +178,8 @@
     "outcome_field": {
       "const": "arrival_count"
     },
-    "prediction_formula": {
-      "const": "arrival_rate=background_work_per_agent_s*fleet_size+admission_work_units_per_agent*(agents_admitted/window_duration_s)"
-    },
     "prediction_rows_preoutcome_lock_required": {
       "const": true
-    },
-    "predictor_fields": {
-      "maxItems": 3,
-      "minItems": 3,
-      "prefixItems": [
-        {
-          "const": "fleet_size"
-        },
-        {
-          "const": "agents_admitted"
-        },
-        {
-          "const": "window_duration_ms"
-        }
-      ],
-      "type": "array"
     },
     "primary_estimand": {
       "const": "resource_arrival_rate_transfer"
@@ -221,10 +280,79 @@
       "const": false
     },
     "schema_version": {
-      "const": "1.0"
+      "const": "1.1"
     },
     "scientific_use_authorized": {
       "const": false
+    },
+    "scoring": {
+      "additionalProperties": false,
+      "properties": {
+        "absolute_relative_bias_formula": {
+          "const": "abs(sum(d*(candidate-observed)))/sum(d*observed)"
+        },
+        "aggregation": {
+          "const": "all_registered_resource_cell_pairs_must_pass"
+        },
+        "block_validity_rule": {
+          "const": "invalidate_ten_resource_block_if_any_row_censored_or_missing"
+        },
+        "evaluation_unit": {
+          "const": "resource_type_within_registered_cell"
+        },
+        "metrics": {
+          "maxItems": 3,
+          "minItems": 3,
+          "prefixItems": [
+            {
+              "const": "duration_weighted_normalized_rmse"
+            },
+            {
+              "const": "absolute_duration_weighted_relative_bias"
+            },
+            {
+              "const": "candidate_relative_improvement_over_background_only"
+            }
+          ],
+          "type": "array"
+        },
+        "missing_data_policy": {
+          "const": "no_imputation_no_replacement"
+        },
+        "non_evaluable_policy": {
+          "const": "fail_closed"
+        },
+        "nrmse_formula": {
+          "const": "sqrt(sum(d*(candidate-observed)^2)/sum(d))/(sum(d*observed)/sum(d))"
+        },
+        "positive_comparator_rmse_required": {
+          "const": true
+        },
+        "positive_observed_mean_required": {
+          "const": true
+        },
+        "relative_improvement_formula": {
+          "const": "1-sqrt(sum(d*(candidate-observed)^2)/sum(d))/sqrt(sum(d*(comparator-observed)^2)/sum(d))"
+        },
+        "weighting": {
+          "const": "window_duration_s"
+        }
+      },
+      "required": [
+        "absolute_relative_bias_formula",
+        "aggregation",
+        "block_validity_rule",
+        "evaluation_unit",
+        "metrics",
+        "missing_data_policy",
+        "non_evaluable_policy",
+        "nrmse_formula",
+        "positive_comparator_rmse_required",
+        "positive_observed_mean_required",
+        "relative_improvement_formula",
+        "weighting"
+      ],
+      "type": "object"
     },
     "thresholds": {
       "additionalProperties": false,
@@ -270,34 +398,58 @@
       ],
       "type": "object"
     },
-    "uncertainty_method": {
-      "const": "joint_calibration_time_block_bootstrap"
-    },
-    "uncertainty_scope": {
-      "const": "mean_parameter_uncertainty_not_future_observation_interval"
+    "uncertainty": {
+      "additionalProperties": false,
+      "properties": {
+        "interval_level_source": {
+          "const": "fit_gate_policy_bootstrap_interval_level"
+        },
+        "interval_type": {
+          "const": "two_sided_equal_tail_percentile"
+        },
+        "method": {
+          "const": "joint_calibration_time_block_bootstrap"
+        },
+        "quantile_method": {
+          "const": "linear_hyndman_fan_type_7"
+        },
+        "replication_set": {
+          "const": "successful_complete_ten_resource_joint_replications"
+        },
+        "scope": {
+          "const": "marginal_per_row_mean_parameter_uncertainty_not_simultaneous_or_future_observation"
+        }
+      },
+      "required": [
+        "interval_level_source",
+        "interval_type",
+        "method",
+        "quantile_method",
+        "replication_set",
+        "scope"
+      ],
+      "type": "object"
     }
   },
   "required": [
+    "candidate",
     "comparator",
     "contract_id",
     "contract_mode",
     "criteria_frozen",
     "external_validation",
-    "metrics",
     "operational_outcome_extension_enabled",
     "outcome_custody_evidence_required",
     "outcome_field",
-    "prediction_formula",
     "prediction_rows_preoutcome_lock_required",
-    "predictor_fields",
     "primary_estimand",
     "resource_types",
     "runner_authorized",
     "schema_version",
     "scientific_use_authorized",
+    "scoring",
     "thresholds",
-    "uncertainty_method",
-    "uncertainty_scope"
+    "uncertainty"
   ],
   "title": "Successor resource-arrival transfer contract",
   "type": "object"

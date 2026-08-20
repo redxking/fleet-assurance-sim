@@ -124,7 +124,7 @@
       "const": false
     },
     "schema_version": {
-      "const": "1.0"
+      "const": "1.1"
     },
     "scientific_use_authorized": {
       "const": false

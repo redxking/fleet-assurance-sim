@@ -33,18 +33,20 @@ The retained Stage 3 confirmation is immutable. Do not alter its protocol, manif
 
 When a package schema, verifier, lifecycle state, authorization flag, diagnostic, uncertainty interval, or simulator limitation changes, update the corresponding command-line output, status UI, documentation, and tests in the same change. A UI must display failed, blocked, and not-evaluable states; it must not infer readiness from artifact presence.
 
-The successor empirical workflow is intentionally split into evidence intake, calibration fitting, resource adaptation, registration before a distinct future campaign, evaluation-input binding after collection, preoutcome prediction custody, outcome release, and one-shot evaluation. The first five stages are implemented; prediction custody, outcome release, and scoring remain locked. Do not bypass those gates by connecting an engineering-only adapter or manifest package to the frozen Stage 3 runner.
+The successor empirical workflow is intentionally split into evidence intake, calibration fitting, resource adaptation, a declared registration timestamp ordered before a distinct future campaign, target-free prediction commitment, externally attested pre-outcome custody, evaluation-input binding, outcome release, and one-shot scoring. The target-free local commitment is implemented. Local ordering does not prove package creation or publication time; independent timing or custodian receipt, outcome-release custody, scoring, and execution remain locked. Do not bypass those gates by connecting an engineering-only adapter or evidence package to the frozen Stage 3 runner.
 
 Registration changes require coordinated updates to the closed schemas, command-line output, status UI, protocol documentation, and failure-path tests. Preserve these rules:
 
 - Historical held-out content may be verified for integrity but must not influence fitting or adaptation.
 - The planned evaluation campaign must be distinct from the source campaign and begin after registration.
 - Planned cells and time-block IDs are a closed set. Each block also freezes its timestamp, fleet size, admission count, and observation-window duration; missing, extra, or changed realized designs fail closed.
+- Protocol version 1.1 freezes the exact candidate, comparator, uncertainty, missing-data, metric, denominator, and decision-aggregation semantics before predictions are generated.
+- Prediction generation must not accept, verify, import, or read the future evaluation campaign. Local commitment does not establish a scientifically attested pre-outcome lock.
 - `engineering_dry_run` examples must not invent scientific thresholds or imply authorization.
 - `prospective_transfer` requires complete frozen numeric criteria, nonsynthetic calibration evidence, a passing successor-transfer fit, and an evidence-backed successor adapter.
 - Local timestamp ordering must not be described as external timestamp attestation.
 - Operational-outcome transfer remains disabled until a separate contract and evidence package are reviewed.
-- `external_validation`, `scientific_use_authorized`, `runner_authorized`, and `execution_chain_ready` remain false in registration and evaluation-input artifacts.
+- `prediction_rows_preoutcome_locked`, `external_validation`, `scientific_use_authorized`, `runner_authorized`, and `execution_chain_ready` remain false until their separate evidence and authorization gates are implemented and verified.
 
 The detailed lifecycle and current public APIs are in [docs/successor_prospective_protocol.md](docs/successor_prospective_protocol.md).
 

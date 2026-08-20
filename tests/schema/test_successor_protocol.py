@@ -32,6 +32,12 @@ from fleet_sim.empirical.calibration_gate import (
     verify_empirical_calibration_package,
     write_empirical_calibration_package,
 )
+from fleet_sim.empirical.prediction_lock import (
+    SuccessorPredictionLockPackageVerification,
+    build_successor_prediction_lock,
+    verify_successor_prediction_lock_package,
+    write_successor_prediction_lock_package,
+)
 from fleet_sim.empirical.resource_adapter import (
     POLICY_FIELDS,
     AdaptedResourcePackageVerification,
@@ -45,7 +51,21 @@ from fleet_sim.empirical.resource_adapter import (
     write_adapted_resource_bundle,
 )
 from fleet_sim.empirical.successor_protocol import (
+    CANDIDATE_FIT_OBJECTIVE,
+    CANDIDATE_FIT_PARTITION,
+    CANDIDATE_MODEL_ID,
+    CANDIDATE_POINT_PARAMETER_SOURCE,
     COMPARATOR,
+    COMPARATOR_CONSTRAINT,
+    COMPARATOR_ESTIMATOR,
+    COMPARATOR_FIT_PARTITION,
+    COMPARATOR_FORMULA,
+    COMPARATOR_INTERCEPT,
+    COMPARATOR_PREDICTOR,
+    COMPARATOR_RESPONSE,
+    COMPARATOR_SCOPE,
+    COMPARATOR_WEIGHTING,
+    COMPARATOR_ZERO_DENOMINATOR_POLICY,
     EVALUATION_INPUT_PACKAGE_FILES,
     METRICS,
     PREDICTION_FORMULA,
@@ -53,15 +73,32 @@ from fleet_sim.empirical.successor_protocol import (
     PRIMARY_ESTIMAND,
     PROTOCOL_SCHEMA_VERSION,
     REGISTRATION_PACKAGE_FILES,
+    SCORING_ABSOLUTE_RELATIVE_BIAS_FORMULA,
+    SCORING_AGGREGATION,
+    SCORING_BLOCK_VALIDITY_RULE,
+    SCORING_EVALUATION_UNIT,
+    SCORING_MISSING_DATA_POLICY,
+    SCORING_NON_EVALUABLE_POLICY,
+    SCORING_NRMSE_FORMULA,
+    SCORING_RELATIVE_IMPROVEMENT_FORMULA,
+    SCORING_WEIGHTING,
+    UNCERTAINTY_INTERVAL_LEVEL_SOURCE,
+    UNCERTAINTY_INTERVAL_TYPE,
     UNCERTAINTY_METHOD,
+    UNCERTAINTY_QUANTILE_METHOD,
+    UNCERTAINTY_REPLICATION_SET,
     UNCERTAINTY_SCOPE,
+    CandidatePredictionContract,
+    ComparatorPredictionContract,
     PlannedEvaluationBlock,
     PlannedEvaluationCell,
+    PredictionUncertaintyContract,
     ResourceArrivalTransferContract,
     SuccessorRegistration,
     SuccessorRegistrationPackageVerification,
     SuccessorRegistrationPlan,
     TransferMetricThresholds,
+    TransferScoringContract,
     bind_successor_evaluation_inputs,
     freeze_successor_registration,
     load_resource_arrival_transfer_contract,
@@ -84,6 +121,12 @@ TRANSFER_CONTRACT_SCHEMA = ROOT / "schemas" / "successor_transfer_contract.schem
 REGISTRATION_PLAN_SCHEMA = ROOT / "schemas" / "successor_registration_plan.schema.json"
 REGISTRATION_SCHEMA = ROOT / "schemas" / "successor_registration.schema.json"
 EVALUATION_INPUTS_SCHEMA = ROOT / "schemas" / "successor_evaluation_inputs.schema.json"
+TRANSFER_CONTRACT_EXAMPLE = (
+    ROOT / "configs" / "successor" / "resource_arrival_transfer_contract.example.json"
+)
+REGISTRATION_PLAN_EXAMPLE = (
+    ROOT / "configs" / "successor" / "successor_registration_plan.example.json"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -500,14 +543,51 @@ def _transfer_contract() -> ResourceArrivalTransferContract:
         contract_id="successor-protocol-test-contract-v1",
         contract_mode="engineering_dry_run",
         primary_estimand=PRIMARY_ESTIMAND,
-        prediction_formula=PREDICTION_FORMULA,
-        predictor_fields=PREDICTOR_FIELDS,
+        candidate=CandidatePredictionContract(
+            model_id=CANDIDATE_MODEL_ID,
+            formula=PREDICTION_FORMULA,
+            predictor_fields=PREDICTOR_FIELDS,
+            fit_partition=CANDIDATE_FIT_PARTITION,
+            fit_objective=CANDIDATE_FIT_OBJECTIVE,
+            point_parameter_source=CANDIDATE_POINT_PARAMETER_SOURCE,
+        ),
         outcome_field="arrival_count",
         resource_types=tuple(resource_type.value for resource_type in ResourceType),
-        comparator=COMPARATOR,
-        metrics=METRICS,
-        uncertainty_method=UNCERTAINTY_METHOD,
-        uncertainty_scope=UNCERTAINTY_SCOPE,
+        comparator=ComparatorPredictionContract(
+            model_id=COMPARATOR,
+            formula=COMPARATOR_FORMULA,
+            fit_partition=COMPARATOR_FIT_PARTITION,
+            scope=COMPARATOR_SCOPE,
+            response=COMPARATOR_RESPONSE,
+            predictor=COMPARATOR_PREDICTOR,
+            intercept=COMPARATOR_INTERCEPT,
+            weighting=COMPARATOR_WEIGHTING,
+            constraint=COMPARATOR_CONSTRAINT,
+            estimator=COMPARATOR_ESTIMATOR,
+            zero_denominator_policy=COMPARATOR_ZERO_DENOMINATOR_POLICY,
+        ),
+        uncertainty=PredictionUncertaintyContract(
+            method=UNCERTAINTY_METHOD,
+            replication_set=UNCERTAINTY_REPLICATION_SET,
+            interval_type=UNCERTAINTY_INTERVAL_TYPE,
+            interval_level_source=UNCERTAINTY_INTERVAL_LEVEL_SOURCE,
+            quantile_method=UNCERTAINTY_QUANTILE_METHOD,
+            scope=UNCERTAINTY_SCOPE,
+        ),
+        scoring=TransferScoringContract(
+            metrics=METRICS,
+            evaluation_unit=SCORING_EVALUATION_UNIT,
+            weighting=SCORING_WEIGHTING,
+            nrmse_formula=SCORING_NRMSE_FORMULA,
+            absolute_relative_bias_formula=SCORING_ABSOLUTE_RELATIVE_BIAS_FORMULA,
+            relative_improvement_formula=SCORING_RELATIVE_IMPROVEMENT_FORMULA,
+            positive_observed_mean_required=True,
+            positive_comparator_rmse_required=True,
+            block_validity_rule=SCORING_BLOCK_VALIDITY_RULE,
+            missing_data_policy=SCORING_MISSING_DATA_POLICY,
+            aggregation=SCORING_AGGREGATION,
+            non_evaluable_policy=SCORING_NON_EVALUABLE_POLICY,
+        ),
         criteria_frozen=False,
         thresholds=TransferMetricThresholds(
             maximum_duration_weighted_nrmse=None,
@@ -535,6 +615,8 @@ class ProtocolFixture:
     contract: ResourceArrivalTransferContract
     registration: SuccessorRegistration
     registration_package: SuccessorRegistrationPackageVerification
+    prediction_lock_package: SuccessorPredictionLockPackageVerification
+    prediction_lock_digest: str
     evaluation_campaign: CampaignPackageVerification
     evaluation_campaign_digest: str
 
@@ -626,6 +708,30 @@ def protocol_fixture(tmp_path_factory: pytest.TempPathFactory) -> ProtocolFixtur
         adapter_package=adapter_package,
         expected_registration_manifest_sha256=registration_digest,
     )
+    prediction_run = build_successor_prediction_lock(
+        registration_package,
+        source_campaign=source,
+        fit_package=fit_package,
+        adapter_package=adapter_package,
+        committed_at_utc="2030-01-01T11:58:59.000000Z",
+    )
+    prediction_path = write_successor_prediction_lock_package(
+        prediction_run,
+        base / "prediction-lock-package",
+        registration_package=registration_package,
+        source_campaign=source,
+        fit_package=fit_package,
+        adapter_package=adapter_package,
+    )
+    prediction_lock_digest = _sha256(prediction_path / "prediction_lock_manifest.json")
+    prediction_lock_package = verify_successor_prediction_lock_package(
+        prediction_path,
+        registration_package=registration_package,
+        source_campaign=source,
+        fit_package=fit_package,
+        adapter_package=adapter_package,
+        expected_prediction_lock_manifest_sha256=prediction_lock_digest,
+    )
     evaluation, evaluation_digest = _verified_campaign(
         base,
         campaign_id=plan.planned_evaluation_campaign_id,
@@ -642,6 +748,8 @@ def protocol_fixture(tmp_path_factory: pytest.TempPathFactory) -> ProtocolFixtur
         contract=contract,
         registration=registration,
         registration_package=registration_package,
+        prediction_lock_package=prediction_lock_package,
+        prediction_lock_digest=prediction_lock_digest,
         evaluation_campaign=evaluation,
         evaluation_campaign_digest=evaluation_digest,
     )
@@ -752,10 +860,21 @@ def _prospective_domain_guard_harness(
     )
 
 
-def _registration_verification(
+def _bind_verified_evaluation_inputs(
     fixture: ProtocolFixture,
-) -> SuccessorRegistrationPackageVerification:
-    return fixture.registration_package
+    *,
+    registration_package: SuccessorRegistrationPackageVerification | None = None,
+    prediction_lock_package: SuccessorPredictionLockPackageVerification | None = None,
+    evaluation_campaign: CampaignPackageVerification | None = None,
+):
+    return bind_successor_evaluation_inputs(
+        registration_package or fixture.registration_package,
+        prediction_lock_package or fixture.prediction_lock_package,
+        evaluation_campaign or fixture.evaluation_campaign,
+        source_campaign=fixture.source_campaign,
+        fit_package=fixture.fit_package,
+        adapter_package=fixture.adapter_package,
+    )
 
 
 def test_coherent_two_manifest_chain_is_identity_bound_and_fail_closed(
@@ -784,19 +903,22 @@ def test_coherent_two_manifest_chain_is_identity_bound_and_fail_closed(
     assert registration.scientific_use_authorized is False
     assert registration.runner_authorized is False
 
-    inputs = bind_successor_evaluation_inputs(
-        _registration_verification(fixture),
-        fixture.evaluation_campaign,
-    )
+    inputs = _bind_verified_evaluation_inputs(fixture)
     assert inputs.registration_id == registration.registration_id
+    assert inputs.prediction_lock_id == fixture.prediction_lock_package.lock.prediction_lock_id
+    assert inputs.prediction_lock_manifest_sha256 == fixture.prediction_lock_digest
     assert inputs.evaluation_campaign_id == registration.planned_evaluation_campaign_id
     assert inputs.realized_cell_count == 2
     assert inputs.realized_time_block_count == 12
     assert inputs.campaign_identity_reconciled is True
     assert inputs.collection_window_reconciled is True
     assert inputs.cell_block_reconciliation == "exact"
+    assert inputs.prediction_lock_binding_reconciled is True
+    assert inputs.prediction_rows_target_free is True
+    assert inputs.workflow_prediction_commitment is True
     assert inputs.chronology_consistent is True
     assert inputs.registration_time_externally_attested is False
+    assert inputs.prediction_lock_time_externally_attested is False
     assert inputs.prediction_formula_frozen is True
     assert inputs.prediction_rows_preoutcome_locked is False
     assert inputs.outcome_release_custody_verified is False
@@ -823,14 +945,25 @@ def test_checked_in_successor_schemas_equal_live_contracts(
     assert _read_json_object(schema_path) == schema_factory()
 
 
+def test_checked_in_successor_examples_use_the_closed_v11_contract() -> None:
+    contract = load_resource_arrival_transfer_contract(TRANSFER_CONTRACT_EXAMPLE)
+    plan = load_successor_registration_plan(REGISTRATION_PLAN_EXAMPLE)
+
+    assert contract.schema_version == "1.1"
+    assert contract.candidate.model_id == CANDIDATE_MODEL_ID
+    assert contract.comparator.model_id == COMPARATOR
+    assert contract.uncertainty.scope == UNCERTAINTY_SCOPE
+    assert contract.scoring.aggregation == SCORING_AGGREGATION
+    assert plan.schema_version == "1.1"
+    _assert_payload_satisfies_schema(contract.to_dict(), transfer_contract_schema())
+    _assert_payload_satisfies_schema(plan.to_dict(), successor_registration_plan_schema())
+
+
 def test_live_successor_payloads_satisfy_closed_public_schemas(
     protocol_fixture: ProtocolFixture,
 ) -> None:
     fixture = protocol_fixture
-    inputs = bind_successor_evaluation_inputs(
-        _registration_verification(fixture),
-        fixture.evaluation_campaign,
-    )
+    inputs = _bind_verified_evaluation_inputs(fixture)
     for payload, schema in (
         (fixture.contract.to_dict(), transfer_contract_schema()),
         (fixture.plan.to_dict(), successor_registration_plan_schema()),
@@ -975,9 +1108,9 @@ def test_evaluation_binding_requires_exact_registered_blocks_and_ten_resources(
         ].copy()
     changed = replace(fixture.evaluation_campaign, _heldout=heldout)
     with pytest.raises(ValueError, match="campaign wrapper differs"):
-        bind_successor_evaluation_inputs(
-            _registration_verification(fixture),
-            changed,
+        _bind_verified_evaluation_inputs(
+            fixture,
+            evaluation_campaign=changed,
         )
 
 
@@ -999,9 +1132,9 @@ def test_evaluation_binding_rejects_any_realized_predictor_change(
     heldout.loc[heldout["time_block_id"] == "heldout-window-000", field] = replacement
     changed = replace(fixture.evaluation_campaign, _heldout=heldout)
     with pytest.raises(ValueError, match="campaign wrapper differs"):
-        bind_successor_evaluation_inputs(
-            _registration_verification(fixture),
-            changed,
+        _bind_verified_evaluation_inputs(
+            fixture,
+            evaluation_campaign=changed,
         )
 
 
@@ -1016,9 +1149,9 @@ def test_evaluation_binding_rejects_realized_timestamp_change(
     )
     changed = replace(fixture.evaluation_campaign, _heldout=heldout)
     with pytest.raises(ValueError, match="campaign wrapper differs"):
-        bind_successor_evaluation_inputs(
-            _registration_verification(fixture),
-            changed,
+        _bind_verified_evaluation_inputs(
+            fixture,
+            evaluation_campaign=changed,
         )
 
 
@@ -1042,9 +1175,9 @@ def test_real_verified_campaign_with_changed_predictor_fails_semantic_reconcilia
         frame=frame,
     )
     with pytest.raises(ValueError, match="realized predictor design differs"):
-        bind_successor_evaluation_inputs(
-            fixture.registration_package,
-            changed_campaign,
+        _bind_verified_evaluation_inputs(
+            fixture,
+            evaluation_campaign=changed_campaign,
         )
 
 
@@ -1080,9 +1213,9 @@ def test_real_verified_campaign_rejects_submicrosecond_realized_timestamp(
         frame=frame,
     )
     with pytest.raises(ValueError, match="sub-microsecond precision"):
-        bind_successor_evaluation_inputs(
-            fixture.registration_package,
-            changed_campaign,
+        _bind_verified_evaluation_inputs(
+            fixture,
+            evaluation_campaign=changed_campaign,
         )
 
 
@@ -1110,9 +1243,9 @@ def test_real_verified_campaign_rejects_submicrosecond_manifest_boundary(
         ValueError,
         match=rf"realized collection {boundary} cannot contain sub-microsecond precision",
     ):
-        bind_successor_evaluation_inputs(
-            fixture.registration_package,
-            changed_campaign,
+        _bind_verified_evaluation_inputs(
+            fixture,
+            evaluation_campaign=changed_campaign,
         )
 
 
@@ -1129,23 +1262,34 @@ def test_evaluation_binding_rejects_wrong_campaign_and_unbound_evidence(
         collection_end="2030-01-01T12:02:00Z",
     )
     with pytest.raises(ValueError, match="does not match registration"):
-        bind_successor_evaluation_inputs(
-            fixture.registration_package,
-            wrong_campaign,
+        _bind_verified_evaluation_inputs(
+            fixture,
+            evaluation_campaign=wrong_campaign,
         )
 
     with pytest.raises(ValueError, match="externally bound registration"):
-        bind_successor_evaluation_inputs(
-            replace(
+        _bind_verified_evaluation_inputs(
+            fixture,
+            registration_package=replace(
                 fixture.registration_package,
                 externally_digest_bound=False,
             ),
-            fixture.evaluation_campaign,
+        )
+    with pytest.raises(ValueError, match="externally bound prediction lock"):
+        _bind_verified_evaluation_inputs(
+            fixture,
+            prediction_lock_package=replace(
+                fixture.prediction_lock_package,
+                externally_digest_bound=False,
+            ),
         )
     with pytest.raises(ValueError, match="externally bound campaign"):
-        bind_successor_evaluation_inputs(
-            fixture.registration_package,
-            replace(fixture.evaluation_campaign, externally_digest_bound=False),
+        _bind_verified_evaluation_inputs(
+            fixture,
+            evaluation_campaign=replace(
+                fixture.evaluation_campaign,
+                externally_digest_bound=False,
+            ),
         )
 
 
@@ -1160,9 +1304,9 @@ def test_evaluation_rejects_registration_wrapper_drift_without_output(
         fixture,
         tmp_path / f"registration-{mutation}",
     )
-    valid_inputs = bind_successor_evaluation_inputs(
-        registration,
-        fixture.evaluation_campaign,
+    valid_inputs = _bind_verified_evaluation_inputs(
+        fixture,
+        registration_package=registration,
     )
     changed = registration
     if mutation == "plan-cell-id":
@@ -1208,7 +1352,10 @@ def test_evaluation_rejects_registration_wrapper_drift_without_output(
         changed = replace(registration, contract=changed_contract)
 
     with pytest.raises(ValueError, match="wrapper differs from its externally bound package"):
-        bind_successor_evaluation_inputs(changed, fixture.evaluation_campaign)
+        _bind_verified_evaluation_inputs(
+            fixture,
+            registration_package=changed,
+        )
 
     destination = tmp_path / f"must-not-write-{mutation}"
     with pytest.raises(ValueError, match="wrapper differs from its externally bound package"):
@@ -1216,7 +1363,11 @@ def test_evaluation_rejects_registration_wrapper_drift_without_output(
             valid_inputs,
             destination,
             registration_package=changed,
+            prediction_lock_package=fixture.prediction_lock_package,
             evaluation_campaign=fixture.evaluation_campaign,
+            source_campaign=fixture.source_campaign,
+            fit_package=fixture.fit_package,
+            adapter_package=fixture.adapter_package,
         )
     assert not destination.exists()
 
@@ -1616,18 +1767,29 @@ def _write_verified_evaluation_inputs(
     registration: SuccessorRegistrationPackageVerification,
     destination: Path,
 ):
-    inputs = bind_successor_evaluation_inputs(registration, fixture.evaluation_campaign)
+    inputs = _bind_verified_evaluation_inputs(
+        fixture,
+        registration_package=registration,
+    )
     package = write_successor_evaluation_inputs_package(
         inputs,
         destination,
         registration_package=registration,
+        prediction_lock_package=fixture.prediction_lock_package,
         evaluation_campaign=fixture.evaluation_campaign,
+        source_campaign=fixture.source_campaign,
+        fit_package=fixture.fit_package,
+        adapter_package=fixture.adapter_package,
     )
     digest = _sha256(package / "evaluation_inputs_manifest.json")
     checked = verify_successor_evaluation_inputs_package(
         package,
         registration_package=registration,
+        prediction_lock_package=fixture.prediction_lock_package,
         evaluation_campaign=fixture.evaluation_campaign,
+        source_campaign=fixture.source_campaign,
+        fit_package=fixture.fit_package,
+        adapter_package=fixture.adapter_package,
         expected_evaluation_inputs_manifest_sha256=digest,
     )
     assert checked.externally_digest_bound is True
@@ -1684,7 +1846,11 @@ def test_evaluation_input_package_roundtrip_exact_closure_and_no_overwrite(
             checked.inputs,
             checked.package_dir,
             registration_package=registration,
+            prediction_lock_package=fixture.prediction_lock_package,
             evaluation_campaign=fixture.evaluation_campaign,
+            source_campaign=fixture.source_campaign,
+            fit_package=fixture.fit_package,
+            adapter_package=fixture.adapter_package,
         )
 
 
@@ -1770,7 +1936,11 @@ def test_evaluation_package_rejects_external_digest_mismatch_and_schema_tamper(
         verify_successor_evaluation_inputs_package(
             original.package_dir,
             registration_package=registration,
+            prediction_lock_package=fixture.prediction_lock_package,
             evaluation_campaign=fixture.evaluation_campaign,
+            source_campaign=fixture.source_campaign,
+            fit_package=fixture.fit_package,
+            adapter_package=fixture.adapter_package,
             expected_evaluation_inputs_manifest_sha256="0" * 64,
         )
 
@@ -1781,7 +1951,11 @@ def test_evaluation_package_rejects_external_digest_mismatch_and_schema_tamper(
         verify_successor_evaluation_inputs_package(
             tampered,
             registration_package=registration,
+            prediction_lock_package=fixture.prediction_lock_package,
             evaluation_campaign=fixture.evaluation_campaign,
+            source_campaign=fixture.source_campaign,
+            fit_package=fixture.fit_package,
+            adapter_package=fixture.adapter_package,
         )
 
 
@@ -1949,7 +2123,11 @@ def test_evaluation_verifier_rejects_extra_and_symlinked_entries(
         verify_successor_evaluation_inputs_package(
             extra,
             registration_package=registration,
+            prediction_lock_package=fixture.prediction_lock_package,
             evaluation_campaign=fixture.evaluation_campaign,
+            source_campaign=fixture.source_campaign,
+            fit_package=fixture.fit_package,
+            adapter_package=fixture.adapter_package,
         )
 
     symlinked = _copy_package(original.package_dir, tmp_path / "symlinked-evaluation")
@@ -1962,7 +2140,11 @@ def test_evaluation_verifier_rejects_extra_and_symlinked_entries(
         verify_successor_evaluation_inputs_package(
             symlinked,
             registration_package=registration,
+            prediction_lock_package=fixture.prediction_lock_package,
             evaluation_campaign=fixture.evaluation_campaign,
+            source_campaign=fixture.source_campaign,
+            fit_package=fixture.fit_package,
+            adapter_package=fixture.adapter_package,
         )
 
 
@@ -1988,7 +2170,10 @@ def test_unbound_local_manifests_do_not_unlock_the_next_stage(
     )
     assert unbound.externally_digest_bound is False
     with pytest.raises(ValueError, match="externally bound registration"):
-        bind_successor_evaluation_inputs(unbound, fixture.evaluation_campaign)
+        _bind_verified_evaluation_inputs(
+            fixture,
+            registration_package=unbound,
+        )
 
 
 def test_writers_reject_output_nested_in_any_source_evidence(
@@ -2012,7 +2197,10 @@ def test_writers_reject_output_nested_in_any_source_evidence(
     assert not registration_destination.exists()
 
     registration = _write_verified_registration(fixture, tmp_path / "registration")
-    inputs = bind_successor_evaluation_inputs(registration, fixture.evaluation_campaign)
+    inputs = _bind_verified_evaluation_inputs(
+        fixture,
+        registration_package=registration,
+    )
     evaluation_destination = registration.package_dir / "nested-evaluation-inputs"
     before_registration = {path.name for path in registration.package_dir.iterdir()}
     with pytest.raises(ValueError, match="outside every source evidence package"):
@@ -2020,7 +2208,11 @@ def test_writers_reject_output_nested_in_any_source_evidence(
             inputs,
             evaluation_destination,
             registration_package=registration,
+            prediction_lock_package=fixture.prediction_lock_package,
             evaluation_campaign=fixture.evaluation_campaign,
+            source_campaign=fixture.source_campaign,
+            fit_package=fixture.fit_package,
+            adapter_package=fixture.adapter_package,
         )
     assert {path.name for path in registration.package_dir.iterdir()} == before_registration
     assert not evaluation_destination.exists()
@@ -2047,7 +2239,10 @@ def test_writers_reject_forged_caller_objects_before_creating_output(
     assert not registration_destination.exists()
 
     registration = _write_verified_registration(fixture, tmp_path / "registration")
-    inputs = bind_successor_evaluation_inputs(registration, fixture.evaluation_campaign)
+    inputs = _bind_verified_evaluation_inputs(
+        fixture,
+        registration_package=registration,
+    )
     forged_inputs = copy(inputs)
     object.__setattr__(forged_inputs, "runner_authorized", True)
     evaluation_destination = tmp_path / "forged-evaluation"
@@ -2056,7 +2251,11 @@ def test_writers_reject_forged_caller_objects_before_creating_output(
             forged_inputs,
             evaluation_destination,
             registration_package=registration,
+            prediction_lock_package=fixture.prediction_lock_package,
             evaluation_campaign=fixture.evaluation_campaign,
+            source_campaign=fixture.source_campaign,
+            fit_package=fixture.fit_package,
+            adapter_package=fixture.adapter_package,
         )
     assert not evaluation_destination.exists()
 
@@ -2223,6 +2422,7 @@ def test_cli_roundtrip_freezes_registration_then_binds_evaluation_inputs(
             str(fixture.fit_package.package_dir),
             str(fixture.adapter_package.package_dir),
             str(registration_dir),
+            str(fixture.prediction_lock_package.package_dir),
             str(fixture.evaluation_campaign.package_dir),
             str(evaluation_dir),
             "--expected-source-campaign-manifest-sha256",
@@ -2235,6 +2435,8 @@ def test_cli_roundtrip_freezes_registration_then_binds_evaluation_inputs(
             fixture.adapter_package.adapter_manifest_sha256,
             "--expected-registration-manifest-sha256",
             registration_digest,
+            "--expected-prediction-lock-manifest-sha256",
+            fixture.prediction_lock_digest,
             "--expected-evaluation-campaign-manifest-sha256",
             fixture.evaluation_campaign_digest,
         ],
@@ -2246,6 +2448,8 @@ def test_cli_roundtrip_freezes_registration_then_binds_evaluation_inputs(
     assert bound.returncode == 0, bound.stderr
     bound_status = json.loads(bound.stdout)
     assert bound_status["chronology_consistent"] is True
+    assert bound_status["prediction_lock_binding_reconciled"] is True
+    assert bound_status["prediction_rows_target_free"] is True
     assert bound_status["prediction_rows_preoutcome_locked"] is False
     assert bound_status["execution_chain_ready"] is False
     assert bound_status["external_validation"] is False

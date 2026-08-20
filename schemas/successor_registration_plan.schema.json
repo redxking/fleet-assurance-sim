@@ -98,7 +98,7 @@
       ]
     },
     "schema_version": {
-      "const": "1.0"
+      "const": "1.1"
     },
     "study_id": {
       "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",

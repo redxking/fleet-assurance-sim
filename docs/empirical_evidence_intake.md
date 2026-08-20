@@ -220,37 +220,39 @@ At creation time, `adapter_manifest_externally_digest_bound` is `false`. Record 
 
 A generated specification package is therefore an inspectable engineering artifact, not an execution authorization, operational configuration, fleet-size recommendation, or external-validation result.
 
-## Prospective registration and evaluation-input binding
+## Prospective registration, prediction commitment, and evaluation binding
 
-The next evidence boundary is now implemented as a two-manifest protocol. See the [successor prospective transfer protocol](successor_prospective_protocol.md) for the complete commands, package inventories, schemas, and library APIs.
+The next evidence boundary is now implemented as a three-package protocol. See the [successor prospective transfer protocol](successor_prospective_protocol.md) for the complete commands, package inventories, schemas, and library APIs.
 
-[![Five-step successor evidence chain showing bound calibration, frozen registration, a distinct future campaign, realized-input binding, and a still-locked execution gate.](assets/successor-evidence-chain.svg)](assets/successor-evidence-chain.svg)
+[![Six-step successor evidence chain showing bound calibration, frozen registration, target-free prediction commitment, a distinct future campaign, realized-input binding, and a still-locked execution gate.](assets/successor-evidence-chain.svg)](assets/successor-evidence-chain.svg)
 
 The distinction between the two held-out concepts matters:
 
 - The source campaign's historical held-out partition is verified as part of package integrity, but `heldout_used_for_fit=false` and `heldout_used_for_adapter=false` remain enforced.
-- The registration names a different future evaluation campaign and freezes its collection window, cells, time-block IDs, block timestamps, fleet sizes, admission counts, and observation-window durations before collection begins.
-- The evaluation-input binder runs after collection and requires the realized campaign identity, window, block set, predictor design, and ten-resource coverage to reconcile exactly to the registration.
+- The registration names a different future evaluation campaign and freezes its collection window, cells, time-block IDs, block timestamps, fleet sizes, admission counts, and observation-window durations with a declared timestamp ordered before collection begins.
+- The prediction-commitment builder runs without a future-campaign argument and generates candidate and comparator predictions for all ten resources in every planned block.
+- The evaluation-input binder runs after collection and requires the realized campaign identity, window, block set, predictor design, ten-resource coverage, and prediction-commitment digest to reconcile exactly to the registration.
 
-`scripts/freeze_successor_registration.py` creates the seven-file registration package. It binds the externally recorded source-campaign, fit, adapter-policy, and adapter-manifest digests to the registered plan, transfer contract, closed schemas, and implementation hashes. `scripts/bind_successor_evaluation_inputs.py` then creates a separate three-file package that binds the externally recorded registration digest and realized campaign digest.
+`scripts/freeze_successor_registration.py` creates the seven-file registration package. It binds the externally recorded source-campaign, fit, adapter-policy, and adapter-manifest digests to the registered plan, protocol 1.1 transfer contract, closed schemas, and implementation hashes. `scripts/lock_successor_predictions.py` creates a separate seven-file target-free prediction package. `scripts/bind_successor_evaluation_inputs.py` then creates a three-file package that binds the externally recorded registration, prediction-commitment, and realized-campaign digests.
 
-The only implemented transfer target is ten-resource `resource_arrival_rate_transfer`, using the frozen aggregate arrival-rate formula and duration-weighted normalized RMSE, absolute duration-weighted relative bias, and background-only relative-improvement metrics. The engineering example leaves numerical thresholds null rather than presenting unreviewed values as scientific criteria. A prospective contract requires complete numeric thresholds, a passing `successor_transfer` fit, a `successor_transfer` adapter, nonsynthetic calibration evidence, and no notional adapter fields.
+The only implemented transfer target is ten-resource `resource_arrival_rate_transfer`. Protocol 1.1 freezes the candidate formula, per-resource duration-weighted background-only comparator, paired calibration bootstrap, duration-weighted normalized RMSE, absolute duration-weighted relative bias, relative RMSE improvement, denominator rules, no-imputation rule, and all-resource-cell pass requirement. The engineering example leaves numerical thresholds null rather than presenting unreviewed values as scientific criteria. A prospective contract requires complete numeric thresholds, a passing `successor_transfer` fit, a `successor_transfer` adapter, nonsynthetic calibration evidence, and no notional adapter fields.
 
 Operational-outcome transfer is explicitly disabled. The protocol does not score mission outcomes, security events, privilege-weighted loss, recovery cost, or deployment readiness.
 
-Both packages check that local registration precedes the planned and realized collection windows, but they record `registration_time_externally_attested=false`. This is an internal chronology check, not trusted timestamping, a signature, or proof of external receipt.
+The three-package chain checks that declared registration and lock timestamps are internally ordered relative to the planned and realized collection windows, while keeping external-attestation flags false. This is an internal chronology check, not proof of package creation or publication time, trusted timestamping, a signature, or external receipt.
 
-After evaluation-input binding, the chain still records:
+The prediction package records that the future campaign was not supplied, its rows are target-free, and the local ordering is consistent. It also records:
 
 - `prediction_rows_preoutcome_locked=false`;
+- `prediction_lock_time_externally_attested=false`;
 - `outcome_release_custody_verified=false`;
 - `execution_chain_ready=false`;
 - `external_validation=false`;
 - `scientific_use_authorized=false`; and
 - `runner_authorized=false`.
 
-The retained evaluation campaign already contains `arrival_count`, and its package verifier reads that artifact. This step is therefore not a preoutcome blind. It records that prediction rows were not committed before target access and that outcome-release custody is unverified, which keeps execution blocked.
+This distinction is deliberate. The code proves that prediction construction did not accept the future campaign and that the declared lock timestamp is ordered after registration and before the planned collection window. It does not prove package creation or publication time, when an independent party received the digest, or that people and outside systems lacked target access. A scientific pre-outcome lock therefore remains false until a separate trusted receipt or timestamp binds the prediction manifest before collection.
 
-The next implementation slice is an independent preoutcome prediction commitment and outcome-release custody gate, followed by a separately reviewed one-shot scorer and immutable result package. It must not reuse or modify the frozen Stage 3 runner or evidence.
+The next implementation slice is an independent prediction-receipt and outcome-release custody gate, followed by a separately reviewed one-shot scorer and immutable result package. It must not reuse or modify the frozen Stage 3 runner or evidence.
 
-No fleet-size, deployment, security-assurance, scientific-support, or external-validation recommendation should be derived from an intake, fit, adapter, registration, or evaluation-input package alone.
+No fleet-size, deployment, security-assurance, scientific-support, or external-validation recommendation should be derived from an intake, fit, adapter, registration, prediction-commitment, or evaluation-input package alone.

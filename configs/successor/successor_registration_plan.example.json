@@ -28,12 +28,12 @@
   "deviation_policy": "fail_closed",
   "one_shot_evaluation": true,
   "outcome_custody_required": true,
-  "plan_id": "successor-registration-engineering-v1",
+  "plan_id": "successor-registration-engineering-v1.1",
   "planned_collection_end_utc": "2030-01-08T00:00:00.000000Z",
   "planned_collection_start_utc": "2030-01-01T00:00:00.000000Z",
   "planned_evaluation_campaign_id": "future-evaluation-campaign-example",
   "prediction_lock_required": true,
   "registration_mode": "engineering_dry_run",
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "study_id": "successor-arrival-transfer-engineering"
 }

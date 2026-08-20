@@ -1,0 +1,127 @@
+{
+  "$id": "https://fleet-assurance.local/schemas/successor_prediction_rows.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "admission_rate_per_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "agents_admitted": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "candidate_mean_arrival_count_lower": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "candidate_mean_arrival_count_point": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "candidate_mean_arrival_count_upper": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "candidate_mean_arrival_rate_lower_per_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "candidate_mean_arrival_rate_point_per_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "candidate_mean_arrival_rate_upper_per_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "cell_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,255}$",
+      "type": "string"
+    },
+    "comparator_mean_arrival_count_lower": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "comparator_mean_arrival_count_point": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "comparator_mean_arrival_count_upper": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "comparator_mean_arrival_rate_lower_per_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "comparator_mean_arrival_rate_point_per_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "comparator_mean_arrival_rate_upper_per_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "fleet_size": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "resource_id": {
+      "maxLength": 256,
+      "minLength": 1,
+      "type": "string"
+    },
+    "resource_type": {
+      "enum": [
+        "authorization_policy_evaluation",
+        "certificate_issuance_renewal",
+        "configuration_attestation",
+        "dependency_registration",
+        "evidence_ingest_initialization",
+        "identity_issuance",
+        "revocation_readiness",
+        "supervisory_review",
+        "task_dispatch_registration",
+        "telemetry_source_registration"
+      ]
+    },
+    "time_block_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,255}$",
+      "type": "string"
+    },
+    "timestamp_utc": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{6}Z$",
+      "type": "string"
+    },
+    "window_duration_ms": {
+      "exclusiveMinimum": 0.0,
+      "type": "number"
+    }
+  },
+  "required": [
+    "admission_rate_per_s",
+    "agents_admitted",
+    "candidate_mean_arrival_count_lower",
+    "candidate_mean_arrival_count_point",
+    "candidate_mean_arrival_count_upper",
+    "candidate_mean_arrival_rate_lower_per_s",
+    "candidate_mean_arrival_rate_point_per_s",
+    "candidate_mean_arrival_rate_upper_per_s",
+    "cell_id",
+    "comparator_mean_arrival_count_lower",
+    "comparator_mean_arrival_count_point",
+    "comparator_mean_arrival_count_upper",
+    "comparator_mean_arrival_rate_lower_per_s",
+    "comparator_mean_arrival_rate_point_per_s",
+    "comparator_mean_arrival_rate_upper_per_s",
+    "fleet_size",
+    "resource_id",
+    "resource_type",
+    "time_block_id",
+    "timestamp_utc",
+    "window_duration_ms"
+  ],
+  "title": "Target-free successor prediction row",
+  "type": "object"
+}

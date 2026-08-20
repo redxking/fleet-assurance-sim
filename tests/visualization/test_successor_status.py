@@ -80,7 +80,7 @@ def _resource(resource_type: str, state: str) -> SimpleNamespace:
         resource_id=f"resource-{resource_type}",
         resource_type=resource_type,
         gate_status=state,
-        blocking_reasons=() if state == "passed" else (f"{resource_type} gate blocked",),
+        blocking_reasons=(() if state == "passed" else (f"{resource_type} gate blocked",)),
         observation_count=24,
         time_block_count=24,
         fleet_size_min=100,
@@ -219,7 +219,7 @@ def _verified_chain() -> tuple[Any, Any, Any]:
     return campaign, fit_package, adapter_package
 
 
-def _verified_protocol_chain() -> tuple[Any, Any, Any, Any, Any]:
+def _verified_protocol_chain() -> tuple[Any, Any, Any, Any, Any, Any]:
     campaign, fit_package, adapter_package = _verified_chain()
     fit_package.fit.gate_status = "passed"
     fit_package.fit.blocking_reasons = ()
@@ -261,10 +261,59 @@ def _verified_protocol_chain() -> tuple[Any, Any, Any, Any, Any]:
         registration_manifest_sha256=DIGESTS[9],
         externally_digest_bound=True,
     )
+    prediction_lock = SimpleNamespace(
+        prediction_lock_id="private-prediction-lock",
+        registration_id="private-successor-registration",
+        registration_manifest_sha256=registration_package.registration_manifest_sha256,
+        prediction_rows_content_sha256=DIGESTS[14],
+        prediction_parameter_draws_content_sha256=DIGESTS[15],
+        prediction_row_count=120,
+        planned_cell_count=3,
+        planned_time_block_count=12,
+        resource_count=10,
+        paired_bootstrap_replication_count=400,
+        upstream_chain_verified=True,
+        registered_semantics_reconciled=True,
+        planned_predictor_design_reconciled=True,
+        prediction_formula_frozen=True,
+        comparator_formula_frozen=True,
+        future_evaluation_campaign_not_supplied=True,
+        prediction_rows_target_free=True,
+        local_lock_chronology_consistent=True,
+        workflow_prediction_commitment=True,
+        source_historical_heldout_used_for_prediction=False,
+        prediction_rows_preoutcome_locked=False,
+        prediction_lock_time_externally_attested=False,
+        outcome_release_custody_verified=False,
+        execution_chain_ready=False,
+        external_validation=False,
+        scientific_use_authorized=False,
+        runner_authorized=False,
+    )
+    prediction_lock_package = SimpleNamespace(
+        package_dir=Path("/private/prediction-lock-package"),
+        lock=prediction_lock,
+        prediction_rows=(
+            {
+                "prediction_row_id": "private-prediction-row",
+                "predicted_arrival_rate": 123.0,
+            },
+        ),
+        parameter_draws=(
+            {
+                "prediction_parameter_draw_id": "private-draw",
+                "bootstrap_seed": 42,
+            },
+        ),
+        prediction_lock_manifest_sha256=DIGESTS[13],
+        externally_digest_bound=True,
+    )
     inputs = SimpleNamespace(
         evaluation_input_id="private-evaluation-inputs",
         registration_id="private-successor-registration",
         registration_manifest_sha256=registration_package.registration_manifest_sha256,
+        prediction_lock_id="private-prediction-lock",
+        prediction_lock_manifest_sha256=(prediction_lock_package.prediction_lock_manifest_sha256),
         evaluation_campaign_id="private-future-campaign",
         evaluation_campaign_evidence_manifest_sha256=DIGESTS[10],
         evaluation_heldout_content_sha256=DIGESTS[11],
@@ -277,7 +326,11 @@ def _verified_protocol_chain() -> tuple[Any, Any, Any, Any, Any]:
         cell_block_reconciliation="exact",
         chronology_consistent=True,
         registration_time_externally_attested=False,
+        prediction_lock_time_externally_attested=False,
         prediction_formula_frozen=True,
+        prediction_lock_binding_reconciled=True,
+        prediction_rows_target_free=True,
+        workflow_prediction_commitment=True,
         prediction_rows_preoutcome_locked=False,
         outcome_release_custody_verified=False,
         execution_chain_ready=False,
@@ -296,6 +349,7 @@ def _verified_protocol_chain() -> tuple[Any, Any, Any, Any, Any]:
         fit_package,
         adapter_package,
         registration_package,
+        prediction_lock_package,
         evaluation_package,
     )
 
@@ -328,9 +382,12 @@ def test_projection_is_data_minimized_and_surfaces_tri_state_fit() -> None:
     assert states["fit"] == "failed"
     assert states["adapter"] == "blocked"
     assert states["frozen_study_plan"] == "blocked"
+    assert states["prediction_lock"] == "blocked"
     assert states["evaluation_inputs"] == "blocked"
+    assert states["outcome_custody"] == "blocked"
+    assert states["scoring"] == "not_implemented"
     assert states["execution"] == "not_authorized"
-    assert result["schema_version"] == "successor-study-status-v2"
+    assert result["schema_version"] == "successor-study-status-v3"
     assert result["assurance_boundary"]["runner_authorized"] is False
     assert result["assurance_boundary"]["scientific_use_authorized"] is False
     assert result["assurance_boundary"]["external_validation"] is False
@@ -351,7 +408,9 @@ def test_projection_is_data_minimized_and_surfaces_tri_state_fit() -> None:
     assert '"criterion_id"' not in encoded
 
 
-def test_adapter_projection_surfaces_policy_semantics_and_limitations(tmp_path: Path) -> None:
+def test_adapter_projection_surfaces_policy_semantics_and_limitations(
+    tmp_path: Path,
+) -> None:
     campaign, fit, adapter = _verified_chain()
     fit.fit.gate_status = "passed"
     fit.fit.blocking_reasons = ()
@@ -401,13 +460,14 @@ def test_adapter_requires_bound_matching_fit() -> None:
         )
 
 
-def test_two_manifest_projection_is_aggregate_and_never_authorizes_execution() -> None:
-    campaign, fit, adapter, registration, evaluation = _verified_protocol_chain()
+def test_three_package_projection_is_aggregate_and_never_authorizes_execution() -> None:
+    campaign, fit, adapter, registration, prediction_lock, evaluation = _verified_protocol_chain()
     result = assemble_successor_status(
         cast(Any, campaign),
         fit=cast(Any, fit),
         adapter=cast(Any, adapter),
         registration=cast(Any, registration),
+        prediction_lock=cast(Any, prediction_lock),
         evaluation_inputs=cast(Any, evaluation),
     ).payload
 
@@ -420,13 +480,20 @@ def test_two_manifest_projection_is_aggregate_and_never_authorizes_execution() -
         "private-cell",
         "private-evaluation-inputs",
         "private-future-campaign",
+        "private-prediction-lock",
+        "private-prediction-row",
+        "private-draw",
         "2026-02-01T00:00:00.000000Z",
         "/private/registration-package",
+        "/private/prediction-lock-package",
         "/private/evaluation-inputs-package",
     ):
         assert private_value not in encoded
     assert "outcomes remain locked" not in encoded.lower()
-    assert "no prediction commitment was established before target access" in encoded.lower()
+    assert "declared local lock timestamp" in encoded.lower()
+    assert "actual prediction or package creation" in encoded.lower()
+    assert "scientific pre-outcome lock is therefore not established" in encoded.lower()
+    assert "committed locally before" not in encoded.lower()
     for forbidden_key in (
         "registration_id",
         "registered_at_utc",
@@ -442,9 +509,15 @@ def test_two_manifest_projection_is_aggregate_and_never_authorizes_execution() -
         "agents_admitted",
         "window_duration_ms",
         "evaluation_input_id",
+        "prediction_lock_id",
+        "prediction_row_id",
+        "prediction_parameter_draw_id",
         "evaluation_campaign_id",
         "realized_cells",
         "arrival_count",
+        "predicted_arrival_rate",
+        "comparator_model_id",
+        "bootstrap_seed",
         "implementation",
     ):
         assert f'"{forbidden_key}"' not in encoded
@@ -456,10 +529,53 @@ def test_two_manifest_projection_is_aggregate_and_never_authorizes_execution() -
     assert registration_view["registration_time_externally_attested"] is False  # type: ignore[index]
     assert registration_view["prediction_formula_frozen"] is True  # type: ignore[index]
     assert "prediction_function_frozen" not in registration_view  # type: ignore[operator]
+    lock_view = result["prediction_lock"]
+    assert set(lock_view) == {  # type: ignore[arg-type]
+        "prediction_lock_manifest_sha256",
+        "externally_digest_bound",
+        "registration_manifest_sha256",
+        "prediction_rows_content_sha256",
+        "prediction_parameter_draws_content_sha256",
+        "prediction_row_count",
+        "planned_cell_count",
+        "planned_time_block_count",
+        "resource_count",
+        "paired_bootstrap_replication_count",
+        "upstream_chain_verified",
+        "registered_semantics_reconciled",
+        "planned_predictor_design_reconciled",
+        "prediction_formula_frozen",
+        "comparator_formula_frozen",
+        "future_evaluation_campaign_not_supplied",
+        "prediction_rows_target_free",
+        "local_lock_chronology_consistent",
+        "workflow_prediction_commitment",
+        "prediction_rows_preoutcome_locked",
+        "prediction_lock_time_externally_attested",
+        "outcome_release_custody_verified",
+        "execution_chain_ready",
+        "external_validation",
+        "scientific_use_authorized",
+        "runner_authorized",
+    }
+    assert lock_view["prediction_row_count"] == 120  # type: ignore[index]
+    assert lock_view["resource_count"] == 10  # type: ignore[index]
+    assert lock_view["future_evaluation_campaign_not_supplied"] is True  # type: ignore[index]
+    assert lock_view["prediction_rows_target_free"] is True  # type: ignore[index]
+    assert lock_view["local_lock_chronology_consistent"] is True  # type: ignore[index]
+    assert lock_view["workflow_prediction_commitment"] is True  # type: ignore[index]
+    assert lock_view["prediction_rows_preoutcome_locked"] is False  # type: ignore[index]
+    assert lock_view["prediction_lock_time_externally_attested"] is False  # type: ignore[index]
+    assert lock_view["outcome_release_custody_verified"] is False  # type: ignore[index]
     evaluation_view = result["evaluation_inputs"]
     assert evaluation_view["realized_cell_count"] == 3  # type: ignore[index]
     assert evaluation_view["predictor_design_reconciled"] is True  # type: ignore[index]
     assert evaluation_view["exact_cell_block_reconciliation"] is True  # type: ignore[index]
+    assert evaluation_view["prediction_lock_binding_reconciled"] is True  # type: ignore[index]
+    assert evaluation_view["prediction_lock_manifest_sha256"] == DIGESTS[13]  # type: ignore[index]
+    assert evaluation_view["prediction_rows_target_free"] is True  # type: ignore[index]
+    assert evaluation_view["workflow_prediction_commitment"] is True  # type: ignore[index]
+    assert evaluation_view["prediction_lock_time_externally_attested"] is False  # type: ignore[index]
     assert evaluation_view["prediction_rows_preoutcome_locked"] is False  # type: ignore[index]
     assert evaluation_view["outcome_release_custody_verified"] is False  # type: ignore[index]
 
@@ -469,28 +585,34 @@ def test_two_manifest_projection_is_aggregate_and_never_authorizes_execution() -
         "fit": "passed",
         "adapter": "verified",
         "frozen_study_plan": "verified",
+        "prediction_lock": "verified",
         "evaluation_inputs": "verified",
+        "outcome_custody": "pending",
+        "scoring": "not_implemented",
         "execution": "not_authorized",
     }
     boundary = result["assurance_boundary"]
     assert boundary["registration_verified"] is True  # type: ignore[index]
+    assert boundary["prediction_lock_verified"] is True  # type: ignore[index]
     assert boundary["evaluation_inputs_verified"] is True  # type: ignore[index]
+    assert boundary["prediction_rows_preoutcome_locked"] is False  # type: ignore[index]
+    assert boundary["prediction_lock_time_externally_attested"] is False  # type: ignore[index]
+    assert boundary["outcome_release_custody_verified"] is False  # type: ignore[index]
+    assert boundary["scoring_implemented"] is False  # type: ignore[index]
+    assert boundary["scoring_completed"] is False  # type: ignore[index]
     assert boundary["runner_authorized"] is False  # type: ignore[index]
     assert boundary["scientific_use_authorized"] is False  # type: ignore[index]
     assert boundary["external_validation"] is False  # type: ignore[index]
     assert boundary["evaluation_executed"] is False  # type: ignore[index]
+    assert "Prospective evaluation execution is not authorized." in result["blocking_conditions"]
     assert (
-        "No separate execution authorization or result artifact is connected."
-        in result["blocking_conditions"]
-    )
-    assert (
-        "Executable prediction-row construction and scoring are not implemented or authorized."
+        "No separately reviewed one-shot scorer or immutable result package is connected."
         in result["blocking_conditions"]
     )
 
 
 def test_registration_and_evaluation_inputs_require_the_exact_verified_chain() -> None:
-    campaign, fit, adapter, registration, evaluation = _verified_protocol_chain()
+    campaign, fit, adapter, registration, prediction_lock, evaluation = _verified_protocol_chain()
     with pytest.raises(ValueError, match="upstream fit and adapter"):
         assemble_successor_status(
             cast(Any, campaign),
@@ -503,6 +625,26 @@ def test_registration_and_evaluation_inputs_require_the_exact_verified_chain() -
             adapter=cast(Any, adapter),
             evaluation_inputs=cast(Any, evaluation),
         )
+    prediction_lock.lock.registration_manifest_sha256 = DIGESTS[12]
+    with pytest.raises(ValueError, match="different registration manifest"):
+        assemble_successor_status(
+            cast(Any, campaign),
+            fit=cast(Any, fit),
+            adapter=cast(Any, adapter),
+            registration=cast(Any, registration),
+            prediction_lock=cast(Any, prediction_lock),
+        )
+    prediction_lock.lock.registration_manifest_sha256 = registration.registration_manifest_sha256
+    evaluation.inputs.prediction_lock_manifest_sha256 = DIGESTS[12]
+    with pytest.raises(ValueError, match="different prediction-lock manifest"):
+        assemble_successor_status(
+            cast(Any, campaign),
+            fit=cast(Any, fit),
+            adapter=cast(Any, adapter),
+            registration=cast(Any, registration),
+            prediction_lock=cast(Any, prediction_lock),
+            evaluation_inputs=cast(Any, evaluation),
+        )
     registration.registration.adapter_manifest_sha256 = DIGESTS[13]
     with pytest.raises(ValueError, match="different adapter manifest"):
         assemble_successor_status(
@@ -513,8 +655,28 @@ def test_registration_and_evaluation_inputs_require_the_exact_verified_chain() -
         )
 
 
+def test_registration_without_prediction_lock_keeps_later_stages_separate() -> None:
+    campaign, fit, adapter, registration, _, _ = _verified_protocol_chain()
+
+    payload = assemble_successor_status(
+        cast(Any, campaign),
+        fit=cast(Any, fit),
+        adapter=cast(Any, adapter),
+        registration=cast(Any, registration),
+    ).payload
+
+    states = {item["stage"]: item["state"] for item in payload["lifecycle"]}
+    assert states["prediction_lock"] == "pending"
+    assert states["evaluation_inputs"] == "blocked"
+    assert states["outcome_custody"] == "blocked"
+    assert states["scoring"] == "not_implemented"
+    assert states["execution"] == "not_authorized"
+    assert payload["assurance_boundary"]["prediction_lock_verified"] is False
+    assert payload["assurance_boundary"]["outcome_release_custody_verified"] is False
+
+
 def test_registration_verification_does_not_convert_authority_flags() -> None:
-    campaign, fit, adapter, registration, _ = _verified_protocol_chain()
+    campaign, fit, adapter, registration, _, _ = _verified_protocol_chain()
     registration.registration.runner_authorized = True
 
     with pytest.raises(ValueError, match="engineering-evidence boundary"):
@@ -527,7 +689,7 @@ def test_registration_verification_does_not_convert_authority_flags() -> None:
 
 
 def test_public_status_rechecks_registration_and_input_gate_booleans() -> None:
-    campaign, fit, adapter, registration, evaluation = _verified_protocol_chain()
+    campaign, fit, adapter, registration, prediction_lock, evaluation = _verified_protocol_chain()
     registration.registration.prediction_formula_frozen = False
     with pytest.raises(ValueError, match="registration verification gates"):
         assemble_successor_status(
@@ -537,7 +699,7 @@ def test_public_status_rechecks_registration_and_input_gate_booleans() -> None:
             registration=cast(Any, registration),
         )
 
-    campaign, fit, adapter, registration, evaluation = _verified_protocol_chain()
+    campaign, fit, adapter, registration, prediction_lock, evaluation = _verified_protocol_chain()
     evaluation.inputs.predictor_design_reconciled = False
     with pytest.raises(ValueError, match="reconciliation gates"):
         assemble_successor_status(
@@ -545,11 +707,37 @@ def test_public_status_rechecks_registration_and_input_gate_booleans() -> None:
             fit=cast(Any, fit),
             adapter=cast(Any, adapter),
             registration=cast(Any, registration),
+            prediction_lock=cast(Any, prediction_lock),
+            evaluation_inputs=cast(Any, evaluation),
+        )
+
+    campaign, fit, adapter, registration, prediction_lock, _ = _verified_protocol_chain()
+    prediction_lock.lock.prediction_rows_preoutcome_locked = True
+    with pytest.raises(ValueError, match="local-commitment boundary"):
+        assemble_successor_status(
+            cast(Any, campaign),
+            fit=cast(Any, fit),
+            adapter=cast(Any, adapter),
+            registration=cast(Any, registration),
+            prediction_lock=cast(Any, prediction_lock),
+        )
+
+    campaign, fit, adapter, registration, prediction_lock, evaluation = _verified_protocol_chain()
+    evaluation.inputs.prediction_lock_time_externally_attested = True
+    with pytest.raises(ValueError, match="engineering-evidence boundary"):
+        assemble_successor_status(
+            cast(Any, campaign),
+            fit=cast(Any, fit),
+            adapter=cast(Any, adapter),
+            registration=cast(Any, registration),
+            prediction_lock=cast(Any, prediction_lock),
             evaluation_inputs=cast(Any, evaluation),
         )
 
 
-def test_load_verifies_the_complete_digest_chain(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_load_verifies_the_complete_digest_chain(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     campaign, fit, adapter = _verified_chain()
     calls: list[tuple[str, dict[str, object]]] = []
 
@@ -587,10 +775,10 @@ def test_load_verifies_the_complete_digest_chain(monkeypatch: pytest.MonkeyPatch
     assert result.payload["adapter"] is not None
 
 
-def test_load_verifies_the_two_manifest_chain_in_order(
+def test_load_verifies_the_three_package_chain_in_order(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    campaign, fit, adapter, registration, evaluation = _verified_protocol_chain()
+    campaign, fit, adapter, registration, prediction_lock, evaluation = _verified_protocol_chain()
     evaluation_campaign = SimpleNamespace(evidence_manifest_sha256=DIGESTS[10])
     calls: list[tuple[str, object, dict[str, object]]] = []
 
@@ -610,6 +798,10 @@ def test_load_verifies_the_two_manifest_chain_in_order(
         calls.append(("registration", path, kwargs))
         return registration
 
+    def prediction_lock_verify(path: object, **kwargs: object) -> Any:
+        calls.append(("prediction_lock", path, kwargs))
+        return prediction_lock
+
     def evaluation_verify(path: object, **kwargs: object) -> Any:
         calls.append(("evaluation_inputs", path, kwargs))
         return evaluation
@@ -627,6 +819,11 @@ def test_load_verifies_the_two_manifest_chain_in_order(
         "verify_successor_evaluation_inputs_package",
         evaluation_verify,
     )
+    monkeypatch.setattr(
+        status_module,
+        "verify_successor_prediction_lock_package",
+        prediction_lock_verify,
+    )
 
     result = load_successor_status(
         "source-campaign",
@@ -638,6 +835,8 @@ def test_load_verifies_the_two_manifest_chain_in_order(
         expected_adapter_manifest_sha256=DIGESTS[2],
         registration_package="registration",
         expected_registration_manifest_sha256=DIGESTS[9],
+        prediction_lock_package="prediction-lock",
+        expected_prediction_lock_manifest_sha256=DIGESTS[13],
         evaluation_campaign_package="evaluation-campaign",
         expected_evaluation_campaign_evidence_manifest_sha256=DIGESTS[10],
         evaluation_inputs_package="evaluation-inputs",
@@ -649,6 +848,7 @@ def test_load_verifies_the_two_manifest_chain_in_order(
         "fit",
         "adapter",
         "registration",
+        "prediction_lock",
         "campaign",
         "evaluation_inputs",
     ]
@@ -657,11 +857,22 @@ def test_load_verifies_the_two_manifest_chain_in_order(
     assert registration_kwargs["fit_package"] is fit
     assert registration_kwargs["adapter_package"] is adapter
     assert registration_kwargs["expected_registration_manifest_sha256"] == DIGESTS[9]
-    evaluation_kwargs = calls[5][2]
+    prediction_lock_kwargs = calls[4][2]
+    assert prediction_lock_kwargs["source_campaign"] is campaign
+    assert prediction_lock_kwargs["fit_package"] is fit
+    assert prediction_lock_kwargs["adapter_package"] is adapter
+    assert prediction_lock_kwargs["registration_package"] is registration
+    assert prediction_lock_kwargs["expected_prediction_lock_manifest_sha256"] == DIGESTS[13]
+    evaluation_kwargs = calls[6][2]
+    assert evaluation_kwargs["source_campaign"] is campaign
+    assert evaluation_kwargs["fit_package"] is fit
+    assert evaluation_kwargs["adapter_package"] is adapter
     assert evaluation_kwargs["registration_package"] is registration
+    assert evaluation_kwargs["prediction_lock_package"] is prediction_lock
     assert evaluation_kwargs["evaluation_campaign"] is evaluation_campaign
     assert evaluation_kwargs["expected_evaluation_inputs_manifest_sha256"] == DIGESTS[12]
     assert result.payload["registration"] is not None
+    assert result.payload["prediction_lock"] is not None
     assert result.payload["evaluation_inputs"] is not None
     assert result.payload["assurance_boundary"]["runner_authorized"] is False  # type: ignore[index]
 
@@ -685,6 +896,19 @@ def test_load_rejects_partial_optional_evidence_sets() -> None:
             "campaign",
             expected_campaign_evidence_manifest_sha256=DIGESTS[0],
             registration_package="registration",
+        )
+    with pytest.raises(ValueError, match="prediction-lock package"):
+        load_successor_status(
+            "campaign",
+            expected_campaign_evidence_manifest_sha256=DIGESTS[0],
+            prediction_lock_package="prediction-lock",
+        )
+    with pytest.raises(ValueError, match="verified registration"):
+        load_successor_status(
+            "campaign",
+            expected_campaign_evidence_manifest_sha256=DIGESTS[0],
+            prediction_lock_package="prediction-lock",
+            expected_prediction_lock_manifest_sha256=DIGESTS[13],
         )
     with pytest.raises(ValueError, match="evaluation campaign"):
         load_successor_status(
@@ -718,10 +942,18 @@ def test_writer_builds_strict_offline_accessible_assets(tmp_path: Path) -> None:
     assert "prospective execution not authorized" in html
     assert 'aria-labelledby="protocol-title"' in html
     assert 'aria-labelledby="registration-title"' in html
+    assert 'aria-labelledby="prediction-lock-title"' in html
     assert 'aria-labelledby="evaluation-inputs-title"' in html
-    assert "renderRegistration();renderEvaluationInputs()" in html
+    assert "renderRegistration();renderPredictionLock();renderEvaluationInputs()" in html
     assert "evidenceKind(value[1])" in html
-    assert "implemented prediction-row construction" in html
+    assert "target-free local commitment" in html
+    assert html.count("Declared chronology") == 2
+    assert "Declared lock ordering" in html
+    assert "Creation and publication time are not established" in html
+    assert "committed from the frozen plan" not in html
+    assert "not_implemented" in html
+    assert "grid-template-columns:repeat(3,minmax(0,1fr))" in html
+    assert "grid-template-columns:repeat(2,minmax(0,1fr))" in html
     assert "registration verification" not in html.lower()
     assert '<div id="globalGates" class="gate-grid">' in html
     assert "fit.global_criteria.forEach" in html
@@ -770,7 +1002,9 @@ def test_writer_accepts_an_existing_empty_destination(
     assert all(path.is_file() and not path.is_symlink() for path in destination.iterdir())
 
 
-def test_writer_replaces_only_an_exact_owned_pair_with_overwrite(tmp_path: Path) -> None:
+def test_writer_replaces_only_an_exact_owned_pair_with_overwrite(
+    tmp_path: Path,
+) -> None:
     campaign, fit, _ = _verified_chain()
     bundle = assemble_successor_status(cast(Any, campaign), fit=cast(Any, fit))
     destination = tmp_path / "public"
@@ -868,7 +1102,9 @@ def test_writer_rejects_destination_and_child_symlinks(
     assert (destination / "successor-status.json").read_text(encoding="utf-8") == "retain"
 
 
-def test_private_cleanup_never_follows_a_replaced_directory_symlink(tmp_path: Path) -> None:
+def test_private_cleanup_never_follows_a_replaced_directory_symlink(
+    tmp_path: Path,
+) -> None:
     external = tmp_path / "external"
     external.mkdir()
     private_asset = external / "index.html"
@@ -1066,6 +1302,19 @@ def test_writer_rejects_human_supplied_policy_identifiers(
         "window_duration_ms",
         "evaluation_campaign_id",
         "evaluation_input_id",
+        "prediction_lock_id",
+        "prediction_row_id",
+        "prediction_parameter_draw_id",
+        "prediction_rows",
+        "prediction_parameter_draws",
+        "predicted_arrival_rate",
+        "bootstrap_seed",
+        "committed_at_utc",
+        "prediction_locked_at_utc",
+        "custodian_id",
+        "receipt_id",
+        "scores",
+        "results",
         "realized_cells",
         "arrival_count",
         "implementation",
@@ -1075,12 +1324,13 @@ def test_writer_rejects_successor_entity_details(
     tmp_path: Path,
     forbidden_key: str,
 ) -> None:
-    campaign, fit, adapter, registration, evaluation = _verified_protocol_chain()
+    campaign, fit, adapter, registration, prediction_lock, evaluation = _verified_protocol_chain()
     bundle = assemble_successor_status(
         cast(Any, campaign),
         fit=cast(Any, fit),
         adapter=cast(Any, adapter),
         registration=cast(Any, registration),
+        prediction_lock=cast(Any, prediction_lock),
         evaluation_inputs=cast(Any, evaluation),
     )
     section = cast(dict[str, object], bundle.payload["registration"])
@@ -1098,4 +1348,20 @@ def test_build_refuses_to_write_inside_evidence_package(tmp_path: Path) -> None:
             campaign,
             campaign / "ui",
             expected_campaign_evidence_manifest_sha256=DIGESTS[0],
+        )
+
+
+def test_build_refuses_to_write_inside_prediction_lock_package(tmp_path: Path) -> None:
+    campaign = tmp_path / "campaign-package"
+    prediction_lock = tmp_path / "prediction-lock-package"
+    campaign.mkdir()
+    prediction_lock.mkdir()
+
+    with pytest.raises(ValueError, match="outside immutable evidence"):
+        build_successor_status(
+            campaign,
+            prediction_lock / "ui",
+            expected_campaign_evidence_manifest_sha256=DIGESTS[0],
+            prediction_lock_package=prediction_lock,
+            expected_prediction_lock_manifest_sha256=DIGESTS[13],
         )

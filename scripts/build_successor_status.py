@@ -78,6 +78,16 @@ def build_parser() -> argparse.ArgumentParser:
         help="Externally recorded successor registration-manifest digest",
     )
     parser.add_argument(
+        "--prediction-lock-package",
+        type=Path,
+        help="Optional target-free prediction-lock package",
+    )
+    parser.add_argument(
+        "--expected-prediction-lock-manifest-sha256",
+        type=_sha256_argument,
+        help="Externally recorded prediction-lock manifest digest",
+    )
+    parser.add_argument(
         "--evaluation-campaign-package",
         type=Path,
         help="Optional realized evaluation campaign package",
@@ -120,6 +130,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         expected_adapter_manifest_sha256=args.expected_adapter_manifest_sha256,
         registration_package=args.registration_package,
         expected_registration_manifest_sha256=(args.expected_registration_manifest_sha256),
+        prediction_lock_package=args.prediction_lock_package,
+        expected_prediction_lock_manifest_sha256=(args.expected_prediction_lock_manifest_sha256),
         evaluation_campaign_package=args.evaluation_campaign_package,
         expected_evaluation_campaign_evidence_manifest_sha256=(
             args.expected_evaluation_campaign_evidence_manifest_sha256
@@ -139,10 +151,18 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "overall_state": payload["overall_state"],
                 "projection_sha256": payload["projection_sha256"],
                 "registration_verified": payload["assurance_boundary"]["registration_verified"],
+                "prediction_lock_verified": payload["assurance_boundary"][
+                    "prediction_lock_verified"
+                ],
+                "prediction_lock_time_externally_attested": False,
                 "evaluation_inputs_verified": payload["assurance_boundary"][
                     "evaluation_inputs_verified"
                 ],
                 "scientific_use_authorized": False,
+                "outcome_release_custody_verified": False,
+                "scoring_implemented": False,
+                "scoring_completed": False,
+                "evaluation_executed": False,
                 "runner_authorized": False,
                 "external_validation": False,
             },

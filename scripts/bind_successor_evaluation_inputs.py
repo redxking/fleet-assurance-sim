@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from fleet_sim.empirical.assurance_campaign import verify_empirical_campaign_package
 from fleet_sim.empirical.calibration_gate import verify_empirical_calibration_package
+from fleet_sim.empirical.prediction_lock import verify_successor_prediction_lock_package
 from fleet_sim.empirical.resource_adapter import verify_adapted_resource_bundle
 from fleet_sim.empirical.successor_protocol import (
     bind_successor_evaluation_inputs,
@@ -36,6 +37,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("fit_package", type=Path)
     parser.add_argument("adapter_package", type=Path)
     parser.add_argument("registration_package", type=Path)
+    parser.add_argument("prediction_lock_package", type=Path)
     parser.add_argument("evaluation_campaign", type=Path)
     parser.add_argument("output_dir", type=Path)
     parser.add_argument("--expected-source-campaign-manifest-sha256", required=True, type=_digest)
@@ -43,6 +45,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--expected-adapter-policy-sha256", required=True, type=_digest)
     parser.add_argument("--expected-adapter-manifest-sha256", required=True, type=_digest)
     parser.add_argument("--expected-registration-manifest-sha256", required=True, type=_digest)
+    parser.add_argument("--expected-prediction-lock-manifest-sha256", required=True, type=_digest)
     parser.add_argument(
         "--expected-evaluation-campaign-manifest-sha256", required=True, type=_digest
     )
@@ -79,16 +82,35 @@ def main() -> int:
         adapter_package=adapter,
         expected_registration_manifest_sha256=args.expected_registration_manifest_sha256,
     )
+    prediction_lock = verify_successor_prediction_lock_package(
+        args.prediction_lock_package,
+        registration_package=registration,
+        source_campaign=source,
+        fit_package=fit,
+        adapter_package=adapter,
+        expected_prediction_lock_manifest_sha256=(args.expected_prediction_lock_manifest_sha256),
+    )
     evaluation = verify_empirical_campaign_package(
         args.evaluation_campaign,
         expected_evidence_manifest_sha256=args.expected_evaluation_campaign_manifest_sha256,
     )
-    inputs = bind_successor_evaluation_inputs(registration, evaluation)
+    inputs = bind_successor_evaluation_inputs(
+        registration,
+        prediction_lock,
+        evaluation,
+        source_campaign=source,
+        fit_package=fit,
+        adapter_package=adapter,
+    )
     destination = write_successor_evaluation_inputs_package(
         inputs,
         args.output_dir,
         registration_package=registration,
+        prediction_lock_package=prediction_lock,
         evaluation_campaign=evaluation,
+        source_campaign=source,
+        fit_package=fit,
+        adapter_package=adapter,
     )
     digest = hashlib.sha256(
         (destination / "evaluation_inputs_manifest.json").read_bytes()
@@ -96,7 +118,11 @@ def main() -> int:
     checked = verify_successor_evaluation_inputs_package(
         destination,
         registration_package=registration,
+        prediction_lock_package=prediction_lock,
         evaluation_campaign=evaluation,
+        source_campaign=source,
+        fit_package=fit,
+        adapter_package=adapter,
         expected_evaluation_inputs_manifest_sha256=digest,
     )
     print(
@@ -107,7 +133,9 @@ def main() -> int:
                 "execution_chain_ready": False,
                 "external_validation": False,
                 "output_dir": str(destination),
+                "prediction_lock_binding_reconciled": True,
                 "prediction_rows_preoutcome_locked": False,
+                "prediction_rows_target_free": True,
                 "runner_authorized": False,
                 "scientific_use_authorized": False,
             },

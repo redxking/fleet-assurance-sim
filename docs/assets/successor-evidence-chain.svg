@@ -1,115 +1,81 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="640" viewBox="0 0 1600 640" role="img" aria-labelledby="title desc">
-  <title id="title">Prospective successor-study evidence chain</title>
-  <desc id="desc">A verified calibration fit and resource adapter feed a frozen registration. A distinct future campaign is collected only after registration, then bound by a separate evaluation-input manifest. Execution remains locked until prediction custody and outcome-release custody requirements are satisfied.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="720" viewBox="0 0 1600 720" role="img" aria-labelledby="title desc">
+  <title id="title">Successor-study evidence chain with target-free prediction commitment</title>
+  <desc id="desc">Six numbered stages move from bound calibration evidence to a frozen version 1.1 registration, a target-free local prediction commitment, collection of a distinct future campaign, realized-input binding, and a still-blocked execution gate. A separate lower boundary lists independent timing, outcome custody, scoring, and authorization as unfinished.</desc>
   <defs>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
-      <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#17324D" flood-opacity="0.11"/>
-    </filter>
     <linearGradient id="header" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#17324D"/>
-      <stop offset="1" stop-color="#245377"/>
+      <stop offset="0" stop-color="#142F47"/>
+      <stop offset="1" stop-color="#245A7A"/>
     </linearGradient>
-    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0 0 L10 5 L0 10 Z" fill="#8190A0"/>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#17324D" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#8796A5"/>
     </marker>
   </defs>
 
-  <rect width="1600" height="640" rx="28" fill="#F5F8FB"/>
-  <path d="M28 0 H1572 A28 28 0 0 1 1600 28 V112 H0 V28 A28 28 0 0 1 28 0 Z" fill="url(#header)"/>
-  <text x="64" y="54" fill="#FFFFFF" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="700">Two manifests separate the frozen plan from realized evidence</text>
-  <text x="64" y="86" fill="#D9E8F2" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17">The chain verifies evidence linkage without authorizing evaluation or claiming external validation.</text>
+  <rect width="1600" height="720" rx="28" fill="#F4F7FA"/>
+  <path d="M28 0 H1572 A28 28 0 0 1 1600 28 V122 H0 V28 A28 28 0 0 1 28 0 Z" fill="url(#header)"/>
+  <text x="58" y="54" fill="#FFFFFF" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="700">Freeze semantics, commit predictions, then collect evidence</text>
+  <text x="58" y="88" fill="#D7E6F0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17">Protocol 1.1 keeps target-free construction separate from trusted timing, custody, scoring, and authority.</text>
 
-  <line x1="304" y1="318" x2="358" y2="318" stroke="#8190A0" stroke-width="5" marker-end="url(#arrow)"/>
-  <line x1="622" y1="318" x2="676" y2="318" stroke="#8190A0" stroke-width="5" marker-end="url(#arrow)"/>
-  <line x1="940" y1="318" x2="994" y2="318" stroke="#8190A0" stroke-width="5" marker-end="url(#arrow)"/>
-  <line x1="1258" y1="318" x2="1312" y2="318" stroke="#8190A0" stroke-width="5" marker-end="url(#arrow)"/>
+  <rect x="28" y="143" width="1544" height="389" rx="22" fill="none" stroke="#B7C5D1" stroke-width="2" stroke-dasharray="9 8"/>
+  <rect x="54" y="132" width="278" height="28" rx="14" fill="#F4F7FA"/>
+  <text x="193" y="151" text-anchor="middle" fill="#526575" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">LOCAL, HASH-BOUND SOFTWARE CHAIN</text>
 
-  <g filter="url(#shadow)">
-    <rect x="40" y="168" width="264" height="300" rx="18" fill="#FFFFFF"/>
-    <rect x="40" y="168" width="264" height="10" rx="5" fill="#2A9D8F"/>
+  <g stroke="#8796A5" stroke-width="4" marker-end="url(#arrow)">
+    <line x1="272" y1="334" x2="298" y2="334"/>
+    <line x1="532" y1="334" x2="558" y2="334"/>
+    <line x1="792" y1="334" x2="818" y2="334"/>
+    <line x1="1052" y1="334" x2="1078" y2="334"/>
+    <line x1="1312" y1="334" x2="1338" y2="334"/>
   </g>
-  <circle cx="86" cy="220" r="25" fill="#E1F3F0"/>
-  <path d="M74 220 L82 228 L99 208" fill="none" stroke="#247F75" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="276" y="214" text-anchor="end" fill="#7A8897" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">01</text>
-  <text x="68" y="276" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Bound calibration</text>
-  <text x="68" y="308" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">and adapter</text>
-  <text x="68" y="350" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15.5">
-    <tspan x="68" dy="0">Fit and uncertainty gates</tspan>
-    <tspan x="68" dy="24">Ten explicit resource specs</tspan>
-    <tspan x="68" dy="24">No held-out fitting</tspan>
-  </text>
-  <rect x="68" y="418" width="136" height="30" rx="15" fill="#E1F3F0"/>
-  <text x="136" y="438" text-anchor="middle" fill="#247F75" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12.5" font-weight="700">VERIFIED INPUT</text>
 
-  <g filter="url(#shadow)">
-    <rect x="358" y="168" width="264" height="300" rx="18" fill="#FFFFFF"/>
-    <rect x="358" y="168" width="264" height="10" rx="5" fill="#6C5AA7"/>
-  </g>
-  <circle cx="404" cy="220" r="25" fill="#EEEAF8"/>
-  <rect x="393" y="215" width="22" height="17" rx="3" fill="none" stroke="#6C5AA7" stroke-width="3"/>
-  <path d="M397 215 V209 A7 7 0 0 1 411 209 V215" fill="none" stroke="#6C5AA7" stroke-width="3" stroke-linecap="round"/>
-  <text x="594" y="214" text-anchor="end" fill="#7A8897" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">02</text>
-  <text x="386" y="276" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Freeze registration</text>
-  <text x="386" y="322" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15.5">
-    <tspan x="386" dy="0">Future campaign identity</tspan>
-    <tspan x="386" dy="24">Cells, blocks, metrics</tspan>
-    <tspan x="386" dy="24">Thresholds and code hashes</tspan>
-  </text>
-  <rect x="386" y="418" width="160" height="30" rx="15" fill="#EEEAF8"/>
-  <text x="466" y="438" text-anchor="middle" fill="#6C5AA7" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12.5" font-weight="700">MANIFEST ONE</text>
+  <g filter="url(#shadow)"><rect x="42" y="179" width="230" height="326" rx="18" fill="#FFFFFF"/><rect x="42" y="179" width="230" height="9" rx="5" fill="#28897E"/></g>
+  <circle cx="82" cy="226" r="23" fill="#E1F3F0"/><path d="M71 226 L79 234 L94 215" fill="none" stroke="#247F75" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="245" y="221" text-anchor="end" fill="#7A8897" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">01</text>
+  <text x="64" y="279" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700"><tspan x="64">Bind calibration</tspan><tspan x="64" dy="27">and adapter</tspan></text>
+  <text x="64" y="355" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14.5"><tspan x="64">Ten resource fits</tspan><tspan x="64" dy="23">Calibration-only estimates</tspan><tspan x="64" dy="23">No-fallback specifications</tspan></text>
+  <rect x="64" y="456" width="130" height="29" rx="14" fill="#E1F3F0"/><text x="129" y="475" text-anchor="middle" fill="#247F75" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="700">VERIFIED INPUT</text>
 
-  <g filter="url(#shadow)">
-    <rect x="676" y="168" width="264" height="300" rx="18" fill="#FFFFFF"/>
-    <rect x="676" y="168" width="264" height="10" rx="5" fill="#2E6F9E"/>
-  </g>
-  <circle cx="722" cy="220" r="25" fill="#E6F0F7"/>
-  <path d="M710 225 L722 212 L734 225 M710 212 H734" fill="none" stroke="#2E6F9E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="912" y="214" text-anchor="end" fill="#7A8897" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">03</text>
-  <text x="704" y="276" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Collect future evidence</text>
-  <text x="704" y="322" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15.5">
-    <tspan x="704" dy="0">Distinct campaign</tspan>
-    <tspan x="704" dy="24">Starts after registration</tspan>
-    <tspan x="704" dy="24">No plan changes</tspan>
-  </text>
-  <rect x="704" y="418" width="150" height="30" rx="15" fill="#E6F0F7"/>
-  <text x="779" y="438" text-anchor="middle" fill="#2E6F9E" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12.5" font-weight="700">PROSPECTIVE</text>
+  <g filter="url(#shadow)"><rect x="302" y="179" width="230" height="326" rx="18" fill="#FFFFFF"/><rect x="302" y="179" width="230" height="9" rx="5" fill="#6C5AA7"/></g>
+  <circle cx="342" cy="226" r="23" fill="#EEEAF8"/><rect x="332" y="221" width="20" height="16" rx="3" fill="none" stroke="#6C5AA7" stroke-width="3"/><path d="M336 221 V216 A6 6 0 0 1 348 216 V221" fill="none" stroke="#6C5AA7" stroke-width="3" stroke-linecap="round"/>
+  <text x="505" y="221" text-anchor="end" fill="#7A8897" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">02</text>
+  <text x="324" y="279" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700"><tspan x="324">Freeze protocol</tspan><tspan x="324" dy="27">version 1.1</tspan></text>
+  <text x="324" y="355" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14.5"><tspan x="324">Candidate + comparator</tspan><tspan x="324" dy="23">Intervals + score rules</tspan><tspan x="324" dy="23">Exact future design</tspan></text>
+  <rect x="324" y="456" width="134" height="29" rx="14" fill="#EEEAF8"/><text x="391" y="475" text-anchor="middle" fill="#6C5AA7" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="700">REGISTRATION</text>
 
-  <g filter="url(#shadow)">
-    <rect x="994" y="168" width="264" height="300" rx="18" fill="#FFFFFF"/>
-    <rect x="994" y="168" width="264" height="10" rx="5" fill="#E67E22"/>
-  </g>
-  <circle cx="1040" cy="220" r="25" fill="#FFF0E2"/>
-  <path d="M1028 211 H1052 M1028 220 H1047 M1028 229 H1042" stroke="#E67E22" stroke-width="3.4" stroke-linecap="round"/>
-  <text x="1230" y="214" text-anchor="end" fill="#7A8897" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">04</text>
-  <text x="1022" y="276" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Bind realized inputs</text>
-  <text x="1022" y="322" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15.5">
-    <tspan x="1022" dy="0">Registration digest</tspan>
-    <tspan x="1022" dy="24">Campaign digest</tspan>
-    <tspan x="1022" dy="24">Exact cell reconciliation</tspan>
-  </text>
-  <rect x="1022" y="418" width="160" height="30" rx="15" fill="#FFF0E2"/>
-  <text x="1102" y="438" text-anchor="middle" fill="#C56513" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12.5" font-weight="700">MANIFEST TWO</text>
+  <g filter="url(#shadow)"><rect x="562" y="179" width="230" height="326" rx="18" fill="#FFFFFF"/><rect x="562" y="179" width="230" height="9" rx="5" fill="#2E6F9E"/></g>
+  <circle cx="602" cy="226" r="23" fill="#E6F0F7"/><path d="M591 228 H613 M595 219 H609 M598 237 H606" fill="none" stroke="#2E6F9E" stroke-width="3.3" stroke-linecap="round"/>
+  <text x="765" y="221" text-anchor="end" fill="#7A8897" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">03</text>
+  <text x="584" y="279" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700"><tspan x="584">Commit target-free</tspan><tspan x="584" dy="27">prediction rows</tspan></text>
+  <text x="584" y="355" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14.5"><tspan x="584">All blocks × resources</tspan><tspan x="584" dy="23">Paired bootstrap draws</tspan><tspan x="584" dy="23">No future campaign input</tspan></text>
+  <rect x="584" y="456" width="156" height="29" rx="14" fill="#E6F0F7"/><text x="662" y="475" text-anchor="middle" fill="#2E6F9E" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="700">LOCAL COMMITMENT</text>
 
-  <g filter="url(#shadow)">
-    <rect x="1312" y="168" width="248" height="300" rx="18" fill="#FFFFFF"/>
-    <rect x="1312" y="168" width="248" height="10" rx="5" fill="#8190A0"/>
-  </g>
-  <circle cx="1358" cy="220" r="25" fill="#E9EFF4"/>
-  <rect x="1347" y="215" width="22" height="17" rx="3" fill="none" stroke="#526272" stroke-width="3"/>
-  <path d="M1351 215 V209 A7 7 0 0 1 1365 209 V215" fill="none" stroke="#526272" stroke-width="3" stroke-linecap="round"/>
-  <text x="1532" y="214" text-anchor="end" fill="#7A8897" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">05</text>
-  <text x="1340" y="276" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Execution stays locked</text>
-  <text x="1340" y="322" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15.5">
-    <tspan x="1340" dy="0">Separate authorization</tspan>
-    <tspan x="1340" dy="24">Prediction custody</tspan>
-    <tspan x="1340" dy="24">Outcome-release custody</tspan>
-  </text>
-  <rect x="1340" y="418" width="144" height="30" rx="15" fill="#E9EFF4"/>
-  <text x="1412" y="438" text-anchor="middle" fill="#526272" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12.5" font-weight="700">NOT AUTHORIZED</text>
+  <g filter="url(#shadow)"><rect x="822" y="179" width="230" height="326" rx="18" fill="#FFFFFF"/><rect x="822" y="179" width="230" height="9" rx="5" fill="#3A799A"/></g>
+  <circle cx="862" cy="226" r="23" fill="#E7F2F7"/><path d="M851 232 L862 219 L873 232 M851 218 H873" fill="none" stroke="#3A799A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1025" y="221" text-anchor="end" fill="#7A8897" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">04</text>
+  <text x="844" y="279" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700"><tspan x="844">Collect distinct</tspan><tspan x="844" dy="27">future evidence</tspan></text>
+  <text x="844" y="355" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14.5"><tspan x="844">Registered campaign</tspan><tspan x="844" dy="23">Frozen blocks and timing</tspan><tspan x="844" dy="23">No plan revisions</tspan></text>
+  <rect x="844" y="456" width="122" height="29" rx="14" fill="#E7F2F7"/><text x="905" y="475" text-anchor="middle" fill="#316B8A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="700">PROSPECTIVE</text>
 
-  <rect x="40" y="512" width="1520" height="88" rx="16" fill="#FFFFFF" stroke="#B9C6D2" stroke-width="2" stroke-dasharray="9 8"/>
-  <circle cx="78" cy="556" r="13" fill="#17324D"/>
-  <path d="M72 556 L77 561 L85 550" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="106" y="548" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">Current executable target: ten-resource arrival-rate transfer.</text>
-  <text x="106" y="576" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15.5">Operational-failure transfer remains outside the chain until an authorized, separately adjudicated outcome package exists.</text>
+  <g filter="url(#shadow)"><rect x="1082" y="179" width="230" height="326" rx="18" fill="#FFFFFF"/><rect x="1082" y="179" width="230" height="9" rx="5" fill="#D47722"/></g>
+  <circle cx="1122" cy="226" r="23" fill="#FFF0E2"/><path d="M1111 217 H1133 M1111 226 H1129 M1111 235 H1125" stroke="#D47722" stroke-width="3.3" stroke-linecap="round"/>
+  <text x="1285" y="221" text-anchor="end" fill="#7A8897" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">05</text>
+  <text x="1104" y="279" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700"><tspan x="1104">Bind realized</tspan><tspan x="1104" dy="27">evaluation inputs</tspan></text>
+  <text x="1104" y="355" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14.5"><tspan x="1104">Registration + lock</tspan><tspan x="1104" dy="23">Exact design match</tspan><tspan x="1104" dy="23">Ten-resource coverage</tspan></text>
+  <rect x="1104" y="456" width="142" height="29" rx="14" fill="#FFF0E2"/><text x="1175" y="475" text-anchor="middle" fill="#B95F12" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="700">INPUT BINDING</text>
+
+  <g filter="url(#shadow)"><rect x="1342" y="179" width="216" height="326" rx="18" fill="#FFFFFF"/><rect x="1342" y="179" width="216" height="9" rx="5" fill="#7F8D9B"/></g>
+  <circle cx="1382" cy="226" r="23" fill="#E9EFF4"/><rect x="1372" y="221" width="20" height="16" rx="3" fill="none" stroke="#526272" stroke-width="3"/><path d="M1376 221 V216 A6 6 0 0 1 1388 216 V221" fill="none" stroke="#526272" stroke-width="3" stroke-linecap="round"/>
+  <text x="1531" y="221" text-anchor="end" fill="#7A8897" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">06</text>
+  <text x="1364" y="279" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" font-weight="700"><tspan x="1364">Execution stays</tspan><tspan x="1364" dy="27">locked</tspan></text>
+  <text x="1364" y="355" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14.5"><tspan x="1364">No custody evidence</tspan><tspan x="1364" dy="23">No reviewed scorer</tspan><tspan x="1364" dy="23">No authorization</tspan></text>
+  <rect x="1364" y="456" width="150" height="29" rx="14" fill="#E9EFF4"/><text x="1439" y="475" text-anchor="middle" fill="#526272" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12" font-weight="700">NOT AUTHORIZED</text>
+
+  <rect x="42" y="565" width="1516" height="112" rx="18" fill="#FFFFFF" stroke="#B7C5D1" stroke-width="2"/>
+  <circle cx="84" cy="621" r="17" fill="#D7A349"/><path d="M84 610 V624 M84 632 V633" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round"/>
+  <text x="116" y="607" fill="#17324D" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">Still required outside the local chain</text>
+  <text x="116" y="637" fill="#5D6B7A" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15.5">Independent prediction receipt or timestamp  •  outcome-release custody  •  reviewed one-shot scorer and result package  •  separate execution authorization</text>
+  <text x="116" y="661" fill="#7A4D12" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14.5" font-weight="600">A local digest proves integrity. It does not prove real-world timing, custody, scientific support, external validation, or deployment readiness.</text>
 </svg>

@@ -1,0 +1,57 @@
+{
+  "$id": "https://fleet-assurance.local/schemas/successor_prediction_parameter_draws.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "bootstrap_replication": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "candidate_admission_work_units_per_agent": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "candidate_background_work_per_agent_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "comparator_background_work_per_agent_s": {
+      "minimum": 0.0,
+      "type": "number"
+    },
+    "resource_id": {
+      "maxLength": 256,
+      "minLength": 1,
+      "type": "string"
+    },
+    "resource_type": {
+      "enum": [
+        "authorization_policy_evaluation",
+        "certificate_issuance_renewal",
+        "configuration_attestation",
+        "dependency_registration",
+        "evidence_ingest_initialization",
+        "identity_issuance",
+        "revocation_readiness",
+        "supervisory_review",
+        "task_dispatch_registration",
+        "telemetry_source_registration"
+      ]
+    },
+    "sampled_block_sequence_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "bootstrap_replication",
+    "candidate_admission_work_units_per_agent",
+    "candidate_background_work_per_agent_s",
+    "comparator_background_work_per_agent_s",
+    "resource_id",
+    "resource_type",
+    "sampled_block_sequence_sha256"
+  ],
+  "title": "Paired successor prediction-parameter bootstrap draw",
+  "type": "object"
+}

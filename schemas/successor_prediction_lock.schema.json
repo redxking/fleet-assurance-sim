@@ -1,0 +1,511 @@
+{
+  "$id": "https://fleet-assurance.local/schemas/successor_prediction_lock.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "adapter_bundle_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,255}$",
+      "type": "string"
+    },
+    "adapter_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "adapter_policy_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "adapter_specification_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "bootstrap_interval_level": {
+      "exclusiveMaximum": 1.0,
+      "exclusiveMinimum": 0.5,
+      "type": "number"
+    },
+    "bootstrap_quantile_method": {
+      "const": "linear_hyndman_fan_type_7"
+    },
+    "calibration_fit_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,255}$",
+      "type": "string"
+    },
+    "candidate_formula": {
+      "const": "arrival_rate=background_work_per_agent_s*fleet_size+admission_work_units_per_agent*(agents_admitted/window_duration_s)"
+    },
+    "candidate_model_id": {
+      "const": "duration-weighted-nonnegative-arrival-rate-v1"
+    },
+    "committed_at_utc": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{6}Z$",
+      "type": "string"
+    },
+    "comparator_formula": {
+      "const": "arrival_rate=background_only_work_per_agent_s*fleet_size"
+    },
+    "comparator_formula_frozen": {
+      "const": true
+    },
+    "comparator_model_id": {
+      "const": "duration_weighted_background_only_nnls_v1"
+    },
+    "execution_chain_ready": {
+      "const": false
+    },
+    "external_validation": {
+      "const": false
+    },
+    "fit_bootstrap_draws_content_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "fit_evidence_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "fit_policy_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "future_evaluation_campaign_not_supplied": {
+      "const": true
+    },
+    "implementation": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "maxLength": 256,
+            "minLength": 1,
+            "pattern": "^(?![A-Za-z]:)(?![/~])(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+$",
+            "type": "string"
+          },
+          "sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "type": "object"
+      },
+      "maxItems": 6,
+      "minItems": 6,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "implementation_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "local_lock_chronology_consistent": {
+      "const": true
+    },
+    "outcome_release_custody_verified": {
+      "const": false
+    },
+    "paired_bootstrap_replication_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "plan_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "planned_cell_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "planned_evaluation_campaign_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,255}$",
+      "type": "string"
+    },
+    "planned_predictor_design_reconciled": {
+      "const": true
+    },
+    "planned_time_block_count": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "prediction_formula_frozen": {
+      "const": true
+    },
+    "prediction_lock_id": {
+      "pattern": "^successor-prediction-lock-[0-9a-f]{20}$",
+      "type": "string"
+    },
+    "prediction_lock_time_externally_attested": {
+      "const": false
+    },
+    "prediction_parameter_draws_content_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "prediction_row_count": {
+      "minimum": 10,
+      "type": "integer"
+    },
+    "prediction_rows_content_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "prediction_rows_preoutcome_locked": {
+      "const": false
+    },
+    "prediction_rows_target_free": {
+      "const": true
+    },
+    "registered_semantics_reconciled": {
+      "const": true
+    },
+    "registration_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,255}$",
+      "type": "string"
+    },
+    "registration_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "registration_mode": {
+      "enum": [
+        "engineering_dry_run",
+        "prospective_transfer"
+      ]
+    },
+    "resource_count": {
+      "const": 10
+    },
+    "resource_parameters": {
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "identity_issuance"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "certificate_issuance_renewal"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "authorization_policy_evaluation"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "task_dispatch_registration"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "telemetry_source_registration"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "evidence_ingest_initialization"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "supervisory_review"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "revocation_readiness"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "configuration_attestation"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "resource_type": {
+                "const": "dependency_registration"
+              }
+            },
+            "required": [
+              "resource_type"
+            ],
+            "type": "object"
+          },
+          "maxContains": 1,
+          "minContains": 1
+        }
+      ],
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "candidate_admission_work_units_per_agent": {
+            "exclusiveMinimum": 0.0,
+            "type": "number"
+          },
+          "candidate_background_work_per_agent_s": {
+            "minimum": 0.0,
+            "type": "number"
+          },
+          "comparator_background_interval": {
+            "additionalProperties": false,
+            "properties": {
+              "lower": {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              "point": {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              "upper": {
+                "minimum": 0.0,
+                "type": "number"
+              }
+            },
+            "required": [
+              "lower",
+              "point",
+              "upper"
+            ],
+            "type": "object"
+          },
+          "comparator_background_work_per_agent_s": {
+            "minimum": 0.0,
+            "type": "number"
+          },
+          "paired_bootstrap_replication_count": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "resource_id": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "resource_type": {
+            "enum": [
+              "authorization_policy_evaluation",
+              "certificate_issuance_renewal",
+              "configuration_attestation",
+              "dependency_registration",
+              "evidence_ingest_initialization",
+              "identity_issuance",
+              "revocation_readiness",
+              "supervisory_review",
+              "task_dispatch_registration",
+              "telemetry_source_registration"
+            ]
+          }
+        },
+        "required": [
+          "candidate_admission_work_units_per_agent",
+          "candidate_background_work_per_agent_s",
+          "comparator_background_interval",
+          "comparator_background_work_per_agent_s",
+          "paired_bootstrap_replication_count",
+          "resource_id",
+          "resource_type"
+        ],
+        "type": "object"
+      },
+      "maxItems": 10,
+      "minItems": 10,
+      "type": "array"
+    },
+    "runner_authorized": {
+      "const": false
+    },
+    "schema_version": {
+      "const": "1.1"
+    },
+    "scientific_use_authorized": {
+      "const": false
+    },
+    "source_calibration_content_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_campaign_evidence_manifest_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_campaign_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,255}$",
+      "type": "string"
+    },
+    "source_historical_heldout_used_for_prediction": {
+      "const": false
+    },
+    "transfer_contract_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "uncertainty_method": {
+      "const": "joint_calibration_time_block_bootstrap"
+    },
+    "uncertainty_scope": {
+      "const": "marginal_per_row_mean_parameter_uncertainty_not_simultaneous_or_future_observation"
+    },
+    "upstream_chain_verified": {
+      "const": true
+    },
+    "workflow_prediction_commitment": {
+      "const": true
+    }
+  },
+  "required": [
+    "adapter_bundle_id",
+    "adapter_manifest_sha256",
+    "adapter_policy_sha256",
+    "adapter_specification_sha256",
+    "bootstrap_interval_level",
+    "bootstrap_quantile_method",
+    "calibration_fit_id",
+    "candidate_formula",
+    "candidate_model_id",
+    "committed_at_utc",
+    "comparator_formula",
+    "comparator_formula_frozen",
+    "comparator_model_id",
+    "execution_chain_ready",
+    "external_validation",
+    "fit_bootstrap_draws_content_sha256",
+    "fit_evidence_manifest_sha256",
+    "fit_policy_sha256",
+    "future_evaluation_campaign_not_supplied",
+    "implementation",
+    "implementation_sha256",
+    "local_lock_chronology_consistent",
+    "outcome_release_custody_verified",
+    "paired_bootstrap_replication_count",
+    "plan_sha256",
+    "planned_cell_count",
+    "planned_evaluation_campaign_id",
+    "planned_predictor_design_reconciled",
+    "planned_time_block_count",
+    "prediction_formula_frozen",
+    "prediction_lock_id",
+    "prediction_lock_time_externally_attested",
+    "prediction_parameter_draws_content_sha256",
+    "prediction_row_count",
+    "prediction_rows_content_sha256",
+    "prediction_rows_preoutcome_locked",
+    "prediction_rows_target_free",
+    "registered_semantics_reconciled",
+    "registration_id",
+    "registration_manifest_sha256",
+    "registration_mode",
+    "resource_count",
+    "resource_parameters",
+    "runner_authorized",
+    "schema_version",
+    "scientific_use_authorized",
+    "source_calibration_content_sha256",
+    "source_campaign_evidence_manifest_sha256",
+    "source_campaign_id",
+    "source_historical_heldout_used_for_prediction",
+    "transfer_contract_sha256",
+    "uncertainty_method",
+    "uncertainty_scope",
+    "upstream_chain_verified",
+    "workflow_prediction_commitment"
+  ],
+  "title": "Successor target-free prediction lock",
+  "type": "object"
+}
